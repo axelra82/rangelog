@@ -7,7 +7,7 @@ import AddIcon from "@suid/icons-material/Add";
 import { Severity } from "@/types";
 
 export const AddActivity = () => {
-	const [show, showSet] = createSignal(false);
+	const [show, showSet] = createSignal<boolean>(false);
 
 	const open = () => {
 		showSet((prev) => !prev);
@@ -23,8 +23,9 @@ export const AddActivity = () => {
 				<AddIcon fontSize="small" /> Aktivitet
 			</ButtonContained>
 			<AlertDialogue
-				state={show()}
-				title="Logga aktivitet"
+				state={show}
+				stateSet={showSet}
+				title={<span class="text-slate-900">Logga aktivitet</span>}
 				message={
 					<>
 						<h3>

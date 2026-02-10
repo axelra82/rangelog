@@ -22,12 +22,12 @@ import { ParentComponent } from "solid-js";
 import { pushSnackbar } from "../dialogue/snackbar-stack";
 import { ThemeSelect } from "../theme";
 
-// interface LayoutBottomBarProps {
-// 	colorMode: Accessor<ColorMode>;
-// 	setColorMode: Setter<ColorMode>;
-// };
+interface LayoutBottomBarProps {
+	colorMode: Accessor<ColorMode>;
+	setColorMode: Setter<ColorMode>;
+};
 
-export const LayoutBottomBar: ParentComponent = () => {
+export const LayoutBottomBar: ParentComponent<LayoutBottomBarProps> = (props) => {
 	const environment = import.meta.env;
 	const buildHash = environment.VITE_APP_BUILD;
 	const buildTime = environment.VITE_APP_BUILD_TIME;
@@ -96,7 +96,7 @@ export const LayoutBottomBar: ParentComponent = () => {
 			}}
 		>
 			<Box sx={{ flexGrow: 1 }}>
-				{/* <ThemeSelect {...props} /> */}
+				<ThemeSelect {...props} />
 			</Box>
 
 			<RepoReference />

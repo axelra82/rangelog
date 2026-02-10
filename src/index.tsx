@@ -1,8 +1,8 @@
-import { Router } from "@solidjs/router";
+import { Route, Router } from "@solidjs/router";
 import { render } from "solid-js/web";
 import { CssBaseline, ThemeProvider, createTheme } from "@suid/material";
 import { App } from "./app";
-import { createSignal, createEffect } from "solid-js";
+import { createSignal, createEffect, For } from "solid-js";
 import { ColorMode } from "./types";
 
 import { dashboardRoutes } from "./routes";
@@ -11,7 +11,6 @@ const STORAGE_KEY = "color-mode";
 
 const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.SYSTEM;
 
-const [mode, setMode] = createSignal<ColorMode>(savedMode);
 
 const getSystemMode = (): ColorMode.LIGHT | ColorMode.DARK => {
 	if (typeof window === "undefined" || !window.matchMedia) {
@@ -31,32 +30,34 @@ const resolveMode = (mode: ColorMode): ColorMode.LIGHT | ColorMode.DARK => {
 	return mode;
 }
 
-createEffect(() => {
-	localStorage.setItem(STORAGE_KEY, mode());
-});
-
-
-if (window.matchMedia) {
-	const media = window.matchMedia("(prefers-color-scheme: dark)");
-	media.addEventListener("change", () => {
-		if (mode() === ColorMode.SYSTEM) {
-			setMode(ColorMode.SYSTEM);
-		}
-	});
-}
-
 render(
-	() => (
-		<ThemeProvider theme={createTheme({
-			palette: {
-				mode: resolveMode(mode()),
-			},
-		})}>
-			<CssBaseline />
-			<Router root={App}>
-				{dashboardRoutes}
-			</Router>
-		</ThemeProvider>
-	),
+	() => {
+		const [mode, setMode] = createSignal<ColorMode>(savedMode);
+		createEffect(() => {
+			localStorage.setItem(STORAGE_KEY, mode());
+		});
+
+		if (window.matchMedia) {
+			const media = window.matchMedia("(prefers-color-scheme: dark)");
+			media.addEventListener("change", () => {
+				if (mode() === ColorMode.SYSTEM) {
+					setMode(ColorMode.SYSTEM);
+				}
+			});
+		}
+
+		return (
+			<ThemeProvider theme={createTheme({
+				palette: {
+					mode: resolveMode(mode()),
+				},
+			})}>
+				<CssBaseline />
+				<Router root={(props) => <App colorMode={mode} setColorMode={setMode} {...props} />}>
+					{dashboardRoutes}
+				</Router>
+			</ThemeProvider>
+		)
+	},
 	document.getElementById("root") as HTMLElement
 );

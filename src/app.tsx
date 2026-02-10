@@ -5,12 +5,12 @@ import { LayoutBottomBar, LayoutMainContent, LayoutMainMenu } from "./components
 import { Accessor, ParentComponent, Setter } from "solid-js";
 import { ColorMode } from "./types";
 
-// interface AppProps {
-// 	colorMode: Accessor<ColorMode>;
-// 	setColorMode: Setter<ColorMode>;
-// }
+interface AppProps {
+	colorMode: Accessor<ColorMode>;
+	setColorMode: Setter<ColorMode>;
+}
 
-export const App: ParentComponent = (props) => {
+export const App: ParentComponent<AppProps> = (props) => {
 	return (
 		<>
 			<div class="flex h-screen flex-col grow">
@@ -19,7 +19,7 @@ export const App: ParentComponent = (props) => {
 					{props.children}
 				</LayoutMainContent>
 
-				<LayoutBottomBar />
+				<LayoutBottomBar {...props} />
 			</div>
 			<SnackbarStack />
 		</>

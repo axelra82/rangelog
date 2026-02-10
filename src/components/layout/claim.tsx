@@ -23,8 +23,9 @@ export const AddClaim = () => {
 				<AddIcon fontSize="small" /> Fordring
 			</ButtonContained>
 			<AlertDialogue
-				state={show()}
-				title="Lägg till fordring"
+				state={show}
+				stateSet={showSet}
+				title={<span class="text-slate-900">Lägg till fordring</span>}
 				message={
 					<>
 						<h3>

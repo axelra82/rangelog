@@ -7,14 +7,15 @@ import {
 	Box,
 } from "@suid/material";
 import {
-	createEffect,
-	createSignal,
+	Accessor,
 	JSXElement,
 	ParentComponent,
+	Setter,
 } from "solid-js";
 
 interface AlertDialogProps {
-	state: boolean;
+	state: Accessor<boolean>;
+	stateSet: Setter<boolean>;
 	title: string | JSXElement;
 	message: string | JSXElement;
 	severity?: Severity;
@@ -27,39 +28,30 @@ const severityColor = (severity: Severity) => ({
 	success: "success.main",
 }[severity]);
 
-export const AlertDialogue: ParentComponent<AlertDialogProps> = (props) => {
-	const [open, setOpen] = createSignal(false);
-
-	createEffect(() => {
-		setOpen(props.state);
-	});
-
-	return (
-		<Dialog
-			open={open()}
-			onClose={() => setOpen(false)}
-			maxWidth="sm"
-			fullWidth
+export const AlertDialogue: ParentComponent<AlertDialogProps> = (props) => (
+	<Dialog
+		open={typeof props.state === "function" ? props.state() : false}
+		onClose={() => props.stateSet(false)}
+		maxWidth="sm"
+		fullWidth
+	>
+		<Box
+			sx={{
+				px: 3,
+				py: 2,
+				bgcolor: severityColor(props.severity ?? Severity.INFO),
+				color: "common.white",
+			}}
 		>
-			{/* Header with severity color */}
-			<Box
-				sx={{
-					px: 3,
-					py: 2,
-					bgcolor: severityColor(props.severity ?? Severity.INFO),
-					color: "common.white",
-				}}
-			>
-				<DialogTitle sx={{ p: 0, fontWeight: 600 }}>
-					{props.title}
-				</DialogTitle>
-			</Box>
+			<DialogTitle sx={{ p: 0, fontWeight: 600 }}>
+				{props.title}
+			</DialogTitle>
+		</Box>
 
-			<DialogContent sx={{ pt: 2 }}>
-				<DialogContentText>
-					{props.message}
-				</DialogContentText>
-			</DialogContent>
-		</Dialog>
-	);
-};
+		<DialogContent sx={{ pt: 2 }}>
+			<DialogContentText>
+				{props.message}
+			</DialogContentText>
+		</DialogContent>
+	</Dialog>
+);
