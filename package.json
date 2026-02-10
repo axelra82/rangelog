@@ -1,0 +1,46 @@
+{
+	"name": "rangelog",
+	"description": "A simple self-hosted app for gun owners to keep track of their weapons, licenses, range visits and other miscellaneous associated with gun ownership.",
+	"version": "0.0.0-alpha",
+	"type": "module",
+	"repository": {
+		"url": "https://github.com/axelra82/rangelog"
+	},
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite serve",
+		"clean": "rm -rf node_modules && rm pnpm-lock.yaml",
+		"generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.svg"
+	},
+	"dependencies": {
+		"@modular-forms/solid": "^0.25.1",
+		"@solidjs/router": "^0.15.4",
+		"clsx": "^2.1.1",
+		"pocketbase": "^0.26.5",
+		"solid-js": "^1.9.10",
+		"tailwind-merge": "^3.4.0",
+		"tailwindcss-animate": "^1.0.7",
+		"vite": "^7.3.0",
+		"zod": "^4.2.0"
+	},
+	"devDependencies": {
+		"@tailwindcss/forms": "^0.5.10",
+		"@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
+		"@tailwindcss/postcss": "^4.1.18",
+		"@tailwindcss/vite": "^4.1.18",
+		"@types/node": "^25.0.2",
+		"@typescript-eslint/eslint-plugin": "^8.49.0",
+		"@typescript-eslint/parser": "^8.49.0",
+		"@vite-pwa/assets-generator": "^1.0.2",
+		"tailwindcss": "^4.1.18",
+		"typescript": "^5.9.3",
+		"vite-plugin-pwa": "^1.2.0",
+		"vite-plugin-solid": "^2.11.10"
+	},
+	"browserslist": [
+		"last 1 version",
+		"> 1%",
+		"not dead"
+	]
+}

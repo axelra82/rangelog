@@ -1,0 +1,49 @@
+@layer utilities {
+	/* https://github.com/tailwindlabs/tailwindcss/discussions/2394 */
+	/* Chrome, Safari and Opera */
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
+	.no-scrollbar {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+
+	/* https://github.com/tailwindlabs/tailwindcss/discussions/4515#discussioncomment-2112460 */
+	.safe-h-screen {
+		/* equivalent to 100dvh in major browsers */
+		height: calc(
+			100vh - env(safe-area-inset-bottom, 0) - env(safe-area-inset-top, 0)
+		);
+	}
+
+	@supports (-webkit-touch-callout: none) {
+		.safe-h-screen {
+			/* for ios safari 15, safe-area-inset-bottom is 0, so a special fix apply here */
+			height: -webkit-fill-available;
+		}
+	}
+
+	/* Simple CSS based tooltip. Add `data-tooltip={CONTENT}` to HTML element. */
+	[data-tooltip] {
+		&:before {
+			content: attr(data-tooltip);
+			@apply text-sm absolute top-0 left-0 bg-black/70 text-white rounded-md px-2 py-1 opacity-0 transition-opacity;
+		}
+		&:hover:before {
+			@apply opacity-100;
+		}
+	}
+
+	/* Using logotype as clip path */
+	.clip-path-logotype-symbol {
+		clip-path: url(#logotype-symbol-clip-path);
+		-webkit-clip-path: url(#logotype-symbol-clip-path);
+  }
+
+	.clip-path-logotype-full {
+		clip-path: url(#logotype-full-clip-path);
+		-webkit-clip-path: url(#logotype-full-clip-path);
+  }
+}
