@@ -1,7 +1,11 @@
+import { Router } from "@solidjs/router";
 import { render } from "solid-js/web";
-import App from "./app";
-import { createSignal, createEffect, Accessor } from "solid-js";
+import { CssBaseline, ThemeProvider, createTheme } from "@suid/material";
+import { App } from "./app";
+import { createSignal, createEffect } from "solid-js";
 import { ColorMode } from "./types";
+
+import { dashboardRoutes } from "./routes";
 
 const STORAGE_KEY = "color-mode";
 
@@ -49,10 +53,9 @@ render(
 			},
 		})}>
 			<CssBaseline />
-			<App
-				colorMode={mode}
-				setColorMode={setMode}
-			/>
+			<Router root={App}>
+				{dashboardRoutes}
+			</Router>
 		</ThemeProvider>
 	),
 	document.getElementById("root") as HTMLElement
