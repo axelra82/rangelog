@@ -1,0 +1,3086 @@
+[
+	{
+		"name": "A 1 Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/a-1-skytteforening/",
+		"number": 73,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "A 4 Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/a-4-skytteforening/",
+		"number": 182,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Akademiska Pistolklubben",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/akademiska-pistolklubben/",
+		"number": 247,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Alfa Laval Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/alfa-laval-pistolskytteklubb/",
+		"number": 376,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Alingsås Kortdistansskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/alingsas-kortdistansskytteforening/",
+		"number": 497,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Allskytte Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/allskytte-pistolklubb/",
+		"number": 170,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Alvesta Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kronobergs-lans-pistolskyttekrets/alvesta-pistolskytteklubb/",
+		"number": 665,
+		"region": "Kronobergs Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Ankarsrums Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-norra-pistolskyttekrets/ankarsrums-pistolskytteforening/",
+		"number": 689,
+		"region": "Kalmar Läns Norra Pistolskyttekrets"
+	},
+	{
+		"name": "Apelsäter Sportskytte",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/apelsater-sportskytte/",
+		"number": 802,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Arboga Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/arboga-pistolskytteklubb/",
+		"number": 574,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Arbrå Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/arbra-pistolskytteklubb/",
+		"number": 396,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Arjeplogs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/arjeplogs-pistolskytteklubb/",
+		"number": 763,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Aros Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/aros-pistolklubb/",
+		"number": 46,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Artemis Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/artemis-skytteforening/",
+		"number": 459,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Artillerigårdens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/artillerigardens-pistolskytteklubb/",
+		"number": 257,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Arvidsjaurs Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/arvidsjaurs-pistolklubb/",
+		"number": 451,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Arvika Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/arvika-pistolskytteklubb/",
+		"number": 103,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Atlas Copco Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/atlas-copco-pistolskytteklubb/",
+		"number": 307,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Backe Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/backe-pistolskytteklubb/",
+		"number": 141,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Ballongbergets skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/ballongbergets-skytteforening/",
+		"number": 173,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Bankeryds Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/bankeryds-pistolskytteforening/",
+		"number": 364,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Bengtsfors Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/bengtsfors-pistolskytteklubb/",
+		"number": 599,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Berga Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kronobergs-lans-pistolskyttekrets/berga-pistolskytteklubb/",
+		"number": 630,
+		"region": "Kronobergs Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Bergknallen Fria skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/bergknallen-fria-skytteforening/",
+		"number": 775,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Billesholm Ekeby Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/billesholm-ekeby-pistolskytteklubb/",
+		"number": 413,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Bispgårdens Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/bispgardens-pistolklubb/",
+		"number": 587,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Blidö Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/blido-skytteforening/",
+		"number": 179,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Bodens Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/bodens-sportskytteklubb/",
+		"number": 493,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Bolidens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/bolidens-pistolskytteklubb/",
+		"number": 216,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Bollnäs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/bollnas-pistolskytteklubb/",
+		"number": 639,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Boo Skytteförenings Pistolsekt",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/boo-skytteforenings-pistolsekt/",
+		"number": 190,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Borgens Skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/borgens-skyttegille/",
+		"number": 641,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Borgholms Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/borgholms-pistolklubb/",
+		"number": 491,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Borlänge Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/borlange-pistolklubb/",
+		"number": 32,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Bors Antikskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/bors-antikskytteklubb/",
+		"number": 319,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Borås Pistolskyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/boras-pistolskyttar/",
+		"number": 5,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Brandkårens idrottsklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/brandkarens-idrottsklubb/",
+		"number": 806,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Bredareds Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/bredareds-sportskytteklubb/",
+		"number": 382,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Broaryds Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/broaryds-pistolklubb/",
+		"number": 512,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "Broby Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/broby-pistolskytteklubb/",
+		"number": 458,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Bromma Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/bromma-pistolskytteklubb/",
+		"number": 357,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Bromölla Pistol & Svartkrutsskytteför",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/bromolla-pistol-svartkrutsskyttefor/",
+		"number": 581,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Bräcke Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/bracke-pistolskytteforening/",
+		"number": 113,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Burträsk Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/burtrask-pistolklubb/",
+		"number": 733,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Bålsta Skyttesällskap",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/balsta-skyttesallskap/",
+		"number": 295,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Bästkustens Aktiva Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/bastkustens-aktiva-skytteforening/",
+		"number": 774,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Charlottenbergs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/charlottenbergs-pistolskytteklubb/",
+		"number": 367,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Dala-Floda Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/dala-floda-pistolskytteforening/",
+		"number": 85,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Dalarna Militära och Polisiära skyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/dalarna-militara-och-polisiara-skyttar/",
+		"number": 788,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Danderyds Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/danderyds-pistolskytteklubb/",
+		"number": 1,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Dannemora Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/dannemora-sportskytteklubb/",
+		"number": 443,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Degeberga Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/degeberga-pistolklubb/",
+		"number": 619,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Degerfors Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/degerfors-pistolskytteklubb/",
+		"number": 97,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Dellenbygdens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/dellenbygdens-pistolskytteklubb/",
+		"number": 256,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Devoted idrottsförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/devoted-idrottsforening/",
+		"number": 789,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Dorotea Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/dorotea-pistolskytteklubb/",
+		"number": 579,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Drevdagens Pistolsek Av Drev.Skf",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/drevdagens-pistolsek-av-drev-skf/",
+		"number": 215,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Döderhults Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-norra-pistolskyttekrets/doderhults-pistolskytteklubb/",
+		"number": 575,
+		"region": "Kalmar Läns Norra Pistolskyttekrets"
+	},
+	{
+		"name": "Eds Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/eds-pistolskytteklubb/",
+		"number": 412,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Edsvalla Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/edsvalla-skytteforening/",
+		"number": 434,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Ekeby Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gotlands-pistolskyttekrets/ekeby-pistolklubb/",
+		"number": 130,
+		"region": "Gotlands Pistolskyttekrets"
+	},
+	{
+		"name": "Ekens Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/ekens-pistolskytteforening/",
+		"number": 766,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Ekshärads Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/eksharads-pistolskytteklubb/",
+		"number": 381,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Eksjö Skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/eksjo-skyttegille/",
+		"number": 752,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Elfsborg skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/elfsborg-skytteforening/",
+		"number": 762,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Elitskyttesällskapet",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/elitskyttesallskapet/",
+		"number": 737,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Emmaboda Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/emmaboda-pistolklubb/",
+		"number": 690,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Emmaboda Skytteförening Pistolsektionen",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/emmaboda-skytteforening-pistolsektionen/",
+		"number": 750,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Eskilstuna Handeldvapenförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/eskilstuna-handeldvapenforening/",
+		"number": 498,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Eskilstuna Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/eskilstuna-pistolskytteklubb/",
+		"number": 445,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Eslövs Skyttegilles Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/eslovs-skyttegilles-pistolklubb/",
+		"number": 121,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "F 16 Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/f-16-pistolklubb/",
+		"number": 217,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "F 21 Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/f-21-skytteforening/",
+		"number": 420,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Fagersta Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/fagersta-pistolskytteklubb/",
+		"number": 225,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Falck F-Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/falck-f-pistolklubb/",
+		"number": 464,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Falk skytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/falk-skytteklubb/",
+		"number": 464,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Falkenbergs Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/falkenbergs-pistolklubb/",
+		"number": 284,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "Falköpings Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/falkopings-sportskytteklubb/",
+		"number": 129,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Falsterbonäsets Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/falsterbonasets-pistolskytteklubb/",
+		"number": 106,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Falu Sport-Och Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/falu-sport-och-pistolskytteklubb/",
+		"number": 362,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Filipstads Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/filipstads-pistolskytteklubb/",
+		"number": 127,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Finnskoga Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/finnskoga-pistolskytteforening/",
+		"number": 285,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Finspångs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/finspangs-pistolskytteklubb/",
+		"number": 160,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Fjugesta Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/fjugesta-pistolskytteklubb/",
+		"number": 226,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Flens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/flens-pistolskytteklubb/",
+		"number": 466,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Flens Skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/flens-skyttegille/",
+		"number": 466,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Flisby Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/flisby-skytteforening/",
+		"number": 26,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "FOK Borås",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/fok-boras/",
+		"number": 273,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Forsa Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/forsa-pistolklubb/",
+		"number": 115,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Friskyttarnas Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/friskyttarnas-skytteforening/",
+		"number": 122,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Frivilliga Automobilkåren I Sthlm",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/frivilliga-automobilkaren-i-sthlm/",
+		"number": 573,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Fryksdalens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/fryksdalens-pistolskytteklubb/",
+		"number": 449,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Frövi-Lindesberg Pistolskyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/frovi-lindesberg-pistolskyttar/",
+		"number": 64,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Färgklämman Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/fargklamman-pistolskytteklubb/",
+		"number": 231,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Föreningen Precisionsskyttarna",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/foreningen-precisionsskyttarna/",
+		"number": 772,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Försvarsutbildanra Ystad-Fredriksberg",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/forsvarsutbildanra-ystad-fredriksberg/",
+		"number": 764,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Försvarsutbildarna Arboga",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/forsvarsutbildarna-arboga/",
+		"number": 636,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Försvarsutbildarna Umeå Pskf",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/forsvarsutbildarna-umea-pskf/",
+		"number": 560,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Försvarsutbildarna Västmanlands Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/forsvarsutbildarna-vastmanlands-skytteforening/",
+		"number": 795,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Försvarsutbildarna Västmanlands Skytteförning",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/forsvarsutbildarna-vastmanlands-skytteforning/",
+		"number": 795,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Försvarsutbildarna Ystad-Fredriksberg",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/forsvarsutbildarna-ystad-fredriksberg/",
+		"number": 764,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Gagnef-Mockfjärds Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/gagnef-mockfjards-pistolskytteklubb/",
+		"number": 20,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Gideå Pistol",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/gidea-pistol/",
+		"number": 152,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Gnesta Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/gnesta-pistolskytteklubb/",
+		"number": 359,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Gotlandspolisens Idrottsförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gotlands-pistolskyttekrets/gotlandspolisens-idrottsforening/",
+		"number": 17,
+		"region": "Gotlands Pistolskyttekrets"
+	},
+	{
+		"name": "Granbackens Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/granbackens-skytteforening/",
+		"number": 804,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Gripen Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/gripen-pistolklubb/",
+		"number": 42,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Grovskyttarna Luleå",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/grovskyttarna-lulea/",
+		"number": 427,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Grängesbergs Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/grangesbergs-pistolklubb/",
+		"number": 109,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Grästorps Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/grastorps-pistolskytteklubb/",
+		"number": 224,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Grödinge Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/grodinge-pistolskytteklubb/",
+		"number": 444,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Grödinge Skytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/grodinge-skytteklubb/",
+		"number": 444,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Gustavsbergs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/gustavsbergs-pistolskytteklubb/",
+		"number": 196,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Gyttorps Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/gyttorps-sportskytteklubb/",
+		"number": 327,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Gällivare Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/gallivare-pistolklubb/",
+		"number": 510,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Gävle Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/gavle-pistolskytteklubb/",
+		"number": 317,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Gävlepolisens Idrottsförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/gavlepolisens-idrottsforening/",
+		"number": 68,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Gävunda Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/gavunda-pistolskytteforening/",
+		"number": 698,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Göteborgs Garnisons Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/goteborgs-garnisons-skytteforening/",
+		"number": 807,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Göteborgs Pistol-och Sportskk Pistolsektionen",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/goteborgs-pistol-och-sportskk-pistolsektionen/",
+		"number": 305,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Göteborgs Polismäns If Skyttesekt",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/goteborgs-polismans-if-skyttesekt/",
+		"number": 57,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Habo Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/habo-pistolskytteklubb/",
+		"number": 625,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Habo skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/habo-skytteforening/",
+		"number": 813,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Hackås Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/hackas-pistolskytteklubb/",
+		"number": 119,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Hagfors-Uddeholms Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/hagfors-uddeholms-pistolskytteklubb/",
+		"number": 475,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Hallonbergens Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/hallonbergens-pistolklubb/",
+		"number": 147,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Hallsberg Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/hallsberg-pistolklubb/",
+		"number": 552,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Hallstahammars Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/hallstahammars-pistolskytteklubb/",
+		"number": 620,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Hallstaviks Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/hallstaviks-pistolskytteklubb/",
+		"number": 198,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Halmstad Snöstorp Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/halmstad-snostorp-pistolskytteforening/",
+		"number": 753,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "Halmstads Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/halmstads-sportskytteklubb/",
+		"number": 269,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "Hammarstrands Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/hammarstrands-pistolklubb/",
+		"number": 45,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Hammenhögs Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/hammenhogs-pistolklubb/",
+		"number": 148,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Handens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/handens-pistolskytteklubb/",
+		"number": 120,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Haningeskyttar, Pistolklubben",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/haningeskyttar-pistolklubben/",
+		"number": 677,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Haparanda Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/haparanda-pistolskytteklubb/",
+		"number": 311,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Hardox Westerbotten",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/hardox-westerbotten/",
+		"number": 576,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Harplinge Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/harplinge-pistolklubb/",
+		"number": 422,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "Hedemora Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/hedemora-pistolskytteklubb/",
+		"number": 442,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Hellsinge Hemvärnsskyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/hellsinge-hemvarnsskyttegille/",
+		"number": 808,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Hellsinge Militära skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/hellsinge-militara-skyttegille/",
+		"number": 808,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Hemse-Linde Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gotlands-pistolskyttekrets/hemse-linde-pistolskytteklubb/",
+		"number": 408,
+		"region": "Gotlands Pistolskyttekrets"
+	},
+	{
+		"name": "Hille Skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/hille-skyttegille/",
+		"number": 77,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Hjälmseryds Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/hjalmseryds-pistolklubb/",
+		"number": 662,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Hofors Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/hofors-pistolskytteklubb/",
+		"number": 228,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Horns Skytteförenings Pistolsektion",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/horns-skytteforenings-pistolsektion/",
+		"number": 731,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Hornsbergs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/hornsbergs-pistolskytteklubb/",
+		"number": 201,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Hotings Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/hotings-pistolskytteklubb/",
+		"number": 424,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Huddinge Jaktvårdsförening Pistolsektion",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/huddinge-jaktvardsforening-pistolsektion/",
+		"number": 529,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Hudiksvalls Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/hudiksvalls-pistolskytteklubb/",
+		"number": 81,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Huskvarna Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/huskvarna-pistolskytteklubb/",
+		"number": 710,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Håtuna Pistol- & Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/hatuna-pistol-sportskytteklubb/",
+		"number": 426,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Häktet Helsingborgs Pistolskytteför",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/haktet-helsingborgs-pistolskyttefor/",
+		"number": 476,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Hällefors Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/hallefors-pistolskytteklubb/",
+		"number": 29,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Hälsinge regementes Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/halsinge-regementes-skytteforening/",
+		"number": 399,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Härlanda Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/harlanda-pistolskytteklubb/",
+		"number": 353,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Härnösands Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/harnosands-pistolskytteklubb/",
+		"number": 282,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Härryda Pistol & Sportskyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/harryda-pistol-sportskyttar/",
+		"number": 608,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Hässleholms Skytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/hassleholms-skytteklubb/",
+		"number": 785,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Hästveda Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/hastveda-pistolskytteforening/",
+		"number": 606,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Hästveda Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/hastveda-pistolskytteklubb/",
+		"number": 606,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Högsby Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/hogsby-pistolklubb/",
+		"number": 393,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Hörby Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/horby-pistolskytteklubb/",
+		"number": 79,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Höörs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/hoors-pistolskytteklubb/",
+		"number": 680,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Höörs skyttesällskap",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/hoors-skyttesallskap/",
+		"number": 796,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "I 2 Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/i-2-skytteforening/",
+		"number": 22,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "I21/T3 Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/i21t3-skytteforening/",
+		"number": 61,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "IBM Klubben",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/ibm-klubben/",
+		"number": 230,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Johannishus Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/blekinge-pistolskyttekrets/johannishus-pistolskytteklubb/",
+		"number": 501,
+		"region": "Blekinge Pistolskyttekrets"
+	},
+	{
+		"name": "Jokkmokks Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/jokkmokks-pistolklubb/",
+		"number": 511,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Jämjö Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/blekinge-pistolskyttekrets/jamjo-sportskytteklubb/",
+		"number": 588,
+		"region": "Blekinge Pistolskyttekrets"
+	},
+	{
+		"name": "Järna Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/jarna-skytteforening/",
+		"number": 713,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Jönköpings Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/jonkopings-pistolskytteklubb/",
+		"number": 708,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Kaflås Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/kaflas-pistolklubb/",
+		"number": 724,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Kaknäs Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/kaknas-skytteforening/",
+		"number": 345,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Kalix Pistolskyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/kalix-pistolskyttar/",
+		"number": 143,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Kalmar Fbu-Förening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/kalmar-fbu-forening/",
+		"number": 235,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Kalmar Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/kalmar-pistolklubb/",
+		"number": 71,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Karlshamns Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/blekinge-pistolskyttekrets/karlshamns-pistolskytteklubb/",
+		"number": 366,
+		"region": "Blekinge Pistolskyttekrets"
+	},
+	{
+		"name": "Karlskoga Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/karlskoga-pistolklubb/",
+		"number": 154,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Karlstads Hemvärns Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/karlstads-hemvarns-pistolskytteforening/",
+		"number": 760,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Karlstads Pistol- Och Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/karlstads-pistol-och-sportskytteklubb/",
+		"number": 485,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Karlstadspolisens Idr-& Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/karlstadspolisens-idr-skytteforening/",
+		"number": 277,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Katarina Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/katarina-pistolskytteforening/",
+		"number": 361,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Katrineholms Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/katrineholms-pistolklubb/",
+		"number": 433,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Katrineholms Skyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/katrineholms-skyttar/",
+		"number": 302,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Kinda Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/kinda-pistolskytteklubb/",
+		"number": 339,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Kiruna Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/kiruna-pistolskytteforening/",
+		"number": 389,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Klinte Skyttegille P-Sekt",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gotlands-pistolskyttekrets/klinte-skyttegille-p-sekt/",
+		"number": 500,
+		"region": "Gotlands Pistolskyttekrets"
+	},
+	{
+		"name": "Klippans Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/klippans-pistolklubb/",
+		"number": 157,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Kornet Skytteklubb Solna",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/kornet-skytteklubb-solna/",
+		"number": 781,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Korsnäsverkens Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/korsnasverkens-pistolklubb/",
+		"number": 313,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Kramfors Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/kramfors-pistolskytteklubb/",
+		"number": 727,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Kristianstads Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/kristianstads-pistolklubb/",
+		"number": 67,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Kristinehamns Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/kristinehamns-pistolklubb/",
+		"number": 407,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Krysseboda Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/krysseboda-pistolklubb/",
+		"number": 794,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Kullens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/kullens-pistolskytteklubb/",
+		"number": 567,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Kumla Sportskyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/kumla-sportskyttar/",
+		"number": 350,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Kungsbacka-Wiske Sportskyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/kungsbacka-wiske-sportskyttar/",
+		"number": 238,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "Kungshamns Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/kungshamns-pistolskytteklubb/",
+		"number": 709,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Kungsörs Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/kungsors-skytteforening/",
+		"number": 177,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Kävlinge Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/kavlinge-pistolklubb/",
+		"number": 722,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Köpings Bf:s Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/kopings-bfs-pistolskytteklubb/",
+		"number": 234,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Laholms Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/laholms-pistolskytteklubb/",
+		"number": 356,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "Landskrona Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/landskrona-pistolklubb/",
+		"number": 82,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Landvetter Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/landvetter-pistolskytteforening/",
+		"number": 123,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Larm Assistans Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/larm-assistans-pistolskytteforening/",
+		"number": 746,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Laxforsens Svartkrutskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/laxforsens-svartkrutskytteforening/",
+		"number": 741,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Laxå Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/laxa-pistolskytteklubb/",
+		"number": 104,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Ledningsregementets tjänsteskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/ledningsregementets-tjansteskytteforening/",
+		"number": 809,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Ledningsregementets tjästeskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/ledningsregementets-tjasteskytteforening/",
+		"number": 809,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Leksands Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/leksands-pistolklubb/",
+		"number": 271,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Lenhovda Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kronobergs-lans-pistolskyttekrets/lenhovda-pistolklubb/",
+		"number": 267,
+		"region": "Kronobergs Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Lerums Jaktvårds & Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/lerums-jaktvards-sportskytteklubb/",
+		"number": 192,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Lesjöfors Pistoltskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/lesjofors-pistoltskytteklubb/",
+		"number": 308,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Lidingö Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/lidingo-sportskytteklubb/",
+		"number": 344,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Lidköpings Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/lidkopings-pistolskytteforening/",
+		"number": 565,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Lilla Bedinge Skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/lilla-bedinge-skyttegille/",
+		"number": 72,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Lilla Edets Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/lilla-edets-pistolskytteklubb/",
+		"number": 474,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Lillsjöns Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/lillsjons-pistolskytteklubb/",
+		"number": 472,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Lima Skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/lima-skyttegille/",
+		"number": 53,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Limhamns Skf Pistolsektion",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/limhamns-skf-pistolsektion/",
+		"number": 206,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Linköpings Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/linkopings-skytteforening/",
+		"number": 747,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Linköpingspolisens Skytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/linkopingspolisens-skytteklubb/",
+		"number": 635,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Livgardets Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/livgardets-skytteforening/",
+		"number": 12,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Livregementets Grenadjärers Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/livregementets-grenadjarers-skytteforening/",
+		"number": 18,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Ljungbyheds Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/ljungbyheds-pistolklubb/",
+		"number": 582,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Ljusdals Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/ljusdals-pistolskytteklubb/",
+		"number": 363,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "LM Ericsson Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/lm-ericsson-pistolklubb/",
+		"number": 431,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Luleå Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/lulea-pistolklubb/",
+		"number": 236,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Luleåpolisens Skytte-O Idrottsklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/luleapolisens-skytte-o-idrottsklubb/",
+		"number": 378,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Lunda Skf Pistolsektionen",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/lunda-skf-pistolsektionen/",
+		"number": 126,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Lunds Försvarsutbildningsförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/lunds-forsvarsutbildningsforening/",
+		"number": 47,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Lunds Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/lunds-pistolklubb/",
+		"number": 142,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Lunds Polismäns Skytte- & Idrottsklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/lunds-polismans-skytte-idrottsklubb/",
+		"number": 241,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Lv 3 Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/lv-3-skytteforening/",
+		"number": 429,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Lycksele Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/lycksele-pistolskytteklubb/",
+		"number": 108,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Lysekils Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/lysekils-pistolskytteklubb/",
+		"number": 260,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Lönsboda Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/lonsboda-pistolskytteklubb/",
+		"number": 262,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Lövsta Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/lovsta-skytteforening/",
+		"number": 503,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Magnumsällskapet",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/magnumsallskapet/",
+		"number": 692,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Malmö Hemvärn Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/malmo-hemvarn-skytteforening/",
+		"number": 594,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Malmö Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/malmo-pistolklubb/",
+		"number": 149,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Malmö Skyttegille Pistolsektionen",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/malmo-skyttegille-pistolsektionen/",
+		"number": 239,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Malungs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/malungs-pistolskytteklubb/",
+		"number": 365,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Malå Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/mala-pistolskytteklubb/",
+		"number": 614,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Mariestads Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/mariestads-pistolklubb/",
+		"number": 191,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Marinens Skytteförening I Gbg",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/marinens-skytteforening-i-gbg/",
+		"number": 440,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Markaryds Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kronobergs-lans-pistolskyttekrets/markaryds-sportskytteklubb/",
+		"number": 385,
+		"region": "Kronobergs Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Marks Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/marks-pistolklubb/",
+		"number": 204,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Melleruds Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/melleruds-pistolskytteklubb/",
+		"number": 477,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Mjölby Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/mjolby-pistolklubb/",
+		"number": 694,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Mo Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/mo-skytteforening/",
+		"number": 93,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Mora Skyttegille Pistolsektionen",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/mora-skyttegille-pistolsektionen/",
+		"number": 622,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Motala Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/motala-pistolklubb/",
+		"number": 526,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Murjek-Vuollerims Pistolklub",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/murjek-vuollerims-pistolklub/",
+		"number": 712,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Myresjö Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/myresjo-pistolskytteklubb/",
+		"number": 655,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Mälardalens Skyttesällskap",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/malardalens-skyttesallskap/",
+		"number": 332,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Mälarhöjdens Pistolskyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/malarhojdens-pistolskyttar/",
+		"number": 291,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Mölndals Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/molndals-skytteforening/",
+		"number": 150,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Mönsterås Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/monsteras-pistolklubb/",
+		"number": 435,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Mörsil Skytteförenings pistol",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/morsil-skytteforenings-pistol/",
+		"number": 770,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Mörsil Skytteförenings pistolsektion",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/morsil-skytteforenings-pistolsektion/",
+		"number": 770,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Njurunda Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/njurunda-skytteforening/",
+		"number": 800,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Njurunda sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/njurunda-sportskytteklubb/",
+		"number": 631,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "NLT Psk (Nordisk Larmteknik)",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/nlt-psk-nordisk-larmteknik/",
+		"number": 755,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Nordanstigs Skarpskyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/nordanstigs-skarpskyttegille/",
+		"number": 799,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Nordmarkens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/nordmarkens-pistolskytteklubb/",
+		"number": 548,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Nordölands Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/nordolands-pistolklubb/",
+		"number": 481,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Norra Ny Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/norra-ny-skytteforening/",
+		"number": 803,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Norra Pistolklubben",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/norra-pistolklubben/",
+		"number": 790,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Norrahammars Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/norrahammars-pistolskytteklubb/",
+		"number": 398,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Norrköpings Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/norrkopings-pistolklubb/",
+		"number": 199,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Norrköpings Poliskårs Skytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/norrkopings-poliskars-skytteklubb/",
+		"number": 401,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Norrsundets Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/norrsundets-skytteforening/",
+		"number": 756,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Norrvikens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/norrvikens-pistolskytteklubb/",
+		"number": 749,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Norsjö Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/norsjo-pistolskytteklubb/",
+		"number": 187,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Northern light shooting club",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/northern-light-shooting-club/",
+		"number": 805,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Nybro Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/nybro-pistolskytteklubb/",
+		"number": 197,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Nyköpings Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/nykopings-pistolklubb/",
+		"number": 56,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Nynäshamns Allmänna Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/nynashamns-allmanna-pistolklubb/",
+		"number": 380,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Nysätra Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/nysatra-pistolklubb/",
+		"number": 229,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Närs Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gotlands-pistolskyttekrets/nars-pistolskytteforening/",
+		"number": 720,
+		"region": "Gotlands Pistolskyttekrets"
+	},
+	{
+		"name": "Närtuna Gottröra Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/nartuna-gottrora-skytteforening/",
+		"number": 778,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Nätra skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/natra-skyttegille/",
+		"number": 649,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Ockelbo Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/ockelbo-pistolskytteklubb/",
+		"number": 718,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Officerarnes Målskjutningsförbund",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/officerarnes-malskjutningsforbund/",
+		"number": 14,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Olofströms Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/blekinge-pistolskyttekrets/olofstroms-pistolskytteklubb/",
+		"number": 494,
+		"region": "Blekinge Pistolskyttekrets"
+	},
+	{
+		"name": "Ormen Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/ormen-skytteforening/",
+		"number": 743,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Orsa Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/orsa-pistolskytteklubb/",
+		"number": 117,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Orust Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/orust-pistolskytteforening/",
+		"number": 116,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Osby Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/osby-pistolskytteklubb/",
+		"number": 471,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Oxelösunds Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/oxelosunds-pistolklubb/",
+		"number": 266,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "P 4 Idrottsförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/p-4-idrottsforening/",
+		"number": 62,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "P 7 Skif/södra Skåningarnas Skytte O Idrottsfören.",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/p-7-skifsodra-skaningarnas-skytte-o-idrottsforen/",
+		"number": 39,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Partille Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/partille-pistolklubb/",
+		"number": 281,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Perstorps Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/perstorps-pistolskytteklubb/",
+		"number": 504,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Pistolklubben Elbogen",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/pistolklubben-elbogen/",
+		"number": 270,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Pistolklubben Ena",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/pistolklubben-ena/",
+		"number": 265,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Pistolklubben Hjorten",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/pistolklubben-hjorten/",
+		"number": 264,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Pistolklubben Kornet",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/pistolklubben-kornet/",
+		"number": 309,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Pistolklubben Krabban",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/pistolklubben-krabban/",
+		"number": 331,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Pistolklubben Pricken",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/pistolklubben-pricken/",
+		"number": 325,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Pistolskytteföreningen Magnus Stenbock",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/pistolskytteforeningen-magnus-stenbock/",
+		"number": 99,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Pistolskytteklubben Svea Ing1",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/pistolskytteklubben-svea-ing1/",
+		"number": 70,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Pistolskytteklubben Vanäs",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/pistolskytteklubben-vanas/",
+		"number": 124,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Piteå Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/pitea-pistolklubb/",
+		"number": 428,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "PK Sydost",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/pk-sydost/",
+		"number": 811,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Pålsboda Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/palsboda-pistolskytteklubb/",
+		"number": 714,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Ramsbergs Pistol & Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/ramsbergs-pistol-sportskytteklubb/",
+		"number": 167,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Ramsjö Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/ramsjo-skytteforening/",
+		"number": 696,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Ratan Djäkneboda Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/ratan-djakneboda-pistolskytteforening/",
+		"number": 615,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Reftele Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/reftele-pistolklubb/",
+		"number": 174,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Riksbankens Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/riksbankens-skytteforening/",
+		"number": 140,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Rikstens Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/rikstens-skytteforening/",
+		"number": 782,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Roasjö Skf Pistolsektionen",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/roasjo-skf-pistolsektionen/",
+		"number": 480,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Ronneby / F17 Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/blekinge-pistolskyttekrets/ronneby-f17-pistolskytteklubb/",
+		"number": 155,
+		"region": "Blekinge Pistolskyttekrets"
+	},
+	{
+		"name": "Ronneby Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/blekinge-pistolskyttekrets/ronneby-pistolskytteklubb/",
+		"number": 155,
+		"region": "Blekinge Pistolskyttekrets"
+	},
+	{
+		"name": "Rosersberg Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/rosersberg-pistolklubb/",
+		"number": 65,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Roslagens Pistolskyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/roslagens-pistolskyttar/",
+		"number": 188,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Rotebergs Sportklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/rotebergs-sportklubb/",
+		"number": 603,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Rundviks Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/rundviks-pistolskytteklubb/",
+		"number": 415,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Råsbo Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/rasbo-pistolskytteklubb/",
+		"number": 734,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Rättviks Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/rattviks-pistolskytteklubb/",
+		"number": 392,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Rönnskär Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/ronnskar-pistolskytteklubb/",
+		"number": 306,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Rönnskärs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/ronnskars-pistolskytteklubb/",
+		"number": 306,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Röåns Skytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/roans-skytteklubb/",
+		"number": 132,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "S:t Eriks Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/st-eriks-pistolklubb/",
+		"number": 351,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "S:t Eskils Skyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/st-eskils-skyttar/",
+		"number": 591,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Saab Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/saab-pistolklubb/",
+		"number": 374,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Sala Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/sala-pistolklubb/",
+		"number": 707,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Salems Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/salems-pistolklubb/",
+		"number": 417,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Sandhems Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/sandhems-pistolskytteklubb/",
+		"number": 316,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Sandvikens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/sandvikens-pistolskytteklubb/",
+		"number": 263,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "SAS Skytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/sas-skytteklubb/",
+		"number": 246,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Scheele Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/scheele-sportskytteklubb/",
+		"number": 166,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Securitas Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/securitas-pistolskytteklubb/",
+		"number": 301,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Selaö-Toresunds Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/selao-toresunds-skytteforening/",
+		"number": 797,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Sevede Skyttesällskap",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-norra-pistolskyttekrets/sevede-skyttesallskap/",
+		"number": 136,
+		"region": "Kalmar Läns Norra Pistolskyttekrets"
+	},
+	{
+		"name": "Sikeå Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/sikea-pistolskytteklubb/",
+		"number": 478,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Simlångsdalens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/simlangsdalens-pistolskytteklubb/",
+		"number": 798,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "Singeshults Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/singeshults-pistolskytteklubb/",
+		"number": 563,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "SJ Pistolklubb Luleå",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/sj-pistolklubb-lulea/",
+		"number": 496,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Sj Pistolklubb Malmö",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/sj-pistolklubb-malmo/",
+		"number": 519,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Sj Skyttarna Kristianstad",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/sj-skyttarna-kristianstad/",
+		"number": 549,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Sjuntorps Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/sjuntorps-pistolskytteklubb/",
+		"number": 211,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Sjöbo Försvarsutbildarna Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/sjobo-forsvarsutbildarna-skytteforening/",
+		"number": 602,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Sjöbo Försvasutbildares Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/sjobo-forsvasutbildares-skytteforening/",
+		"number": 602,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Sjöormens Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/sjoormens-pistolklubb/",
+		"number": 534,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Skarp 7 Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/skarp-7-pistolskytteklubb/",
+		"number": 715,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Skellefteå Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/skelleftea-pistolskytteforening/",
+		"number": 341,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Skepplanda Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/skepplanda-skytteforening/",
+		"number": 193,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Skillingaryds Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/skillingaryds-pistolskytteklubb/",
+		"number": 354,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Skinnskattebergs Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/skinnskattebergs-skytteforening/",
+		"number": 487,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Skogstibble Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/skogstibble-skytteforening/",
+		"number": 780,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Skorpeds Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/skorpeds-pistolskytteforening/",
+		"number": 571,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Skurups Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/skurups-pistolskytteforening/",
+		"number": 232,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Skyttealliansens Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/skyttealliansens-pistolklubb/",
+		"number": 784,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Skytteföreningen Allians",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/skytteforeningen-allians/",
+		"number": 658,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Skånes Jakt och Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/skanes-jakt-och-sportskytteklubb/",
+		"number": 801,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Skövde Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/skovde-sportskytteklubb/",
+		"number": 621,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Slite Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gotlands-pistolskyttekrets/slite-pistolskytteklubb/",
+		"number": 387,
+		"region": "Gotlands Pistolskyttekrets"
+	},
+	{
+		"name": "Smedjebackens Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/smedjebackens-sportskytteklubb/",
+		"number": 242,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Smedsbo Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/smedsbo-pistolklubb/",
+		"number": 469,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Sollebrunns Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/sollebrunns-pistolskytteklubb/",
+		"number": 118,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Sollefteå Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/solleftea-pistolskytteklubb/",
+		"number": 404,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Sollefteå Pistolskyttklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/solleftea-pistolskyttklubb/",
+		"number": 404,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Sollentuna Skyttesällskap",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/sollentuna-skyttesallskap/",
+		"number": 793,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Sorsele Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/sorsele-pistolklubb/",
+		"number": 146,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Sotholmens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/sotholmens-pistolskytteklubb/",
+		"number": 540,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Sportskyttarna Ljungby",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kronobergs-lans-pistolskyttekrets/sportskyttarna-ljungby/",
+		"number": 87,
+		"region": "Kronobergs Läns Pistolskyttekrets"
+	},
+	{
+		"name": "STAR Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/star-pistolskytteklubb/",
+		"number": 735,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Starrkärrs Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/starrkarrs-skytteforening/",
+		"number": 171,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Stenberga Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/stenberga-pistolskytteforening/",
+		"number": 249,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Stenungsunds Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/stenungsunds-pistolklubb/",
+		"number": 684,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Stockaryds Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/stockaryds-pistolklubb/",
+		"number": 546,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Stockholm Enskede Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/stockholm-enskede-pistolskytteklubb/",
+		"number": 601,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Stockholms Allmänna Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/stockholms-allmanna-pistolskytteklubb/",
+		"number": 89,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Stockholms Amatörförening, Pistolsektionen",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/stockholms-amatorforening-pistolsektionen/",
+		"number": 2,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Stockholms Försvarsutbildares Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/stockholms-forsvarsutbildares-skytteforening/",
+		"number": 90,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Stockholms Handikapptransporters Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/stockholms-handikapptransporters-skytteforening/",
+		"number": 41,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Stockholms Lv-Förenings Skk",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/stockholms-lv-forenings-skk/",
+		"number": 212,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Stockholms Spårvägars Skyttesällskap",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/stockholms-sparvagars-skyttesallskap/",
+		"number": 450,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Stockholmspolisens Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/stockholmspolisens-skytteforening/",
+		"number": 323,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Stockholmstullens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/stockholmstullens-pistolskytteklubb/",
+		"number": 299,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Storfors Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/storfors-pistolskytteklubb/",
+		"number": 711,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Storumans Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/storumans-pistolklubb/",
+		"number": 35,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Stråtjära Pistolskyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/stratjara-pistolskyttegille/",
+		"number": 562,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Strängnäs Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/strangnas-pistolklubb/",
+		"number": 16,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Strömsholms Psk I Löten",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/stromsholms-psk-i-loten/",
+		"number": 36,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Strömsunds Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/stromsunds-sportskytteklubb/",
+		"number": 650,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Sundsvalls Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/sundsvalls-pistolskytteklubb/",
+		"number": 518,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Sundsvalls Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/sundsvalls-sportskytteklubb/",
+		"number": 623,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Surahammars Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/surahammars-skytteforening/",
+		"number": 779,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Surte Bohus Skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/surte-bohus-skyttegille/",
+		"number": 777,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Svalövs Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/svalovs-pistolklubb/",
+		"number": 280,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Svartsjö Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/svartsjo-pistolskytteklubb/",
+		"number": 114,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Svegs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/svegs-pistolskytteklubb/",
+		"number": 329,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Sågmyra Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/sagmyra-pistolskytteklubb/",
+		"number": 691,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Säffle Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/saffle-pistolskytteklubb/",
+		"number": 338,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Säters Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/saters-pistolskytteforening/",
+		"number": 673,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Sätila Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/satila-pistolskytteklubb/",
+		"number": 454,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Säve Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/save-pistolskytteklubb/",
+		"number": 383,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Sävsjö Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/savsjo-pistolskytteklubb/",
+		"number": 686,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Söderhamns Fallskärmsskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/soderhamns-fallskarmsskytteforening/",
+		"number": 792,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Söderhamns Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/soderhamns-pistolskytteklubb/",
+		"number": 373,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Södertälje Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/sodertalje-pistolklubb/",
+		"number": 654,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Söderåsens pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/soderasens-pistolskytteforening/",
+		"number": 773,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Södra Dals Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/sodra-dals-pistolskytteforening/",
+		"number": 719,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Södra Kinds Fbu Pistolsektion",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/sodra-kinds-fbu-pistolsektion/",
+		"number": 84,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Södra Roslagens Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/sodra-roslagens-skytteforening/",
+		"number": 783,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Södra Älvsborgs Polis If",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/sodra-alvsborgs-polis-if/",
+		"number": 91,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Söraby Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kronobergs-lans-pistolskyttekrets/soraby-skytteforening/",
+		"number": 776,
+		"region": "Kronobergs Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Sörbygdens Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/sorbygdens-pistolklubb/",
+		"number": 610,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Sösdala Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/sosdala-pistolklubb/",
+		"number": 577,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Target Arena",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/target-arena/",
+		"number": 815,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Target Arena pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/target-arena-pistolskytteklubb/",
+		"number": 815,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Taxi Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/taxi-pistolskytteklubb/",
+		"number": 672,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Teckomatorps Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/teckomatorps-pistolskytteklubb/",
+		"number": 168,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Telegrafverkets Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/telegrafverkets-pistolskytteforening/",
+		"number": 336,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Telia Idrottsförening, Skyttesektionen",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/telia-idrottsforening-skyttesektionen/",
+		"number": 314,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Tidaholms Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/tidaholms-pistolskytteklubb/",
+		"number": 605,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Tierps Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/tierps-pistolskytteklubb/",
+		"number": 482,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Timrå Skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/timra-skyttegille/",
+		"number": 439,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Tingsryds Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kronobergs-lans-pistolskyttekrets/tingsryds-pistolskytteklubb/",
+		"number": 613,
+		"region": "Kronobergs Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Tomelilla Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/tomelilla-pistolskytteklubb/",
+		"number": 233,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Torna Hällestads Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/torna-hallestads-pistolskytteklubb/",
+		"number": 432,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Tornedalens Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/tornedalens-pistolklubb/",
+		"number": 509,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Tornet Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/tornet-skytteforening/",
+		"number": 555,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Torsby Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/varmlands-pistolskyttekrets/torsby-pistolskytteklubb/",
+		"number": 261,
+		"region": "Värmlands Pistolskyttekrets"
+	},
+	{
+		"name": "Torups Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/torups-pistolklubb/",
+		"number": 318,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "Transtrands Skf Pistolsektion",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/transtrands-skf-pistolsektion/",
+		"number": 83,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Tranås Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/tranas-pistolklubb/",
+		"number": 564,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Trelleborgs Försvarsutbildningsförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/trelleborgs-forsvarsutbildningsforening/",
+		"number": 771,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Trelleborgs Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/trelleborgs-pistolskytteforening/",
+		"number": 310,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Trollhättans Försvarsutbildarföreing",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/trollhattans-forsvarsutbildarforeing/",
+		"number": 33,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Trollhättans Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/trollhattans-pistolklubb/",
+		"number": 347,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Trosa Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/trosa-pistolklubb/",
+		"number": 161,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Tyresö Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/tyreso-skytteforening/",
+		"number": 176,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Tyringe Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/tyringe-pistolklubb/",
+		"number": 528,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Tysslinge Skytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/tysslinge-skytteklubb/",
+		"number": 624,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Tåstarps skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/tastarps-skytteforening/",
+		"number": 814,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Täby Skytteförening, P-Sekt.",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/taby-skytteforening-p-sekt/",
+		"number": 189,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Töreboda Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/toreboda-pistolskytteklubb/",
+		"number": 676,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Uddevalla Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/uddevalla-pistolskytteforening/",
+		"number": 276,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Ulricehamns Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/ulricehamns-pistolklubb/",
+		"number": 489,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Umeå Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/umea-pistolskytteklubb/",
+		"number": 107,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Upplands Väsby Pistolskytteklubbb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/upplands-vasby-pistolskytteklubbb/",
+		"number": 447,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Uppsala Handeldvapenförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/uppsala-handeldvapenforening/",
+		"number": 253,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Uppsalapolisens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/uppsalapolisens-pistolskytteklubb/",
+		"number": 144,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Upsala Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/upsala-sportskytteklubb/",
+		"number": 358,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Valdemarsviks Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/valdemarsviks-pistolskytteklubb/",
+		"number": 125,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Valla Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/valla-pistolskytteklubb/",
+		"number": 258,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Vallebygdens Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/vallebygdens-pistolskytteforening/",
+		"number": 436,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Vallentuna Pistolskytteklubb Pk 90",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/vallentuna-pistolskytteklubb-pk-90/",
+		"number": 172,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Valvträsk Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/valvtrask-skytteforening/",
+		"number": 584,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Varbergs Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/hallands-pistolskyttekrets/varbergs-pistolklubb/",
+		"number": 195,
+		"region": "Hallands pistolskyttekrets"
+	},
+	{
+		"name": "Vargöns Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/vargons-pistolklubb/",
+		"number": 699,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Vedums Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/skaraborgs-pistolskyttekrets/vedums-pistolskytteklubb/",
+		"number": 288,
+		"region": "Skaraborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Vellinge Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/vellinge-pistolklubb/",
+		"number": 561,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Venjans Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/venjans-pistolskytteforening/",
+		"number": 202,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Venjans Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/venjans-pistolskytteklubb/",
+		"number": 202,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Vetlanda Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/vetlanda-pistolklubb/",
+		"number": 360,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Vilhelmina Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/vilhelmina-pistolskytteklubb/",
+		"number": 460,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Vimmerby Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-norra-pistolskyttekrets/vimmerby-pistolskytteklubb/",
+		"number": 49,
+		"region": "Kalmar Läns Norra Pistolskyttekrets"
+	},
+	{
+		"name": "Vindelns Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/vindelns-pistolskytteklubb/",
+		"number": 348,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Vinslövs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/vinslovs-pistolskytteklubb/",
+		"number": 388,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Visborgs Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gotlands-pistolskyttekrets/visborgs-skytteforening/",
+		"number": 15,
+		"region": "Gotlands Pistolskyttekrets"
+	},
+	{
+		"name": "Visby Nationalbeväring",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gotlands-pistolskyttekrets/visby-nationalbevaring/",
+		"number": 98,
+		"region": "Gotlands Pistolskyttekrets"
+	},
+	{
+		"name": "Vittangi Pistolkskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/vittangi-pistolkskytteforening/",
+		"number": 810,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Vittsjö Skytteförening Pistsek",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/vittsjo-skytteforening-pistsek/",
+		"number": 370,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Volvo Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/volvo-pistolklubb/",
+		"number": 465,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Vårgårda Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/alvsborgs-pistolskyttekrets/vargarda-pistolskytteklubb/",
+		"number": 486,
+		"region": "Älvsborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Vännäs Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/vannas-pistolskytteklubb/",
+		"number": 543,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Västberga Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/vastberga-pistolskytteklubb/",
+		"number": 748,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Västbo Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jonkopings-lans-pistolskyttekrets/vastbo-pistolklubb/",
+		"number": 437,
+		"region": "Jönköpings Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Västerviks Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-norra-pistolskyttekrets/vasterviks-pistolskytteforening/",
+		"number": 203,
+		"region": "Kalmar Läns Norra Pistolskyttekrets"
+	},
+	{
+		"name": "Västerås Pistolskyttar",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastmanlands-pistolskyttekrets/vasteras-pistolskyttar/",
+		"number": 55,
+		"region": "Västmanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Västjämtens Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/vastjamtens-pistolskytteklubb/",
+		"number": 349,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Västra Husby Skyttegille",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/vastra-husby-skyttegille/",
+		"number": 627,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Växjö Försvarsutbildarförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kronobergs-lans-pistolskyttekrets/vaxjo-forsvarsutbildarforening/",
+		"number": 759,
+		"region": "Kronobergs Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Växjö Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kronobergs-lans-pistolskyttekrets/vaxjo-pistolklubb/",
+		"number": 386,
+		"region": "Kronobergs Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Ystads Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/malmohus-pistolskyttekrets/ystads-pistolskytteklubb/",
+		"number": 245,
+		"region": "Malmöhus Pistolskyttekrets"
+	},
+	{
+		"name": "Zinkgruvans Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/zinkgruvans-pistolskytteklubb/",
+		"number": 200,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Åby Skytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/aby-skytteklubb/",
+		"number": 101,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Ålbo Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/gavleborgs-pistolskyttekrets/albo-pistolskytteklubb/",
+		"number": 738,
+		"region": "Gävleborgs Pistolskyttekrets"
+	},
+	{
+		"name": "Ålems Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/alems-skytteforening/",
+		"number": 375,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Åmåls Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vastgota-dals-pistolskyttekrets/amals-pistolklubb/",
+		"number": 723,
+		"region": "Västgöta-Dals Pistolskyttekrets"
+	},
+	{
+		"name": "Ånge Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/ange-pistolklubb/",
+		"number": 754,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Åsele Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasterbottens-lans-pistolskyttekrets/asele-pistolskytteklubb/",
+		"number": 151,
+		"region": "Västerbottens Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Åtvidabergs Pistolskytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/atvidabergs-pistolskytteforening/",
+		"number": 730,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Åva Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/ava-pistolskytteklubb/",
+		"number": 430,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Älmhults Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kronobergs-lans-pistolskyttekrets/almhults-pistolklubb/",
+		"number": 651,
+		"region": "Kronobergs Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Älvdalens Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/dalarnas-pistolskyttekrets/alvdalens-pistolklubb/",
+		"number": 397,
+		"region": "Dalarnas Pistolskyttekrets"
+	},
+	{
+		"name": "Älvkarleby Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/alvkarleby-pistolklubb/",
+		"number": 604,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Älvsbyns Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/norrbottens-pistolskyttekrets/alvsbyns-pistolklubb/",
+		"number": 590,
+		"region": "Norrbottens Pistolskyttekrets"
+	},
+	{
+		"name": "Ängelholms Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/angelholms-pistolskytteklubb/",
+		"number": 600,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Ärla Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/arla-skytteforening/",
+		"number": 423,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Öckerö Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/ockero-skytteforening/",
+		"number": 446,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Ölands Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-sodra-pistolskyttekrets/olands-pistolklubb/",
+		"number": 656,
+		"region": "Kalmar Läns Södra Pistolskyttekrets"
+	},
+	{
+		"name": "Örebro Pistol- Och Sportskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/orebro-lans-pistolskyttekrets/orebro-pistol-och-sportskytteklubb/",
+		"number": 243,
+		"region": "Örebro Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Örgryte Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/orgryte-pistolskytteklubb/",
+		"number": 340,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Örkelljunga Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/orkelljunga-pistolklubb/",
+		"number": 745,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Örlogsberga Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/orlogsberga-skytteforening/",
+		"number": 13,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Örnsköldsviks Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/vasternorrlands-lans-pistolskyttekrets/ornskoldsviks-pistolklubb/",
+		"number": 515,
+		"region": "Västernorrlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Össeby Pistolkamrater",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/stockholms-pistolskyttekrets/osseby-pistolkamrater/",
+		"number": 767,
+		"region": "Stockholms Pistolskyttekrets"
+	},
+	{
+		"name": "Österlens Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kristianstads-pistolskyttekrets/osterlens-pistolklubb/",
+		"number": 593,
+		"region": "Kristianstads Pistolskyttekrets"
+	},
+	{
+		"name": "Östersunds Pistolskytteklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/jamtlands-lans-pistolskyttekrets/ostersunds-pistolskytteklubb/",
+		"number": 164,
+		"region": "Jämtlands Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Östervåla Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/ostervala-skytteforening/",
+		"number": 384,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Österåkers Skytteförening",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/sodermanlands-pistolskyttekrets/osterakers-skytteforening/",
+		"number": 569,
+		"region": "Södermanlands Pistolskyttekrets"
+	},
+	{
+		"name": "Östgöta Helikopter Sk o IF",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/ostergotlands-pistolskyttekrets/ostgota-helikopter-sk-o-if/",
+		"number": 473,
+		"region": "Östergötlands Pistolskyttekrets"
+	},
+	{
+		"name": "Östhammars Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/uppsala-lans-pistolskyttekrets/osthammars-pistolklubb/",
+		"number": 532,
+		"region": "Uppsala Läns Pistolskyttekrets"
+	},
+	{
+		"name": "Överby Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/goteborg-och-bohuslans-pistol-krets/overby-pistolklubb/",
+		"number": 522,
+		"region": "Göteborg Och Bohusläns Pistol.Krets"
+	},
+	{
+		"name": "Överums Pistolklubb",
+		"url": "https://www.pistolskytteforbundet.se/foreningar/kalmar-lans-norra-pistolskyttekrets/overums-pistolklubb/",
+		"number": 520,
+		"region": "Kalmar Läns Norra Pistolskyttekrets"
+	}
+]

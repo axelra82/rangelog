@@ -1,10 +1,5 @@
-export const claims = [
-	"Precision Guld",
-	"Precision Silver",
-	"Precision Brons",
-	"Snabb Guld",
-	"Snabb Silver",
-	"Snabb Brons"
-] as const;
+import claimsData from "./claims.json";
+
+export const claims = claimsData;
 
 export type Claims = typeof claims[number];

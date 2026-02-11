@@ -1,5 +1,9 @@
-import { AddActivity, AddClaim, ButtonContained } from "@/components";
-import { A } from "@solidjs/router";
+import {
+	AddActivity,
+	AddClaim,
+	ButtonContained
+} from "@/components";
+
 import BookIcon from "@suid/icons-material/Book";
 
 export const DashboardPage = () => {
@@ -18,10 +22,9 @@ export const DashboardPage = () => {
 						<ButtonContained
 							size="large"
 							color="primary"
+							route="/weapons"
 						>
-							<A href="/weapons">
-								<BookIcon fontSize="small" /> Vapen
-							</A>
+							<BookIcon fontSize="small" /> Vapen
 						</ButtonContained>
 					</li>
 				</ul>

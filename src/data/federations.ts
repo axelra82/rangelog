@@ -1,17 +1,5 @@
-export const federations = [
-	"Svenska Svartkruts Skytte Federationen",
-	"Jägarnas Riksförbund/Landsbygdens jägare",
-	"Svenska Armborst Unionen",
-	"Svenska Dynamiska Sportskytteförbundet",
-	"Svenska Jägareförbundet",
-	"Sveriges Metallsilhuettförbund",
-	"Svenska Mångkampsförbundet",
-	"Svenska Pistolskytteförbundet",
-	"Svenska Skidskytteförbundet",
-	"Svenska Skyttesportförbundet",
-	"Svenska Westernskytteförbundet",
-	"Annat förbund",
-	"Föreningsegen gren"
-] as const;
+import federationsData from "./federations.json";
+
+export const federations = federationsData;
 
 export type Federations = typeof federations[number];

@@ -1,10 +1,5 @@
-export const weaponTypes = [
-	"Välj typ",
-	"Kulgevär",
-	"Hagelgevär",
-	"Pistol",
-	"Revolver",
-	"Annat"
-] as const;
+import weaponsData from "./weapons.json";
+
+export const weaponTypes = weaponsData;
 
 export type Weapons = typeof weaponTypes[number];
