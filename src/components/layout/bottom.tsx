@@ -12,7 +12,7 @@ import {
 
 import ContentCopyIcon from "@suid/icons-material/ContentCopy";
 import MoreHorizIcon from "@suid/icons-material/MoreHoriz";
-import GitHubIcon from "@suid/icons-material/GitHub";
+// import GitHubIcon from "@suid/icons-material/GitHub";
 
 import {
 	ColorMode,
@@ -21,6 +21,7 @@ import {
 import { ParentComponent } from "solid-js";
 import { pushSnackbar } from "../dialogue/snackbar-stack";
 import { ThemeSelect } from "../theme";
+import GitHubIcon from "../@suid/icons-material/GitHub";
 
 interface LayoutBottomBarProps {
 	colorMode: Accessor<ColorMode>;
