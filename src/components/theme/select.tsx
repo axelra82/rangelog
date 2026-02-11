@@ -1,20 +1,18 @@
+import { useStore } from "@/store";
 import { ColorMode } from "@/types";
 import { Computer, DarkMode, LightMode } from "@suid/icons-material";
 import { ToggleButton, ToggleButtonGroup } from "@suid/material";
-import { Accessor, Component, Setter } from "solid-js";
+import { Component } from "solid-js";
 
-interface ThemeSelectProps {
-	colorMode: Accessor<ColorMode>;
-	setColorMode: Setter<ColorMode>;
-}
+export const ThemeSelect: Component = () => {
+	const { colorMode, setColorMode } = useStore();
 
-export const ThemeSelect: Component<ThemeSelectProps> = (props) => {
 	const handleChange = (
 		_: unknown,
 		value: ColorMode | null
 	) => {
 		if (value) {
-			props.setColorMode(value)
+			setColorMode(value)
 		};
 	};
 
@@ -22,7 +20,7 @@ export const ThemeSelect: Component<ThemeSelectProps> = (props) => {
 		<ToggleButtonGroup
 			exclusive
 			size="small"
-			value={props.colorMode()}
+			value={colorMode()}
 			onChange={handleChange}
 		>
 			<ToggleButton value="light" size="small">

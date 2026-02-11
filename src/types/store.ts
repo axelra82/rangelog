@@ -1,5 +1,5 @@
-import { Setter } from "solid-js";
-import { } from "./enum";
+import { Accessor, Setter } from "solid-js";
+import { ColorMode } from "./enum";
 import {
 	Collections,
 } from "./pocketbase";
@@ -19,4 +19,10 @@ export interface StoreFactoryProps {
 
 export type ResourceHelper<T> = T & { disabled: false };
 
-export interface StoreContextType { };
+export type StoreContextType = {
+	user: Accessor<any>;
+	isAuthenticated: Accessor<boolean>;
+	colorMode: Accessor<ColorMode>;
+	setColorMode: Setter<ColorMode>;
+	logout: () => void;
+}

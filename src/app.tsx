@@ -2,15 +2,9 @@ import "./styles/index.css";
 
 import { SnackbarStack } from "./components/dialogue/snackbar-stack";
 import { LayoutBottomBar, LayoutMainContent, LayoutMainMenu } from "./components/layout";
-import { Accessor, ParentComponent, Setter } from "solid-js";
-import { ColorMode } from "./types";
+import { ParentComponent } from "solid-js";
 
-interface AppProps {
-	colorMode: Accessor<ColorMode>;
-	setColorMode: Setter<ColorMode>;
-}
-
-export const App: ParentComponent<AppProps> = (props) => {
+export const App: ParentComponent = (props) => {
 	return (
 		<>
 			<div class="flex h-screen flex-col grow">
@@ -18,8 +12,7 @@ export const App: ParentComponent<AppProps> = (props) => {
 				<LayoutMainContent>
 					{props.children}
 				</LayoutMainContent>
-
-				<LayoutBottomBar {...props} />
+				<LayoutBottomBar />
 			</div>
 			<SnackbarStack />
 		</>

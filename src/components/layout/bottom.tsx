@@ -23,12 +23,7 @@ import { pushSnackbar } from "../dialogue/snackbar-stack";
 import { ThemeSelect } from "../theme";
 import GitHubIcon from "../@suid/icons-material/GitHub";
 
-interface LayoutBottomBarProps {
-	colorMode: Accessor<ColorMode>;
-	setColorMode: Setter<ColorMode>;
-};
-
-export const LayoutBottomBar: ParentComponent<LayoutBottomBarProps> = (props) => {
+export const LayoutBottomBar: ParentComponent = (props) => {
 	const environment = import.meta.env;
 	const buildHash = environment.VITE_APP_BUILD;
 	const buildTime = environment.VITE_APP_BUILD_TIME;
@@ -97,7 +92,7 @@ export const LayoutBottomBar: ParentComponent<LayoutBottomBarProps> = (props) =>
 			}}
 		>
 			<Box sx={{ flexGrow: 1 }}>
-				<ThemeSelect {...props} />
+				<ThemeSelect />
 			</Box>
 
 			<RepoReference />
