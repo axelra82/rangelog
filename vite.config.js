@@ -31,6 +31,7 @@ export default defineConfig({
 		"import.meta.env.VITE_APP_NAME": appName,
 		"import.meta.env.VITE_APP_VERSION": appVersion,
 		"import.meta.env.VITE_APP_REPO": repo,
+		'import.meta.env.VITE_DATA_PROVIDER': JSON.stringify(process.env.VITE_DATA_PROVIDER),
 	},
 	plugins: [
 		suidPlugin(),
