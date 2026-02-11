@@ -4,7 +4,7 @@
 
 import $ from "@suid/icons-material/utils/createSvgIcon";
 
-export const GitHubIcon = $(
+const GitHubIcon = $(
   () => (
     <>
       <rect fill="none" height="24" width="24" />
@@ -13,3 +13,5 @@ export const GitHubIcon = $(
   ),
   "GitHub"
 );
+
+export default GitHubIcon;
