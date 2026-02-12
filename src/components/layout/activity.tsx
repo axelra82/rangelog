@@ -19,6 +19,7 @@ export const AddActivity = () => {
 				size="large"
 				color="success"
 				onClick={() => open()}
+				fullWidth
 			>
 				<AddIcon fontSize="small" /> Aktivitet
 			</ButtonContained>

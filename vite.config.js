@@ -31,7 +31,6 @@ export default defineConfig({
 		"import.meta.env.VITE_APP_NAME": appName,
 		"import.meta.env.VITE_APP_VERSION": appVersion,
 		"import.meta.env.VITE_APP_REPO": repo,
-		'import.meta.env.VITE_DATA_PROVIDER': JSON.stringify(process.env.VITE_DATA_PROVIDER),
 	},
 	plugins: [
 		suidPlugin(),
@@ -68,9 +67,9 @@ export default defineConfig({
 						purpose: "maskable",
 					},
 				],
-				name: "Rangelog",
-				short_name: "rangelog",
-				start_url: "https://rangelog.lalaland.app",
+				name: appName,
+				short_name: appName,
+				start_url: `https://${appName}.lalaland.app`,
 				theme_color: "#0F0E14",
 			},
 		})

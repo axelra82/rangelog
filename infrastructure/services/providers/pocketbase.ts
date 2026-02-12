@@ -1,10 +1,10 @@
 import { ProviderFunction } from "@/types/data-provider";
 
-import { pocketbaseSignIn, pocketbaseSignOut } from "../../adapters/pocketbase";
+import { pocketbaseSignIn, pocketbaseSignOut } from "../../adapters/pocketbase/authentication";
 
 export const createPocketbaseProvider = (): ProviderFunction => ({
 	auth: {
-		signin: pocketbaseSignIn as <P = unknown, R = unknown>(props: P) => R,
-		signout: pocketbaseSignOut as <P = unknown, R = unknown>(props: P) => R,
+		signin: pocketbaseSignIn,
+		signout: pocketbaseSignOut,
 	},
 });

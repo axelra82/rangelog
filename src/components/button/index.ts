@@ -1,4 +1,6 @@
-export interface SharedButtonOptions {
+import ButtonProps from "@suid/material/Button/ButtonProps";
+
+export interface SharedButtonOptions extends ButtonProps {
 	color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
 	size?: "large" | "medium" | "small";
 	onClick?: () => void;

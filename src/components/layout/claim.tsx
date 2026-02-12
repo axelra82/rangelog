@@ -19,6 +19,7 @@ export const AddClaim = () => {
 				size="large"
 				color="warning"
 				onClick={() => open()}
+				fullWidth
 			>
 				<AddIcon fontSize="small" /> Fordring
 			</ButtonContained>

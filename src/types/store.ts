@@ -3,6 +3,7 @@ import { ColorMode } from "./enum";
 import {
 	Collections,
 } from "./pocketbase";
+import { ClientUser } from "./user";
 
 export interface StoreFactoryProps {
 	storeItem: Setter<any>;
@@ -20,7 +21,7 @@ export interface StoreFactoryProps {
 export type ResourceHelper<T> = T & { disabled: false };
 
 export type StoreContextType = {
-	user: Accessor<any>;
+	user: Accessor<ClientUser>;
 	isAuthenticated: Accessor<boolean>;
 	colorMode: Accessor<ColorMode>;
 	setColorMode: Setter<ColorMode>;

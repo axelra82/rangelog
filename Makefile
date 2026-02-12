@@ -50,7 +50,7 @@ update-all-latest: pnpm up --latest
 .PHONY: dev lint test
 
 dev: setup
-	pnpm run serve
+	pnpm run dev
 
 test: setup
 	pnpm run test

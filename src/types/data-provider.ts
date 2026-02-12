@@ -9,13 +9,13 @@ export enum BackendProvider {
 }
 
 export interface SigninProps {
-	email: string;
+	username: string;
 	password: string;
 }
 
 export type ProviderFunction = {
 	auth: {
-		signin: <SigninProps, GenericReturn>(props: SigninProps) => Promise<GenericReturn>;
-		signout: <GenericProps, GenericReturn>(props?: GenericProps) => GenericReturn;
+		signin: (props: SigninProps) => Promise<void>;
+		signout: () => void;
 	};
 };

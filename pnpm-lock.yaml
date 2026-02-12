@@ -2585,8 +2585,9 @@ packages:
   simple-swizzle@0.2.4:
     resolution: {integrity: sha512-nAu1WFPQSMNr2Zn9PGSZK9AGn4t/y97lEm+MXTtUDwfP0ksAIX4nO+6ruD9Jwut4C49SB1Ws+fbXsm/yScWOHw==}
 
-  smob@1.5.0:
-    resolution: {integrity: sha512-g6T+p7QO8npa+/hNx9ohv1E5pVCmWrVCUzUXJyLdMmftX6ER0oiWY/w9knEonLpnOp6b6FenKnMfR8gqwWdwig==}
+  smob@1.6.1:
+    resolution: {integrity: sha512-KAkBqZl3c2GvNgNhcoyJae1aKldDW0LO279wF9bk1PnluRTETKBq0WyzRXxEhoQLk56yHaOY4JCBEKDuJIET5g==}
+    engines: {node: '>=20.0.0'}
 
   solid-js@1.9.11:
     resolution: {integrity: sha512-WEJtcc5mkh/BnHA6Yrg4whlF8g6QwpmXXRg4P2ztPmcKeHHlH4+djYecBLhSpecZY2RRECXYUwIc/C2r3yzQ4Q==}
@@ -4011,7 +4012,7 @@ snapshots:
   '@rollup/plugin-terser@0.4.4(rollup@2.79.2)':
     dependencies:
       serialize-javascript: 6.0.2
-      smob: 1.5.0
+      smob: 1.6.1
       terser: 5.46.0
     optionalDependencies:
       rollup: 2.79.2
@@ -5654,7 +5655,7 @@ snapshots:
     dependencies:
       is-arrayish: 0.3.4
 
-  smob@1.5.0: {}
+  smob@1.6.1: {}
 
   solid-js@1.9.11:
     dependencies:

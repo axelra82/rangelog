@@ -1,6 +1,7 @@
 export enum Collections {
 	ACTIVITIES = "activities",
 	CLAIMS = "claims",
+	USERS = "users",
 	WEAPONS = "weapons",
 }
 

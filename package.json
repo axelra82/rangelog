@@ -7,9 +7,8 @@
 		"url": "https://github.com/axelra82/rangelog"
 	},
 	"scripts": {
-		"dev": "vite",
-		"build": "cross-env VITE_DATA_PROVIDER=pocketbase vite build",
-		"build:otherinterface": "cross-env VITE_DATA_PROVIDER=alternateDataProvider vite build",
+		"dev": "cross-env VITE_DATA_PROVIDER=pocketbase vite",
+		"build": "vite build",
 		"serve": "vite serve",
 		"clean": "rm -rf node_modules && rm pnpm-lock.yaml",
 		"generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.svg"

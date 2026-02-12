@@ -1,5 +1,5 @@
 import { TextField, Button, Box, Paper, Typography } from "@suid/material";
-import { pb } from "../../infrastructure/adapters/pocketbase";
+import { auth } from "../../infrastructure/services";
 import { Component, createSignal } from "solid-js";
 
 export const LoginPage: Component = () => {
@@ -7,7 +7,10 @@ export const LoginPage: Component = () => {
 	const [password, setPassword] = createSignal("");
 
 	const handleLogin = async () => {
-		await pb.collection("users").authWithPassword(email(), password());
+		await auth.signin({
+			username: email(),
+			password: password(),
+		});
 	};
 
 	return (
