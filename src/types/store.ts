@@ -2,6 +2,7 @@ import { Accessor, Setter } from "solid-js";
 import { ColorMode } from "./enum";
 import {
 	Collections,
+	WeaponCollectionItem,
 } from "./pocketbase";
 import { ClientUser } from "./user";
 
@@ -21,10 +22,12 @@ export interface StoreFactoryProps {
 export type ResourceHelper<T> = T & { disabled: false };
 
 export type StoreContextType = {
-	user: Accessor<ClientUser>;
-	userSet: Setter<ClientUser>;
+	colorMode: Accessor<ColorMode>;
 	isAuthenticated: Accessor<boolean>;
 	isAuthenticatedSet: Setter<boolean>;
-	colorMode: Accessor<ColorMode>;
-	setColorMode: Setter<ColorMode>;
+	colorModeSet: Setter<ColorMode>;
+	user: Accessor<ClientUser>;
+	userSet: Setter<ClientUser>;
+	weapons: Accessor<WeaponCollectionItem[]>;
+	weaponsSet: Setter<WeaponCollectionItem[]>;
 }

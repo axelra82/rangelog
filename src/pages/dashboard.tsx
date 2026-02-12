@@ -1,16 +1,14 @@
 import {
 	AddActivity,
 	AddClaim,
-	ButtonContained
+	AddWeapon,
 } from "@/components";
-
-import BookIcon from "@suid/icons-material/Book";
 
 export const DashboardPage = () => {
 
 	return (
 		<>
-			<nav class="m-4 border rounded-md border-slate-700 p-8">
+			<nav class="mt-12">
 				<ul class="flex flex-col md:flex-row gap-8 justify-center">
 					<li>
 						<AddActivity />
@@ -19,14 +17,7 @@ export const DashboardPage = () => {
 						<AddClaim />
 					</li>
 					<li>
-						<ButtonContained
-							size="large"
-							color="primary"
-							route="/weapons"
-							fullWidth
-						>
-							<BookIcon fontSize="small" /> Vapen
-						</ButtonContained>
+						<AddWeapon />
 					</li>
 				</ul>
 			</nav>

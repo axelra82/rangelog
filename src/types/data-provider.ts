@@ -1,4 +1,11 @@
-import { WeaponCreateInput, WeaponCollectionItem, ReadSingleOptions, ReadListOptions, WeaponUpdateInput } from "./pocketbase";
+import {
+	WeaponCreateInput,
+	WeaponCollectionItem,
+	ReadSingleOptions,
+	WeaponUpdateInput,
+	ReadListResponse,
+	ReadListRequest,
+} from "./pocketbase";
 import { ClientUser } from "./user";
 
 /**
@@ -24,7 +31,7 @@ export type ProviderFunction = {
 	};
 	weapon: {
 		create: (data: WeaponCreateInput) => Promise<WeaponCollectionItem>;
-		read: (options: ReadSingleOptions | ReadListOptions) => Promise<WeaponCollectionItem | { items: WeaponCollectionItem[]; page: number; totalPages: number; totalItems: number; }>;
+		read: (options: ReadSingleOptions | ReadListRequest) => Promise<WeaponCollectionItem | ReadListResponse<WeaponCollectionItem>>;
 		update: (id: string, data: WeaponUpdateInput) => Promise<WeaponCollectionItem>;
 		delete: (id: string) => Promise<boolean>;
 	}

@@ -5,14 +5,14 @@ import { ToggleButton, ToggleButtonGroup } from "@suid/material";
 import { Component } from "solid-js";
 
 export const ThemeSelect: Component = () => {
-	const { colorMode, setColorMode } = useStore();
+	const { colorMode, colorModeSet } = useStore();
 
 	const handleChange = (
 		_: unknown,
 		value: ColorMode | null
 	) => {
 		if (value) {
-			setColorMode(value)
+			colorModeSet(value)
 		};
 	};
 

@@ -1,4 +1,4 @@
-import { StoreContextType } from "./types";
+import { StoreContextType, WeaponCollectionItem } from "./types";
 import { ColorMode } from "./types";
 
 import {
@@ -16,25 +16,28 @@ const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.
 const StoreContext = createContext<StoreContextType>();
 
 export const StoreContextProvider = (props: { children: JSX.Element }) => {
+	const [colorMode, colorModeSet] = createSignal<ColorMode>(savedMode);
+	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
 	const [user, userSet] = createSignal<ClientUser>({
 		created: "",
 		email: "",
 		id: ""
 	});
-	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
-	const [colorMode, setColorMode] = createSignal<ColorMode>(savedMode);
+	const [weapons, weaponsSet] = createSignal<WeaponCollectionItem[]>([]);
 
 	createEffect(() => {
 		localStorage.setItem(STORAGE_KEY, colorMode());
 	});
 
 	const storeContextValue = {
-		user,
-		userSet,
+		colorMode,
+		colorModeSet,
 		isAuthenticated,
 		isAuthenticatedSet,
-		colorMode,
-		setColorMode,
+		user,
+		userSet,
+		weapons,
+		weaponsSet,
 	};
 
 	return (

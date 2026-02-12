@@ -218,3 +218,33 @@ export const timestampToSeconds = (timestamp: number) => {
 	* @returns {string}
 	*/
 export const todayISODate = (): string => new Date().toISOString().split("T")[0];
+
+export const checkLicenseExpiry = (licenseEnd?: string) => {
+	if (!licenseEnd) {
+		return null;
+	}
+
+	const endDate = new Date(licenseEnd);
+	const today = new Date();
+	const sixMonthsFromNow = new Date();
+	sixMonthsFromNow.setMonth(today.getMonth() + 6);
+
+	const diffTime = endDate.getTime() - today.getTime();
+	const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+	if (diffDays < 0) {
+		return {
+			severity: 'error' as const,
+			message: `License expired ${Math.abs(diffDays)} days ago`
+		};
+	}
+
+	if (endDate <= sixMonthsFromNow) {
+		return {
+			severity: 'warning' as const,
+			message: `License expires in ${diffDays} days`
+		};
+	}
+
+	return null;
+}

@@ -1,13 +1,44 @@
 import { App } from "../app";
 import { dashboardRoutes } from "@/routes";
 import { useStore } from "@/store";
-import { ColorMode } from "@/types";
+import { ColorMode, ReadListResponse, WeaponCollectionItem } from "@/types";
 import { Router } from "@solidjs/router";
 import { LoginPage } from "@/pages/login";
 import { ThemeProvider, createTheme, CssBaseline } from "@suid/material";
-import { createSignal, Match, onMount, Show, Switch } from "solid-js";
-import { auth } from "../../infrastructure/services";
+import { createSignal, Match, onMount, Switch } from "solid-js";
+import { auth, weapon } from "../../infrastructure/services";
 import { FullPageLoader } from "./loader";
+
+declare module "@suid/material/styles" {
+	interface Palette {
+		salmon: {
+			main: string;
+			light: string;
+			dark: string;
+			contrastText: string;
+		};
+		ochre: {
+			main: string;
+			light: string;
+			dark: string;
+			contrastText: string;
+		};
+	}
+	interface PaletteOptions {
+		salmon?: {
+			main: string;
+			light: string;
+			dark: string;
+			contrastText: string;
+		};
+		ochre?: {
+			main: string;
+			light: string;
+			dark: string;
+			contrastText: string;
+		};
+	}
+}
 
 export const AuthChecker = () => {
 	const store = useStore();
@@ -20,6 +51,8 @@ export const AuthChecker = () => {
 		if (result.user) {
 			store.userSet(result.user);
 			store.isAuthenticatedSet(true);
+			const weaponsData = await weapon.read({}) as ReadListResponse<WeaponCollectionItem>;
+			store.weaponsSet(weaponsData.items);
 		}
 
 		setReady(true);
@@ -44,31 +77,44 @@ export const AuthChecker = () => {
 	}
 
 	return (
-		<Switch>
-			<Match when={!ready()}>
-				<FullPageLoader message="working" />
-			</Match>
+		<ThemeProvider
+			theme={() =>
+				createTheme({
+					palette: {
+						mode: resolveMode(store.colorMode()),
+						salmon: {
+							main: '#fa8072',
+							light: '#ffb5a7',
+							dark: '#c14f47',
+							contrastText: '#000',
+						},
+						ochre: {
+							main: '#E3D026',
+							light: '#E9DB5D',
+							dark: '#A29415',
+							contrastText: '#242105',
+						},
+					},
+				})
+			}
+		>
+			<CssBaseline />
+			<Switch>
+				<Match when={!ready()}>
+					<FullPageLoader message="working" />
+				</Match>
 
-			<Match when={!store.isAuthenticated()}>
-				<LoginPage />
-			</Match>
+				<Match when={!store.isAuthenticated()}>
+					<LoginPage />
+				</Match>
 
-			<Match when={store.isAuthenticated()}>
-				<ThemeProvider
-					theme={() =>
-						createTheme({
-							palette: {
-								mode: resolveMode(store.colorMode()),
-							},
-						})
-					}
-				>
-					<CssBaseline />
+				<Match when={store.isAuthenticated()}>
+
 					<Router root={(props) => <App {...props} />}>
 						{dashboardRoutes}
 					</Router>
-				</ThemeProvider>
-			</Match>
-		</Switch>
+				</Match>
+			</Switch>
+		</ThemeProvider>
 	);
 };

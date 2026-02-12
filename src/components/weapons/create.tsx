@@ -22,7 +22,10 @@ import { WeaponCreateInput } from "@/types";
 import { useStore } from "@/store";
 
 export const CreateWeaponForm = () => {
-	const store = useStore();
+	const {
+		user,
+		weaponsSet,
+	} = useStore();
 
 	const defaultFormValues = {
 		barrelLength: "",
@@ -34,7 +37,7 @@ export const CreateWeaponForm = () => {
 		licenseStart: todayISODate(),
 		model: "",
 		name: "",
-		owner: store.user().id,
+		owner: user().id,
 		serialNumber: "",
 		type: "",
 	}
@@ -71,7 +74,7 @@ export const CreateWeaponForm = () => {
 				throw new Error("Please select federation, caliber and type.");
 			}
 
-			await weapon.create({
+			const newItem = await weapon.create({
 				barrelLength: current.barrelLength,
 				brand: current.brand,
 				caliber: current.caliber,
@@ -87,6 +90,7 @@ export const CreateWeaponForm = () => {
 			});
 
 			resetForm();
+			weaponsSet((prev) => [...prev, newItem]);
 			setSuccess(true);
 		} catch (err: any) {
 			setError(err?.message ?? "Something went wrong");
@@ -96,9 +100,9 @@ export const CreateWeaponForm = () => {
 	};
 
 	return (
-		<Paper sx={{ p: 4, maxWidth: 700 }}>
+		<Paper sx={{ p: 4 }}>
 			<Typography variant="h5" gutterBottom>
-				Create Weapon
+				Lägg till vapen
 			</Typography>
 
 			<form onSubmit={handleSubmit}>
@@ -111,15 +115,37 @@ export const CreateWeaponForm = () => {
 					)}
 
 					<TextField
-						label="Name"
+						label="Namn"
 						value={form().name}
 						onChange={handleChange("name")}
 						required
 						fullWidth
 					/>
 
+					<FormControl fullWidth required>
+						<InputLabel id="type-label">
+							Typ
+						</InputLabel>
+
+						<Select
+							labelId="type-label"
+							value={form().type ?? ""}
+							label="Type"
+							onChange={handleChange("type")}
+						>
+							<MenuItem value="" disabled>
+								Välj typ
+							</MenuItem>
+
+							{weaponTypes.map((f) => (
+								<MenuItem value={f}>{f}</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+
+
 					<TextField
-						label="Brand"
+						label="Märke"
 						value={form().brand}
 						onChange={handleChange("brand")}
 						fullWidth
@@ -132,69 +158,9 @@ export const CreateWeaponForm = () => {
 						fullWidth
 					/>
 
-					<TextField
-						label="Serial Number"
-						value={form().serialNumber}
-						onChange={handleChange("serialNumber")}
-						fullWidth
-					/>
-
-					<TextField
-						label="Barrel Length"
-						value={form().barrelLength}
-						onChange={handleChange("barrelLength")}
-						fullWidth
-					/>
-
-					<TextField
-						label="Classification"
-						value={form().classification}
-						onChange={handleChange("classification")}
-						fullWidth
-					/>
-
-					<TextField
-						label="License Start"
-						type="date"
-						value={form().licenseStart ?? ""}
-						onChange={handleChange("licenseStart")}
-						InputLabelProps={{ shrink: true }}
-						fullWidth
-					/>
-
-					<TextField
-						label="License End"
-						type="date"
-						value={form().licenseEnd}
-						onChange={handleChange("licenseEnd")}
-						InputLabelProps={{ shrink: true }}
-						fullWidth
-					/>
-
-					<FormControl fullWidth required>
-						<InputLabel id="federation-label">
-							Federation
-						</InputLabel>
-
-						<Select
-							labelId="federation-label"
-							value={form().federation ?? ""}
-							label="Federation"
-							onChange={handleChange("federation")}
-						>
-							<MenuItem value="" disabled>
-								Select federation
-							</MenuItem>
-
-							{federations.map((f) => (
-								<MenuItem value={f}>{f}</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-
 					<FormControl fullWidth required>
 						<InputLabel id="caliber-label">
-							Caliber
+							Kaliber
 						</InputLabel>
 
 						<Select
@@ -204,7 +170,7 @@ export const CreateWeaponForm = () => {
 							onChange={handleChange("caliber")}
 						>
 							<MenuItem value="" disabled>
-								Select caliber
+								Välj kaliber
 							</MenuItem>
 
 							{calibers.map((f) => (
@@ -213,26 +179,65 @@ export const CreateWeaponForm = () => {
 						</Select>
 					</FormControl>
 
+					<TextField
+						label="Serienummer"
+						value={form().serialNumber}
+						onChange={handleChange("serialNumber")}
+						fullWidth
+					/>
+
+					<TextField
+						label="Piplängd"
+						value={form().barrelLength}
+						onChange={handleChange("barrelLength")}
+						fullWidth
+					/>
+
+					<TextField
+						label="Klass"
+						value={form().classification}
+						onChange={handleChange("classification")}
+						fullWidth
+					/>
+
 					<FormControl fullWidth required>
-						<InputLabel id="type-label">
-							Type
+						<InputLabel id="federation-label">
+							Förbund
 						</InputLabel>
 
 						<Select
-							labelId="type-label"
-							value={form().type ?? ""}
-							label="Type"
-							onChange={handleChange("type")}
+							labelId="federation-label"
+							value={form().federation ?? ""}
+							label="Federation"
+							onChange={handleChange("federation")}
 						>
 							<MenuItem value="" disabled>
-								Select type
+								Välj förbund
 							</MenuItem>
 
-							{weaponTypes.map((f) => (
+							{federations.map((f) => (
 								<MenuItem value={f}>{f}</MenuItem>
 							))}
 						</Select>
 					</FormControl>
+
+					<TextField
+						label="Licens utfärdat"
+						type="date"
+						value={form().licenseStart ?? ""}
+						onChange={handleChange("licenseStart")}
+						InputLabelProps={{ shrink: true }}
+						fullWidth
+					/>
+
+					<TextField
+						label="License upphör"
+						type="date"
+						value={form().licenseEnd}
+						onChange={handleChange("licenseEnd")}
+						InputLabelProps={{ shrink: true }}
+						fullWidth
+					/>
 
 					<Button
 						type="submit"
@@ -240,7 +245,7 @@ export const CreateWeaponForm = () => {
 						disabled={loading()}
 						size="large"
 					>
-						{loading() ? <CircularProgress size={24} /> : "Create Weapon"}
+						{loading() ? <CircularProgress size={24} /> : "Lägg till"}
 					</Button>
 				</Stack>
 			</form>

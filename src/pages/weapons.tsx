@@ -1,32 +1,19 @@
 import { CreateWeaponForm } from "@/components/weapons/create";
-import { weapon } from "../../infrastructure/services";
-import { createEffect, createSignal, For, onMount, Show } from "solid-js";
-import { ReadListResponse, WeaponCollectionItem } from "@/types";
-
-type ListData = ReadListResponse<WeaponCollectionItem>;
+import { For } from "solid-js";
+import { useStore } from "@/store";
+import { WeaponItem } from "@/components/weapons";
 
 export const WeaponsPage = () => {
-	const [weaponsData, weaponsDataSet] = createSignal<ListData>();
-
-	onMount(async () => {
-		const data = await weapon.read({}) as ListData;
-		weaponsDataSet(data);
-	});
+	const {
+		weapons,
+	} = useStore();
 
 	return (
 		<section>
-			<For each={weaponsData()?.items}>
+			<For each={weapons()}>
 				{(data) => {
 					return (
-						<>
-							<br />
-							<br />
-							{data.name}
-							<br />
-							{data.brand}
-							<br />
-							{data.model}
-						</>
+						<WeaponItem {...data} />
 					);
 				}}
 			</For>
