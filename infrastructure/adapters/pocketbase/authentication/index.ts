@@ -1,5 +1,6 @@
 import { Collections } from "@/types";
 import { pb } from "../";
+import { ClientUser } from "@/types/user";
 
 export const pocketbaseAuthCheck = () => {
 	const validAuthUser = pb.authStore.isValid;
@@ -15,12 +16,28 @@ export const pocketbaseSignIn = async (props: { username: string; password: stri
 		password,
 	} = props;
 
-	await pb.collection(Collections.USERS).authWithPassword(
+	const authUser = await pb.collection(Collections.USERS).authWithPassword<ClientUser>(
 		username,
 		password,
 	);
+
+	return authUser.record;
 };
 
 export const pocketbaseSignOut = () => {
 	pb.authStore.clear();
+};
+
+export const pocketbaseAuthValidate = async () => {
+	pb.autoCancellation(false);
+
+	if (!pb.authStore.isValid) {
+		return {
+			user: null,
+		};
+	}
+
+	return {
+		user: pb.authStore.record as unknown as ClientUser,
+	};
 };

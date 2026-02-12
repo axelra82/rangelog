@@ -1,16 +1,25 @@
 import { TextField, Button, Box, Paper, Typography } from "@suid/material";
 import { auth } from "../../infrastructure/services";
 import { Component, createSignal } from "solid-js";
+import { useStore } from "@/store";
 
 export const LoginPage: Component = () => {
+	const store = useStore();
+
 	const [email, setEmail] = createSignal("");
 	const [password, setPassword] = createSignal("");
 
 	const handleLogin = async () => {
-		await auth.signin({
+		const authUser = await auth.signin({
 			username: email(),
 			password: password(),
 		});
+
+		if (authUser) {
+			store.userSet(authUser);
+			store.isAuthenticatedSet(true);
+		}
+
 	};
 
 	return (

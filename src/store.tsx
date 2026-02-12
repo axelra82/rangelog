@@ -1,4 +1,3 @@
-import { pb } from "../infrastructure/adapters/pocketbase";
 import { StoreContextType } from "./types";
 import { ColorMode } from "./types";
 
@@ -8,8 +7,8 @@ import {
 	useContext,
 	createSignal,
 	createEffect,
-	onMount,
 } from "solid-js";
+import { ClientUser } from "./types/user";
 
 const STORAGE_KEY = "color-mode";
 const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.SYSTEM;
@@ -17,29 +16,25 @@ const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.
 const StoreContext = createContext<StoreContextType>();
 
 export const StoreContextProvider = (props: { children: JSX.Element }) => {
-	const [user, setUser] = createSignal(pb.authStore.record);
-	const [isAuthenticated, setIsAuthenticated] = createSignal(pb.authStore.isValid);
+	const [user, userSet] = createSignal<ClientUser>({
+		created: "",
+		email: "",
+		id: ""
+	});
+	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
 	const [colorMode, setColorMode] = createSignal<ColorMode>(savedMode);
 
 	createEffect(() => {
 		localStorage.setItem(STORAGE_KEY, colorMode());
 	});
 
-	onMount(() => {
-		// Enable auto-refresh with cookie storage
-		pb.autoCancellation(false);
-		pb.authStore.onChange(() => {
-			setUser(pb.authStore.model);
-			setIsAuthenticated(pb.authStore.isValid);
-		});
-	});
-
 	const storeContextValue = {
 		user,
+		userSet,
 		isAuthenticated,
+		isAuthenticatedSet,
 		colorMode,
 		setColorMode,
-		logout: () => pb.authStore.clear(),
 	};
 
 	return (
@@ -51,8 +46,10 @@ export const StoreContextProvider = (props: { children: JSX.Element }) => {
 
 export const useStore = () => {
 	const store = useContext(StoreContext);
+
 	if (!store) {
 		throw new Error("useStore must be used within StoreContextProvider");
 	}
+
 	return store;
 };

@@ -1,3 +1,5 @@
+import { ClientUser } from "./user";
+
 /**
 	* Backend (infrastructure) provider enum used to determine which backend to use at build time.
 	*
@@ -15,7 +17,8 @@ export interface SigninProps {
 
 export type ProviderFunction = {
 	auth: {
-		signin: (props: SigninProps) => Promise<void>;
+		validate: () => Promise<{ user: ClientUser | null }>
+		signin: (props: SigninProps) => Promise<ClientUser>;
 		signout: () => void;
 	};
 };

@@ -22,8 +22,9 @@ export type ResourceHelper<T> = T & { disabled: false };
 
 export type StoreContextType = {
 	user: Accessor<ClientUser>;
+	userSet: Setter<ClientUser>;
 	isAuthenticated: Accessor<boolean>;
+	isAuthenticatedSet: Setter<boolean>;
 	colorMode: Accessor<ColorMode>;
 	setColorMode: Setter<ColorMode>;
-	logout: () => void;
 }

@@ -14,6 +14,8 @@
 		"generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.svg"
 	},
 	"dependencies": {
+		"@dicebear/collection": "^9.3.1",
+		"@dicebear/core": "^9.3.1",
 		"@emotion/react": "^11.14.0",
 		"@emotion/styled": "^11.14.1",
 		"@modular-forms/solid": "^0.25.1",
