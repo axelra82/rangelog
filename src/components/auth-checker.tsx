@@ -5,8 +5,9 @@ import { ColorMode } from "@/types";
 import { Router } from "@solidjs/router";
 import { LoginPage } from "@/pages/login";
 import { ThemeProvider, createTheme, CssBaseline } from "@suid/material";
-import { createSignal, onMount, Show } from "solid-js";
+import { createSignal, Match, onMount, Show, Switch } from "solid-js";
 import { auth } from "../../infrastructure/services";
+import { FullPageLoader } from "./loader";
 
 export const AuthChecker = () => {
 	const store = useStore();
@@ -43,19 +44,31 @@ export const AuthChecker = () => {
 	}
 
 	return (
-		<Show when={ready()}>
-			<Show when={store.isAuthenticated()} fallback={<LoginPage />}>
-				<ThemeProvider theme={() => createTheme({
-					palette: {
-						mode: resolveMode(store.colorMode()),
-					},
-				})}>
+		<Switch>
+			<Match when={!ready()}>
+				<FullPageLoader message="working" />
+			</Match>
+
+			<Match when={!store.isAuthenticated()}>
+				<LoginPage />
+			</Match>
+
+			<Match when={store.isAuthenticated()}>
+				<ThemeProvider
+					theme={() =>
+						createTheme({
+							palette: {
+								mode: resolveMode(store.colorMode()),
+							},
+						})
+					}
+				>
 					<CssBaseline />
 					<Router root={(props) => <App {...props} />}>
 						{dashboardRoutes}
 					</Router>
 				</ThemeProvider>
-			</Show>
-		</Show>
+			</Match>
+		</Switch>
 	);
 };
