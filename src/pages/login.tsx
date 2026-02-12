@@ -10,7 +10,7 @@ export const LoginPage: Component = () => {
 	const [password, setPassword] = createSignal("");
 
 	const handleLogin = async () => {
-		const authUser = await auth.signin({
+		const authUser = await auth.login({
 			username: email(),
 			password: password(),
 		});

@@ -18,7 +18,7 @@ export interface SigninProps {
 export type ProviderFunction = {
 	auth: {
 		validate: () => Promise<{ user: ClientUser | null }>
-		signin: (props: SigninProps) => Promise<ClientUser>;
-		signout: () => void;
+		login: (props: SigninProps) => Promise<ClientUser>;
+		logout: () => boolean;
 	};
 };

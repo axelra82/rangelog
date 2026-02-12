@@ -10,7 +10,7 @@ export const pocketbaseAuthCheck = () => {
 	}
 };
 
-export const pocketbaseSignIn = async (props: { username: string; password: string }) => {
+export const pocketbaseLogin = async (props: { username: string; password: string }) => {
 	const {
 		username,
 		password,
@@ -24,8 +24,9 @@ export const pocketbaseSignIn = async (props: { username: string; password: stri
 	return authUser.record;
 };
 
-export const pocketbaseSignOut = () => {
+export const pocketbaseLogout = () => {
 	pb.authStore.clear();
+	return true;
 };
 
 export const pocketbaseAuthValidate = async () => {

@@ -2,14 +2,14 @@ import { ProviderFunction } from "@/types/data-provider";
 
 import {
 	pocketbaseAuthValidate,
-	pocketbaseSignIn,
-	pocketbaseSignOut
+	pocketbaseLogin,
+	pocketbaseLogout
 } from "../../adapters/pocketbase/authentication";
 
 export const createPocketbaseProvider = (): ProviderFunction => ({
 	auth: {
 		validate: pocketbaseAuthValidate,
-		signin: pocketbaseSignIn,
-		signout: pocketbaseSignOut,
+		login: pocketbaseLogin,
+		logout: pocketbaseLogout,
 	},
 });
