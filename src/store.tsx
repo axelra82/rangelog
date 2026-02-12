@@ -1,5 +1,5 @@
+import { pb } from "../infrastructure/adapters/pocketbase";
 import { StoreContextType } from "./types";
-import { pb } from "./utilities/pocketbase";
 import { ColorMode } from "./types";
 
 import {
@@ -17,7 +17,7 @@ const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.
 const StoreContext = createContext<StoreContextType>();
 
 export const StoreContextProvider = (props: { children: JSX.Element }) => {
-	const [user, setUser] = createSignal(pb.authStore.model);
+	const [user, setUser] = createSignal(pb.authStore.record);
 	const [isAuthenticated, setIsAuthenticated] = createSignal(pb.authStore.isValid);
 	const [colorMode, setColorMode] = createSignal<ColorMode>(savedMode);
 

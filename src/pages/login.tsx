@@ -1,5 +1,5 @@
-import { pb } from "@/utilities/pocketbase";
 import { TextField, Button, Box, Paper, Typography } from "@suid/material";
+import { pb } from "../../infrastructure/adapters/pocketbase";
 import { Component, createSignal } from "solid-js";
 
 export const LoginPage: Component = () => {

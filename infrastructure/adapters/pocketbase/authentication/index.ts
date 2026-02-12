@@ -1,4 +1,4 @@
-import { pb } from "..";
+import { pb } from "../";
 
 export const pocketbaseOnDisconnect = () => {
 	pb.authStore.clear();
@@ -25,12 +25,8 @@ export const pocketbaseSignIn = async (props: { username: string; password: stri
 		username,
 		password,
 	);
-
-	if (authUser) {
-
-		console.log("–––––––––––––––––––––––––––");
-		console.log("authUser: ", authUser);
-	}
+	console.log("–––––––––––––––––––––––––––");
+	console.log("authUser: ", authUser);
 };
 
 export const pocketbaseSignOut = () => {
