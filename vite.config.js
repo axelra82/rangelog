@@ -67,9 +67,9 @@ export default defineConfig({
 						purpose: "maskable",
 					},
 				],
-				name: appName,
-				short_name: appName,
-				start_url: `https://${appName}.lalaland.app`,
+				name: "Rangelog",
+				short_name: "rangelog",
+				start_url: "https://rangelog.lalaland.app",
 				theme_color: "#0F0E14",
 			},
 		})
