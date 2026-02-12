@@ -211,3 +211,10 @@ export const timestampToSeconds = (timestamp: number) => {
 
 	return seconds;
 };
+
+/**
+	* Creates a string with todays date in ISO format (full year-two numbered month-two numbered day), e.g. `2026-02-12`
+	*
+	* @returns {string}
+	*/
+export const todayISODate = (): string => new Date().toISOString().split("T")[0];

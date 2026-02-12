@@ -4,4 +4,5 @@ export * from "./helpers";
 
 export const {
 	auth,
+	weapon,
 } = createProvider();

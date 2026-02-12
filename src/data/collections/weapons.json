@@ -3,7 +3,7 @@
 		"id": "pbc_3277702155",
 		"listRule": null,
 		"viewRule": null,
-		"createRule": null,
+		"createRule": "@request.auth.id != \"\"",
 		"updateRule": null,
 		"deleteRule": null,
 		"name": "weapons",
@@ -455,6 +455,19 @@
 					"Revolver",
 					"Annat"
 				]
+			},
+			{
+				"cascadeDelete": false,
+				"collectionId": "_pb_users_auth_",
+				"hidden": false,
+				"id": "relation2375276105",
+				"maxSelect": 1,
+				"minSelect": 0,
+				"name": "owner",
+				"presentable": false,
+				"required": true,
+				"system": false,
+				"type": "relation"
 			},
 			{
 				"hidden": false,

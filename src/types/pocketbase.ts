@@ -1,3 +1,6 @@
+import { Calibers, Federations } from "@/data";
+import { WeaponTypes } from "@/data/weapon-types";
+
 export enum Collections {
 	ACTIVITIES = "activities",
 	CLAIMS = "claims",
@@ -15,18 +18,45 @@ export enum PocketbaseQueryParam {
 	SORT = "sort",
 }
 
-interface StandardTableEntity {
-	created: Date;
+export interface ReadSingleOptions {
 	id: string;
-	updated: Date;
-}
+};
 
-interface CommonTableEntity {
-	description?: string;
-	title: string;
-}
+export interface ReadListRequest {
+	page?: number;
+	perPage?: number;
+	filter?: string;
+	sort?: string;
+};
 
-export interface WeaponsCollectionModel extends StandardTableEntity, CommonTableEntity {
+export interface ReadListResponse<T> {
+	items: T[];
+	page: number;
+	totalPages: number;
+	totalItems: number;
+};
+
+export interface WeaponCollectionItem {
+	barrelLength?: string;
 	brand?: string;
+	caliber: Calibers;
+	classification?: string;
+	created: string;
+	federation: Federations;
+	id: string;
+	licenseEnd?: string;
+	licenseStart?: string;
+	model?: string;
+	name: string;
 	owner: string;
-}
+	serialNumber?: string;
+	type: WeaponTypes;
+	updated: string;
+};
+
+export type WeaponCreateInput = Omit<
+	WeaponCollectionItem,
+	"id" | "created" | "updated"
+>;
+
+export type WeaponUpdateInput = Partial<WeaponCreateInput>;
