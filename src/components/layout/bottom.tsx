@@ -1,8 +1,6 @@
 import {
-	Accessor,
 	Component,
 	createSignal,
-	Setter
 } from "solid-js";
 import { timestampToLocaleDate } from "@/utilities";
 import {
@@ -15,12 +13,10 @@ import MoreHorizIcon from "@suid/icons-material/MoreHoriz";
 // import GitHubIcon from "@suid/icons-material/GitHub";
 
 import {
-	ColorMode,
 	Severity
 } from "../../types";
 import { ParentComponent } from "solid-js";
 import { pushSnackbar } from "../dialogue/snackbar-stack";
-import { ThemeSelect } from "../theme";
 import GitHubIcon from "../@suid/icons-material/GitHub";
 
 export const LayoutBottomBar: ParentComponent = (props) => {
@@ -91,10 +87,6 @@ export const LayoutBottomBar: ParentComponent = (props) => {
 				fontSize: "0.875rem",
 			}}
 		>
-			<Box sx={{ flexGrow: 1 }}>
-				<ThemeSelect />
-			</Box>
-
 			<RepoReference />
 			<BuildReference />
 			<BuildVersionDate />

@@ -17,7 +17,7 @@ export const LayoutMainMenu: ParentComponent = () => {
 
 	return (
 		<aside>
-			<nav class="p-4 flex justify-between max-w-4xl mx-auto">
+			<nav class="p-4 flex justify-between items-center max-w-4xl mx-auto">
 				<ul class="flex gap-4">
 					<li>
 						<ButtonText>

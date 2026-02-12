@@ -1,8 +1,9 @@
 import { Logout } from "@suid/icons-material";
-import { Menu, MenuItem, ListItemIcon } from "@suid/material";
+import { Menu, MenuItem, ListItemIcon, Divider } from "@suid/material";
 import { auth } from "../../../infrastructure/services";
 import { Accessor, Component, Setter } from "solid-js";
 import { useStore } from "@/store";
+import { ThemeSelect } from "../theme";
 
 interface ProfileMenuProps {
 	open: Accessor<boolean>;
@@ -63,6 +64,10 @@ export const ProfileMenu: Component<ProfileMenuProps> = (props) => {
 			vertical: "bottom",
 		}}
 	>
+		<MenuItem>
+			<ThemeSelect />
+		</MenuItem>
+		<Divider />
 		<MenuItem onClick={handleLogout}>
 			<ListItemIcon>
 				<Logout fontSize="small" />
