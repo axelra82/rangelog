@@ -47,7 +47,11 @@ update-all-latest: pnpm up --latest
 ## Running & testing
 ######################################################
 
-.PHONY: dev lint test
+.PHONY: component dev lint test
+
+# https://www.solid-ui.com/docs/cli
+component: setup
+	pnpm run component
 
 dev: setup
 	pnpm run dev

@@ -1,4 +1,4 @@
-import { Logout } from "@suid/icons-material";
+import { IconLogout } from "@tabler/icons-solidjs";
 import { Menu, MenuItem, ListItemIcon, Divider } from "@suid/material";
 import { auth } from "../../../infrastructure/services";
 import { Accessor, Component, Setter } from "solid-js";
@@ -70,7 +70,7 @@ export const ProfileMenu: Component<ProfileMenuProps> = (props) => {
 		<Divider />
 		<MenuItem onClick={handleLogout}>
 			<ListItemIcon>
-				<Logout fontSize="small" />
+				<IconLogout class="size-4" />
 			</ListItemIcon>
 			Logout
 		</MenuItem>

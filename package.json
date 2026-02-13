@@ -7,6 +7,7 @@
 		"url": "https://github.com/axelra82/rangelog"
 	},
 	"scripts": {
+		"component": "npx solidui-cli@latest add",
 		"dev": "cross-env VITE_DATA_PROVIDER=pocketbase vite",
 		"build": "cross-env VITE_DATA_PROVIDER=pocketbase vite build",
 		"serve": "cross-env VITE_DATA_PROVIDER=pocketbase vite serve",
@@ -30,6 +31,7 @@
 		"clsx": "^2.1.1",
 		"pocketbase": "^0.26.5",
 		"solid-js": "^1.9.10",
+		"solid-sonner": "^0.2.8",
 		"tailwind-merge": "^3.4.0",
 		"tailwindcss-animate": "^1.0.7",
 		"vite": "^7.3.0",
