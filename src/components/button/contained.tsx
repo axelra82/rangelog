@@ -29,7 +29,10 @@ export const ButtonContained: ParentComponent<ButtonOutlinedProps> = (props) => 
 				variant="contained"
 				sx={{
 					bgcolor: `${color ?? "primary"}.main`,
-					color: `${color ?? "primary"}.contrastText`
+					color: `${color ?? "primary"}.contrastText`,
+					"&:hover": {
+						bgcolor: `${color ?? "primary"}.dark`,
+					}
 				}}
 				{...options}
 			>
