@@ -1,162 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+	darkMode: ["variant", [".dark &", '[data-kb-theme="dark"] &']],
+	content: ["./src/**/*.{ts,tsx}"],
 	theme: {
-		screens: {
-			sm: "480px",
-			md: "768px",
-			lg: "1024px",
-			xl: "1440px",
-			"lg-landscape": { raw: "(min-width: 1024px) and (orientation: landscape)" },
-		},
-		fontSize: {
-			xs8: [
-				"0.05rem",
-				{
-					letterSpacing: "0.2px",
-				},
-			],
-			xs7: [
-				"0.15rem",
-				{
-					letterSpacing: "0.4px",
-				},
-			],
-			xs6: [
-				"0.25rem",
-				{
-					letterSpacing: "0.6px",
-				},
-			],
-			xs5: [
-				"0.35rem",
-				{
-					letterSpacing: "0.8px",
-				},
-			],
-			xs4: [
-				"0.45rem",
-				{
-					letterSpacing: "0.10px",
-				},
-			],
-			xs3: [
-				"0.55rem",
-				{
-					letterSpacing: "0.12px",
-				},
-			],
-			xs2: [
-				"0.65rem",
-				{
-					letterSpacing: "0.15px",
-				},
-			],
-			xs: [
-				"0.75rem",
-				{
-					letterSpacing: "0.25px",
-				},
-			],
-			sm: [
-				"0.875rem",
-				{
-					letterSpacing: "0.45px",
-				},
-			],
-			base: [
-				"1rem",
-				{
-					letterSpacing: "0.75px",
-				},
-			],
-			lg: [
-				"1.125rem",
-				{
-					letterSpacing: "0.5px",
-				},
-			],
-			xl: [
-				"1.25rem",
-				{
-					letterSpacing: "0.2px",
-				},
-			],
-			xl2: [
-				"1.5rem",
-				{
-					letterSpacing: "0",
-				},
-			],
-			xl3: [
-				"1.875rem",
-				{
-					letterSpacing: "0.12px",
-				},
-			],
-			xl4: [
-				"2.25rem",
-				{
-					letterSpacing: "-0.25px",
-				},
-			],
-			xl5: [
-				"3rem",
-				{
-					letterSpacing: "-0.25px",
-				},
-			],
-			xl6: [
-				"3.75rem",
-				{
-					letterSpacing: "-0.25px",
-				},
-			],
-			xl7: [
-				"4.5rem",
-				{
-					letterSpacing: "-0.25px",
-				},
-			],
-			xl8: [
-				"6rem",
-				{
-					letterSpacing: "-0.25px",
-				},
-			],
-			xl9: [
-				"8rem",
-				{
-					letterSpacing: "-0.25px",
-				},
-			],
-			xl10: [
-				"10rem",
-				{
-					letterSpacing: "-0.25px",
-				},
-			],
-			xl11: [
-				"12rem",
-				{
-					letterSpacing: "-0.25px",
-				},
-			],
+		container: {
+			center: true,
+			padding: "2rem",
+			screens: {
+				"2xl": "1400px"
+			}
 		},
 		extend: {
-			fontFamily: {
-				sans: ["system-ui", "sans-serif"],
-			},
-			lineHeight: {
-				normal: "normal",
-				initial: "initial",
-				inherit: "inherit",
-				unset: "unset",
-			},
 			colors: {
-				transparent: "transparent",
-				current: "currentColor",
-				black: "hsl(var(--color-black) / <alpha-value>)",
-				white: "hsl(var(--color-white) / <alpha-value>)",
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",
@@ -173,6 +28,22 @@ export default {
 				destructive: {
 					DEFAULT: "hsl(var(--destructive))",
 					foreground: "hsl(var(--destructive-foreground))"
+				},
+				info: {
+					DEFAULT: "hsl(var(--info))",
+					foreground: "hsl(var(--info-foreground))"
+				},
+				success: {
+					DEFAULT: "hsl(var(--success))",
+					foreground: "hsl(var(--success-foreground))"
+				},
+				warning: {
+					DEFAULT: "hsl(var(--warning))",
+					foreground: "hsl(var(--warning-foreground))"
+				},
+				error: {
+					DEFAULT: "hsl(var(--error))",
+					foreground: "hsl(var(--error-foreground))"
 				},
 				muted: {
 					DEFAULT: "hsl(var(--muted))",
@@ -192,47 +63,39 @@ export default {
 				}
 			},
 			borderRadius: {
-				lg: `var(--radius)`,
-				md: `calc(var(--radius) - 2px)`,
+				xl: "calc(var(--radius) + 4px)",
+				lg: "var(--radius)",
+				md: "calc(var(--radius) - 2px)",
 				sm: "calc(var(--radius) - 4px)"
 			},
-			opacity: {
-				1: "0.015",
-				2: "0.025",
-				3: "0.035",
-				4: "0.045",
+			keyframes: {
+				"accordion-down": {
+					from: { height: 0 },
+					to: { height: "var(--kb-accordion-content-height)" }
+				},
+				"accordion-up": {
+					from: { height: "var(--kb-accordion-content-height)" },
+					to: { height: 0 }
+				},
+				"content-show": {
+					from: { opacity: 0, transform: "scale(0.96)" },
+					to: { opacity: 1, transform: "scale(1)" }
+				},
+				"content-hide": {
+					from: { opacity: 1, transform: "scale(1)" },
+					to: { opacity: 0, transform: "scale(0.96)" }
+				}
 			},
-			blur: {
-				xl4: "82px",
-				xl5: "96px",
-				xl6: "128px",
-			},
-			fill: {
-				current: "currentColor",
-			},
-			spacing: {
-				xs: "0.25rem",
-				sm: "0.5rem",
-				md: "1rem",
-				lg: "2rem",
-				xl: "3rem",
-			},
-			stroke: {
-				current: "currentColor",
-			},
-			zIndex: {
-				"-1": "-1",
-				1: "1",
-				99: "99",
-				dialog: "101",
-				"dialog-backdrop": "100",
-				"loading-dialog": "100",
-				toast: "999",
-				"viewer-tool-buttons": "99",
-			},
-		},
+			animation: {
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
+				"content-show": "content-show 0.2s ease-out",
+				"content-hide": "content-hide 0.2s ease-out"
+			}
+		}
 	},
 	plugins: [
 		require("@tailwindcss/forms"),
-	],
+		require("tailwindcss-animate")
+	]
 };
