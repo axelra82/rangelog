@@ -11,7 +11,7 @@
 		"build": "cross-env VITE_DATA_PROVIDER=pocketbase vite build",
 		"serve": "cross-env VITE_DATA_PROVIDER=pocketbase vite serve",
 		"clean": "rm -rf node_modules && rm pnpm-lock.yaml",
-		"generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.svg"
+		"generate-pwa-assets": "pwa-assets-generator"
 	},
 	"dependencies": {
 		"@dicebear/collection": "^9.3.1",
