@@ -7,7 +7,6 @@ import { A } from "@solidjs/router";
 interface ButtonOutlinedProps extends SharedButtonOptions { }
 
 export const ButtonContained: ParentComponent<ButtonOutlinedProps> = (props) => {
-
 	const {
 		children,
 		...rest

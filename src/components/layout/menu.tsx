@@ -17,27 +17,21 @@ export const LayoutMainMenu: ParentComponent = () => {
 
 	return (
 		<aside>
-			<nav class="p-4 flex justify-between items-center max-w-4xl mx-auto">
-				<ul class="flex gap-4">
+			<nav class="p-2 flex justify-between items-center max-w-4xl mx-auto">
+				<ul class="flex gap-2">
 					<li>
-						<ButtonText>
-							<A href="/">
-								Dashboard
-							</A>
+						<ButtonText route="/">
+							Dashboard
 						</ButtonText>
 					</li>
 					<li>
-						<ButtonText>
-							<A href="/activities">
-								Aktiviteter
-							</A>
+						<ButtonText route="/activities">
+							Aktiviteter
 						</ButtonText>
 					</li>
 					<li>
-						<ButtonText>
-							<A href="/weapons">
-								Vapen
-							</A>
+						<ButtonText route="/weapons">
+							Vapen
 						</ButtonText>
 					</li>
 				</ul>
