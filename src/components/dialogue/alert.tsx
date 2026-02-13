@@ -1,4 +1,5 @@
 import { Severity } from "@/types";
+import { severityColor } from "@/utilities";
 import {
 	Dialog,
 	DialogContent,
@@ -20,13 +21,6 @@ interface AlertDialogProps {
 	message: string | JSXElement;
 	severity?: Severity;
 }
-
-const severityColor = (severity: Severity) => ({
-	error: "error.main",
-	warning: "warning.main",
-	info: "info.main",
-	success: "success.main",
-}[severity]);
 
 export const AlertDialogue: ParentComponent<AlertDialogProps> = (props) => (
 	<Dialog

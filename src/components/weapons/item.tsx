@@ -16,7 +16,7 @@ import {
 	DialogContentText,
 	DialogTitle,
 } from "@suid/material";
-import { weapon } from "../../../infrastructure/services";
+import { weapons } from "../../../infrastructure/services";
 
 import {
 	Component,
@@ -28,7 +28,7 @@ import { useStore } from "@/store";
 
 export const WeaponItem: Component<WeaponCollectionItem> = (props) => {
 	const {
-		weapons,
+		weapons: storeWeapons,
 		weaponsSet,
 	} = useStore();
 	const licenseWarning = createMemo(() => checkLicenseExpiry(props.licenseEnd));
@@ -36,10 +36,10 @@ export const WeaponItem: Component<WeaponCollectionItem> = (props) => {
 	const [showDeleteDialog, showDeleteDialogSet] = createSignal(false);
 
 	const handleDelete = () => {
-		weapon.delete(props.id);
+		weapons.delete(props.id);
 		showDeleteDialogSet(false);
 		weaponsSet((prev) => {
-			const currentIndex = weapons().findIndex((item) => item.id === props.id);
+			const currentIndex = storeWeapons().findIndex((item) => item.id === props.id);
 			if (currentIndex !== -1) {
 				prev.splice(currentIndex, 1);
 			}

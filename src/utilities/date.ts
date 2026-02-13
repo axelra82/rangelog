@@ -1,3 +1,5 @@
+import { DefaultThemePaletteColor } from "@/types/theme";
+
 const second = 1000;
 const minute = second * 60;
 const hour = minute * 60;
@@ -234,15 +236,17 @@ export const checkLicenseExpiry = (licenseEnd?: string) => {
 
 	if (diffDays < 0) {
 		return {
-			severity: 'error' as const,
-			message: `License expired ${Math.abs(diffDays)} days ago`
+			severity: DefaultThemePaletteColor.ERROR,
+			message: `License expired ${Math.abs(diffDays)} days ago`,
 		};
 	}
 
 	if (endDate <= sixMonthsFromNow) {
+		const isToday = diffDays === 0;
+
 		return {
-			severity: 'warning' as const,
-			message: `License expires in ${diffDays} days`
+			severity: isToday ? DefaultThemePaletteColor.ERROR : DefaultThemePaletteColor.WARNING,
+			message: `License expires ${isToday ? `today` : `in ${diffDays} days`}`,
 		};
 	}
 

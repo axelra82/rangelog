@@ -15,6 +15,7 @@ export const ButtonContained: ParentComponent<ButtonOutlinedProps> = (props) => 
 
 	const {
 		route,
+		color,
 		...options
 	} = rest;
 
@@ -27,6 +28,10 @@ export const ButtonContained: ParentComponent<ButtonOutlinedProps> = (props) => 
 		>
 			<Button
 				variant="contained"
+				sx={{
+					bgcolor: `${color ?? "primary"}.main`,
+					color: `${color ?? "primary"}.contrastText`
+				}}
 				{...options}
 			>
 				{children}

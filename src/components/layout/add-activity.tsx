@@ -1,10 +1,11 @@
-import { AlertDialogue, ButtonContained } from "..";
+import { ButtonContained, Dialogue } from "..";
 
 import { createSignal } from "solid-js";
 
 import AddIcon from "@suid/icons-material/Add";
 
 import { Severity } from "@/types";
+import { DefaultThemePaletteColor } from "@/types/theme";
 
 export const AddActivity = () => {
 	const [show, showSet] = createSignal<boolean>(false);
@@ -17,28 +18,26 @@ export const AddActivity = () => {
 		<>
 			<ButtonContained
 				size="large"
-				color="success"
+				color={DefaultThemePaletteColor.SUCCESS}
 				onClick={() => open()}
 				fullWidth
 			>
 				<AddIcon fontSize="small" /> Aktivitet
 			</ButtonContained>
-			<AlertDialogue
+			<Dialogue
 				state={show}
 				stateSet={showSet}
-				title={<span class="text-slate-900">Logga aktivitet</span>}
-				message={
-					<>
-						<h3>
-							Some data.
-						</h3>
-						<div>
-							other options <strong>that can be bold</strong>.
-						</div>
-					</>
-				}
 				severity={Severity.SUCCESS}
-			/>
+			>
+				<>
+					<h3>
+						Some data.
+					</h3>
+					<div>
+						other options <strong>that can be bold</strong>.
+					</div>
+				</>
+			</Dialogue>
 		</>
 	);
 }

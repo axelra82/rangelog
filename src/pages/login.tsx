@@ -1,25 +1,40 @@
-import { TextField, Button, Box, Paper, Typography } from "@suid/material";
+import {
+	TextField,
+	Box,
+	Paper,
+	Typography,
+	CircularProgress,
+} from "@suid/material";
 import { auth } from "../../infrastructure/services";
-import { Component, createSignal } from "solid-js";
+import { Component, createSignal, Show } from "solid-js";
 import { useStore } from "@/store";
+import { ButtonContained } from "@/components";
+import { CustomThemePaletteColor, DefaultThemePaletteColor } from "@/types/theme";
 
 export const LoginPage: Component = () => {
-	const store = useStore();
+	const {
+		userSet,
+		isAuthenticatedSet,
+		working,
+		workingSet,
+	} = useStore();
 
 	const [email, setEmail] = createSignal("");
 	const [password, setPassword] = createSignal("");
 
 	const handleLogin = async () => {
+		workingSet(true);
 		const authUser = await auth.login({
 			username: email(),
 			password: password(),
 		});
 
 		if (authUser) {
-			store.userSet(authUser);
-			store.isAuthenticatedSet(true);
+			userSet(authUser);
+			isAuthenticatedSet(true);
 		}
 
+		workingSet(false);
 	};
 
 	return (
@@ -49,9 +64,23 @@ export const LoginPage: Component = () => {
 						value={password()}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<Button variant="contained" fullWidth onClick={handleLogin}>
-						Login
-					</Button>
+					<ButtonContained
+						fullWidth
+						onClick={handleLogin}
+						disabled={working()}
+					>
+						<Show
+							when={working()}
+							fallback="Login"
+						>
+							<CircularProgress
+								sx={{
+									color: "primary.contrastText"
+								}}
+								size={24}
+							/>
+						</Show>
+					</ButtonContained>
 				</Box>
 			</Paper>
 		</Box>

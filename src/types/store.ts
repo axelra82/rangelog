@@ -30,4 +30,6 @@ export type StoreContextType = {
 	userSet: Setter<ClientUser>;
 	weapons: Accessor<WeaponCollectionItem[]>;
 	weaponsSet: Setter<WeaponCollectionItem[]>;
+	working: Accessor<boolean>;
+	workingSet: Setter<boolean>;
 }

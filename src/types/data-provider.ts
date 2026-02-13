@@ -29,7 +29,7 @@ export type ProviderFunction = {
 		login: (props: SigninProps) => Promise<ClientUser>;
 		logout: () => boolean;
 	};
-	weapon: {
+	weapons: {
 		create: (data: WeaponCreateInput) => Promise<WeaponCollectionItem>;
 		read: (options: ReadSingleOptions | ReadListRequest) => Promise<WeaponCollectionItem | ReadListResponse<WeaponCollectionItem>>;
 		update: (id: string, data: WeaponUpdateInput) => Promise<WeaponCollectionItem>;

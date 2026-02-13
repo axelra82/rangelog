@@ -24,6 +24,7 @@ export const StoreContextProvider = (props: { children: JSX.Element }) => {
 		id: ""
 	});
 	const [weapons, weaponsSet] = createSignal<WeaponCollectionItem[]>([]);
+	const [working, workingSet] = createSignal<boolean>(false);
 
 	createEffect(() => {
 		localStorage.setItem(STORAGE_KEY, colorMode());
@@ -38,6 +39,8 @@ export const StoreContextProvider = (props: { children: JSX.Element }) => {
 		userSet,
 		weapons,
 		weaponsSet,
+		working,
+		workingSet,
 	};
 
 	return (

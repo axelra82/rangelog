@@ -1,10 +1,11 @@
-import { AlertDialogue, ButtonContained } from "..";
+import { ButtonContained, Dialogue } from "..";
 
 import { createSignal } from "solid-js";
 
 import AddIcon from "@suid/icons-material/Add";
 
 import { Severity } from "@/types";
+import { DefaultThemePaletteColor } from "@/types/theme";
 
 export const AddClaim = () => {
 	const [show, showSet] = createSignal(false);
@@ -17,28 +18,26 @@ export const AddClaim = () => {
 		<>
 			<ButtonContained
 				size="large"
-				color="warning"
+				color={DefaultThemePaletteColor.WARNING}
 				onClick={() => open()}
 				fullWidth
 			>
 				<AddIcon fontSize="small" /> Fordring
 			</ButtonContained>
-			<AlertDialogue
+			<Dialogue
 				state={show}
 				stateSet={showSet}
-				title={<span class="text-slate-900">Lägg till fordring</span>}
-				message={
-					<>
-						<h3>
-							Some data.
-						</h3>
-						<div>
-							other options <strong>that can be bold</strong>.
-						</div>
-					</>
-				}
 				severity={Severity.WARNING}
-			/>
+			>
+				<>
+					<h3>
+						Some data.
+					</h3>
+					<div>
+						other options <strong>that can be bold</strong>.
+					</div>
+				</>
+			</Dialogue>
 		</>
 	);
 }

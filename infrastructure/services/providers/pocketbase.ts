@@ -11,7 +11,7 @@ import {
 	pocketbaseReadWeaponCollectionItem,
 	pocketbaseUpdateWeaponCollectionItem,
 	pocketbaseDeleteWeaponCollectionItem,
-} from "../../adapters/pocketbase/weapon";
+} from "../../adapters/pocketbase/weapons";
 
 export const createPocketbaseProvider = (): ProviderFunction => ({
 	auth: {
@@ -19,7 +19,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		login: pocketbaseLogin,
 		logout: pocketbaseLogout,
 	},
-	weapon: {
+	weapons: {
 		create: pocketbaseCreateWeaponCollectionItem,
 		read: pocketbaseReadWeaponCollectionItem,
 		update: pocketbaseUpdateWeaponCollectionItem,

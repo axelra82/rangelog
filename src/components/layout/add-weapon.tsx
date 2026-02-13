@@ -1,4 +1,4 @@
-import { AlertDialogue, ButtonContained } from "..";
+import { AlertDialogue, ButtonContained, Dialogue } from "..";
 
 import { createSignal } from "solid-js";
 
@@ -23,15 +23,13 @@ export const AddWeapon = () => {
 			>
 				<AddIcon fontSize="small" /> Vapen
 			</ButtonContained>
-			<AlertDialogue
+			<Dialogue
 				state={show}
 				stateSet={showSet}
-				title={<span class="text-slate-900">Lägg till vapen</span>}
-				message={
-					<CreateWeaponForm />
-				}
 				severity={Severity.INFO}
-			/>
+			>
+				<CreateWeaponForm modal />
+			</Dialogue>
 		</>
 	);
 }

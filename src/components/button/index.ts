@@ -1,7 +1,8 @@
+import { CustomThemePaletteColor, DefaultThemePaletteColor } from "@/types/theme";
 import ButtonProps from "@suid/material/Button/ButtonProps";
 
 export interface SharedButtonOptions extends ButtonProps {
-	color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
+	color?: DefaultThemePaletteColor | CustomThemePaletteColor;
 	size?: "large" | "medium" | "small";
 	onClick?: () => void;
 	route?: string;

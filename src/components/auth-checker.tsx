@@ -6,39 +6,8 @@ import { Router } from "@solidjs/router";
 import { LoginPage } from "@/pages/login";
 import { ThemeProvider, createTheme, CssBaseline } from "@suid/material";
 import { createSignal, Match, onMount, Switch } from "solid-js";
-import { auth, weapon } from "../../infrastructure/services";
+import { auth, weapons } from "../../infrastructure/services";
 import { FullPageLoader } from "./loader";
-
-declare module "@suid/material/styles" {
-	interface Palette {
-		salmon: {
-			main: string;
-			light: string;
-			dark: string;
-			contrastText: string;
-		};
-		ochre: {
-			main: string;
-			light: string;
-			dark: string;
-			contrastText: string;
-		};
-	}
-	interface PaletteOptions {
-		salmon?: {
-			main: string;
-			light: string;
-			dark: string;
-			contrastText: string;
-		};
-		ochre?: {
-			main: string;
-			light: string;
-			dark: string;
-			contrastText: string;
-		};
-	}
-}
 
 export const AuthChecker = () => {
 	const store = useStore();
@@ -51,7 +20,7 @@ export const AuthChecker = () => {
 		if (result.user) {
 			store.userSet(result.user);
 			store.isAuthenticatedSet(true);
-			const weaponsData = await weapon.read({}) as ReadListResponse<WeaponCollectionItem>;
+			const weaponsData = await weapons.read({}) as ReadListResponse<WeaponCollectionItem>;
 			store.weaponsSet(weaponsData.items);
 		}
 
