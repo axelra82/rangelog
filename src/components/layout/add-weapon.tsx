@@ -5,7 +5,7 @@ import { createSignal } from "solid-js";
 import AddIcon from "@suid/icons-material/Add";
 
 import { Severity } from "@/types";
-import { CreateWeaponForm } from "../weapons";
+import { ManageWeaponForm } from "../weapons";
 
 export const AddWeapon = () => {
 	const [show, showSet] = createSignal(false);
@@ -28,7 +28,7 @@ export const AddWeapon = () => {
 				stateSet={showSet}
 				severity={Severity.INFO}
 			>
-				<CreateWeaponForm modal />
+				<ManageWeaponForm modal />
 			</Dialogue>
 		</>
 	);

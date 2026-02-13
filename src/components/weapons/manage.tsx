@@ -28,7 +28,7 @@ interface CreateWeaponFormProps {
 	onSuccess?: () => void; // Callback for modal close
 }
 
-export const CreateWeaponForm: Component<CreateWeaponFormProps> = (props) => {
+export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 	const {
 		user,
 		weaponsSet,

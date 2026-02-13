@@ -23,7 +23,7 @@ import {
 } from "solid-js";
 import { useStore } from "@/store";
 import { WeaponLicenseExpireWarning } from "./license-expire";
-import { CreateWeaponForm } from "./"; // Import the form
+import { ManageWeaponForm } from "./"; // Import the form
 
 export const WeaponItem: Component<WeaponCollectionItem> = (props) => {
 	const {
@@ -157,7 +157,7 @@ export const WeaponItem: Component<WeaponCollectionItem> = (props) => {
 						fullWidth
 					>
 						<DialogContent>
-							<CreateWeaponForm
+							<ManageWeaponForm
 								modal
 								editWeapon={props}
 								onSuccess={() => showEditDialogSet(false)}
