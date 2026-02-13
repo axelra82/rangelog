@@ -1,4 +1,5 @@
 import { DefaultThemePaletteColor } from "@/types/theme";
+import { AlertColor } from "@suid/material/Alert";
 
 const second = 1000;
 const minute = second * 60;
@@ -236,7 +237,7 @@ export const checkLicenseExpiry = (licenseEnd?: string) => {
 
 	if (diffDays < 0) {
 		return {
-			severity: DefaultThemePaletteColor.ERROR,
+			severity: DefaultThemePaletteColor.ERROR as AlertColor,
 			message: `License expired ${Math.abs(diffDays)} days ago`,
 		};
 	}
@@ -245,7 +246,7 @@ export const checkLicenseExpiry = (licenseEnd?: string) => {
 		const isToday = diffDays === 0;
 
 		return {
-			severity: isToday ? DefaultThemePaletteColor.ERROR : DefaultThemePaletteColor.WARNING,
+			severity: (isToday ? DefaultThemePaletteColor.ERROR : DefaultThemePaletteColor.WARNING) as AlertColor,
 			message: `License expires ${isToday ? `today` : `in ${diffDays} days`}`,
 		};
 	}

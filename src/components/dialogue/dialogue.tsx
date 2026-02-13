@@ -7,13 +7,13 @@ import {
 	DialogContent,
 	DialogContentText,
 } from "@suid/material";
-import { Accessor, JSX, ParentComponent, Setter, Show } from "solid-js";
+import { Accessor, JSXElement, ParentComponent, Setter, Show } from "solid-js";
 
 interface DialogueProps {
 	severity?: Severity;
 	state: Accessor<boolean>;
 	stateSet: Setter<boolean>;
-	title?: string | JSX.Element;
+	title?: string | JSXElement;
 }
 
 export const Dialogue: ParentComponent<DialogueProps> = (props) => (

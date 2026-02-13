@@ -15,7 +15,7 @@ const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.
 
 const StoreContext = createContext<StoreContextType>();
 
-export const StoreContextProvider = (props: { children: JSX.Element }) => {
+export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const [colorMode, colorModeSet] = createSignal<ColorMode>(savedMode);
 	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
 	const [user, userSet] = createSignal<ClientUser>({

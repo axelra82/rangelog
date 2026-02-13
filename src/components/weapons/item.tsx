@@ -1,5 +1,4 @@
 import { WeaponCollectionItem } from "@/types";
-import { checkLicenseExpiry } from "@/utilities";
 import {
 	Card,
 	CardContent,
@@ -21,18 +20,16 @@ import { weapons } from "../../../infrastructure/services";
 import {
 	Component,
 	Show,
-	createMemo,
 	createSignal,
 } from "solid-js";
 import { useStore } from "@/store";
+import { WeaponLicenseExpireWarning } from "./license-expire";
 
 export const WeaponItem: Component<WeaponCollectionItem> = (props) => {
 	const {
 		weapons: storeWeapons,
 		weaponsSet,
 	} = useStore();
-	const licenseWarning = createMemo(() => checkLicenseExpiry(props.licenseEnd));
-
 	const [showDeleteDialog, showDeleteDialogSet] = createSignal(false);
 
 	const handleDelete = () => {
@@ -77,11 +74,9 @@ export const WeaponItem: Component<WeaponCollectionItem> = (props) => {
 						</Stack>
 					</Box>
 
-					<Show when={licenseWarning()}>
-						<Alert severity={licenseWarning()!.severity}>
-							{licenseWarning()!.message}
-						</Alert>
-					</Show>
+					<WeaponLicenseExpireWarning
+						endDate={props.licenseEnd}
+					/>
 
 					<Divider />
 

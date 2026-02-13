@@ -3,7 +3,7 @@ import { initials } from "@dicebear/collection";
 import { createAvatar } from "@dicebear/core";
 import {
 	Component,
-	JSX,
+	JSXElement,
 	mergeProps,
 } from "solid-js";
 
@@ -16,9 +16,9 @@ interface AvatarInterface {
 /**
 	* Reusable avatar component. Size can be set using predefined values in interface. All sizes are in square `px`.
 	*
-	* @returns {JSX.Element}
+	* @returns {JSXElement}
 	*/
-export const Avatar: Component<AvatarInterface> = (props): JSX.Element => {
+export const Avatar: Component<AvatarInterface> = (props): JSXElement => {
 	const merged = mergeProps({
 		imageSource: "",
 		class: "",
