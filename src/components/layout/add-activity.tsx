@@ -6,6 +6,7 @@ import AddIcon from "@suid/icons-material/Add";
 
 import { Severity } from "@/types";
 import { DefaultThemePaletteColor } from "@/types/theme";
+import { ManageActivityForm } from "../activities";
 
 export const AddActivity = () => {
 	const [show, showSet] = createSignal<boolean>(false);
@@ -29,14 +30,7 @@ export const AddActivity = () => {
 				stateSet={showSet}
 				severity={Severity.SUCCESS}
 			>
-				<>
-					<h3>
-						Some data.
-					</h3>
-					<div>
-						other options <strong>that can be bold</strong>.
-					</div>
-				</>
+				<ManageActivityForm modal />
 			</Dialogue>
 		</>
 	);

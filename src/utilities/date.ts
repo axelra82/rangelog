@@ -220,16 +220,53 @@ export const timestampToSeconds = (timestamp: number) => {
 	*
 	* @returns {string}
 	*/
-export const todayISODate = (): string => new Date().toISOString().split("T")[0];
+export const todayISODate = (
+	preserveTime = false,
+	spacedTime = false,
+): string => {
+	const date = new Date();
+
+	if (preserveTime) {
+		// Format for datetime-local input: "yyyy-MM-ddTHH:mm"
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, "0");
+		const day = String(date.getDate()).padStart(2, "0");
+		const hours = String(date.getHours()).padStart(2, "0");
+		const minutes = String(date.getMinutes()).padStart(2, "0");
+
+		return `${year}-${month}-${day}${spacedTime ? " " : "T"}${hours}:${minutes}:00`;
+	}
+
+	// Format for date input: "yyyy-MM-dd"
+	return date.toISOString().split("T")[0];
+}
 
 /**
-	* Convert ISO datetime string to date-only format (yyyy-MM-dd) for date inputs
+	* Convert ISO datetime string to format suitable for HTML date/datetime inputs
 	*
-	* @param {string} isoDateTime ISO datetime string like "2025-01-05 00:00:00.000Z"
-	* @returns {string} Date string in yyyy-MM-dd format
+	* @param isoDateTime ISO datetime string like "2025-01-05T10:30:00.000Z" or "2025-01-05 10:30:00.000Z"
+	* @param withTime If true, returns "yyyy-MM-ddTHH:mm" for datetime-local input, otherwise "yyyy-MM-dd" for date input
+	* @returns Formatted string for HTML input
 	*/
-export const isoDateTimeToDateInput = (isoDateTime: string): string => {
-	return isoDateTime.split('T')[0].split(' ')[0];
+export const isoDateTimeToDateInput = (
+	isoDateTime: string,
+	withTime = false,
+	spacedTime = true,
+): string => {
+	const date = new Date(isoDateTime);
+
+	if (withTime) {
+		// Format for datetime-local input: "yyyy-MM-ddTHH:mm"
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, "0");
+		const day = String(date.getDate()).padStart(2, "0");
+		const hours = String(date.getHours()).padStart(2, "0");
+		const minutes = String(date.getMinutes()).padStart(2, "0");
+		return `${year}-${month}-${day}${spacedTime ? " " : "T"}${hours}:${minutes}:00`;
+	}
+
+	// Format for date input: "yyyy-MM-dd"
+	return date.toISOString().split("T")[0];
 };
 
 export const checkLicenseExpiry = (licenseEnd?: string) => {

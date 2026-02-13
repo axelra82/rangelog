@@ -1,12 +1,16 @@
-import { StoreContextType, WeaponCollectionItem } from "./types";
+import {
+	ActivityCollectionItem,
+	StoreContextType,
+	WeaponCollectionItem,
+} from "./types";
 import { ColorMode } from "./types";
 
 import {
 	createContext,
-	JSX,
 	useContext,
 	createSignal,
 	createEffect,
+	JSXElement,
 } from "solid-js";
 import { ClientUser } from "./types/user";
 
@@ -16,6 +20,7 @@ const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.
 const StoreContext = createContext<StoreContextType>();
 
 export const StoreContextProvider = (props: { children: JSXElement }) => {
+	const [activities, activitiesSet] = createSignal<ActivityCollectionItem[]>([]);
 	const [colorMode, colorModeSet] = createSignal<ColorMode>(savedMode);
 	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
 	const [user, userSet] = createSignal<ClientUser>({
@@ -31,6 +36,8 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 	});
 
 	const storeContextValue = {
+		activities,
+		activitiesSet,
 		colorMode,
 		colorModeSet,
 		isAuthenticated,
