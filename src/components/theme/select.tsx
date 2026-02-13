@@ -1,6 +1,10 @@
+import {
+	IconDeviceLaptop,
+	IconMoon,
+	IconSun,
+} from "@tabler/icons-solidjs";
 import { useStore } from "~/store";
 import { ColorMode } from "~/types";
-import { Computer, DarkMode, LightMode } from "@suid/icons-material";
 import { ToggleButton, ToggleButtonGroup } from "@suid/material";
 import { Component } from "solid-js";
 
@@ -24,14 +28,13 @@ export const ThemeSelect: Component = () => {
 			onChange={handleChange}
 		>
 			<ToggleButton value="light" size="small">
-				<LightMode fontSize="small" />
+				<IconSun class="size-4" />
 			</ToggleButton>
 			<ToggleButton value="dark" size="small">
-				<DarkMode fontSize="small" />
+				<IconMoon class="size-4" />
 			</ToggleButton>
-
 			<ToggleButton value="system" size="small">
-				<Computer fontSize="small" />
+				<IconDeviceLaptop class="size-4" />
 			</ToggleButton>
 		</ToggleButtonGroup>
 	);

@@ -1,11 +1,21 @@
 import { App } from "../app";
 import { dashboardRoutes } from "~/routes";
 import { useStore } from "~/store";
-import { ColorMode, ReadListResponse, WeaponCollectionItem } from "~/types";
+import {
+	ColorMode,
+	ReadListResponse,
+	WeaponCollectionItem,
+} from "~/types";
 import { Router } from "@solidjs/router";
 import { LoginPage } from "~/pages/login";
-import { ThemeProvider, createTheme, CssBaseline } from "@suid/material";
-import { createEffect, createSignal, Match, onMount, Switch } from "solid-js";
+import {
+	createEffect,
+	createSignal,
+	Match,
+	onCleanup,
+	onMount,
+	Switch,
+} from "solid-js";
 import { auth, weapons } from "../../infrastructure/services";
 import { FullPageLoader } from "./loader";
 
@@ -38,62 +48,44 @@ export const AuthChecker = () => {
 		}
 	});
 
-	const getSystemMode = (): ColorMode.LIGHT | ColorMode.DARK => {
-		if (typeof window === "undefined" || !window.matchMedia) {
-			return ColorMode.DARK;
-		}
+	createEffect(() => {
+		const mode = colorMode();
+		const root = document.documentElement;
 
-		return window.matchMedia("(prefers-color-scheme: dark)").matches
-			? ColorMode.DARK
-			: ColorMode.LIGHT;
-	}
+		const media = window.matchMedia("(prefers-color-scheme: dark)");
 
-	const resolveMode = (mode: ColorMode): ColorMode.LIGHT | ColorMode.DARK => {
+		const apply = (isDark: boolean) => {
+			root.classList.toggle("dark", isDark);
+		};
+
 		if (mode === ColorMode.SYSTEM) {
-			return getSystemMode();
-		}
+			apply(media.matches);
 
-		return mode;
-	}
+			// Optional: react to system changes
+			const listener = (e: MediaQueryListEvent) => apply(e.matches);
+			media.addEventListener("change", listener);
+
+			onCleanup(() => media.removeEventListener("change", listener));
+		} else {
+			apply(mode === ColorMode.DARK);
+		}
+	});
 
 	return (
-		<ThemeProvider
-			theme={() =>
-				createTheme({
-					palette: {
-						mode: resolveMode(colorMode()),
-						salmon: {
-							main: '#fa8072',
-							light: '#ffb5a7',
-							dark: '#c14f47',
-							contrastText: '#000',
-						},
-						ochre: {
-							main: '#E3D026',
-							light: '#E9DB5D',
-							dark: '#A29415',
-							contrastText: '#242105',
-						},
-					},
-				})
-			}
-		>
-			<CssBaseline />
-			<Switch>
-				<Match when={!ready()}>
-					<FullPageLoader message="working" />
-				</Match>
+		<Switch>
+			<Match when={!ready()}>
+				<FullPageLoader message="working" />
+			</Match>
 
-				<Match when={!isAuthenticated()}>
-					<LoginPage />
-				</Match>
+			<Match when={!isAuthenticated()}>
+				<LoginPage />
+			</Match>
 
-				<Match when={isAuthenticated()}>
-					<Router root={(props) => <App {...props} />}>
-						{dashboardRoutes}
-					</Router>
-				</Match>
-			</Switch>
-		</ThemeProvider>
+			<Match when={isAuthenticated()}>
+				<Router root={(props) => <App {...props} />}>
+					{dashboardRoutes}
+				</Router>
+			</Match>
+		</Switch>
 	);
 };
