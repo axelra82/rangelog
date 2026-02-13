@@ -1,4 +1,4 @@
-import { Component, createSignal } from "solid-js";
+import { Component, createSignal, createEffect } from "solid-js";
 import {
 	TextField,
 	Button,
@@ -17,13 +17,15 @@ import { weaponTypes } from "@/data/weapon-types";
 import { federations } from "@/data/federations";
 import { calibers } from "@/data/calibers";
 import { weapons } from "../../../infrastructure/services";
-import { todayISODate } from "@/utilities";
-import { WeaponCreateInput } from "@/types";
+import { isoDateTimeToDateInput, todayISODate } from "@/utilities";
+import { WeaponCreateInput, WeaponCollectionItem } from "@/types";
 import { useStore } from "@/store";
 import { ConditionalWrapper } from "../conditional-wrapper";
 
 interface CreateWeaponFormProps {
 	modal?: boolean;
+	editWeapon?: WeaponCollectionItem; // Add this prop
+	onSuccess?: () => void; // Callback for modal close
 }
 
 export const CreateWeaponForm: Component<CreateWeaponFormProps> = (props) => {
@@ -53,6 +55,30 @@ export const CreateWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 	const [error, setError] = createSignal<string | null>(null);
 	const [success, setSuccess] = createSignal(false);
 
+	// Populate form when editing
+	createEffect(() => {
+		if (props.editWeapon) {
+			setForm({
+				barrelLength: props.editWeapon.barrelLength || "",
+				brand: props.editWeapon.brand || "",
+				caliber: props.editWeapon.caliber,
+				classification: props.editWeapon.classification || "",
+				federation: props.editWeapon.federation,
+				licenseEnd: props.editWeapon.licenseEnd
+					? isoDateTimeToDateInput(props.editWeapon.licenseEnd)
+					: todayISODate(),
+				licenseStart: props.editWeapon.licenseStart
+					? isoDateTimeToDateInput(props.editWeapon.licenseStart)
+					: todayISODate(),
+				model: props.editWeapon.model || "",
+				name: props.editWeapon.name,
+				owner: props.editWeapon.owner,
+				serialNumber: props.editWeapon.serialNumber || "",
+				type: props.editWeapon.type,
+			});
+		}
+	});
+
 	const handleChange =
 		<K extends keyof WeaponCreateInput>(field: K) =>
 			(e: any) => {
@@ -79,7 +105,7 @@ export const CreateWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 				throw new Error("Please select federation, caliber and type.");
 			}
 
-			const newItem = await weapons.create({
+			const weaponData = {
 				barrelLength: current.barrelLength,
 				brand: current.brand,
 				caliber: current.caliber,
@@ -92,11 +118,33 @@ export const CreateWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 				owner: current.owner,
 				serialNumber: current.serialNumber,
 				type: current.type,
-			});
+			};
+
+			if (props.editWeapon) {
+				// Update existing weapon
+				const updatedItem = await weapons.update(
+					props.editWeapon.id,
+					weaponData,
+				);
+
+				weaponsSet((prev) =>
+					prev.map(w => w.id === props.editWeapon!.id ? updatedItem : w)
+				);
+			} else {
+				// Create new weapon
+				const newItem = await weapons.create(weaponData);
+				weaponsSet((prev) => [...prev, newItem]);
+			}
 
 			resetForm();
-			weaponsSet((prev) => [...prev, newItem]);
 			setSuccess(true);
+
+			// Call success callback (for closing modal)
+			if (props.onSuccess) {
+				setTimeout(() => {
+					props.onSuccess!();
+				}, 1000);
+			}
 		} catch (err: any) {
 			setError(err?.message ?? "Something went wrong");
 		} finally {
@@ -113,7 +161,7 @@ export const CreateWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 			}>
 			<>
 				<Typography variant="h5" gutterBottom>
-					Lägg till vapen
+					{props.editWeapon ? "Redigera vapen" : "Lägg till vapen"}
 				</Typography>
 
 				<form onSubmit={handleSubmit}>
@@ -121,7 +169,9 @@ export const CreateWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 						{error() && <Alert severity="error">{error()}</Alert>}
 						{success() && (
 							<Alert severity="success">
-								Weapon successfully created
+								{props.editWeapon
+									? "Vapen uppdaterat"
+									: "Vapen tillagt"}
 							</Alert>
 						)}
 
@@ -153,7 +203,6 @@ export const CreateWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 								))}
 							</Select>
 						</FormControl>
-
 
 						<TextField
 							label="Märke"
@@ -256,7 +305,8 @@ export const CreateWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 							disabled={loading()}
 							size="large"
 						>
-							{loading() ? <CircularProgress size={24} /> : "Lägg till"}
+							{loading() ? <CircularProgress size={24} /> :
+								props.editWeapon ? "Uppdatera" : "Lägg till"}
 						</Button>
 					</Stack>
 				</form>

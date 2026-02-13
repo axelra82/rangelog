@@ -222,6 +222,16 @@ export const timestampToSeconds = (timestamp: number) => {
 	*/
 export const todayISODate = (): string => new Date().toISOString().split("T")[0];
 
+/**
+	* Convert ISO datetime string to date-only format (yyyy-MM-dd) for date inputs
+	*
+	* @param {string} isoDateTime ISO datetime string like "2025-01-05 00:00:00.000Z"
+	* @returns {string} Date string in yyyy-MM-dd format
+	*/
+export const isoDateTimeToDateInput = (isoDateTime: string): string => {
+	return isoDateTime.split('T')[0].split(' ')[0];
+};
+
 export const checkLicenseExpiry = (licenseEnd?: string) => {
 	if (!licenseEnd) {
 		return null;
@@ -238,7 +248,7 @@ export const checkLicenseExpiry = (licenseEnd?: string) => {
 	if (diffDays < 0) {
 		return {
 			severity: DefaultThemePaletteColor.ERROR as AlertColor,
-			message: `License expired ${Math.abs(diffDays)} days ago`,
+			message: `Licens gick ut för ${Math.abs(diffDays)} dagar sen`,
 		};
 	}
 
@@ -247,7 +257,7 @@ export const checkLicenseExpiry = (licenseEnd?: string) => {
 
 		return {
 			severity: (isToday ? DefaultThemePaletteColor.ERROR : DefaultThemePaletteColor.WARNING) as AlertColor,
-			message: `License expires ${isToday ? `today` : `in ${diffDays} days`}`,
+			message: `Licens går ut ${isToday ? `idag` : `om ${diffDays} dagar`}`,
 		};
 	}
 

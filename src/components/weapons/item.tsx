@@ -7,7 +7,6 @@ import {
 	Stack,
 	Box,
 	Divider,
-	Alert,
 	Button,
 	Dialog,
 	DialogActions,
@@ -24,6 +23,7 @@ import {
 } from "solid-js";
 import { useStore } from "@/store";
 import { WeaponLicenseExpireWarning } from "./license-expire";
+import { CreateWeaponForm } from "./"; // Import the form
 
 export const WeaponItem: Component<WeaponCollectionItem> = (props) => {
 	const {
@@ -31,6 +31,7 @@ export const WeaponItem: Component<WeaponCollectionItem> = (props) => {
 		weaponsSet,
 	} = useStore();
 	const [showDeleteDialog, showDeleteDialogSet] = createSignal(false);
+	const [showEditDialog, showEditDialogSet] = createSignal(false);
 
 	const handleDelete = () => {
 		weapons.delete(props.id);
@@ -126,37 +127,62 @@ export const WeaponItem: Component<WeaponCollectionItem> = (props) => {
 								</Show>
 							</Typography>
 						</Box>
+					</Show>
 
-						<Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
-							<Button
-								variant="outlined"
-								color="error"
-								size="small"
-								onClick={() => showDeleteDialogSet(true)}
-							>
+					{/* Action Buttons */}
+					<Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end", gap: 1 }}>
+						<Button
+							variant="outlined"
+							color="primary"
+							size="small"
+							onClick={() => showEditDialogSet(true)}
+						>
+							Redigera
+						</Button>
+						<Button
+							variant="outlined"
+							color="error"
+							size="small"
+							onClick={() => showDeleteDialogSet(true)}
+						>
+							Radera
+						</Button>
+					</Box>
+
+					{/* Edit Dialog */}
+					<Dialog
+						open={showEditDialog()}
+						onClose={() => showEditDialogSet(false)}
+						maxWidth="sm"
+						fullWidth
+					>
+						<DialogContent>
+							<CreateWeaponForm
+								modal
+								editWeapon={props}
+								onSuccess={() => showEditDialogSet(false)}
+							/>
+						</DialogContent>
+					</Dialog>
+
+					{/* Delete Confirmation Dialog */}
+					<Dialog
+						open={showDeleteDialog()}
+						onClose={() => showDeleteDialogSet(false)}
+					>
+						<DialogTitle>Radera vapen?</DialogTitle>
+						<DialogContent>
+							<DialogContentText>
+								Är du säker på att du vill radera "{props.name}"? Detta kan inte ångras.
+							</DialogContentText>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={() => showDeleteDialogSet(false)}>Avbryt</Button>
+							<Button onClick={handleDelete} color="error" variant="contained">
 								Radera
 							</Button>
-						</Box>
-
-						{/* Delete Confirmation Dialog */}
-						<Dialog
-							open={showDeleteDialog()}
-							onClose={() => showDeleteDialogSet(false)}
-						>
-							<DialogTitle>Radera vapen?</DialogTitle>
-							<DialogContent>
-								<DialogContentText>
-									Är du säker på att du vill radera "{props.name}"? Detta kan inte ångras.
-								</DialogContentText>
-							</DialogContent>
-							<DialogActions>
-								<Button onClick={() => showDeleteDialogSet(false)}>Avbryt</Button>
-								<Button onClick={handleDelete} color="error" variant="contained">
-									Radera
-								</Button>
-							</DialogActions>
-						</Dialog>
-					</Show>
+						</DialogActions>
+					</Dialog>
 				</Stack>
 			</CardContent>
 		</Card>
