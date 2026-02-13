@@ -5,12 +5,18 @@ import { ColorMode, ReadListResponse, WeaponCollectionItem } from "@/types";
 import { Router } from "@solidjs/router";
 import { LoginPage } from "@/pages/login";
 import { ThemeProvider, createTheme, CssBaseline } from "@suid/material";
-import { createSignal, Match, onMount, Switch } from "solid-js";
+import { createEffect, createSignal, Match, onMount, Switch } from "solid-js";
 import { auth, weapons } from "../../infrastructure/services";
 import { FullPageLoader } from "./loader";
 
 export const AuthChecker = () => {
-	const store = useStore();
+	const {
+		colorMode,
+		isAuthenticated,
+		isAuthenticatedSet,
+		userSet,
+		weaponsSet,
+	} = useStore();
 
 	const [ready, setReady] = createSignal(false);
 
@@ -18,13 +24,18 @@ export const AuthChecker = () => {
 		const result = await auth.validate();
 
 		if (result.user) {
-			store.userSet(result.user);
-			store.isAuthenticatedSet(true);
-			const weaponsData = await weapons.read({}) as ReadListResponse<WeaponCollectionItem>;
-			store.weaponsSet(weaponsData.items);
+			userSet(result.user);
+			isAuthenticatedSet(true);
 		}
 
 		setReady(true);
+	});
+
+	createEffect(async () => {
+		if (isAuthenticated()) {
+			const weaponsData = await weapons.read({}) as ReadListResponse<WeaponCollectionItem>;
+			weaponsSet(weaponsData.items);
+		}
 	});
 
 	const getSystemMode = (): ColorMode.LIGHT | ColorMode.DARK => {
@@ -50,7 +61,7 @@ export const AuthChecker = () => {
 			theme={() =>
 				createTheme({
 					palette: {
-						mode: resolveMode(store.colorMode()),
+						mode: resolveMode(colorMode()),
 						salmon: {
 							main: '#fa8072',
 							light: '#ffb5a7',
@@ -73,12 +84,11 @@ export const AuthChecker = () => {
 					<FullPageLoader message="working" />
 				</Match>
 
-				<Match when={!store.isAuthenticated()}>
+				<Match when={!isAuthenticated()}>
 					<LoginPage />
 				</Match>
 
-				<Match when={store.isAuthenticated()}>
-
+				<Match when={isAuthenticated()}>
 					<Router root={(props) => <App {...props} />}>
 						{dashboardRoutes}
 					</Router>
