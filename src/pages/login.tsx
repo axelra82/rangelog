@@ -7,9 +7,9 @@ import {
 } from "@suid/material";
 import { auth } from "../../infrastructure/services";
 import { Component, createSignal, Show } from "solid-js";
-import { useStore } from "@/store";
-import { ButtonContained } from "@/components";
-import { CustomThemePaletteColor, DefaultThemePaletteColor } from "@/types/theme";
+import { useStore } from "~/store";
+import { ButtonContained } from "~/components";
+import { CustomThemePaletteColor, DefaultThemePaletteColor } from "~/types/theme";
 
 export const LoginPage: Component = () => {
 	const {

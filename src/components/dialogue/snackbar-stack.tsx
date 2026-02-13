@@ -3,7 +3,7 @@ import { For, createSignal } from "solid-js";
 import Portal from "@suid/material/Portal";
 import Stack from "@suid/material/Stack";
 import { Snackbar } from "./snackbar";
-import { Severity } from "@/types";
+import { Severity } from "~/types";
 
 type Snack = {
 	id: number;

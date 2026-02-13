@@ -2,9 +2,9 @@ import {
 	AddActivity,
 	AddClaim,
 	AddWeapon,
-} from "@/components";
-import { WeaponLicenseExpireWarning } from "@/components/weapons";
-import { useStore } from "@/store";
+} from "~/components";
+import { WeaponLicenseExpireWarning } from "~/components/weapons";
+import { useStore } from "~/store";
 import { For } from "solid-js";
 
 export const DashboardPage = () => {

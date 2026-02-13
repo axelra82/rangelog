@@ -2,8 +2,8 @@
 // 	FileBrowserFile,
 // 	PocketbaseCollection,
 // 	PocketbaseFileEntry,
-// } from "@/types";
-// import { normalizedFileBrowserObject } from "@/utilities";
+// } from "~/types";
+// import { normalizedFileBrowserObject } from "~/utilities";
 
 // import { pb, pocketbaseFileURL } from "..";
 

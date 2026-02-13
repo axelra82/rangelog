@@ -5,7 +5,7 @@ import {
 import { ButtonText } from "../button";
 import { A } from "@solidjs/router";
 import { Avatar } from "../avatar";
-import { useStore } from "@/store";
+import { useStore } from "~/store";
 import { Divider, IconButton } from "@suid/material";
 import { ProfileMenu } from "./profile-menu";
 

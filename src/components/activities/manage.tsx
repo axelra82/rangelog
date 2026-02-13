@@ -17,14 +17,14 @@ import {
 import AddIcon from "@suid/icons-material/Add";
 import RemoveIcon from "@suid/icons-material/Remove";
 
-import { clubs } from "@/data/clubs"; // You'll need to create this
+import { clubs } from "~/data/clubs"; // You'll need to create this
 import {
 	activities,
 	activitiesWeapons,
 } from "../../../infrastructure/services";
-import { isoDateTimeToDateInput, todayISODate } from "@/utilities";
-import { ActivityCreateInput, ActivityCollectionItem, ShootingEntry } from "@/types";
-import { useStore } from "@/store";
+import { isoDateTimeToDateInput, todayISODate } from "~/utilities";
+import { ActivityCreateInput, ActivityCollectionItem, ShootingEntry } from "~/types";
+import { useStore } from "~/store";
 import { ConditionalWrapper } from "../conditional-wrapper";
 
 interface ManageActivityFormProps {

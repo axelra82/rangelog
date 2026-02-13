@@ -5,7 +5,7 @@ import {
 	ReadListRequest,
 	ReadListResponse,
 	ReadSingleOptions,
-} from "@/types";
+} from "~/types";
 import { pb } from "..";
 
 export const pocketbaseCreateActivityCollectionItem = async (

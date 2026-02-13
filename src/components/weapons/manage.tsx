@@ -13,13 +13,13 @@ import {
 	Select,
 } from "@suid/material";
 
-import { weaponTypes } from "@/data/weapon-types";
-import { federations } from "@/data/federations";
-import { calibers } from "@/data/calibers";
+import { weaponTypes } from "~/data/weapon-types";
+import { federations } from "~/data/federations";
+import { calibers } from "~/data/calibers";
 import { weapons } from "../../../infrastructure/services";
-import { isoDateTimeToDateInput, todayISODate } from "@/utilities";
-import { WeaponCreateInput, WeaponCollectionItem } from "@/types";
-import { useStore } from "@/store";
+import { isoDateTimeToDateInput, todayISODate } from "~/utilities";
+import { WeaponCreateInput, WeaponCollectionItem } from "~/types";
+import { useStore } from "~/store";
 import { ConditionalWrapper } from "../conditional-wrapper";
 
 interface CreateWeaponFormProps {

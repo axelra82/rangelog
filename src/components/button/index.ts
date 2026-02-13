@@ -1,4 +1,4 @@
-import { CustomThemePaletteColor, DefaultThemePaletteColor } from "@/types/theme";
+import { CustomThemePaletteColor, DefaultThemePaletteColor } from "~/types/theme";
 import ButtonProps from "@suid/material/Button/ButtonProps";
 
 export interface SharedButtonOptions extends ButtonProps {

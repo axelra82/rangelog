@@ -1,4 +1,4 @@
-import { WeaponCollectionItem } from "@/types";
+import { WeaponCollectionItem } from "~/types";
 import {
 	Card,
 	CardContent,
@@ -21,7 +21,7 @@ import {
 	Show,
 	createSignal,
 } from "solid-js";
-import { useStore } from "@/store";
+import { useStore } from "~/store";
 import { WeaponLicenseExpireWarning } from "./license-expire";
 import { ManageWeaponForm } from "./"; // Import the form
 

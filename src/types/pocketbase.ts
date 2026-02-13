@@ -1,5 +1,5 @@
-import { Calibers, Federations } from "@/data";
-import { WeaponTypes } from "@/data/weapon-types";
+import { Calibers, Federations } from "~/data";
+import { WeaponTypes } from "~/data/weapon-types";
 
 export enum Collections {
 	ACTIVITIES = "activities",

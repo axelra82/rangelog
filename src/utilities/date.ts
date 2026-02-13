@@ -1,4 +1,4 @@
-import { DefaultThemePaletteColor } from "@/types/theme";
+import { DefaultThemePaletteColor } from "~/types/theme";
 import { AlertColor } from "@suid/material/Alert";
 
 const second = 1000;

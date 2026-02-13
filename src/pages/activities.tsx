@@ -1,12 +1,12 @@
 import {
 	AddActivity,
 	AddClaim
-} from "@/components";
-import { useStore } from "@/store";
+} from "~/components";
+import { useStore } from "~/store";
 import { createEffect, For } from "solid-js";
 import { activities } from "../../infrastructure/services";
-import { ActivityCollectionItem, ReadListResponse } from "@/types";
-import { ActivityItem } from "@/components/activities";
+import { ActivityCollectionItem, ReadListResponse } from "~/types";
+import { ActivityItem } from "~/components/activities";
 
 export const ActivitiesPage = () => {
 	const {

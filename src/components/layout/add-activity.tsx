@@ -4,8 +4,8 @@ import { createSignal } from "solid-js";
 
 import AddIcon from "@suid/icons-material/Add";
 
-import { Severity } from "@/types";
-import { DefaultThemePaletteColor } from "@/types/theme";
+import { Severity } from "~/types";
+import { DefaultThemePaletteColor } from "~/types/theme";
 import { ManageActivityForm } from "../activities";
 
 export const AddActivity = () => {

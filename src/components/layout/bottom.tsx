@@ -2,7 +2,7 @@ import {
 	Component,
 	createSignal,
 } from "solid-js";
-import { timestampToLocaleDate } from "@/utilities";
+import { timestampToLocaleDate } from "~/utilities";
 import {
 	Box,
 	IconButton,

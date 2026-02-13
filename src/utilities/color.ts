@@ -1,4 +1,4 @@
-import { Severity } from "@/types";
+import { Severity } from "~/types";
 
 export const severityColor = (severity: Severity) => ({
 	error: "error.main",

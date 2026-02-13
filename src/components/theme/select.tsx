@@ -1,5 +1,5 @@
-import { useStore } from "@/store";
-import { ColorMode } from "@/types";
+import { useStore } from "~/store";
+import { ColorMode } from "~/types";
 import { Computer, DarkMode, LightMode } from "@suid/icons-material";
 import { ToggleButton, ToggleButtonGroup } from "@suid/material";
 import { Component } from "solid-js";

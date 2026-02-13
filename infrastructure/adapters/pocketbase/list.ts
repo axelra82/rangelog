@@ -1,4 +1,4 @@
-import { Collections } from "@/types/pocketbase";
+import { Collections } from "~/types/pocketbase";
 import { pb } from "./";
 import { RecordModel } from "pocketbase";
 

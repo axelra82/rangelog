@@ -3,7 +3,7 @@ import { createEffect, onCleanup } from "solid-js";
 import Paper from "@suid/material/Paper";
 import Fade from "@suid/material/Fade";
 import Alert from "@suid/material/Alert";
-import { Severity } from "@/types";
+import { Severity } from "~/types";
 
 type SnackbarProps = {
 	open: boolean;

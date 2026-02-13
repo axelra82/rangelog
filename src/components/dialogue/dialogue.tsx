@@ -1,5 +1,5 @@
-import { Severity } from "@/types";
-import { severityColor } from "@/utilities";
+import { Severity } from "~/types";
+import { severityColor } from "~/utilities";
 import {
 	Dialog as MaterialDialog,
 	Box,

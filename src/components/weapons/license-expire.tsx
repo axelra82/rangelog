@@ -1,4 +1,4 @@
-import { checkLicenseExpiry, cn } from "@/utilities";
+import { checkLicenseExpiry, cn } from "~/utilities";
 import { Alert } from "@suid/material";
 import { Component, createMemo, JSXElement, Show } from "solid-js";
 

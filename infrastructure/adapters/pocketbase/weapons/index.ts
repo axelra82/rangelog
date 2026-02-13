@@ -6,7 +6,7 @@ import {
 	WeaponCollectionItem,
 	WeaponCreateInput,
 	WeaponUpdateInput,
-} from "@/types";
+} from "~/types";
 import { pb } from "..";
 
 export const pocketbaseCreateWeaponCollectionItem = async (

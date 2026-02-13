@@ -1,4 +1,4 @@
-import { ActivityCollectionItem } from "@/types";
+import { ActivityCollectionItem } from "~/types";
 import {
 	Card,
 	CardContent,
@@ -17,7 +17,7 @@ import {
 import { activities } from "../../../infrastructure/services";
 
 import { Component, Show, createSignal, For } from "solid-js";
-import { useStore } from "@/store";
+import { useStore } from "~/store";
 import { ManageActivityForm } from "./";
 
 export const ActivityItem: Component<ActivityCollectionItem> = (props) => {

@@ -1,9 +1,9 @@
 import { App } from "../app";
-import { dashboardRoutes } from "@/routes";
-import { useStore } from "@/store";
-import { ColorMode, ReadListResponse, WeaponCollectionItem } from "@/types";
+import { dashboardRoutes } from "~/routes";
+import { useStore } from "~/store";
+import { ColorMode, ReadListResponse, WeaponCollectionItem } from "~/types";
 import { Router } from "@solidjs/router";
-import { LoginPage } from "@/pages/login";
+import { LoginPage } from "~/pages/login";
 import { ThemeProvider, createTheme, CssBaseline } from "@suid/material";
 import { createEffect, createSignal, Match, onMount, Switch } from "solid-js";
 import { auth, weapons } from "../../infrastructure/services";

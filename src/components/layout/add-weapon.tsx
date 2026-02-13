@@ -4,7 +4,7 @@ import { createSignal } from "solid-js";
 
 import AddIcon from "@suid/icons-material/Add";
 
-import { Severity } from "@/types";
+import { Severity } from "~/types";
 import { ManageWeaponForm } from "../weapons";
 
 export const AddWeapon = () => {
