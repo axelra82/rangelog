@@ -25,7 +25,7 @@ import {
 import { isoDateTimeToDateInput, todayISODate } from "~/utilities";
 import { ActivityCreateInput, ActivityCollectionItem, ShootingEntry } from "~/types";
 import { useStore } from "~/store";
-import { ConditionalWrapper } from "../conditional-wrapper";
+import { ConditionalWrapper } from "~/components/conditional-wrapper";
 
 interface ManageActivityFormProps {
 	modal?: boolean;

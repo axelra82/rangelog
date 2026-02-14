@@ -20,7 +20,7 @@ import { weapons } from "infrastructure/services";
 import { isoDateTimeToDateInput, todayISODate } from "~/utilities";
 import { WeaponCreateInput, WeaponCollectionItem } from "~/types";
 import { useStore } from "~/store";
-import { ConditionalWrapper } from "../conditional-wrapper";
+import { ConditionalWrapper } from "~/components/conditional-wrapper";
 
 interface CreateWeaponFormProps {
 	modal?: boolean;

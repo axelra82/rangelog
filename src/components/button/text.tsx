@@ -2,7 +2,7 @@ import { Button } from "@suid/material";
 import { ParentComponent } from "solid-js";
 import { SharedButtonOptions } from ".";
 import { A } from "@solidjs/router";
-import { ConditionalWrapper } from "../conditional-wrapper";
+import { ConditionalWrapper } from "~/components/conditional-wrapper";
 
 interface ButtonOutlinedProps extends SharedButtonOptions { }
 
