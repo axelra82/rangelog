@@ -1,25 +1,12 @@
-import {
-	Component,
-	createSignal,
-} from "solid-js";
+import { Component, createSignal } from "solid-js";
 import { timestampToLocaleDate } from "~/utilities";
-import {
-	Box,
-	IconButton,
-} from "@suid/material";
-
-import ContentCopyIcon from "@suid/icons-material/ContentCopy";
-import MoreHorizIcon from "@suid/icons-material/MoreHoriz";
-// import GitHubIcon from "@suid/icons-material/GitHub";
-
-import {
-	Severity
-} from "../../types";
+import { IconBrandGithub, IconCopy, IconDots } from "@tabler/icons-solidjs";
+import { Severity } from "~/types";
 import { ParentComponent } from "solid-js";
-import { pushSnackbar } from "../dialogue/snackbar-stack";
-import GitHubIcon from "../@suid/icons-material/GitHub";
+import { pushSnackbar } from "~/components/dialogue/snackbar-stack";
+import { Button } from "~/components/ui/button";
 
-export const LayoutBottomBar: ParentComponent = (props) => {
+export const LayoutBottomBar: ParentComponent = () => {
 	const environment = import.meta.env;
 	const buildHash = environment.VITE_APP_BUILD;
 	const buildTime = environment.VITE_APP_BUILD_TIME;
@@ -27,9 +14,13 @@ export const LayoutBottomBar: ParentComponent = (props) => {
 	const repo = environment.VITE_APP_REPO;
 
 	const RepoReference: Component = () => (
-		<IconButton onClick={() => window.open(repo, "_blank", "noopener,noreferrer")}>
-			<GitHubIcon fontSize="small" />
-		</IconButton>
+		<Button
+			variant="ghost"
+			size="icon"
+			onClick={() => window.open(repo, "_blank", "noopener,noreferrer")}
+		>
+			<IconBrandGithub class="size-4" />
+		</Button>
 	);
 
 	const BuildReference: Component = () => {
@@ -45,51 +36,38 @@ export const LayoutBottomBar: ParentComponent = (props) => {
 		};
 
 		return (
-			<div>
-				<strong>{revealHash() ? buildHash : buildHash.slice(0, 8)}</strong>
-				<IconButton
+			<div class="flex items-center gap-1">
+				<strong class="text-sm">{revealHash() ? buildHash : buildHash.slice(0, 8)}</strong>
+				<Button
+					variant="ghost"
+					size="icon"
 					onClick={() => revealHashSet((prev) => !prev)}
-					size="small"
 				>
-					<MoreHorizIcon fontSize="small" />
-				</IconButton>
-				<IconButton
+					<IconDots class="size-4" />
+				</Button>
+				<Button
+					variant="ghost"
+					size="icon"
 					onClick={() => copyToClipboard(buildHash)}
-					size="small"
 				>
-					<ContentCopyIcon fontSize="small" />
-				</IconButton>
+					<IconCopy class="size-4" />
+				</Button>
 			</div>
 		);
-	}
+	};
 
 	const BuildVersionDate: Component = () => (
-		<div>
+		<div class="text-sm">
 			<strong class="mr-2">{buildVersion}</strong>
 			{timestampToLocaleDate(buildTime)}
 		</div>
 	);
 
 	return (
-		<Box
-			component="aside"
-			sx={{
-				display: "flex",
-				alignItems: "center",
-				justifyContent: "flex-end",
-				px: 2,
-				py: 1,
-				gap: 2,
-				backgroundColor: (theme) => theme.palette.background.paper,
-				borderTop: 1,
-				borderColor: (theme) => theme.palette.divider,
-				// text-sm equivalent
-				fontSize: "0.875rem",
-			}}
-		>
+		<aside class="flex items-center justify-end px-4 py-2 gap-4 bg-background border-t border-border">
 			<RepoReference />
 			<BuildReference />
 			<BuildVersionDate />
-		</Box>
+		</aside>
 	);
-}
+};

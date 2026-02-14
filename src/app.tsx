@@ -7,7 +7,7 @@ import { ParentComponent } from "solid-js";
 export const App: ParentComponent = (props) => {
 	return (
 		<>
-			<div class="flex h-screen flex-col grow">
+			<div class="flex h-screen flex-col">
 				<LayoutMainMenu />
 				<LayoutMainContent>
 					{props.children}

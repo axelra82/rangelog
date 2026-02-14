@@ -4,5 +4,8 @@
 @layer theme, base, utilities;
 @import "tailwindcss/preflight.css" layer(base);
 
+@import "./theme/light.css" layer(base);
+@import "./theme/dark.css" layer(base);
+
 @import "./base.css" layer(base);
 @import "./utilities.css" layer(utilities);

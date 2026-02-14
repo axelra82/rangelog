@@ -1,0 +1,167 @@
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --info: 204 94% 94%;
+    --info-foreground: 199 89% 48%;
+
+    --success: 149 80% 90%;
+    --success-foreground: 160 84% 39%;
+
+    --warning: 48 96% 89%;
+    --warning-foreground: 25 95% 53%;
+
+    --error: 0 93% 94%;
+    --error-foreground: 0 84% 60%;
+
+    --ring: 240 5.9% 10%;
+
+    --radius: 0.5rem;
+
+		--gray-50: 210deg 20% 98%;
+		--gray-100: 220deg 14% 96%;
+		--gray-200: 220deg 13% 91%;
+		--gray-300: 216deg 12% 84%;
+		--gray-400: 218deg 11% 65%;
+		--gray-500: 220deg 9% 46%;
+		--gray-600: 215deg 14% 34%;
+		--gray-700: 217deg 19% 27%;
+		--gray-800: 215deg 28% 17%;
+		--gray-900: 221deg 39% 11%;
+
+		--accent-50: 228deg 37% 85%;
+		--accent-100: 227deg 28% 55%;
+		--accent-200: 226deg 28% 45%;
+		--accent-300: 224deg 36% 35%;
+		--accent-400: 221deg 50% 25%;
+		--accent-500: 214deg 100% 14%;
+		--accent-600: 232deg 100% 9%;
+		--accent-700: 215deg 100% 11%;
+		--accent-800: 217deg 100% 9%;
+		--accent-900: 221deg 100% 6%;
+
+		--blue-50: 228deg 37% 95%;
+		--blue-100:210deg 80% 77%;
+		--blue-200:210deg 78% 69%;
+		--blue-300:210deg 79% 61%;
+		--blue-400:210deg 79% 54%;
+		--blue-500: 210deg 79% 46%;
+		--blue-600:210deg 79% 43%;
+		--blue-700:210deg 79% 39%;
+		--blue-800:210deg 79% 36%;
+		--blue-900:210deg 79% 33%;
+
+		--green-50: 122deg 39% 95%;
+		--green-100: 121deg 39% 78%;
+		--green-200: 122deg 39% 71%;
+		--green-300: 122deg 39% 64%;
+		--green-400: 122deg 39% 56%;
+		--green-500: 122deg 39% 49%;
+		--green-600: 122deg 39% 45%;
+		--green-700: 122deg 39% 42%;
+		--green-800: 122deg 39% 38%;
+		--green-900: 123deg 39% 35%;
+
+		--orange-50: 36deg 100% 95%;
+		--orange-100: 36deg 100% 79%;
+		--orange-200: 36deg 100% 71%;
+		--orange-300: 36deg 100% 64%;
+		--orange-400: 36deg 100% 57%;
+		--orange-500: 36deg 100% 50%;
+		--orange-600: 36deg 100% 46%;
+		--orange-700: 36deg 100% 43%;
+		--orange-800: 36deg 100% 39%;
+		--orange-900: 36deg 100% 32%;
+
+		--red-50: 0deg 100% 97%;
+		--red-100: 0deg 100% 85%;
+		--red-200: 0deg 100% 81%;
+		--red-300: 0deg 100% 76%;
+		--red-400: 0deg 100% 70%;
+		--red-500: 2deg 100% 46%;
+		--red-600: 0deg 100% 61%;
+		--red-700: 0deg 100% 57%;
+		--red-800: 0deg 100% 52%;
+		--red-900: 0deg 100% 32%;
+
+		--magenta-50: 295deg 70% 96%;
+		--magenta-100: 295deg 68% 84%;
+		--magenta-200: 295deg 68% 73%;
+		--magenta-300: 295deg 68% 62%;
+		--magenta-400: 295deg 67% 54%;
+		--magenta-500: 295deg 79% 46%;
+		--magenta-600: 295deg 81% 45%;
+		--magenta-700: 294deg 83% 43%;
+		--magenta-800: 294deg 86% 41%;
+		--magenta-900: 293deg 92% 37%;
+
+		--teal-50: 180deg 32% 90%;
+		/* --teal-100: deg % %;
+		--teal-200: deg % %;
+		--teal-300: deg % %;
+		--teal-400: deg % %; */
+		--teal-500: 180deg 100% 25%;
+		--teal-600: 180deg 100% 21%;
+		--teal-700: 180deg 100% 18%;
+		--teal-800: 180deg 100% 16%;
+		--teal-900: 180deg 100% 11%;
+
+		--purple-50: 0deg 0% 100%;
+		--purple-100: 274.74deg 29.23% 87.25%;
+		--purple-200: 272.43deg 28.68% 74.71%;
+		--purple-300: 271.64deg 28.8% 62.55%;
+		--purple-400: 270.86deg 27.78% 50.59%;
+		--purple-500: 269deg 43% 39%;
+		--purple-600: 268.19deg 52.2% 31.18%;
+		--purple-700: 267.8deg 69.49% 23.14%;
+		--purple-800: 265.5deg 100% 15.69%;
+		--purple-900: 260deg 100% 11.76%;
+
+		--coral-50: 0deg 0% 100%;
+		--coral-100: 3.75deg 100% 93.73%;
+		--coral-200: 3.75deg 100% 87.45%;
+		--coral-300: 2.67deg 91.84% 80.78%;
+		--coral-400: 1.58deg 85.07% 73.73%;
+		--coral-500: 359deg 78% 66%;
+		--coral-600: 356.77deg 52% 49.02%;
+		--coral-700: 347.48deg 92.05% 29.61%;
+		--coral-800: 0deg 100% 19.8%;
+		--coral-900: 0deg 100% 12.75%;
+
+		--saffron-50: 0deg 0% 100%;
+		--saffron-100: 38deg 100% 94.12%;
+		--saffron-200: 39deg 100% 88.24%;
+		--saffron-300: 38.67deg 100% 82.35%;
+		--saffron-400: 39deg 100% 76.47%;
+		--saffron-500: 40deg 97% 70%;
+		--saffron-600: 41.28deg 59% 46.86%;
+		--saffron-700: 43.72deg 100% 25.29%;
+		--saffron-800: 36deg 100% 14.71%;
+		--saffron-900: 0deg 100% 8.63%;
+	}
+}

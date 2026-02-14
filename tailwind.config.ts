@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import { animation, keyframes } from "./tailwind-config";
+
 export default {
 	darkMode: ["variant", [".dark &", '[data-kb-theme="dark"] &']],
 	content: ["./src/**/*.{ts,tsx}"],
@@ -89,14 +91,16 @@ export default {
 				"caret-blink": {
 					"0%,70%,100%": { opacity: "1" },
 					"20%,50%": { opacity: "0" }
-				}
+				},
+				...keyframes,
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
 				"content-show": "content-show 0.2s ease-out",
 				"content-hide": "content-hide 0.2s ease-out",
-				"caret-blink": "caret-blink 1.25s ease-out infinite"
+				"caret-blink": "caret-blink 1.25s ease-out infinite",
+				...animation,
 			}
 		}
 	},

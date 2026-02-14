@@ -1,0 +1,69 @@
+import { Component, createSignal } from "solid-js";
+import { timestampToLocaleDate } from "~/utilities";
+import { IconBrandGithub, IconCopy, IconDots } from "@tabler/icons-solidjs";
+import { Button } from "~/components/ui/button";
+import { Separator } from "~/components/ui/separator";
+
+export const LoginFooter: Component = () => {
+	const environment = import.meta.env;
+	const buildHash = environment.VITE_APP_BUILD;
+	const buildTime = environment.VITE_APP_BUILD_TIME;
+	const buildVersion = environment.VITE_APP_VERSION;
+	const repo = environment.VITE_APP_REPO;
+
+	const [revealHash, revealHashSet] = createSignal(false);
+	const [copied, setCopied] = createSignal(false);
+
+	const copyToClipboard = async (text: string) => {
+		await navigator.clipboard.writeText(text);
+		setCopied(true);
+		setTimeout(() => setCopied(false), 2000);
+	};
+
+	return (
+		<footer class="w-full pb-4">
+			<div class="max-w-md mx-auto px-4">
+				<div class="flex items-center justify-between text-sm text-muted-foreground">
+					<div class="flex items-center gap-2">
+						<Button
+							variant="ghost"
+							size="icon"
+							class="h-8 w-8"
+							onClick={() => window.open(repo, "_blank", "noopener,noreferrer")}
+						>
+							<IconBrandGithub class="size-4" />
+						</Button>
+						<span class="font-medium">{buildVersion}</span>
+					</div>
+					<div class="flex items-center gap-1">
+						<span class="hidden sm:inline text-xs">
+							{timestampToLocaleDate(buildTime)}
+						</span>
+						<Button
+							variant="ghost"
+							size="icon"
+							class="h-8 w-8"
+							onClick={() => revealHashSet((prev) => !prev)}
+						>
+							<IconDots class="size-3" />
+						</Button>
+						<Button
+							variant="ghost"
+							size="icon"
+							class="h-8 w-8"
+							onClick={() => copyToClipboard(buildHash)}
+							title={copied() ? "Copied!" : "Copy hash"}
+						>
+							<IconCopy class="size-3" />
+						</Button>
+					</div>
+				</div>
+				{revealHash() && (
+					<div class="mt-2 text-xs text-center text-muted-foreground font-mono">
+						{buildHash}
+					</div>
+				)}
+			</div>
+		</footer>
+	);
+};

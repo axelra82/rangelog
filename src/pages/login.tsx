@@ -1,15 +1,13 @@
-import {
-	TextField,
-	Box,
-	Paper,
-	Typography,
-	CircularProgress,
-} from "@suid/material";
-import { auth } from "../../infrastructure/services";
 import { Component, createSignal, Show } from "solid-js";
 import { useStore } from "~/store";
-import { ButtonContained } from "~/components";
-import { CustomThemePaletteColor, DefaultThemePaletteColor } from "~/types/theme";
+import { auth } from "../../infrastructure/services";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { TextField, TextFieldInput, TextFieldLabel } from "~/components/ui/text-field";
+import { ThemeSelect } from "~/components/theme";
+import { LoginFooter } from "~/components/layout/login-footer";
+import { Spinner } from "~/components/loader/spinner";
+import { IconEye, IconEyeOff } from "@tabler/icons-solidjs";
 
 export const LoginPage: Component = () => {
 	const {
@@ -21,9 +19,12 @@ export const LoginPage: Component = () => {
 
 	const [email, setEmail] = createSignal("");
 	const [password, setPassword] = createSignal("");
+	const [showPassword, setShowPassword] = createSignal(false);
 
-	const handleLogin = async () => {
+	const handleLogin = async (e: Event) => {
+		e.preventDefault();
 		workingSet(true);
+
 		const authUser = await auth.login({
 			username: email(),
 			password: password(),
@@ -38,53 +39,101 @@ export const LoginPage: Component = () => {
 	};
 
 	return (
-		<Box sx={{
-			display: "flex",
-			justifyContent: "center",
-			alignItems: "center",
-			minHeight: "100vh",
-			bgcolor: "background.default"
-		}}>
-			<Paper sx={{ p: 4, width: "100%", maxWidth: 400 }}>
-				<Typography variant="h5" sx={{ mb: 3, textAlign: "center" }}>
-					Login
-				</Typography>
-				<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-					<TextField
-						label="Email"
-						type="email"
-						fullWidth
-						value={email()}
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-					<TextField
-						label="Password"
-						type="password"
-						fullWidth
-						value={password()}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-					<ButtonContained
-						fullWidth
-						onClick={handleLogin}
-						disabled={working()}
-					>
-						<Show
-							when={working()}
-							fallback="Login"
-						>
-							<CircularProgress
-								sx={{
-									color: "primary.contrastText"
-								}}
-								size={24}
-							/>
-						</Show>
-					</ButtonContained>
-				</Box>
-			</Paper>
-		</Box>
+		<div class="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
+			{/* Header with theme selector */}
+			<header class="w-full p-4 flex justify-end">
+				<ThemeSelect />
+			</header>
+
+			{/* Main content */}
+			<main class="flex-1 flex items-center justify-center p-4">
+				<div class="w-full max-w-md space-y-8">
+					{/* Logo/Brand area */}
+					<div class="flex flex-col items-center space-y-2">
+						<img
+							src="/logo.svg"
+							alt="Logo"
+							class="w-16 h-16 rounded-2xl"
+						/>
+						<h1 class="text-3xl font-bold tracking-tight">Rangelog</h1>
+						<p class="text-muted-foreground">Keep track of your range activities and more.</p>
+					</div>
+
+					{/* Login card */}
+					<Card class="shadow-xl">
+						<CardHeader class="space-y-1">
+							<CardTitle class="text-2xl">Login</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<form onSubmit={handleLogin} class="space-y-4">
+								<div class="space-y-2">
+									<TextField
+										id="email"
+										value={email()}
+										onChange={(value) => setEmail(value)}
+										disabled={working()}
+										required
+									>
+										<TextFieldLabel>E-post</TextFieldLabel>
+										<TextFieldInput
+											type="email"
+											placeholder="email@example.com"
+											autocomplete="email"
+										/>
+									</TextField>
+								</div>
+								<div class="space-y-2">
+									<TextField
+										id="password"
+										value={password()}
+										onChange={(value) => setPassword(value)}
+										disabled={working()}
+										required
+									>
+										<TextFieldLabel>Lösenord</TextFieldLabel>
+										<div class="relative">
+											<TextFieldInput
+												type={showPassword() ? "text" : "password"}
+												placeholder="••••••••"
+												autocomplete="current-password"
+												class="pr-10"
+											/>
+											<Button
+												type="button"
+												variant="ghost"
+												size="icon"
+												onClick={() => setShowPassword(!showPassword())}
+												class="absolute right-0 top-1/2 -translate-y-1/2 h-full"
+												tabindex="-1"
+												disabled={password() === ""}
+											>
+												{showPassword() ? <IconEyeOff /> : <IconEye />}
+											</Button>
+										</div>
+									</TextField>
+								</div>
+								<Button
+									type="submit"
+									class="w-full"
+									disabled={working()}
+									size="lg"
+								>
+									<Show
+										when={working()}
+										fallback="Logga in"
+									>
+										<Spinner variant="secondary" />
+									</Show>
+								</Button>
+							</form>
+						</CardContent>
+					</Card>
+
+					<LoginFooter />
+				</div>
+			</main>
+		</div>
 	);
-}
+};
 
 export default LoginPage;
