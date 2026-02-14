@@ -1,5 +1,5 @@
 import { IconLogout } from "@tabler/icons-solidjs";
-import { auth } from "../../../infrastructure/services";
+import { auth } from "infrastructure/services";
 import { Component } from "solid-js";
 import { useStore } from "~/store";
 import { ThemeSelect } from "../theme";

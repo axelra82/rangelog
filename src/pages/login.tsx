@@ -1,6 +1,6 @@
 import { Component, createSignal, Show } from "solid-js";
 import { useStore } from "~/store";
-import { auth } from "../../infrastructure/services";
+import { auth } from "infrastructure/services";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { TextField, TextFieldInput, TextFieldLabel } from "~/components/ui/text-field";

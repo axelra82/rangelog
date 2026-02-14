@@ -14,7 +14,7 @@ import {
 	DialogContentText,
 	DialogTitle,
 } from "@suid/material";
-import { activities } from "../../../infrastructure/services";
+import { activities } from "infrastructure/services";
 
 import { Component, Show, createSignal, For } from "solid-js";
 import { useStore } from "~/store";
@@ -75,7 +75,7 @@ export const ActivityItem: Component<ActivityCollectionItem> = (props) => {
 							<strong>Skjutledare:</strong> {props.rangeMaster}
 						</Typography>
 
-						<Show when={props.weapons && props.weapons.length > 0}>
+						{/* <Show when={props.weapons && props.weapons.length > 0}>
 							<Box>
 								<Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
 									<strong>Vapen:</strong>
@@ -95,7 +95,7 @@ export const ActivityItem: Component<ActivityCollectionItem> = (props) => {
 									</For>
 								</Stack>
 							</Box>
-						</Show>
+						</Show> */}
 
 						<Show when={props.exercises}>
 							<Box>

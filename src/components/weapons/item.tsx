@@ -14,7 +14,7 @@ import {
 	DialogContentText,
 	DialogTitle,
 } from "@suid/material";
-import { weapons } from "../../../infrastructure/services";
+import { weapons } from "infrastructure/services";
 
 import {
 	Component,

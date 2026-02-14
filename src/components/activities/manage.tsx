@@ -21,7 +21,7 @@ import { clubs } from "~/data/clubs"; // You'll need to create this
 import {
 	activities,
 	activitiesWeapons,
-} from "../../../infrastructure/services";
+} from "infrastructure/services";
 import { isoDateTimeToDateInput, todayISODate } from "~/utilities";
 import { ActivityCreateInput, ActivityCollectionItem, ShootingEntry } from "~/types";
 import { useStore } from "~/store";

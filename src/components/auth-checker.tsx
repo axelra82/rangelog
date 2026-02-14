@@ -16,8 +16,8 @@ import {
 	onMount,
 	Switch,
 } from "solid-js";
-import { auth, weapons } from "../../infrastructure/services";
-import { FullPageLoader } from "./loader";
+import { auth, weapons } from "infrastructure/services";
+import { FullPageLoader } from "~/components";
 
 export const AuthChecker = () => {
 	const {

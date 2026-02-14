@@ -4,7 +4,7 @@ import {
 } from "~/components";
 import { useStore } from "~/store";
 import { createEffect, For } from "solid-js";
-import { activities } from "../../infrastructure/services";
+import { activities } from "infrastructure/services";
 import { ActivityCollectionItem, ReadListResponse } from "~/types";
 import { ActivityItem } from "~/components/activities";
 
