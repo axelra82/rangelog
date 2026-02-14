@@ -1,10 +1,12 @@
-import type { JSX, ValidComponent } from "solid-js"
-import { Show, splitProps } from "solid-js"
+import type { Component, JSX, ValidComponent } from "solid-js"
+import { createEffect, createSignal, For, Show, splitProps } from "solid-js"
 
 import * as ComboboxPrimitive from "@kobalte/core/combobox"
 import type { PolymorphicProps } from "@kobalte/core/polymorphic"
 
 import { cn } from "~/utilities"
+import { IconCheck, IconX } from "@tabler/icons-solidjs"
+import { Label } from "./label"
 
 const Combobox = ComboboxPrimitive.Root
 const ComboboxItemLabel = ComboboxPrimitive.ItemLabel
@@ -178,15 +180,100 @@ const ComboboxContent = <T extends ValidComponent = "div">(
 	)
 }
 
+const ComboboxMultiSelectGridItem: Component<{
+	key: string;
+	onChange: (key: string, value: string[]) => void;
+	options: string[];
+	placeholder: string;
+	required?: boolean;
+	title: string;
+	value: string[];
+}> = (props) => {
+
+	const [showPlaceholder, showPlaceholderSet] = createSignal<boolean>(true);
+
+	return (
+		<div class="grid md:grid-cols-2 grid-cols-1">
+			<label class="text-sm font-medium">
+				{props.title}
+				{props.required && " *"}
+			</label>
+			<Combobox<string>
+				multiple
+				{...props.required && { required: true }}
+				options={props.options}
+				value={props.value} // Use the value passed from parent
+				onChange={(value: string[]) => props.onChange(props.key, value)}
+				{...showPlaceholder() && { placeholder: props.placeholder }}
+				itemComponent={itemProps => (
+					<ComboboxItem item={itemProps.item}>
+						<div class="flex">
+							<div class="w-6 shrink">
+								<ComboboxItemIndicator>
+									<IconCheck class="size-4 opacity-35" />
+								</ComboboxItemIndicator>
+							</div>
+							<ComboboxItemLabel>{itemProps.item.rawValue}</ComboboxItemLabel>
+						</div>
+					</ComboboxItem>
+				)}
+			>
+				<ComboboxControl<string>
+					class="flex overflow-hidden h-auto items-baseline"
+					aria-label={props.title}
+				>
+					{state => {
+						createEffect(() => {
+							showPlaceholderSet(state.selectedOptions().length === 0);
+						});
+
+						return (
+							<>
+								<div class={cn(
+									"flex flex-wrap gap-2 grow",
+									{
+										"p-2": state.selectedOptions().length,
+									}
+								)}>
+									<For each={state.selectedOptions()}>
+										{option => (
+											<div
+												class="bg-accent text-sm px-2 py-0.5 rounded inline-flex items-center gap-x-2"
+												onPointerDown={(event) => event.stopPropagation()}
+											>
+												{option}
+												<IconX
+													onClick={() => state.remove(option)}
+													class="size-3 hover:opacity-80"
+												/>
+											</div>
+										)}
+									</For>
+									<Show when={state.selectedOptions().length === 0}>
+										<ComboboxInput class="border-none focus:ring-0 text-base md:text-sm" />
+									</Show>
+								</div>
+								<ComboboxTrigger />
+							</>
+						);
+					}}
+				</ComboboxControl>
+				<ComboboxContent />
+			</Combobox>
+		</div>
+	);
+};
+
 export {
 	Combobox,
-	ComboboxItem,
-	ComboboxItemLabel,
-	ComboboxItemIndicator,
-	ComboboxSection,
+	ComboboxContent,
 	ComboboxControl,
-	ComboboxTrigger,
-	ComboboxInput,
 	ComboboxHiddenSelect,
-	ComboboxContent
+	ComboboxInput,
+	ComboboxItem,
+	ComboboxItemIndicator,
+	ComboboxItemLabel,
+	ComboboxSection,
+	ComboboxTrigger,
+	ComboboxMultiSelectGridItem,
 }

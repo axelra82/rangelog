@@ -1,4 +1,4 @@
-import type { ValidComponent } from "solid-js"
+import type { Component, ValidComponent } from "solid-js"
 import { mergeProps, splitProps } from "solid-js"
 
 import type { PolymorphicProps } from "@kobalte/core"
@@ -142,11 +142,34 @@ const TextFieldErrorMessage = <T extends ValidComponent = "div">(
 	)
 }
 
+const TextFieldGridItem: Component<{
+	key: string;
+	onChange: (key: string, value: string) => void;
+	required?: boolean;
+	title: string;
+	type: "text" | "date";
+	value: string;
+}> = (props) => (
+	<TextField
+		value={props.value}
+		onChange={(value) => props.onChange(props.key, value)}
+		class="grid md:grid-cols-2 grid-cols-1"
+		{...props.required && { required: true }}
+	>
+		<TextFieldLabel class="text-sm font-medium">
+			{props.title}
+			{props.required && " *"}
+		</TextFieldLabel>
+		<TextFieldInput class="text-base md:text-sm" type={props.type} />
+	</TextField>
+);
+
 export {
 	TextField,
-	TextFieldInput,
-	TextFieldTextArea,
-	TextFieldLabel,
 	TextFieldDescription,
-	TextFieldErrorMessage
+	TextFieldErrorMessage,
+	TextFieldGridItem,
+	TextFieldInput,
+	TextFieldLabel,
+	TextFieldTextArea,
 }

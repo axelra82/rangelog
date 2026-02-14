@@ -1,4 +1,4 @@
-import type { JSX, ValidComponent } from "solid-js"
+import type { Component, JSX, ValidComponent } from "solid-js"
 import { splitProps } from "solid-js"
 
 import type { PolymorphicProps } from "@kobalte/core/polymorphic"
@@ -6,6 +6,7 @@ import * as SelectPrimitive from "@kobalte/core/select"
 import { cva } from "class-variance-authority"
 
 import { cn } from "~/utilities"
+import { Label } from "./label"
 
 const Select = SelectPrimitive.Root
 const SelectValue = SelectPrimitive.Value
@@ -168,14 +169,50 @@ const SelectErrorMessage = <T extends ValidComponent = "div">(
 	)
 }
 
+const SelectGridItem: Component<{
+	key: string;
+	options: string[];
+	placeholder: string;
+	required?: boolean;
+	title: string;
+	value: string;
+	onChange: (key: string, value: string) => void;
+}> = (props) => (
+	<div class="grid md:grid-cols-2 grid-cols-1">
+		<Label class="text-sm font-medium">
+			{props.title}
+			{props.required && " *"}
+		</Label>
+		<Select
+			value={props.value}
+			onChange={(value) => props.onChange(props.key, value ?? "")}
+			options={[...props.options]}
+			placeholder={props.placeholder}
+			itemComponent={(itemProps) => (
+				<SelectItem item={itemProps.item}>
+					{itemProps.item.rawValue}
+				</SelectItem>
+			)}
+		>
+			<SelectTrigger>
+				<SelectValue<string>>
+					{(state) => state.selectedOption()}
+				</SelectValue>
+			</SelectTrigger>
+			<SelectContent />
+		</Select>
+	</div>
+);
+
 export {
 	Select,
-	SelectValue,
-	SelectHiddenSelect,
-	SelectTrigger,
 	SelectContent,
+	SelectDescription,
+	SelectErrorMessage,
+	SelectGridItem,
+	SelectHiddenSelect,
 	SelectItem,
 	SelectLabel,
-	SelectDescription,
-	SelectErrorMessage
+	SelectTrigger,
+	SelectValue,
 }

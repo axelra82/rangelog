@@ -3,13 +3,10 @@ import {
 	createSignal,
 	Show,
 	onMount,
-	For,
-	createEffect,
 } from "solid-js";
-import { Combobox } from "@kobalte/core/combobox";
 import { calibers, federations, weaponTypes } from "~/data";
 import { weapons } from "infrastructure";
-import { cn, todayISODate } from "~/utilities";
+import { todayISODate } from "~/utilities";
 import { WeaponCreateInput } from "~/types";
 import { useStore } from "~/store";
 import {
@@ -20,28 +17,14 @@ import {
 	CardContent,
 	CardHeader,
 	CardTitle,
-	ComboboxContent,
-	ComboboxControl,
-	ComboboxInput,
-	ComboboxItem,
-	ComboboxItemIndicator,
-	ComboboxItemLabel,
-	ComboboxTrigger,
+	ComboboxMultiSelectGridItem,
 	ConditionalWrapper,
 	DialogHeader,
 	DialogTitle,
-	Label,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
+	SelectGridItem,
 	Spinner,
-	TextField,
-	TextFieldInput,
-	TextFieldLabel,
+	TextFieldGridItem,
 } from "~/components";
-import { IconCheck, IconX } from "@tabler/icons-solidjs";
 
 interface CreateWeaponFormProps {
 	modal?: boolean;
@@ -64,8 +47,6 @@ type FormData = {
 	weaponGroup: string;
 };
 
-type FormTextFieldValues = keyof Omit<FormData, "calibers" | "owner">;
-
 export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 	const {
 		user,
@@ -78,8 +59,8 @@ export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 		calibers: [],
 		classification: "",
 		federation: "",
-		licenseEnd: todayISODate(),
-		licenseStart: todayISODate(),
+		licenseEnd: "",
+		licenseStart: "",
 		model: "",
 		name: "",
 		owner: user().id,
@@ -186,140 +167,6 @@ export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 		</>
 	);
 
-	const TextFieldGridItem = (props: {
-		required?: boolean;
-		title: string;
-		type: "text" | "date";
-		key: FormTextFieldValues;
-	}) => (
-		<TextField
-			value={form()[props.key]}
-			onChange={(value) => handleInputChange(props.key, value)}
-			class="grid grid-cols-2"
-			{...props.required && { required: true }}
-		>
-			<TextFieldLabel class="text-sm font-medium">
-				{props.title}
-				{props.required && " *"}
-			</TextFieldLabel>
-			<TextFieldInput type={props.type} />
-		</TextField>
-	);
-
-	const SelectGridItem = <T extends string>(props: {
-		key: FormTextFieldValues;
-		options: T[];
-		placeholder: string;
-		required?: boolean;
-		title: string;
-	}) => (
-		<div class="grid grid-cols-2">
-			<Label class="text-sm font-medium">
-				{props.title}
-				{props.required && " *"}
-			</Label>
-			<Select
-				value={form()[props.key]}
-				onChange={(value) => handleInputChange(props.key, value ?? "")}
-				options={[...props.options]}
-				placeholder={props.placeholder}
-				itemComponent={(itemProps) => (
-					<SelectItem item={itemProps.item}>
-						{itemProps.item.rawValue}
-					</SelectItem>
-				)}
-			>
-				<SelectTrigger>
-					<SelectValue<string>>
-						{(state) => state.selectedOption()}
-					</SelectValue>
-				</SelectTrigger>
-				<SelectContent />
-			</Select>
-		</div>
-	);
-
-	const MultiSelectComboboxGridItem = (props: {
-		title: string;
-		required?: boolean;
-		placeholder: string;
-		options: string[];
-	}) => {
-
-		const [showPlaceholder, showPlaceholderSet] = createSignal<boolean>(true);
-
-		return (
-			<div class="grid grid-cols-2">
-				<Label class="text-sm font-medium">
-					{props.title}
-					{props.required && " *"}
-				</Label>
-				<Combobox<string>
-					multiple
-					{...props.required && { required: true }}
-					options={props.options}
-					value={form().calibers}
-					onChange={(value: string[]) => handleInputChange("calibers", value)}
-					{...showPlaceholder() && { placeholder: props.placeholder }}
-					itemComponent={itemProps => (
-						<ComboboxItem item={itemProps.item}>
-							<div class="flex">
-								<div class="w-6 shrink">
-									<ComboboxItemIndicator>
-										<IconCheck class="size-4 opacity-35" />
-									</ComboboxItemIndicator>
-								</div>
-								<ComboboxItemLabel>{itemProps.item.rawValue}</ComboboxItemLabel>
-							</div>
-						</ComboboxItem>
-					)}
-				>
-					<ComboboxControl<string>
-						class="flex overflow-hidden h-auto items-baseline"
-						aria-label={props.title}
-					>
-						{state => {
-							createEffect(() => {
-								showPlaceholderSet(state.selectedOptions().length === 0);
-							});
-
-							return (
-								<>
-									<div class={cn(
-										"flex flex-wrap gap-2 grow",
-										{
-											"p-2": state.selectedOptions().length,
-										}
-									)}>
-										<For each={state.selectedOptions()}>
-											{option => (
-												<div
-													class="bg-accent text-sm px-2 py-0.5 rounded inline-flex items-center gap-x-2"
-													onPointerDown={e => e.stopPropagation()}
-												>
-													{option}
-													<IconX
-														onClick={() => state.remove(option)}
-														class="size-3 hover:opacity-80"
-													/>
-												</div>
-											)}
-										</For>
-										<Show when={state.selectedOptions().length === 0}>
-											<ComboboxInput class="border-none focus:ring-0" />
-										</Show>
-									</div>
-									<ComboboxTrigger />
-								</>
-							);
-						}}
-					</ComboboxControl>
-					<ComboboxContent />
-				</Combobox>
-			</div>
-		);
-	};
-
 	const FormFields = () => (
 		<form onSubmit={handleSubmit} class="space-y-6">
 			<Show when={error()}>
@@ -338,63 +185,82 @@ export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 
 			{/* Label-Input Grid Layout */}
 			<TextFieldGridItem
+				key={"name"}
+				onChange={handleInputChange}
 				required
 				title="Namn"
 				type="text"
-				key="name"
+				value={form().name}
 			/>
 
 			<SelectGridItem
 				key={"type"}
 				options={weaponTypes}
 				placeholder="Välj typ"
-				title="Typ"
 				required
+				title="Typ"
+				onChange={handleInputChange}
+				value={form().type}
 			/>
 
 			<TextFieldGridItem
-				key="brand"
+				key={"brand"}
+				onChange={handleInputChange}
 				required
 				title="Tillverkare"
 				type="text"
+				value={form().brand}
 			/>
 
 			<TextFieldGridItem
-				key="model"
+				key={"model"}
+				onChange={handleInputChange}
 				required
 				title="Modell"
 				type="text"
+				value={form().model}
 			/>
 
-			<MultiSelectComboboxGridItem
-				title="Kaliber"
-				required
-				placeholder="Kaliber"
+			<ComboboxMultiSelectGridItem
+				key="calibers"
+				onChange={handleInputChange}
 				options={calibers}
+				placeholder="Kaliber"
+				required
+				title="Kaliber"
+				value={form().calibers}
 			/>
 
 			<TextFieldGridItem
-				key="serialNumber"
+				key={"serialNumber"}
+				onChange={handleInputChange}
 				title="Serienummer"
 				type="text"
+				value={form().serialNumber}
 			/>
 
 			<TextFieldGridItem
-				key="barrelLength"
+				key={"barrelLength"}
+				onChange={handleInputChange}
 				title="Piplängd"
 				type="text"
+				value={form().barrelLength}
 			/>
 
 			<TextFieldGridItem
-				key="classification"
+				key={"classification"}
+				onChange={handleInputChange}
 				title="Skytteform"
 				type="text"
+				value={form().classification}
 			/>
 
 			<TextFieldGridItem
-				key="weaponGroup"
+				key={"weaponGroup"}
+				onChange={handleInputChange}
 				title="Vapengrupp"
 				type="text"
+				value={form().weaponGroup}
 			/>
 
 			<SelectGridItem
@@ -403,16 +269,22 @@ export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 				placeholder="Välj förbund"
 				title="Förbund"
 				required
+				onChange={handleInputChange}
+				value={form().federation}
 			/>
 
 			<TextFieldGridItem
-				key="licenseStart"
+				key={"licenseStart"}
+				onChange={handleInputChange}
 				title="Licens utfärdad datum"
 				type="date"
+				value={form().licenseStart}
 			/>
 
 			<TextFieldGridItem
-				key="licenseEnd"
+				key={"licenseEnd"}
+				value={form().licenseEnd}
+				onChange={handleInputChange}
 				title="Licens utgångsdatum"
 				type="date"
 			/>
