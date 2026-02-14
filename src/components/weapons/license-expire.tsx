@@ -30,7 +30,12 @@ export const WeaponLicenseExpireWarning: Component<WeaponLicenseExpireWarningPro
 								<IconAlertTriangle class={iconSize} />
 							</Match>
 						</Switch>
-						{warning.message}
+						<div>
+							<Show when={props.details}>
+								<span class="mr-1">{props.details}</span>
+							</Show>
+							{warning.message}
+						</div>
 					</Callout>
 				);
 			}}
