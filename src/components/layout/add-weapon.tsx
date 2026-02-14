@@ -1,35 +1,30 @@
-import { AlertDialogue, ButtonContained, Dialogue } from "..";
-
 import { createSignal } from "solid-js";
-
-import AddIcon from "@suid/icons-material/Add";
-
-import { Severity } from "~/types";
-import { ManageWeaponForm } from "../weapons";
+import { IconPlus } from "@tabler/icons-solidjs";
+import {
+	Button,
+	Dialog,
+	DialogContent,
+	DialogTrigger,
+	ManageWeaponForm,
+} from "~/components";
 
 export const AddWeapon = () => {
-	const [show, showSet] = createSignal(false);
-
-	const open = () => {
-		showSet((prev) => !prev);
-	}
+	const [open, setOpen] = createSignal(false);
 
 	return (
-		<>
-			<ButtonContained
-				size="large"
-				onClick={() => open()}
-				fullWidth
+		<Dialog open={open()} onOpenChange={setOpen}>
+			<DialogTrigger
+				as={Button}
+				variant="default"
+				size="lg"
+				class="w-full bg-blue-600 hover:bg-blue-700"
 			>
-				<AddIcon fontSize="small" /> Vapen
-			</ButtonContained>
-			<Dialogue
-				state={show}
-				stateSet={showSet}
-				severity={Severity.INFO}
-			>
+				<IconPlus />
+				Lägg till vapen
+			</DialogTrigger>
+			<DialogContent>
 				<ManageWeaponForm modal />
-			</Dialogue>
-		</>
+			</DialogContent>
+		</Dialog>
 	);
-}
+};

@@ -1,43 +1,29 @@
-import { ButtonContained, Dialogue } from "..";
-
 import { createSignal } from "solid-js";
-
-import AddIcon from "@suid/icons-material/Add";
-
-import { Severity } from "~/types";
-import { DefaultThemePaletteColor } from "~/types/theme";
+import { IconPlus } from "@tabler/icons-solidjs";
+import {
+	Button,
+	Dialog,
+	DialogContent,
+	DialogTrigger,
+} from "~/components";
 
 export const AddClaim = () => {
-	const [show, showSet] = createSignal(false);
-
-	const open = () => {
-		showSet((prev) => !prev);
-	}
+	const [open, setOpen] = createSignal(false);
 
 	return (
-		<>
-			<ButtonContained
-				size="large"
-				color={DefaultThemePaletteColor.WARNING}
-				onClick={() => open()}
-				fullWidth
+		<Dialog open={open()} onOpenChange={setOpen}>
+			<DialogTrigger
+				as={Button}
+				variant="default"
+				size="lg"
+				class="w-full bg-orange-400 hover:bg-orange-500"
 			>
-				<AddIcon fontSize="small" /> Fordring
-			</ButtonContained>
-			<Dialogue
-				state={show}
-				stateSet={showSet}
-				severity={Severity.WARNING}
-			>
-				<>
-					<h3>
-						Some data.
-					</h3>
-					<div>
-						other options <strong>that can be bold</strong>.
-					</div>
-				</>
-			</Dialogue>
-		</>
+				<IconPlus />
+				Fordring
+			</DialogTrigger>
+			<DialogContent>
+				<>TBD</>
+			</DialogContent>
+		</Dialog>
 	);
-}
+};

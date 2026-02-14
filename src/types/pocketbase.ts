@@ -40,7 +40,7 @@ export interface ReadListResponse<T> {
 export interface WeaponCollectionItem {
 	barrelLength?: string;
 	brand?: string;
-	caliber: Calibers;
+	caliber: Calibers[];
 	classification?: string;
 	created: string;
 	federation: Federations;
