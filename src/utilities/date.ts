@@ -269,7 +269,10 @@ export const isoDateTimeToDateInput = (
 	return date.toISOString().split("T")[0];
 };
 
-export const checkLicenseExpiry = (licenseEnd?: string) => {
+export const checkLicenseExpiry = (licenseEnd?: string): {
+	severity: "error" | "warning";
+	message: string;
+} | null => {
 	if (!licenseEnd) {
 		return null;
 	}
@@ -284,7 +287,7 @@ export const checkLicenseExpiry = (licenseEnd?: string) => {
 
 	if (diffDays < 0) {
 		return {
-			severity: DefaultThemePaletteColor.ERROR as AlertColor,
+			severity: "error",
 			message: `Licens gick ut för ${Math.abs(diffDays)} dagar sen`,
 		};
 	}
@@ -293,7 +296,7 @@ export const checkLicenseExpiry = (licenseEnd?: string) => {
 		const isToday = diffDays === 0;
 
 		return {
-			severity: (isToday ? DefaultThemePaletteColor.ERROR : DefaultThemePaletteColor.WARNING) as AlertColor,
+			severity: (isToday ? "error" : "warning"),
 			message: `Licens går ut ${isToday ? `idag` : `om ${diffDays} dagar`}`,
 		};
 	}

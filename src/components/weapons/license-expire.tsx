@@ -1,6 +1,7 @@
-import { checkLicenseExpiry, cn } from "~/utilities";
-import { Alert } from "@suid/material";
-import { Component, createMemo, JSXElement, Show } from "solid-js";
+import { checkLicenseExpiry } from "~/utilities";
+import { Callout } from "~/components";
+import { Component, createMemo, JSXElement, Match, Show, Switch } from "solid-js";
+import { IconAlertCircle, IconAlertTriangle, IconInfoCircle } from "@tabler/icons-solidjs";
 
 interface WeaponLicenseExpireWarningProps {
 	endDate?: string;
@@ -12,18 +13,27 @@ export const WeaponLicenseExpireWarning: Component<WeaponLicenseExpireWarningPro
 
 	return (
 		<Show when={licenseWarning()} keyed>
-			{(warning) => (
-				<Alert severity={warning.severity}>
-					<span class={cn({
-						"mr-1": props.details,
-					})}>
-						{props.details}
-					</span>
-					<span>
+			{(warning) => {
+				const iconSize = "size-5"
+
+				return (
+					<Callout
+						variant={warning.severity}
+						class="flex gap-4 py-4"
+					>
+						<Switch
+						>
+							<Match when={warning.severity === "error"}>
+								<IconAlertCircle class={iconSize} />
+							</Match>
+							<Match when={warning.severity === "warning"}>
+								<IconAlertTriangle class={iconSize} />
+							</Match>
+						</Switch>
 						{warning.message}
-					</span>
-				</Alert>
-			)}
+					</Callout>
+				);
+			}}
 		</Show>
 	);
-}
+};
