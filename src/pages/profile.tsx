@@ -6,6 +6,7 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
+	Separator,
 	TextField,
 	TextFieldInput,
 	TextFieldLabel,
@@ -25,7 +26,10 @@ const ProfilePage = () => {
 				</CardTitle>
 				<CardDescription>Hantera din profiluppgifter</CardDescription>
 			</CardHeader>
-			<CardContent>
+
+			<Separator />
+
+			<CardContent class="py-8">
 				<ul class="flex flex-col gap-4 max-w-2xs">
 					<li>
 						<TextField value={user().name}>
@@ -45,7 +49,10 @@ const ProfilePage = () => {
 					</li>
 				</ul>
 			</CardContent>
-			<CardFooter>
+
+			<Separator />
+
+			<CardFooter class="pt-4">
 				<p>Konto skapat: {user().created}</p>
 			</CardFooter>
 		</Card>
