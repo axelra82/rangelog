@@ -14,9 +14,9 @@ export const AddClaim = () => {
 		<Dialog open={open()} onOpenChange={setOpen}>
 			<DialogTrigger
 				as={Button}
-				variant="default"
+				variant="warning"
 				size="lg"
-				class="w-full bg-orange-400 hover:bg-orange-500"
+				class="w-full"
 			>
 				<IconPlus />
 				Fordring

@@ -17,7 +17,7 @@ export const AddWeapon = () => {
 				as={Button}
 				variant="default"
 				size="lg"
-				class="w-full bg-blue-600 hover:bg-blue-700"
+				class="w-full"
 			>
 				<IconPlus />
 				Lägg till vapen

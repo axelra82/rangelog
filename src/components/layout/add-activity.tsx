@@ -15,9 +15,9 @@ export const AddActivity = () => {
 		<Dialog open={open()} onOpenChange={setOpen}>
 			<DialogTrigger
 				as={Button}
-				variant="default"
+				variant="success"
 				size="lg"
-				class="w-full bg-green-600 hover:bg-green-700"
+				class="w-full"
 			>
 				<IconPlus />
 				Lägg till skytte
