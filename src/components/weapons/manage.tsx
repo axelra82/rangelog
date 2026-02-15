@@ -6,7 +6,6 @@ import {
 } from "solid-js";
 import { calibers, federations, weaponTypes } from "~/data";
 import { weapons } from "infrastructure";
-import { todayISODate } from "~/utilities";
 import { WeaponCreateInput } from "~/types";
 import { useStore } from "~/store";
 import {

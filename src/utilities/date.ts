@@ -269,9 +269,9 @@ export const isoDateTimeToDateInput = (
 	return date.toISOString().split("T")[0];
 };
 
-export const checkLicenseExpiry = (licenseEnd?: string): {
-	severity: "error" | "warning";
+export const licenseExpiryStatusMessage = (licenseEnd?: string): {
 	message: string;
+	status: "error" | "warning";
 } | null => {
 	if (!licenseEnd) {
 		return null;
@@ -287,8 +287,8 @@ export const checkLicenseExpiry = (licenseEnd?: string): {
 
 	if (diffDays < 0) {
 		return {
-			severity: "error",
 			message: `Licens gick ut för ${Math.abs(diffDays)} dagar sen`,
+			status: "error",
 		};
 	}
 
@@ -296,9 +296,10 @@ export const checkLicenseExpiry = (licenseEnd?: string): {
 		const isToday = diffDays === 0;
 
 		return {
-			severity: (isToday ? "error" : "warning"),
-			message: `Licens går ut ${isToday ? `idag` : `om ${diffDays} dagar`}`,
+			message: `Licens går ut ${isToday ? `idag` : `om ${Math.abs(diffDays)} dagar`}`,
+			status: "warning",
 		};
+
 	}
 
 	return null;

@@ -15,7 +15,7 @@ export const AddWeapon = () => {
 		<Dialog open={open()} onOpenChange={setOpen}>
 			<DialogTrigger
 				as={Button}
-				variant="default"
+				variant="info"
 				size="lg"
 				class="w-full"
 			>
