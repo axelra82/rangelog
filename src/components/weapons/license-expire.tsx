@@ -1,6 +1,6 @@
-import { licenseExpiryStatusMessage } from "~/utilities";
-import { Callout } from "~/components";
-import { Component, createMemo, JSXElement, Match, Show, Switch } from "solid-js";
+import { cn, licenseExpiryStatusMessage } from "~/utilities";
+import { Callout, Popover, PopoverContent, PopoverTrigger } from "~/components";
+import { Component, createMemo, createSignal, JSXElement, Match, onMount, Show, Switch } from "solid-js";
 import { IconAlertCircle, IconAlertTriangle } from "@tabler/icons-solidjs";
 
 interface WeaponLicenseExpireWarningProps {
@@ -39,6 +39,58 @@ export const WeaponLicenseExpireWarning: Component<WeaponLicenseExpireWarningPro
 					</Callout>
 				);
 			}}
+		</Show>
+	);
+};
+
+interface LicenseExpiryIndicatorProps {
+	licenseEnd?: string;
+	size?: number;
+}
+
+export const LicenseExpiryIndicator: Component<LicenseExpiryIndicatorProps> = (props) => {
+	const result = licenseExpiryStatusMessage(props.licenseEnd);
+
+	const [size, sizeSet] = createSignal("size-5");
+
+	onMount(() => {
+		if (props.size) {
+			sizeSet(`size-${props.size}`);
+		}
+	});
+
+	return (
+		<Show when={result} keyed>
+			{(item) => (
+				<Popover>
+					<PopoverTrigger as="div" class="inline-flex items-center gap-1 cursor-pointer">
+						<Show
+							when={item.status === "error"}
+							fallback={
+								<IconAlertTriangle class={cn(
+									"text-orange-500",
+									size(),
+								)} />
+							}
+						>
+							<IconAlertCircle class={cn(
+								"text-red-500",
+								size(),
+							)} />
+						</Show>
+					</PopoverTrigger>
+					<PopoverContent class={cn(
+						item.status === "error" ? "bg-error" : "bg-warning",
+					)}>
+						<p class={cn(
+							"text-sm",
+							item.status === "error" ? "text-error-foreground" : "text-warning-foreground",
+						)}>
+							{item.message}
+						</p>
+					</PopoverContent>
+				</Popover>
+			)}
 		</Show>
 	);
 };

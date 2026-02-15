@@ -1,4 +1,9 @@
-import { Component, For, Show } from "solid-js";
+import {
+	Component,
+	createSignal,
+	For,
+	Show,
+} from "solid-js";
 import { useStore } from "~/store";
 import {
 	Button,
@@ -11,31 +16,27 @@ import {
 	ManageWeaponForm,
 	Card,
 	CardContent,
+	WeaponDrawer,
+	DrawerControl,
+	LicenseExpiryIndicator,
 } from "~/components";
-import { IconChevronRight, IconAlertCircle, IconAlertTriangle } from "@tabler/icons-solidjs";
+import {
+	IconChevronRight,
+	IconAlertCircle,
+	IconAlertTriangle,
+} from "@tabler/icons-solidjs";
 import { licenseExpiryStatusMessage } from "~/utilities";
+import { WeaponCollectionItem } from "~/types";
 
 export const WeaponsPage: Component = () => {
 	const { weapons } = useStore();
 
-	const LicenseExpiryIndicator: Component<{ licenseEnd?: string }> = (props) => {
-		const result = licenseExpiryStatusMessage(props.licenseEnd);
+	const [selectedWeapon, selectedWeaponSet] = createSignal<WeaponCollectionItem | null>(null);
+	let drawerControl: DrawerControl | undefined;
 
-		return (
-			<Show when={result?.status} keyed>
-				{(status) => (<div class="inline-flex items-center gap-1">
-					<Show
-						when={status === "error"}
-						fallback={
-							<IconAlertTriangle class="size-4 text-orange-500" />
-						}
-					>
-						<IconAlertCircle class="size-4 text-red-500" />
-					</Show>
-				</div>
-				)}
-			</Show>
-		);
+	const openDrawer = (weapon: WeaponCollectionItem) => {
+		selectedWeaponSet(weapon);
+		drawerControl?.open();
 	};
 
 	return (
@@ -60,10 +61,10 @@ export const WeaponsPage: Component = () => {
 								<TableHead>
 									Typ
 								</TableHead>
-								<TableHead>
+								<TableHead class="w-fit">
 									Licens Utg.
 								</TableHead>
-								<TableHead />
+								<TableHead class="w-5" />
 							</TableRow>
 						</TableHeader>
 						<TableBody>
@@ -85,7 +86,11 @@ export const WeaponsPage: Component = () => {
 											</div>
 										</TableCell>
 										<TableCell class="text-right">
-											<Button variant="ghost" size="icon">
+											<Button
+												variant="ghost"
+												size="icon"
+												onClick={() => openDrawer(weapon)}
+											>
 												<IconChevronRight class="size-4" />
 											</Button>
 										</TableCell>
@@ -98,6 +103,15 @@ export const WeaponsPage: Component = () => {
 			</Show>
 
 			<ManageWeaponForm />
+
+			<Show when={selectedWeapon()} keyed>
+				{(weapon) => (
+					<WeaponDrawer
+						weapon={weapon}
+						ref={(control) => drawerControl = control}
+					/>
+				)}
+			</Show>
 		</section>
 	);
 };

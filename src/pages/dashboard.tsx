@@ -23,7 +23,7 @@ export const DashboardPage = () => {
 				<ul class="flex flex-col gap-4">
 					<For each={weapons()}>
 						{(item) => (
-							<li class="px-8">
+							<li class="px-4 py-2">
 								<WeaponLicenseExpireWarning
 									endDate={item.licenseEnd}
 									details={`${item.name} (${item.brand} ${item.model})`}
@@ -34,7 +34,7 @@ export const DashboardPage = () => {
 				</ul>
 			</section>
 
-			<section class="p-8">
+			<section class="py-8 px-4">
 				<h1>Vad vill du göra?</h1>
 				<p class="text-muted-foreground mb-6">
 				</p>
