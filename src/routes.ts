@@ -9,6 +9,10 @@ export const dashboardRoutes = [
 		component: lazy(() => import("./pages/dashboard")),
 	},
 	{
+		path: "/profile",
+		component: lazy(() => import("./pages/profile")),
+	},
+	{
 		path: "/activities",
 		component: lazy(() => import("./pages/activities")),
 	},

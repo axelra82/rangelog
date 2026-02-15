@@ -1,12 +1,14 @@
-import { IconLogout } from "@tabler/icons-solidjs";
+import { IconLogout, IconUser } from "@tabler/icons-solidjs";
 import { auth } from "infrastructure/services";
 import { Component } from "solid-js";
 import { useStore } from "~/store";
-import { ThemeSelect } from "../theme";
 import {
 	DropdownMenuContent,
 	DropdownMenuItem,
-} from "~/components/ui/dropdown-menu";
+	Separator,
+	ThemeSelect
+} from "~/components/";
+import { A } from "@solidjs/router";
 
 export const ProfileMenu: Component = () => {
 	const {
@@ -22,14 +24,27 @@ export const ProfileMenu: Component = () => {
 
 	return (
 		<DropdownMenuContent>
+
 			<DropdownMenuItem>
-				<div class="p-2">
-					<ThemeSelect />
+				<ThemeSelect />
+			</DropdownMenuItem>
+
+			<Separator />
+
+			<DropdownMenuItem>
+				<div class="flex gap-2 items-center py-2">
+					<IconUser class="size-4" />
+					<A href="/profile">Profil</A>
 				</div>
 			</DropdownMenuItem>
+
+			<Separator />
+
 			<DropdownMenuItem onSelect={handleLogout}>
-				<IconLogout class="mr-2 size-4" />
-				<span>Logout</span>
+				<div class="flex gap-2 items-center py-2">
+					<IconLogout class="size-4" />
+					Logga ut
+				</div>
 			</DropdownMenuItem>
 		</DropdownMenuContent>
 	);
