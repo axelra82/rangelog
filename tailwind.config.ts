@@ -15,54 +15,106 @@ export default {
 		},
 		extend: {
 			colors: {
-				border: "hsl(var(--border))",
-				input: "hsl(var(--input))",
-				ring: "hsl(var(--ring))",
-				background: "hsl(var(--background))",
-				foreground: "hsl(var(--foreground))",
+				border: "oklch(var(--border))",
+				input: "oklch(var(--input))",
+				ring: "oklch(var(--ring))",
+				background: "oklch(var(--background))",
+				foreground: "oklch(var(--foreground))",
 				primary: {
-					DEFAULT: "hsl(var(--primary))",
-					foreground: "hsl(var(--primary-foreground))"
+					DEFAULT: "oklch(var(--primary))",
+					foreground: "oklch(var(--primary-foreground))"
 				},
 				secondary: {
-					DEFAULT: "hsl(var(--secondary))",
-					foreground: "hsl(var(--secondary-foreground))"
+					DEFAULT: "oklch(var(--secondary))",
+					foreground: "oklch(var(--secondary-foreground))"
 				},
 				destructive: {
-					DEFAULT: "hsl(var(--destructive))",
-					foreground: "hsl(var(--destructive-foreground))"
+					DEFAULT: "oklch(var(--destructive))",
+					foreground: "oklch(var(--destructive-foreground))"
 				},
 				info: {
-					DEFAULT: "hsl(var(--info))",
-					foreground: "hsl(var(--info-foreground))"
+					DEFAULT: "oklch(var(--info))",
+					foreground: "oklch(var(--info-foreground))"
 				},
 				success: {
-					DEFAULT: "hsl(var(--success))",
-					foreground: "hsl(var(--success-foreground))"
+					DEFAULT: "oklch(var(--success))",
+					foreground: "oklch(var(--success-foreground))"
 				},
 				warning: {
-					DEFAULT: "hsl(var(--warning))",
-					foreground: "hsl(var(--warning-foreground))"
+					DEFAULT: "oklch(var(--warning))",
+					foreground: "oklch(var(--warning-foreground))"
 				},
 				error: {
-					DEFAULT: "hsl(var(--error))",
-					foreground: "hsl(var(--error-foreground))"
+					DEFAULT: "oklch(var(--error))",
+					foreground: "oklch(var(--error-foreground))"
 				},
 				muted: {
-					DEFAULT: "hsl(var(--muted))",
-					foreground: "hsl(var(--muted-foreground))"
+					DEFAULT: "oklch(var(--muted))",
+					foreground: "oklch(var(--muted-foreground))"
 				},
 				accent: {
-					DEFAULT: "hsl(var(--accent))",
-					foreground: "hsl(var(--accent-foreground))"
+					DEFAULT: "oklch(var(--accent))",
+					foreground: "oklch(var(--accent-foreground))"
 				},
 				popover: {
-					DEFAULT: "hsl(var(--popover))",
-					foreground: "hsl(var(--popover-foreground))"
+					DEFAULT: "oklch(var(--popover))",
+					foreground: "oklch(var(--popover-foreground))"
 				},
 				card: {
-					DEFAULT: "hsl(var(--card))",
-					foreground: "hsl(var(--card-foreground))"
+					DEFAULT: "oklch(var(--card))",
+					foreground: "oklch(var(--card-foreground))"
+				},
+				blue: {
+					50: "oklch(var(--blue-50) / <alpha-value>)",
+					100: "oklch(var(--blue-100) / <alpha-value>)",
+					200: "oklch(var(--blue-200) / <alpha-value>)",
+					300: "oklch(var(--blue-300) / <alpha-value>)",
+					400: "oklch(var(--blue-400) / <alpha-value>)",
+					500: "oklch(var(--blue-500) / <alpha-value>)",
+					600: "oklch(var(--blue-600) / <alpha-value>)",
+					700: "oklch(var(--blue-700) / <alpha-value>)",
+					800: "oklch(var(--blue-800) / <alpha-value>)",
+					900: "oklch(var(--blue-900) / <alpha-value>)",
+					950: "oklch(var(--blue-950 / <alpha-value>))"
+				},
+				green: {
+					50: "oklch(var(--green-50) / <alpha-value>)",
+					100: "oklch(var(--green-100) / <alpha-value>)",
+					200: "oklch(var(--green-200) / <alpha-value>)",
+					300: "oklch(var(--green-300) / <alpha-value>)",
+					400: "oklch(var(--green-400) / <alpha-value>)",
+					500: "oklch(var(--green-500) / <alpha-value>)",
+					600: "oklch(var(--green-600) / <alpha-value>)",
+					700: "oklch(var(--green-700) / <alpha-value>)",
+					800: "oklch(var(--green-800) / <alpha-value>)",
+					900: "oklch(var(--green-900) / <alpha-value>)",
+					950: "oklch(var(--green-950 / <alpha-value>))"
+				},
+				orange: {
+					50: "oklch(var(--orange-50) / <alpha-value>)",
+					100: "oklch(var(--orange-100) / <alpha-value>)",
+					200: "oklch(var(--orange-200) / <alpha-value>)",
+					300: "oklch(var(--orange-300) / <alpha-value>)",
+					400: "oklch(var(--orange-400) / <alpha-value>)",
+					500: "oklch(var(--orange-500) / <alpha-value>)",
+					600: "oklch(var(--orange-600) / <alpha-value>)",
+					700: "oklch(var(--orange-700) / <alpha-value>)",
+					800: "oklch(var(--orange-800) / <alpha-value>)",
+					900: "oklch(var(--orange-900) / <alpha-value>)",
+					950: "oklch(var(--orange-950 / <alpha-value>))"
+				},
+				red: {
+					50: "oklch(var(--red-50) / <alpha-value>)",
+					100: "oklch(var(--red-100) / <alpha-value>)",
+					200: "oklch(var(--red-200) / <alpha-value>)",
+					300: "oklch(var(--red-300) / <alpha-value>)",
+					400: "oklch(var(--red-400) / <alpha-value>)",
+					500: "oklch(var(--red-500) / <alpha-value>)",
+					600: "oklch(var(--red-600) / <alpha-value>)",
+					700: "oklch(var(--red-700) / <alpha-value>)",
+					800: "oklch(var(--red-800) / <alpha-value>)",
+					900: "oklch(var(--red-900) / <alpha-value>)",
+					950: "oklch(var(--red-950 / <alpha-value>))"
 				}
 			},
 			borderRadius: {

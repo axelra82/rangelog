@@ -8,6 +8,7 @@ import {
 	AddWeapon,
 	AddClaim,
 	AddActivity,
+	Palette,
 } from "~/components";
 import { useStore } from "~/store";
 
@@ -45,6 +46,20 @@ export const DashboardPage = () => {
 					</nav>
 				</CardContent>
 			</Card>
+			{/* <Palette
+				colors={[
+					"info",
+					"success",
+					"warning",
+					"destructive",
+					"error",
+				]}
+				gradients={[
+					"",
+					"foreground",
+				]}
+			/>
+			<Palette /> */}
 		</>
 	);
 };
