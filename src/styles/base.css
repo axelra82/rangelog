@@ -10,10 +10,6 @@
       "rlig" 1,
       "calt" 1;
   }
-
-	h1 {
-		@apply text-5xl font-bold;
-	}
 }
 
 @media (max-width: 640px) {

@@ -39,7 +39,7 @@ export const LoginPage: Component = () => {
 	};
 
 	return (
-		<div class="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
+		<div class="min-h-screen flex flex-col">
 			{/* Header with theme selector */}
 			<header class="w-full p-4 flex justify-end">
 				<ThemeSelect />
@@ -47,7 +47,7 @@ export const LoginPage: Component = () => {
 
 			{/* Main content */}
 			<main class="flex-1 flex items-center justify-center p-4">
-				<div class="w-full max-w-md space-y-8">
+				<div class="w-full max-w-sm space-y-8 px-4">
 					{/* Logo/Brand area */}
 					<div class="flex flex-col items-center space-y-2">
 						<img
@@ -55,79 +55,73 @@ export const LoginPage: Component = () => {
 							alt="Logo"
 							class="w-16 h-16 rounded-2xl"
 						/>
-						<h1 class="text-3xl font-bold tracking-tight">Rangelog</h1>
+						<h1>Rangelog login</h1>
 						<p class="text-muted-foreground">Keep track of your range activities and more.</p>
 					</div>
 
 					{/* Login card */}
-					<Card class="shadow-xl">
-						<CardHeader class="space-y-1">
-							<CardTitle class="text-2xl">Login</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<form onSubmit={handleLogin} class="space-y-4">
-								<div class="space-y-2">
-									<TextField
-										id="email"
-										value={email()}
-										onChange={(value) => setEmail(value)}
-										disabled={working()}
-										required
+
+					<form onSubmit={handleLogin} class="space-y-4">
+						<div class="space-y-2">
+							<TextField
+								id="email"
+								value={email()}
+								onChange={(value) => setEmail(value)}
+								disabled={working()}
+								required
+							>
+								<TextFieldLabel>E-post</TextFieldLabel>
+								<TextFieldInput
+									type="email"
+									placeholder="email@example.com"
+									autocomplete="email"
+								/>
+							</TextField>
+						</div>
+						<div class="space-y-2">
+							<TextField
+								id="password"
+								value={password()}
+								onChange={(value) => setPassword(value)}
+								disabled={working()}
+								required
+							>
+								<TextFieldLabel>Lösenord</TextFieldLabel>
+								<div class="relative">
+									<TextFieldInput
+										type={showPassword() ? "text" : "password"}
+										placeholder="••••••••"
+										autocomplete="current-password"
+										class="pr-10"
+									/>
+									<Button
+										type="button"
+										variant="ghost"
+										size="icon"
+										onClick={() => setShowPassword(!showPassword())}
+										class="absolute right-0 top-1/2 -translate-y-1/2 h-full"
+										tabindex="-1"
+										disabled={password() === ""}
 									>
-										<TextFieldLabel>E-post</TextFieldLabel>
-										<TextFieldInput
-											type="email"
-											placeholder="email@example.com"
-											autocomplete="email"
-										/>
-									</TextField>
+										{showPassword() ? <IconEyeOff /> : <IconEye />}
+									</Button>
 								</div>
-								<div class="space-y-2">
-									<TextField
-										id="password"
-										value={password()}
-										onChange={(value) => setPassword(value)}
-										disabled={working()}
-										required
-									>
-										<TextFieldLabel>Lösenord</TextFieldLabel>
-										<div class="relative">
-											<TextFieldInput
-												type={showPassword() ? "text" : "password"}
-												placeholder="••••••••"
-												autocomplete="current-password"
-												class="pr-10"
-											/>
-											<Button
-												type="button"
-												variant="ghost"
-												size="icon"
-												onClick={() => setShowPassword(!showPassword())}
-												class="absolute right-0 top-1/2 -translate-y-1/2 h-full"
-												tabindex="-1"
-												disabled={password() === ""}
-											>
-												{showPassword() ? <IconEyeOff /> : <IconEye />}
-											</Button>
-										</div>
-									</TextField>
-								</div>
-								<Button
-									type="submit"
-									class="w-full"
-									disabled={working()}
-									size="lg"
-								>
-									<Show
-										when={working()}
-										fallback="Logga in"
-									>
-										<Spinner variant="secondary" />
-									</Show>
-								</Button>
-							</form>
-						</CardContent>
-					</Card>
+							</TextField>
+						</div>
+						<Button
+							type="submit"
+							class="w-full"
+							disabled={working()}
+							size="lg"
+						>
+							<Show
+								when={working()}
+								fallback="Logga in"
+							>
+								<Spinner variant="secondary" />
+							</Show>
+						</Button>
+					</form>
 
 					<LoginFooter />
 				</div>

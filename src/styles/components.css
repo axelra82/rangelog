@@ -1,5 +1,5 @@
 @layer components {
   h1 {
-		@apply text-5xl font-bold;
+		@apply text-4xl font-bold tracking-tight;
 	}
 }
