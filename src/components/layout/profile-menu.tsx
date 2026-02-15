@@ -31,12 +31,14 @@ export const ProfileMenu: Component = () => {
 
 			<Separator />
 
-			<DropdownMenuItem>
-				<div class="flex gap-2 items-center py-2">
-					<IconUser class="size-4" />
-					<A href="/profile">Profil</A>
-				</div>
-			</DropdownMenuItem>
+			<A href="/profile">
+				<DropdownMenuItem>
+					<div class="flex gap-2 items-center py-2">
+						<IconUser class="size-4" />
+						Profil
+					</div>
+				</DropdownMenuItem>
+			</A>
 
 			<Separator />
 
