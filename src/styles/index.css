@@ -1,11 +1,12 @@
 @config "../../tailwind.config.ts";
 @import "tailwindcss";
 
-@layer base, theme, utilities;
+@layer base, theme, components, utilities;
 @import "tailwindcss/preflight.css" layer(base);
 
 @import "./theme/light.css" layer(base);
 @import "./theme/dark.css" layer(base);
 
 @import "./base.css" layer(base);
+@import "./components.css" layer(components);
 @import "./utilities.css" layer(utilities);

@@ -1,6 +1,10 @@
 import {
 	AddActivity,
-	AddClaim
+	AddClaim,
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger
 } from "~/components";
 import { useStore } from "~/store";
 import { createEffect, For } from "solid-js";
@@ -31,11 +35,22 @@ export const ActivitiesPage = () => {
 					</li>
 				</ul>
 			</nav>
-			<section>
-				<For each={storeActivities()}>
-					{(item) => <ActivityItem {...item} />}
-				</For>
-			</section>
+			<Tabs defaultValue="activities">
+				<TabsList class="grid grid-cols-2 w-50">
+					<TabsTrigger value="activities">Skytte</TabsTrigger>
+					<TabsTrigger value="claims">Fordringar</TabsTrigger>
+				</TabsList>
+				<TabsContent value="activities">
+					<For each={storeActivities()}>
+						{(item) => <ActivityItem {...item} />}
+					</For>
+				</TabsContent>
+				<TabsContent value="claims">
+					<section class="p-8">
+						<h1>WIP</h1>
+					</section>
+				</TabsContent>
+			</Tabs>
 		</>
 	);
 }
