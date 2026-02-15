@@ -293,7 +293,7 @@ export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 				<Button
 					type="submit"
 					disabled={loading()}
-					class="bg-green-600 hover:bg-green-700 text-white px-8"
+					variant="success"
 				>
 					<Show when={loading()} fallback="Lägg till">
 						<Spinner size="sm" variant="white" class="mr-2" />
