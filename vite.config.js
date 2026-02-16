@@ -40,6 +40,8 @@ export default defineConfig({
 			registerType: "autoUpdate",
 			workbox: {
 				cleanupOutdatedCaches: true,
+				// Critical: exclude /_/ from fallback, for pocketbase super user login.
+				navigateFallbackDenylist: [/^\/_\//],
 			},
 			manifest: {
 				background_color: "#1E1E1E",
@@ -77,17 +79,6 @@ export default defineConfig({
 	server: {
 		port: 9999,
 		host: "localhost",
-		proxy: {
-			"/_/": {
-				target: "http://rangelog.lalaland.app",
-				changeOrigin: true,
-				bypass: (req) => {
-					if (req.url?.startsWith("/_/")) {
-						return req.url;
-					}
-				}
-			}
-		}
 	},
 	resolve: {
 		alias: {
