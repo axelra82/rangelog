@@ -297,7 +297,7 @@ export const licenseExpiryStatusMessage = (licenseEnd?: string): {
 
 		return {
 			message: `Licens går ut ${isToday ? `idag` : `om ${Math.abs(diffDays)} dagar`}`,
-			status: "warning",
+			status: isToday ? "error" : "warning",
 		};
 
 	}
