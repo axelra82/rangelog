@@ -61,40 +61,42 @@ export const BottomNavTabBars = () => {
 		}, []);
 
 	return (
-		<div class="fixed bottom-0 left-0 right-0 z-50 px-5 pb-7">
-			<div class="bg-white/70 backdrop-blur-2xl rounded-3xl shadow-lg border border-white/20 px-2 py-2">
-				<nav class="flex items-center justify-around">
-					{tabs.map((tab) => {
-						const isCurrentPath = currentRoute() === tab.path;
+		<div class="space-y-6">
+			<div class="fixed bottom-0 left-0 right-0 z-50 px-5 pb-7">
+				<div class="bg-white/70 backdrop-blur-2xl rounded-3xl shadow-lg border border-white/20 px-2 py-2">
+					<nav class="flex items-center justify-around">
+						{tabs.map((tab) => {
+							const isCurrentPath = currentRoute() === tab.path;
 
-						return (
-							<A href={tab.path}>
-								<button
-									class={cn(
-										"relative flex flex-col items-center justify-center gap-1 py-2 px-3 rounded-full transition-all duration-200 active:scale-95",
-									)}
-								>
-									<div
+							return (
+								<A href={tab.path}>
+									<button
 										class={cn(
-											"transition-all duration-200",
-											isCurrentPath ? "text-blue-500 scale-105" : "text-gray-500",
+											"relative flex flex-col items-center justify-center gap-1 py-2 px-3 rounded-full transition-all duration-200 active:scale-95",
 										)}
 									>
-										<tab.icon class="size-5" />
-									</div>
-									<span
-										class={cn(
-											"text-xs font-medium transition-all duration-200",
-											isCurrentPath ? "text-blue-500" : "text-gray-500",
-										)}
-									>
-										{tab.label}
-									</span>
-								</button>
-							</A>
-						)
-					})}
-				</nav>
+										<div
+											class={cn(
+												"transition-all duration-200",
+												isCurrentPath ? "text-blue-500 scale-105" : "text-gray-500",
+											)}
+										>
+											<tab.icon class="size-5" />
+										</div>
+										<span
+											class={cn(
+												"text-xs font-medium transition-all duration-200",
+												isCurrentPath ? "text-blue-500" : "text-gray-500",
+											)}
+										>
+											{tab.label}
+										</span>
+									</button>
+								</A>
+							)
+						})}
+					</nav>
+				</div>
 			</div>
 		</div>
 	);
