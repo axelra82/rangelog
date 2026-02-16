@@ -1,10 +1,9 @@
 import {
 	Component,
-	createSignal,
-	Show,
-	onMount,
 	createEffect,
-	Accessor,
+	createSignal,
+	Setter,
+	Show,
 } from "solid-js";
 import {
 	calibers,
@@ -40,6 +39,7 @@ import { isoDateTimeToDateInput } from "~/utilities";
 
 interface WeaponFormProps {
 	modal?: boolean;
+	modalControl?: Setter<boolean>;
 	editWeapon?: WeaponCollectionItem;
 }
 
@@ -150,6 +150,12 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					variant: "success",
 					duration: 3000,
 				});
+
+				reformSet();
+
+				if (props.modal && props.modalControl) {
+					props.modalControl(false);
+				}
 			}
 		} catch (error) {
 			errorSet(error instanceof Error ? error.message : "Något gick fel");

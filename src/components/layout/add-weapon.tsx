@@ -23,7 +23,7 @@ export const AddWeapon = () => {
 				Lägg till vapen
 			</DialogTrigger>
 			<DialogContent>
-				<WeaponForm modal />
+				<WeaponForm modal modalControl={setOpen} />
 			</DialogContent>
 		</Dialog>
 	);
