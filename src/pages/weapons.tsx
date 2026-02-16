@@ -114,7 +114,7 @@ export const WeaponsPage: Component = () => {
 											</TableCell>
 											<TableCell>
 												<div class="flex items-center gap-2">
-													a{weapon.licenseEnd ? new Date(weapon.licenseEnd).toLocaleDateString("sv-SE") : ""}
+													{weapon.licenseEnd ? new Date(weapon.licenseEnd).toLocaleDateString("sv-SE") : "-"}
 												</div>
 											</TableCell>
 											<TableCell class="text-right">
