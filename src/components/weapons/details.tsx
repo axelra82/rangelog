@@ -1,3 +1,4 @@
+import { useSearchParams } from "@solidjs/router";
 import { weapons } from "infrastructure/services";
 import {
 	Component,
@@ -35,10 +36,10 @@ interface DetailItemProps {
 
 export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 	const {
-		weapons: storeWeapons,
 		weaponsSet,
 	} = useStore();
 
+	const [_, setSearchParams] = useSearchParams();
 	const [items, itemsSet] = createSignal<DetailItemProps[]>([]);
 	let drawerControl: DrawerControl | undefined;
 
@@ -61,6 +62,11 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 			</strong>
 		</div>
 	);
+
+	const editWeapon = (weapon: WeaponCollectionItem) => {
+		drawerControl?.close();
+		setSearchParams({ edit: weapon.id });
+	};
 
 	const deleteWeapon = (id: string, name: string) => {
 		weapons.delete(id);
@@ -124,6 +130,10 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 				key: "Tillagd",
 				value: props.weapon.created,
 			},
+			{
+				key: "Anteckningar",
+				value: props.weapon.notes,
+			},
 		]);
 	});
 
@@ -151,6 +161,7 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 						<Button
 							variant="default"
 							class="flex-1"
+							onClick={() => editWeapon(props.weapon)}
 						>
 							Redigera
 						</Button>

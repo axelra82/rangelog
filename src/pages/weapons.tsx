@@ -42,6 +42,7 @@ export const WeaponsPage: Component = () => {
 	} = useStore();
 
 	const [selectedWeapon, selectedWeaponSet] = createSignal<WeaponCollectionItem | null>(null);
+	const [editWeapon, editWeaponSet] = createSignal<WeaponCollectionItem>();
 
 	const [drawerControl, drawerControlSet] = createSignal<DrawerControl>();
 
@@ -57,6 +58,20 @@ export const WeaponsPage: Component = () => {
 				openDrawer(weapon);
 			}
 		}
+	});
+
+	createEffect(() => {
+		const editId = location.query.edit;
+		if (editId) {
+			const weapon = weapons().find((item) => item.id === editId);
+
+			if (weapon) {
+				editWeaponSet(weapon);
+			}
+			return;
+		}
+
+		editWeaponSet();
 	});
 
 	return (
@@ -118,7 +133,6 @@ export const WeaponsPage: Component = () => {
 										>
 											<TableCell>
 												<div class="flex gap-2 items-center">
-													{weapon.id}
 													<LicenseExpiryIndicator licenseEnd={weapon.licenseEnd} />
 													{weapon.name}
 												</div>
@@ -146,7 +160,7 @@ export const WeaponsPage: Component = () => {
 				</div>
 			</Show>
 
-			<WeaponForm />
+			<WeaponForm editWeapon={editWeapon()} />
 
 			<Show when={selectedWeapon()} keyed>
 				{(weapon) => (

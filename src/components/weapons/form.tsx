@@ -4,6 +4,7 @@ import {
 	Show,
 	onMount,
 	createEffect,
+	Accessor,
 } from "solid-js";
 import {
 	calibers,
@@ -34,12 +35,12 @@ import {
 	TextFieldAreaGridItem,
 	TextFieldInputGridItem,
 } from "~/components";
+import { useSearchParams } from "@solidjs/router";
+import { isoDateTimeToDateInput } from "~/utilities";
 
 interface WeaponFormProps {
 	modal?: boolean;
-	onSuccess?: () => void;
-	edit?: boolean;
-	weapon?: WeaponCollectionItem;
+	editWeapon?: WeaponCollectionItem;
 }
 
 export const WeaponForm: Component<WeaponFormProps> = (props) => {
@@ -47,6 +48,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 		user,
 		weaponsSet,
 	} = useStore();
+
+	const [_, setSearchParams] = useSearchParams();
 
 	const defaultFormValues = {
 		barrelLength: "",
@@ -65,38 +68,16 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 	};
 
 	const [form, formSet] = createSignal<WeaponCreateInput>(defaultFormValues);
+	const [editForm, editFormSet] = createSignal<WeaponCollectionItem>();
 	const [loading, loadingSet] = createSignal(false);
 	const [error, errorSet] = createSignal<string | null>(null);
-	const [success, successSet] = createSignal(false);
 	const [title, titleSet] = createSignal<string>();
 
-	onMount(() => {
-		if (props.edit) {
-			titleSet("Redigera vapen");
-		} else {
-			titleSet("Lägg till nytt vapen");
-		}
-	});
-
-	createEffect(() => {
-		if (props.edit && props.weapon) {
-			formSet({
-				barrelLength: props.weapon.barrelLength || "",
-				brand: props.weapon.brand,
-				caliber: props.weapon.caliber,
-				classification: props.weapon.classification || "",
-				federation: props.weapon.federation,
-				licenseEnd: props.weapon.licenseEnd || undefined,
-				licenseStart: props.weapon.licenseStart || undefined,
-				model: props.weapon.model,
-				name: props.weapon.name,
-				notes: props.weapon.notes || "",
-				owner: props.weapon.owner || user().id,
-				serialNumber: props.weapon.serialNumber || "",
-				type: props.weapon.type,
-			});
-		}
-	});
+	const cancelEdit = () => {
+		setSearchParams({ edit: undefined });
+		editFormSet();
+		reformSet();
+	};
 
 	const handleInputChange = (
 		field: string,
@@ -115,7 +96,6 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 	const handleSubmit = async (event: Event) => {
 		event.preventDefault();
 		errorSet(null);
-		successSet(false);
 		loadingSet(true);
 
 		try {
@@ -147,11 +127,11 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				notes: current.notes,
 			};
 
-			if (props.edit && props.weapon) {
-				// Update existing weapon
-				const updatedItem = await weapons.update(props.weapon.id, weaponData);
+			if (editForm()) {
+				const updatedItem = await weapons.update(editForm()!.id, weaponData);
+
 				weaponsSet((prev) =>
-					prev.map((w) => (w.id === props.weapon!.id ? updatedItem : w))
+					prev.map((item) => (item.id === editForm()!.id ? updatedItem : item))
 				);
 
 				showToast({
@@ -161,7 +141,6 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					duration: 3000,
 				});
 			} else {
-				// Create new weapon
 				const newItem = await weapons.create(weaponData);
 				weaponsSet((prev) => [...prev, newItem]);
 
@@ -172,16 +151,6 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					duration: 3000,
 				});
 			}
-
-			if (!props.edit) {
-				reformSet();
-			}
-			successSet(true);
-
-			if (props.onSuccess) {
-				props.onSuccess();
-			}
-
 		} catch (error) {
 			errorSet(error instanceof Error ? error.message : "Något gick fel");
 		}
@@ -223,124 +192,179 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				</Alert>
 			</Show>
 
-			<TextFieldInputGridItem
-				key={"name"}
-				onChange={handleInputChange}
-				required
-				title="Namn"
-				type="text"
-				value={form().name}
-			/>
+			<section class="space-y-6">
+				<TextFieldInputGridItem
+					key={"name"}
+					onChange={handleInputChange}
+					required
+					title="Namn"
+					type="text"
+					value={form().name}
+				/>
 
-			<SelectGridItem
-				key={"type"}
-				options={weaponTypes}
-				placeholder="Välj typ"
-				required
-				title="Typ"
-				onChange={handleInputChange}
-				value={form().type}
-			/>
+				<SelectGridItem
+					key={"type"}
+					options={weaponTypes}
+					placeholder="Välj typ"
+					required
+					title="Typ"
+					onChange={handleInputChange}
+					value={form().type}
+				/>
 
-			<TextFieldInputGridItem
-				key={"brand"}
-				onChange={handleInputChange}
-				required
-				title="Tillverkare"
-				type="text"
-				value={form().brand}
-			/>
+				<TextFieldInputGridItem
+					key={"brand"}
+					onChange={handleInputChange}
+					required
+					title="Tillverkare"
+					type="text"
+					value={form().brand}
+				/>
 
-			<TextFieldInputGridItem
-				key={"model"}
-				onChange={handleInputChange}
-				required
-				title="Modell"
-				type="text"
-				value={form().model}
-			/>
+				<TextFieldInputGridItem
+					key={"model"}
+					onChange={handleInputChange}
+					required
+					title="Modell"
+					type="text"
+					value={form().model}
+				/>
 
-			<ComboboxMultiSelectGridItem
-				key="caliber"
-				onChange={handleInputChange}
-				options={calibers}
-				placeholder="Kaliber"
-				required
-				title="Kaliber"
-				value={form().caliber}
-			/>
+				<ComboboxMultiSelectGridItem
+					key="caliber"
+					onChange={handleInputChange}
+					options={calibers}
+					placeholder="Kaliber"
+					required
+					title="Kaliber"
+					value={form().caliber}
+				/>
 
-			<TextFieldInputGridItem
-				key={"serialNumber"}
-				onChange={handleInputChange}
-				title="Serienummer"
-				type="text"
-				value={form().serialNumber || ""}
-			/>
+				<TextFieldInputGridItem
+					key={"serialNumber"}
+					onChange={handleInputChange}
+					title="Serienummer"
+					type="text"
+					value={form().serialNumber || ""}
+				/>
 
-			<TextFieldInputGridItem
-				key={"barrelLength"}
-				onChange={handleInputChange}
-				title="Piplängd"
-				type="text"
-				value={form().barrelLength || ""}
-			/>
+				<TextFieldInputGridItem
+					key={"barrelLength"}
+					onChange={handleInputChange}
+					title="Piplängd"
+					type="text"
+					value={form().barrelLength || ""}
+				/>
 
-			<TextFieldInputGridItem
-				key={"classification"}
-				onChange={handleInputChange}
-				title="Skytteform"
-				type="text"
-				value={form().classification || ""}
-			/>
+				<TextFieldInputGridItem
+					key={"classification"}
+					onChange={handleInputChange}
+					title="Skytteform"
+					type="text"
+					value={form().classification || ""}
+				/>
 
-			<SelectGridItem
-				key={"federation"}
-				options={federations}
-				placeholder="Välj förbund"
-				title="Förbund"
-				required
-				onChange={handleInputChange}
-				value={form().federation}
-			/>
+				<SelectGridItem
+					key={"federation"}
+					options={federations}
+					placeholder="Välj förbund"
+					title="Förbund"
+					required
+					onChange={handleInputChange}
+					value={form().federation}
+				/>
 
-			<TextFieldInputGridItem
-				key={"licenseStart"}
-				onChange={handleInputChange}
-				title="Licens utfärdad datum"
-				type="date"
-				value={form().licenseStart || ""}
-			/>
+				<TextFieldInputGridItem
+					key={"licenseStart"}
+					onChange={handleInputChange}
+					title="Licens utfärdad datum"
+					type="date"
+					value={form().licenseStart || ""}
+				/>
 
-			<TextFieldInputGridItem
-				key={"licenseEnd"}
-				value={form().licenseEnd || ""}
-				onChange={handleInputChange}
-				title="Licens utgångsdatum"
-				type="date"
-			/>
+				<TextFieldInputGridItem
+					key={"licenseEnd"}
+					value={form().licenseEnd || ""}
+					onChange={handleInputChange}
+					title="Licens utgångsdatum"
+					type="date"
+				/>
 
-			<TextFieldAreaGridItem
-				key={"notes"}
-				onChange={handleInputChange}
-				title="Anteckningar"
-				value={form().notes || ""}
-			/>
+				<TextFieldAreaGridItem
+					key={"notes"}
+					onChange={handleInputChange}
+					title="Anteckningar"
+					value={form().notes || ""}
+				/>
+			</section>
 
-			<div class="flex justify-end pt-4">
+			<div class="flex justify-end pt-4 gap-4">
+				<Show when={editForm()}>
+					<Button
+						variant="outline"
+						onClick={cancelEdit}
+					>
+						Avbryt
+					</Button>
+				</Show>
 				<Button
 					type="submit"
 					disabled={loading()}
 					variant="success"
 				>
-					<Show when={loading()} fallback={props.edit ? "Spara" : "Lägg till"}>
-						<Spinner size="sm" variant="white" class="mr-2" />
+					<Show
+						when={loading()}
+						fallback={
+							editForm()
+								? "Spara"
+								: "Lägg till"
+						}
+					>
+						<Spinner
+							size="sm"
+							variant="white"
+							class="mr-2"
+						/>
 						Sparar...
 					</Show>
 				</Button>
 			</div>
 		</form>
 	);
+
+	createEffect(() => {
+		if (props.editWeapon) {
+			editFormSet(props.editWeapon);
+		}
+	});
+
+	createEffect(() => {
+		if (editForm()) {
+			titleSet("Redigera vapen");
+		} else {
+			titleSet("Lägg till nytt vapen");
+		}
+	});
+
+	createEffect(() => {
+		if (editForm()) {
+			formSet({
+				barrelLength: editForm()!.barrelLength || "",
+				brand: editForm()!.brand,
+				caliber: editForm()!.caliber,
+				classification: editForm()!.classification || "",
+				federation: editForm()!.federation,
+				licenseEnd: editForm()!.licenseEnd ? isoDateTimeToDateInput(editForm()!.licenseEnd!) : undefined,
+				licenseStart: editForm()!.licenseStart ? isoDateTimeToDateInput(editForm()!.licenseStart!) : undefined,
+				model: editForm()!.model,
+				name: editForm()!.name,
+				notes: editForm()!.notes || "",
+				owner: editForm()!.owner || user().id,
+				serialNumber: editForm()!.serialNumber || "",
+				type: editForm()!.type,
+			});
+		}
+	});
 
 	return (
 		<ConditionalWrapper
