@@ -16,7 +16,7 @@ import {
 } from "@suid/material";
 import { activities } from "infrastructure/services";
 
-import { Component, Show, createSignal, For } from "solid-js";
+import { Component, Show, createSignal } from "solid-js";
 import { useStore } from "~/store";
 import { ManageActivityForm } from "./";
 

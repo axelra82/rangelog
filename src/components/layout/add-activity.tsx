@@ -8,23 +8,19 @@ import {
 	ManageActivityForm,
 } from "~/components";
 
-export const AddActivity = () => {
-	const [open, setOpen] = createSignal(false);
-
-	return (
-		<Dialog open={open()} onOpenChange={setOpen}>
-			<DialogTrigger
-				as={Button}
-				variant="success"
-				size="lg"
-				class="w-full"
-			>
-				<IconPlus />
-				Lägg till skytte
-			</DialogTrigger>
-			<DialogContent>
-				<ManageActivityForm modal />
-			</DialogContent>
-		</Dialog>
-	);
-};
+export const AddActivity = () => (
+	<Dialog>
+		<DialogTrigger
+			as={Button}
+			variant="success"
+			size="lg"
+			class="w-full"
+		>
+			<IconPlus />
+			Lägg till skytte
+		</DialogTrigger>
+		<DialogContent>
+			<ManageActivityForm modal />
+		</DialogContent>
+	</Dialog>
+);

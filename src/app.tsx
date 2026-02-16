@@ -1,11 +1,11 @@
 import "./styles/index.css";
 
-import { SnackbarStack } from "./components/dialogue/snackbar-stack";
 import {
 	LayoutMainContent,
 	LayoutMainMenu
 } from "./components/layout";
 import { ParentComponent } from "solid-js";
+import { Toaster } from "./components";
 
 export const App: ParentComponent = (props) => {
 
@@ -17,7 +17,7 @@ export const App: ParentComponent = (props) => {
 					{props.children}
 				</LayoutMainContent>
 			</div>
-			<SnackbarStack />
+			<Toaster />
 		</>
 	)
 };

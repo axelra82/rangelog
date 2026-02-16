@@ -1,5 +1,25 @@
-import { Component, createSignal, For, onMount } from "solid-js";
-import { Button, Drawer, DrawerControl, LicenseExpiryIndicator } from "~/components";
+import { weapons } from "infrastructure/services";
+import {
+	Component,
+	createSignal,
+	For,
+	onMount,
+} from "solid-js";
+import {
+	DialogTitle,
+	DialogContent,
+	Button,
+	Dialog,
+	DialogDescription,
+	DialogHeader,
+	DialogTrigger,
+	Drawer,
+	DrawerControl,
+	LicenseExpiryIndicator,
+	Separator,
+	showToast,
+} from "~/components";
+import { useStore } from "~/store";
 import type { WeaponCollectionItem } from "~/types";
 
 interface WeaponDrawerProps {
@@ -14,6 +34,14 @@ interface DetailItemProps {
 }
 
 export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
+	const {
+		weapons: storeWeapons,
+		weaponsSet,
+	} = useStore();
+
+	const [items, itemsSet] = createSignal<DetailItemProps[]>([]);
+	let drawerControl: DrawerControl | undefined;
+
 	const DetailItem: Component<DetailItemProps> = (props) => (
 		<div class="flex gap-4">
 			<span class="text-muted-foreground">
@@ -34,7 +62,18 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 		</div>
 	);
 
-	const [items, itemsSet] = createSignal<DetailItemProps[]>([]);
+	const deleteWeapon = (id: string, name: string) => {
+		weapons.delete(id);
+		showToast({
+			title: "Raderat",
+			description: `${name} togs bort från vapenboken`,
+			variant: "warning",
+			duration: 3000,
+		});
+
+		weaponsSet((prev) => prev.filter((item) => item.id !== id));
+		drawerControl?.close();
+	};
 
 	onMount(() => {
 		itemsSet([
@@ -89,28 +128,79 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 	});
 
 	return (
-		<Drawer
-			title={
-				<span class="flex items-center gap-2">
-					<LicenseExpiryIndicator size={10} licenseEnd={props.weapon.licenseEnd} /> {props.weapon.name}
-				</span>
-			}
-			ref={props.ref}
-		>
-			<>
-				<For each={items()}>
-					{(item) => <DetailItem {...item} />}
-				</For>
-				{/* Action Buttons */}
-				<div class="flex gap-2 pt-4">
-					<Button variant="default" class="flex-1">
-						Redigera
+		<>
+			<Drawer
+				title={
+					<span class="flex items-center gap-2">
+						<LicenseExpiryIndicator size={10} licenseEnd={props.weapon.licenseEnd} /> {props.weapon.name}
+					</span>
+				}
+				ref={(control) => {
+					drawerControl = control;
+					props.ref?.(control);
+				}}
+			>
+				<>
+					<For each={items()}>
+						{(item) => <DetailItem {...item} />}
+					</For>
+
+					<Separator class="my-4" />
+
+					<div class="flex gap-4 pt-4">
+						<Button
+							variant="info"
+							class="flex-1"
+						>
+							Redigera
+						</Button>
+
+						<Dialog>
+							<DialogTrigger
+								as={Button}
+								variant="destructive"
+								class="flex-1 w-full"
+							>
+								Ta bort
+							</DialogTrigger>
+							<DialogContent class="max-w-sm">
+								<DialogHeader>
+									<DialogTitle>
+										Är du säker på att du vill radera {props.weapon.name}?
+									</DialogTitle>
+								</DialogHeader>
+
+								<DialogDescription>
+									Detta kommer att ta bort vapnet permanent. Denna åtgärd kan inte ångras.
+								</DialogDescription>
+
+								<DialogTrigger
+									as={Button}
+									variant="outline"
+								>
+									Avbryt
+								</DialogTrigger>
+
+								<DialogTrigger
+									as={Button}
+									variant="destructive"
+									onClick={() => deleteWeapon(props.weapon.id, props.weapon.name)}
+								>
+									Fortsätt
+								</DialogTrigger>
+							</DialogContent>
+						</Dialog>
+					</div>
+					<Button
+						variant="outline"
+						class="w-full"
+						onClick={() => drawerControl?.close()}
+					>
+						Stäng
 					</Button>
-					<Button variant="destructive" class="flex-1">
-						Ta bort
-					</Button>
-				</div>
-			</>
-		</Drawer>
+
+				</>
+			</Drawer>
+		</>
 	);
 };

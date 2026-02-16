@@ -20,6 +20,7 @@ export const ActivitiesPage = () => {
 
 	createEffect(async () => {
 		const data = await activities.read({}) as ReadListResponse<ActivityCollectionItem>;
+
 		storeActivitiesSet(data.items);
 	});
 

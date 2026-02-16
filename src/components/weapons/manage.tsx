@@ -21,6 +21,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	SelectGridItem,
+	showToast,
 	Spinner,
 	TextFieldGridItem,
 } from "~/components";
@@ -73,11 +74,9 @@ export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 	const [error, errorSet] = createSignal<string | null>(null);
 	const [success, successSet] = createSignal(false);
 	const [title, titleSet] = createSignal<string>();
-	const [eventNote, eventNoteSet] = createSignal<string>();
 
 	onMount(() => {
 		titleSet("Lägg till nytt vapen");
-		eventNoteSet("Vapen tillagt");
 	});
 
 	const handleInputChange = (
@@ -128,16 +127,18 @@ export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 			reformSet();
 			successSet(true);
 
-			if (props.onSuccess) {
-				setTimeout(() => {
-					props.onSuccess!();
-				}, 1000);
-			}
+			showToast({
+				title: "Tillagt",
+				description: `${weaponData.name} lades till i vapenboken`,
+				variant: "success",
+				duration: 3000,
+			});
+
 		} catch (error) {
 			errorSet(error instanceof Error ? error.message : "Något gick fel");
-		} finally {
-			loadingSet(false);
 		}
+
+		loadingSet(false);
 	};
 
 	const FormContent = () => (
@@ -171,14 +172,6 @@ export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
 			<Show when={error()}>
 				<Alert variant="destructive">
 					<AlertDescription>{error()}</AlertDescription>
-				</Alert>
-			</Show>
-
-			<Show when={success()}>
-				<Alert>
-					<AlertDescription>
-						{eventNote()}
-					</AlertDescription>
 				</Alert>
 			</Show>
 

@@ -35,7 +35,6 @@ export const Drawer: ParentComponent<DrawerProps> = (props) => {
 	return (
 		<Show when={open()}>
 			<Portal>
-				{/* Backdrop */}
 				<div
 					class="fixed inset-0 bg-black/50 z-40 transition-opacity"
 					onClick={handleClose}
