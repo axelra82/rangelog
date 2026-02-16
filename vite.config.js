@@ -78,7 +78,7 @@ export default defineConfig({
 	],
 	server: {
 		port: 9999,
-		host: "localhost",
+		host: true,
 	},
 	resolve: {
 		alias: {
