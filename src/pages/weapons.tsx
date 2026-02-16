@@ -3,7 +3,6 @@ import {
 	createEffect,
 	createSignal,
 	For,
-	onMount,
 	Show,
 } from "solid-js";
 import { useStore } from "~/store";
@@ -17,11 +16,11 @@ import {
 	WeaponForm,
 	Card,
 	CardContent,
-	WeaponDrawer,
-	DrawerControl,
+	WeaponDetails,
 	LicenseExpiryIndicator,
 	CardHeader,
 	CardTitle,
+	DetailsControl,
 } from "~/components";
 import {
 	IconChevronRight,
@@ -44,11 +43,11 @@ export const WeaponsPage: Component = () => {
 	const [selectedWeapon, selectedWeaponSet] = createSignal<WeaponCollectionItem | null>(null);
 	const [editWeapon, editWeaponSet] = createSignal<WeaponCollectionItem>();
 
-	const [drawerControl, drawerControlSet] = createSignal<DrawerControl>();
+	const [detailsControl, detailsControlSet] = createSignal<DetailsControl>();
 
 	const openDrawer = (weapon: WeaponCollectionItem) => {
 		selectedWeaponSet(weapon);
-		drawerControl()?.open();
+		detailsControl()?.open();
 	};
 
 	createEffect(() => {
@@ -164,9 +163,9 @@ export const WeaponsPage: Component = () => {
 
 			<Show when={selectedWeapon()} keyed>
 				{(weapon) => (
-					<WeaponDrawer
+					<WeaponDetails
 						weapon={weapon}
-						ref={(control) => drawerControlSet(control)}
+						ref={(control) => detailsControlSet(control)}
 					/>
 				)}
 			</Show>
