@@ -11,8 +11,10 @@ import {
 	createSignal,
 	createEffect,
 	JSXElement,
+	onMount,
 } from "solid-js";
 import { ClientUser } from "./types/user";
+import MobileDetect from "mobile-detect";
 
 const STORAGE_KEY = "color-mode";
 const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.SYSTEM;
@@ -31,8 +33,15 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const [weapons, weaponsSet] = createSignal<WeaponCollectionItem[]>([]);
 	const [working, workingSet] = createSignal<boolean>(false);
 
+	const [isMobile, setIsMobile] = createSignal(false);
+
 	createEffect(() => {
 		localStorage.setItem(STORAGE_KEY, colorMode());
+	});
+
+	onMount(() => {
+		const md = new MobileDetect(window.navigator.userAgent);
+		setIsMobile(md.phone() !== null);
 	});
 
 	const storeContextValue = {
@@ -42,6 +51,7 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 		colorModeSet,
 		isAuthenticated,
 		isAuthenticatedSet,
+		isMobile,
 		user,
 		userSet,
 		weapons,

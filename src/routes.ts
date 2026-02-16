@@ -2,6 +2,7 @@ import { lazy } from "solid-js";
 
 export const dashboardRoutes = [
 	{
+		label: "Dashboard",
 		path: [
 			"/",
 			"/dashboard",
@@ -9,15 +10,18 @@ export const dashboardRoutes = [
 		component: lazy(() => import("./pages/dashboard")),
 	},
 	{
-		path: "/profile",
-		component: lazy(() => import("./pages/profile")),
-	},
-	{
+		label: "Aktiviteter",
 		path: "/activities",
 		component: lazy(() => import("./pages/activities")),
 	},
 	{
+		label: "Vapen",
 		path: "/weapons",
 		component: lazy(() => import("./pages/weapons")),
+	},
+	{
+		label: "Profil",
+		path: "/profile",
+		component: lazy(() => import("./pages/profile")),
 	},
 ];

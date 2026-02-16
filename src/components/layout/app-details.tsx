@@ -1,12 +1,14 @@
 import { Component, createSignal } from "solid-js";
 import { timestampToLocaleDate } from "~/utilities";
-import { IconBrandGithub, IconCopy, IconDots } from "@tabler/icons-solidjs";
+import {
+	IconBrandGithub,
+	IconCopy,
+	IconDots,
+} from "@tabler/icons-solidjs";
 import { Severity } from "~/types";
-import { ParentComponent } from "solid-js";
-import { pushSnackbar } from "~/components/dialogue/snackbar-stack";
-import { Button } from "~/components/ui/button";
+import { Button, pushSnackbar } from "~/components";
 
-export const LayoutBottomBar: ParentComponent = () => {
+export const AppDetails: Component = () => {
 	const environment = import.meta.env;
 	const buildHash = environment.VITE_APP_BUILD;
 	const buildTime = environment.VITE_APP_BUILD_TIME;
@@ -37,14 +39,6 @@ export const LayoutBottomBar: ParentComponent = () => {
 
 		return (
 			<div class="flex items-center gap-1">
-				<strong class="text-sm">{revealHash() ? buildHash : buildHash.slice(0, 8)}</strong>
-				<Button
-					variant="ghost"
-					size="icon"
-					onClick={() => revealHashSet((prev) => !prev)}
-				>
-					<IconDots class="size-4" />
-				</Button>
 				<Button
 					variant="ghost"
 					size="icon"
@@ -52,22 +46,34 @@ export const LayoutBottomBar: ParentComponent = () => {
 				>
 					<IconCopy class="size-4" />
 				</Button>
+				<strong>{revealHash() ? buildHash : buildHash.slice(0, 8)}</strong>
+				<Button
+					variant="ghost"
+					size="icon"
+					onClick={() => revealHashSet((prev) => !prev)}
+				>
+					<IconDots class="size-4" />
+				</Button>
 			</div>
 		);
 	};
 
 	const BuildVersionDate: Component = () => (
-		<div class="text-sm">
-			<strong class="mr-2">{buildVersion}</strong>
+		<div>
+			version: <strong class="mr-2">{buildVersion}</strong>
 			{timestampToLocaleDate(buildTime)}
 		</div>
 	);
 
 	return (
-		<aside class="flex items-center justify-end px-4 py-2 gap-4 bg-background border-t border-border">
-			<RepoReference />
-			<BuildReference />
-			<BuildVersionDate />
-		</aside>
+		<ul class="text-sm text-muted-foreground md:flex gap-2 items-center">
+			<li>
+				<BuildVersionDate />
+			</li>
+			<li class="flex items-center gap-2">
+				<RepoReference />
+				<BuildReference />
+			</li>
+		</ul>
 	);
 };

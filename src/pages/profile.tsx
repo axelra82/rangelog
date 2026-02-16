@@ -1,5 +1,5 @@
-import { onMount } from "solid-js";
 import {
+	AppDetails,
 	Card,
 	CardContent,
 	CardDescription,
@@ -19,44 +19,49 @@ const ProfilePage = () => {
 	} = useStore();
 
 	return (
-		<Card>
-			<CardHeader>
-				<CardTitle>
-					Profilinformation
-				</CardTitle>
-				<CardDescription>Hantera din profiluppgifter</CardDescription>
-			</CardHeader>
+		<>
+			<Card>
+				<CardHeader>
+					<CardTitle>
+						Profilinformation
+					</CardTitle>
+					<CardDescription>Hantera din profiluppgifter</CardDescription>
+				</CardHeader>
 
-			<Separator />
+				<Separator />
 
-			<CardContent class="py-8">
-				<ul class="flex flex-col gap-4 max-w-2xs">
-					<li>
-						<TextField value={user().name}>
-							<TextFieldLabel class="text-sm font-medium">
-								Namn
-							</TextFieldLabel>
-							<TextFieldInput type="text" />
-						</TextField>
-					</li>
-					<li>
-						<TextField value={user().email}>
-							<TextFieldLabel class="text-sm font-medium">
-								E-post
-							</TextFieldLabel>
-							<TextFieldInput type="text" />
-						</TextField>
-					</li>
-				</ul>
-			</CardContent>
+				<CardContent class="py-8">
+					<ul class="flex flex-col gap-4 max-w-2xs">
+						<li>
+							<TextField value={user().name}>
+								<TextFieldLabel class="text-sm font-medium">
+									Namn
+								</TextFieldLabel>
+								<TextFieldInput type="text" />
+							</TextField>
+						</li>
+						<li>
+							<TextField value={user().email}>
+								<TextFieldLabel class="text-sm font-medium">
+									E-post
+								</TextFieldLabel>
+								<TextFieldInput type="text" />
+							</TextField>
+						</li>
+					</ul>
 
-			<Separator />
+					<p class="mt-4 text-sm text-foreground">
+						Konto skapat: {user().created}
+					</p>
+				</CardContent>
 
-			<CardFooter class="pt-4">
-				<p>Konto skapat: {user().created}</p>
-			</CardFooter>
-		</Card>
+				<Separator />
 
+				<CardFooter class="pt-5">
+					<AppDetails />
+				</CardFooter>
+			</Card>
+		</>
 	);
 };
 

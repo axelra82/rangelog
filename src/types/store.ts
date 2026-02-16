@@ -28,6 +28,7 @@ export type StoreContextType = {
 	colorMode: Accessor<ColorMode>;
 	isAuthenticated: Accessor<boolean>;
 	isAuthenticatedSet: Setter<boolean>;
+	isMobile: Accessor<boolean>;
 	colorModeSet: Setter<ColorMode>;
 	user: Accessor<ClientUser>;
 	userSet: Setter<ClientUser>;
