@@ -7,9 +7,14 @@ import { useStore } from "~/store";
 import { ColorMode } from "~/types";
 import { Component, For } from "solid-js";
 import { ToggleGroup, ToggleGroupItem } from "~/components/ui/toggle-group";
+import { cn } from "~/utilities";
 
 export const ThemeSelect: Component = () => {
-	const { colorMode, colorModeSet } = useStore();
+	const {
+		colorMode,
+		colorModeSet,
+		isMobile,
+	} = useStore();
 
 	const themes = [
 		{ value: "light" as ColorMode, icon: IconSun },
@@ -32,12 +37,13 @@ export const ThemeSelect: Component = () => {
 					const Icon = theme.icon;
 					return (
 						<ToggleGroupItem
-							// class="p-0 m-0 flex gap-1 justify-between"
-							size="sm"
 							value={theme.value}
 							aria-label={`${theme.value} mode`}
+							{...isMobile() && { size: "sm" }}
 						>
-							<Icon class="size-4" />
+							<Icon class={cn(
+								isMobile() ? "size-5" : "size-4"
+							)} />
 						</ToggleGroupItem>
 					);
 				}}

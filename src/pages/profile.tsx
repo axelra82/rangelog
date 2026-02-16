@@ -79,8 +79,8 @@ const ProfilePage = () => {
 			<Show when={isMobile()}>
 				<section class="mt-8 px-4 flex justify-between items-center">
 					<ThemeSelect />
-					<Button onClick={handleLogout}>
-						<IconLogout class="size-4" />
+					<Button size="lg" onClick={handleLogout}>
+						<IconLogout />
 						Logga ut
 					</Button>
 				</section>
