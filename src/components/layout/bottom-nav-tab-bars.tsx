@@ -61,7 +61,7 @@ export const BottomNavTabBars = () => {
 		}, []);
 
 	return (
-		<div class="fixed bottom-0 left-0 right-0 z-50 px-3 pb-1">
+		<div class="fixed bottom-0 left-0 right-0 z-50 px-3 pb-2">
 			<div class="bg-white/50 backdrop-blur-2xl rounded-3xl shadow-lg border border-white/20 px-2 py-2">
 				<nav class="flex items-center justify-around">
 					{tabs.map((tab) => {

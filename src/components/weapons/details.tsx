@@ -81,10 +81,6 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 				value: props.weapon.classification,
 			},
 			{
-				key: "Skytteform",
-				value: props.weapon.classification,
-			},
-			{
 				isDate: true,
 				key: "Tillagd",
 				value: props.weapon.created,

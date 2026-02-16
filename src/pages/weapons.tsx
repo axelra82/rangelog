@@ -70,7 +70,10 @@ export const WeaponsPage: Component = () => {
 						<TableBody>
 							<For each={weapons()}>
 								{(weapon) => (
-									<TableRow>
+									<TableRow
+										onClick={() => openDrawer(weapon)}
+										class="cursor-pointer h-12"
+									>
 										<TableCell>
 											<div class="flex gap-2 items-center">
 												<LicenseExpiryIndicator licenseEnd={weapon.licenseEnd} />
@@ -86,13 +89,7 @@ export const WeaponsPage: Component = () => {
 											</div>
 										</TableCell>
 										<TableCell class="text-right">
-											<Button
-												variant="ghost"
-												size="icon"
-												onClick={() => openDrawer(weapon)}
-											>
-												<IconChevronRight class="size-4" />
-											</Button>
+											<IconChevronRight class="size-4" />
 										</TableCell>
 									</TableRow>
 								)}
