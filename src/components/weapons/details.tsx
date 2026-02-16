@@ -149,7 +149,7 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 
 					<div class="flex gap-4 pt-4">
 						<Button
-							variant="info"
+							variant="default"
 							class="flex-1"
 						>
 							Redigera

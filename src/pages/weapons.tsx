@@ -3,6 +3,7 @@ import {
 	createEffect,
 	createSignal,
 	For,
+	onMount,
 	Show,
 } from "solid-js";
 import { useStore } from "~/store";
@@ -27,21 +28,36 @@ import {
 } from "@tabler/icons-solidjs";
 import { ActivityWeaponEntry, ReadListResponse, WeaponCollectionItem } from "~/types";
 import { activitiesWeapons } from "infrastructure";
+import { useLocation, useParams } from "@solidjs/router";
 
 export const WeaponsPage: Component = () => {
+	const location = useLocation();
+
+	const {
+		show,
+	} = location.query;
+
 	const {
 		weapons,
 	} = useStore();
 
 	const [selectedWeapon, selectedWeaponSet] = createSignal<WeaponCollectionItem | null>(null);
 
-	let drawerControl: DrawerControl | undefined;
+	const [drawerControl, drawerControlSet] = createSignal<DrawerControl>();
 
 	const openDrawer = (weapon: WeaponCollectionItem) => {
 		selectedWeaponSet(weapon);
-		drawerControl?.open();
+		drawerControl()?.open();
 	};
 
+	createEffect(() => {
+		if (show) {
+			const weapon = weapons().find((item) => item.id === show);
+			if (weapon) {
+				openDrawer(weapon);
+			}
+		}
+	});
 
 	return (
 		<section class="space-y-6">
@@ -102,6 +118,7 @@ export const WeaponsPage: Component = () => {
 										>
 											<TableCell>
 												<div class="flex gap-2 items-center">
+													{weapon.id}
 													<LicenseExpiryIndicator licenseEnd={weapon.licenseEnd} />
 													{weapon.name}
 												</div>
@@ -135,7 +152,7 @@ export const WeaponsPage: Component = () => {
 				{(weapon) => (
 					<WeaponDrawer
 						weapon={weapon}
-						ref={(control) => drawerControl = control}
+						ref={(control) => drawerControlSet(control)}
 					/>
 				)}
 			</Show>
