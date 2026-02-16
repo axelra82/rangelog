@@ -1,5 +1,9 @@
+import { IconLogout } from "@tabler/icons-solidjs";
+import { auth } from "infrastructure";
+import { Show } from "solid-js";
 import {
 	AppDetails,
+	Button,
 	Card,
 	CardContent,
 	CardDescription,
@@ -10,13 +14,23 @@ import {
 	TextField,
 	TextFieldInput,
 	TextFieldLabel,
+	ThemeSelect,
 } from "~/components";
 import { useStore } from "~/store";
 
 const ProfilePage = () => {
 	const {
-		user
+		user,
+		isAuthenticatedSet,
+		isMobile,
 	} = useStore();
+
+	const handleLogout = () => {
+		const done = auth.logout();
+		if (done) {
+			isAuthenticatedSet(false);
+		}
+	};
 
 	return (
 		<>
@@ -61,6 +75,16 @@ const ProfilePage = () => {
 					<AppDetails />
 				</CardFooter>
 			</Card>
+
+			<Show when={isMobile()}>
+				<section class="mt-8 px-4 flex justify-between items-center">
+					<ThemeSelect />
+					<Button onClick={handleLogout}>
+						<IconLogout class="size-4" />
+						Logga ut
+					</Button>
+				</section>
+			</Show>
 		</>
 	);
 };
