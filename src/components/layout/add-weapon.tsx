@@ -5,7 +5,7 @@ import {
 	Dialog,
 	DialogContent,
 	DialogTrigger,
-	ManageWeaponForm,
+	WeaponForm,
 } from "~/components";
 
 export const AddWeapon = () => {
@@ -23,7 +23,7 @@ export const AddWeapon = () => {
 				Lägg till vapen
 			</DialogTrigger>
 			<DialogContent>
-				<ManageWeaponForm modal />
+				<WeaponForm modal />
 			</DialogContent>
 		</Dialog>
 	);

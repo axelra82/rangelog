@@ -14,7 +14,7 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-	ManageWeaponForm,
+	WeaponForm,
 	Card,
 	CardContent,
 	WeaponDrawer,
@@ -146,7 +146,7 @@ export const WeaponsPage: Component = () => {
 				</div>
 			</Show>
 
-			<ManageWeaponForm />
+			<WeaponForm />
 
 			<Show when={selectedWeapon()} keyed>
 				{(weapon) => (

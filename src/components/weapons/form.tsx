@@ -47,7 +47,7 @@ type FormData = {
 	weaponGroup: string;
 };
 
-export const ManageWeaponForm: Component<CreateWeaponFormProps> = (props) => {
+export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
 	const {
 		user,
 		weaponsSet,
