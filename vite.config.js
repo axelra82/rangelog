@@ -77,6 +77,17 @@ export default defineConfig({
 	server: {
 		port: 9999,
 		host: "localhost",
+		proxy: {
+			"/_/": {
+				target: "http://rangelog.lalaland.app",
+				changeOrigin: true,
+				bypass: (req) => {
+					if (req.url?.startsWith("/_/")) {
+						return req.url;
+					}
+				}
+			}
+		}
 	},
 	resolve: {
 		alias: {
