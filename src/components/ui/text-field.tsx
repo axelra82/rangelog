@@ -142,12 +142,12 @@ const TextFieldErrorMessage = <T extends ValidComponent = "div">(
 	)
 }
 
-const TextFieldGridItem: Component<{
+const TextFieldInputGridItem: Component<{
 	key: string;
 	onChange: (key: string, value: string) => void;
 	required?: boolean;
 	title: string;
-	type: "text" | "date";
+	type: "text" | "date" | "datetime-local" | "email" | "month" | "number" | "password" | "search" | "tel" | "time" | "url" | "week";
 	value: string;
 }> = (props) => (
 	<TextField
@@ -164,12 +164,34 @@ const TextFieldGridItem: Component<{
 	</TextField>
 );
 
+const TextFieldAreaGridItem: Component<{
+	key: string;
+	onChange: (key: string, value: string) => void;
+	required?: boolean;
+	title: string;
+	value: string;
+}> = (props) => (
+	<TextField
+		value={props.value}
+		onChange={(value) => props.onChange(props.key, value)}
+		class="grid md:grid-cols-2 grid-cols-1"
+		{...props.required && { required: true }}
+	>
+		<TextFieldLabel class="text-sm font-medium">
+			{props.title}
+			{props.required && " *"}
+		</TextFieldLabel>
+		<TextFieldTextArea />
+	</TextField>
+);
+
 export {
 	TextField,
+	TextFieldAreaGridItem,
 	TextFieldDescription,
 	TextFieldErrorMessage,
-	TextFieldGridItem,
 	TextFieldInput,
+	TextFieldInputGridItem,
 	TextFieldLabel,
 	TextFieldTextArea,
 }

@@ -3,10 +3,18 @@ import {
 	createSignal,
 	Show,
 	onMount,
+	createEffect,
 } from "solid-js";
-import { calibers, federations, weaponTypes } from "~/data";
+import {
+	calibers,
+	federations,
+	weaponTypes,
+} from "~/data";
 import { weapons } from "infrastructure";
-import { WeaponCreateInput } from "~/types";
+import {
+	WeaponCollectionItem,
+	WeaponCreateInput,
+} from "~/types";
 import { useStore } from "~/store";
 import {
 	Alert,
@@ -23,31 +31,18 @@ import {
 	SelectGridItem,
 	showToast,
 	Spinner,
-	TextFieldGridItem,
+	TextFieldAreaGridItem,
+	TextFieldInputGridItem,
 } from "~/components";
 
-interface CreateWeaponFormProps {
+interface WeaponFormProps {
 	modal?: boolean;
 	onSuccess?: () => void;
+	edit?: boolean;
+	weapon?: WeaponCollectionItem;
 }
 
-type FormData = {
-	barrelLength: string;
-	brand: string;
-	calibers: string[];
-	classification: string;
-	federation: string;
-	licenseEnd: string;
-	licenseStart: string;
-	model: string;
-	name: string;
-	owner: string;
-	serialNumber: string;
-	type: string;
-	weaponGroup: string;
-};
-
-export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
+export const WeaponForm: Component<WeaponFormProps> = (props) => {
 	const {
 		user,
 		weaponsSet,
@@ -56,27 +51,51 @@ export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
 	const defaultFormValues = {
 		barrelLength: "",
 		brand: "",
-		calibers: [],
+		caliber: [],
 		classification: "",
 		federation: "",
-		licenseEnd: "",
-		licenseStart: "",
+		licenseEnd: undefined,
+		licenseStart: undefined,
 		model: "",
 		name: "",
+		notes: "",
 		owner: user().id,
 		serialNumber: "",
 		type: "",
-		weaponGroup: "",
-	}
+	};
 
-	const [form, formSet] = createSignal<FormData>(defaultFormValues);
+	const [form, formSet] = createSignal<WeaponCreateInput>(defaultFormValues);
 	const [loading, loadingSet] = createSignal(false);
 	const [error, errorSet] = createSignal<string | null>(null);
 	const [success, successSet] = createSignal(false);
 	const [title, titleSet] = createSignal<string>();
 
 	onMount(() => {
-		titleSet("Lägg till nytt vapen");
+		if (props.edit) {
+			titleSet("Redigera vapen");
+		} else {
+			titleSet("Lägg till nytt vapen");
+		}
+	});
+
+	createEffect(() => {
+		if (props.edit && props.weapon) {
+			formSet({
+				barrelLength: props.weapon.barrelLength || "",
+				brand: props.weapon.brand,
+				caliber: props.weapon.caliber,
+				classification: props.weapon.classification || "",
+				federation: props.weapon.federation,
+				licenseEnd: props.weapon.licenseEnd || undefined,
+				licenseStart: props.weapon.licenseStart || undefined,
+				model: props.weapon.model,
+				name: props.weapon.name,
+				notes: props.weapon.notes || "",
+				owner: props.weapon.owner || user().id,
+				serialNumber: props.weapon.serialNumber || "",
+				type: props.weapon.type,
+			});
+		}
 	});
 
 	const handleInputChange = (
@@ -102,14 +121,20 @@ export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
 		try {
 			const current = form();
 
-			if (!current.federation || !current.calibers.length || !current.type) {
-				throw new Error("Välj förbund, kaliber och typ.");
+			if (
+				!current.federation
+				|| !current.caliber.length
+				|| !current.type
+				|| !current.brand
+				|| !current.model
+			) {
+				throw new Error("Ange tillverkare, model, förbund, kaliber och typ.");
 			}
 
 			const weaponData: WeaponCreateInput = {
 				barrelLength: current.barrelLength,
 				brand: current.brand,
-				caliber: current.calibers,
+				caliber: current.caliber,
 				classification: current.classification,
 				federation: current.federation,
 				licenseEnd: current.licenseEnd || undefined,
@@ -119,20 +144,43 @@ export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
 				owner: current.owner,
 				serialNumber: current.serialNumber,
 				type: current.type,
+				notes: current.notes,
 			};
 
-			const newItem = await weapons.create(weaponData);
-			weaponsSet((prev) => [...prev, newItem]);
+			if (props.edit && props.weapon) {
+				// Update existing weapon
+				const updatedItem = await weapons.update(props.weapon.id, weaponData);
+				weaponsSet((prev) =>
+					prev.map((w) => (w.id === props.weapon!.id ? updatedItem : w))
+				);
 
-			reformSet();
+				showToast({
+					title: "Uppdaterat",
+					description: `${weaponData.name} uppdaterades`,
+					variant: "success",
+					duration: 3000,
+				});
+			} else {
+				// Create new weapon
+				const newItem = await weapons.create(weaponData);
+				weaponsSet((prev) => [...prev, newItem]);
+
+				showToast({
+					title: "Tillagt",
+					description: `${weaponData.name} lades till i vapenboken`,
+					variant: "success",
+					duration: 3000,
+				});
+			}
+
+			if (!props.edit) {
+				reformSet();
+			}
 			successSet(true);
 
-			showToast({
-				title: "Tillagt",
-				description: `${weaponData.name} lades till i vapenboken`,
-				variant: "success",
-				duration: 3000,
-			});
+			if (props.onSuccess) {
+				props.onSuccess();
+			}
 
 		} catch (error) {
 			errorSet(error instanceof Error ? error.message : "Något gick fel");
@@ -175,8 +223,7 @@ export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
 				</Alert>
 			</Show>
 
-			{/* Label-Input Grid Layout */}
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"name"}
 				onChange={handleInputChange}
 				required
@@ -195,7 +242,7 @@ export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
 				value={form().type}
 			/>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"brand"}
 				onChange={handleInputChange}
 				required
@@ -204,7 +251,7 @@ export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
 				value={form().brand}
 			/>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"model"}
 				onChange={handleInputChange}
 				required
@@ -214,45 +261,37 @@ export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
 			/>
 
 			<ComboboxMultiSelectGridItem
-				key="calibers"
+				key="caliber"
 				onChange={handleInputChange}
 				options={calibers}
 				placeholder="Kaliber"
 				required
 				title="Kaliber"
-				value={form().calibers}
+				value={form().caliber}
 			/>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"serialNumber"}
 				onChange={handleInputChange}
 				title="Serienummer"
 				type="text"
-				value={form().serialNumber}
+				value={form().serialNumber || ""}
 			/>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"barrelLength"}
 				onChange={handleInputChange}
 				title="Piplängd"
 				type="text"
-				value={form().barrelLength}
+				value={form().barrelLength || ""}
 			/>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"classification"}
 				onChange={handleInputChange}
 				title="Skytteform"
 				type="text"
-				value={form().classification}
-			/>
-
-			<TextFieldGridItem
-				key={"weaponGroup"}
-				onChange={handleInputChange}
-				title="Vapengrupp"
-				type="text"
-				value={form().weaponGroup}
+				value={form().classification || ""}
 			/>
 
 			<SelectGridItem
@@ -265,20 +304,27 @@ export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
 				value={form().federation}
 			/>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"licenseStart"}
 				onChange={handleInputChange}
 				title="Licens utfärdad datum"
 				type="date"
-				value={form().licenseStart}
+				value={form().licenseStart || ""}
 			/>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"licenseEnd"}
-				value={form().licenseEnd}
+				value={form().licenseEnd || ""}
 				onChange={handleInputChange}
 				title="Licens utgångsdatum"
 				type="date"
+			/>
+
+			<TextFieldAreaGridItem
+				key={"notes"}
+				onChange={handleInputChange}
+				title="Anteckningar"
+				value={form().notes || ""}
 			/>
 
 			<div class="flex justify-end pt-4">
@@ -287,7 +333,7 @@ export const WeaponForm: Component<CreateWeaponFormProps> = (props) => {
 					disabled={loading()}
 					variant="success"
 				>
-					<Show when={loading()} fallback="Lägg till">
+					<Show when={loading()} fallback={props.edit ? "Spara" : "Lägg till"}>
 						<Spinner size="sm" variant="white" class="mr-2" />
 						Sparar...
 					</Show>

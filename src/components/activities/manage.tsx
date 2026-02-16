@@ -26,7 +26,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	SelectGridItem,
-	TextFieldGridItem,
+	TextFieldInputGridItem,
 	Spinner,
 } from "~/components";
 
@@ -261,7 +261,7 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 			</Show>
 
 			{/* Label-Input Grid Layout */}
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"date"}
 				onChange={handleInputChange}
 				required
@@ -279,7 +279,7 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 				value={form().club}
 			/>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"location"}
 				onChange={handleInputChange}
 				title="Plats"
@@ -287,7 +287,7 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 				value={form().location}
 			/>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"rangeMaster"}
 				onChange={handleInputChange}
 				required
@@ -312,7 +312,7 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 								required
 							/>
 
-							<TextFieldGridItem
+							<TextFieldInputGridItem
 								key={`caliber-${index()}`}
 								title={index() === 0 ? "Kaliber" : ""}
 								type="text"
@@ -320,7 +320,7 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 								onChange={() => { }}
 							/>
 
-							<TextFieldGridItem
+							<TextFieldInputGridItem
 								key={`rounds-${index()}`}
 								title={index() === 0 ? "Ant.skott" : ""}
 								type="text"
@@ -354,7 +354,7 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 				</Button>
 			</div>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"exercises"}
 				onChange={handleInputChange}
 				title="Övningar"
@@ -362,7 +362,7 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 				value={form().exercises}
 			/>
 
-			<TextFieldGridItem
+			<TextFieldInputGridItem
 				key={"notes"}
 				onChange={handleInputChange}
 				title="Egna Anteckningar"

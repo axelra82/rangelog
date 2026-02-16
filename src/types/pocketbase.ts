@@ -39,7 +39,7 @@ export interface ReadListResponse<T> {
 
 export interface WeaponCollectionItem {
 	barrelLength?: string;
-	brand?: string;
+	brand: string;
 	caliber: Calibers[];
 	classification?: string;
 	created: string;
@@ -47,8 +47,9 @@ export interface WeaponCollectionItem {
 	id: string;
 	licenseEnd?: string;
 	licenseStart?: string;
-	model?: string;
+	model: string;
 	name: string;
+	notes?: string;
 	owner: string;
 	serialNumber?: string;
 	type: WeaponTypes;
