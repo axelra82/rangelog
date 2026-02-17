@@ -1,5 +1,6 @@
 import {
 	ActivityCollectionItem,
+	ClaimCollectionItem,
 	StoreContextType,
 	WeaponCollectionItem,
 } from "./types";
@@ -23,6 +24,7 @@ const StoreContext = createContext<StoreContextType>();
 
 export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const [activities, activitiesSet] = createSignal<ActivityCollectionItem[]>([]);
+	const [claims, claimsSet] = createSignal<ClaimCollectionItem[]>([]);
 	const [colorMode, colorModeSet] = createSignal<ColorMode>(savedMode);
 	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
 	const [user, userSet] = createSignal<ClientUser>({
@@ -47,6 +49,8 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const storeContextValue = {
 		activities,
 		activitiesSet,
+		claims,
+		claimsSet,
 		colorMode,
 		colorModeSet,
 		isAuthenticated,

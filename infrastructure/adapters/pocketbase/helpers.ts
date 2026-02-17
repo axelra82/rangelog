@@ -40,18 +40,24 @@ export const pocketbaseReadCollectionItem = async <T>(
 
 	// LIST MODE
 	const {
+		expand,
+		filter,
 		page = 1,
 		perPage = 30,
-		filter,
 		sort,
 	} = options;
 
 	const result = await pb
 		.collection(collection)
-		.getList<T>(page, perPage, {
-			filter,
-			sort,
-		});
+		.getList<T>(
+			page,
+			perPage,
+			{
+				expand,
+				filter,
+				sort,
+			},
+		);
 
 	return {
 		items: result.items,

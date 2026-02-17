@@ -2,6 +2,7 @@ import { Accessor, Setter } from "solid-js";
 import { ColorMode } from "./enum";
 import {
 	ActivityCollectionItem,
+	ClaimCollectionItem,
 	Collections,
 	WeaponCollectionItem,
 } from "./pocketbase";
@@ -25,6 +26,8 @@ export type ResourceHelper<T> = T & { disabled: false };
 export type StoreContextType = {
 	activities: Accessor<ActivityCollectionItem[]>;
 	activitiesSet: Setter<ActivityCollectionItem[]>;
+	claims: Accessor<ClaimCollectionItem[]>;
+	claimsSet: Setter<ClaimCollectionItem[]>;
 	colorMode: Accessor<ColorMode>;
 	isAuthenticated: Accessor<boolean>;
 	isAuthenticatedSet: Setter<boolean>;

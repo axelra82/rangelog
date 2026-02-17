@@ -1,11 +1,11 @@
-import { ActivityCollectionItem } from "~/types";
+import { ClaimCollectionItem } from "~/types";
 import {
 	Avatar,
 	AvatarFallback,
 	Badge,
 	Dialog,
 	DialogContent,
-	ActivityForm,
+	ClaimsForm,
 	Separator,
 } from "~/components";
 import {
@@ -15,11 +15,11 @@ import {
 } from "solid-js";
 import { getInitials } from "~/utilities";
 
-interface ActivityItemProps extends ActivityCollectionItem {
+interface ClaimItemProps extends ClaimCollectionItem {
 	isLast: boolean;
 }
 
-export const ActivityItem: Component<ActivityItemProps> = (props) => {
+export const ClaimItem: Component<ClaimItemProps> = (props) => {
 	const [showEditDialog, showEditDialogSet] = createSignal(false);
 
 	return (
@@ -29,7 +29,7 @@ export const ActivityItem: Component<ActivityItemProps> = (props) => {
 				onOpenChange={showEditDialogSet}
 			>
 				<DialogContent>
-					<ActivityForm
+					<ClaimsForm
 						modal
 						modalControl={showEditDialogSet}
 						edit={props}

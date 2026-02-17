@@ -259,11 +259,12 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 
 				reformSet();
 			}
+
+			closeModal();
 		} catch (err) {
 			errorSet(err instanceof Error ? err.message : "Något gick fel");
 		}
 
-		closeModal();
 		loadingSet(false);
 	};
 

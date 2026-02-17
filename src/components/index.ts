@@ -1,5 +1,6 @@
 export * from "./activities";
 export * from "./auth-checker";
+export * from "./claims";
 export * from "./conditional-wrapper";
 export * from "./layout";
 export * from "./loader";

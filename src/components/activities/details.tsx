@@ -12,15 +12,22 @@ import {
 	Show,
 	createSignal,
 	Component,
+	For,
 } from "solid-js";
 import { getInitials } from "~/utilities";
+import { useStore } from "~/store";
 
 interface ActivityItemProps extends ActivityCollectionItem {
 	isLast: boolean;
 }
 
 export const ActivityItem: Component<ActivityItemProps> = (props) => {
+	const {
+		weapons: weaponsStore,
+	} = useStore();
+
 	const [showEditDialog, showEditDialogSet] = createSignal(false);
+	const weapons = props.expand?.["activity_weapons(activity)"];
 
 	return (
 		<>
@@ -67,6 +74,27 @@ export const ActivityItem: Component<ActivityItemProps> = (props) => {
 							<Badge variant="outline-purple">
 								{location}
 							</Badge>
+						)}
+					</Show>
+					<Show when={weapons} keyed>
+						{(localWeapons) => (
+							<For each={localWeapons}>
+								{(item) => {
+									const findWeapon = weaponsStore().find((storeItem) => storeItem.id === item.weapon);
+
+									return (
+										<Show when={findWeapon} keyed>
+											{
+												(localWeapon) => (
+													<Badge>
+														{localWeapon.name}
+													</Badge>
+												)
+											}
+										</Show>
+									);
+								}}
+							</For>
 						)}
 					</Show>
 				</div>

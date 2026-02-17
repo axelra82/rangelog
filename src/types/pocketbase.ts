@@ -24,9 +24,10 @@ export interface ReadSingleOptions {
 }
 
 export interface ReadListRequest {
+	expand?: string;
+	filter?: string;
 	page?: number;
 	perPage?: number;
-	filter?: string;
 	sort?: string;
 }
 
@@ -70,7 +71,7 @@ export interface ActivityCollectionItem {
 	date: string;
 	exercises?: string;
 	expand?: {
-		"activities_weapons(activity)": ActivityWeaponEntry[];
+		"activity_weapons(activity)": ActivityWeaponEntry[];
 	};
 	id: string;
 	location?: string;
@@ -107,13 +108,16 @@ export interface ShootingEntry {
 }
 
 export interface ClaimCollectionItem {
+	club?: string;
 	created: string;
 	date: string;
+	federation?: Federations;
 	id: string;
-	type?: string;
+	location?: string;
 	notes?: string;
 	owner: string;
 	rangeMaster?: string;
+	type: string;
 	updated: string;
 }
 

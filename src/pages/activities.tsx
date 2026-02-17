@@ -1,27 +1,43 @@
 import {
+	ActivityItem,
 	AddActivity,
 	AddClaim,
+	ClaimItem,
 	Tabs,
 	TabsContent,
 	TabsList,
-	TabsTrigger
+	TabsTrigger,
 } from "~/components";
 import { useStore } from "~/store";
 import { createEffect, For, Show } from "solid-js";
-import { activities as activitiesApi } from "infrastructure";
-import { ActivityCollectionItem, ReadListResponse } from "~/types";
-import { ActivityItem } from "~/components/activities";
+import {
+	activities as activitiesApi,
+	claims as claimsApi,
+} from "infrastructure";
+import {
+	ActivityCollectionItem,
+	ClaimCollectionItem,
+	ReadListResponse,
+} from "~/types";
 
 export const ActivitiesPage = () => {
 	const {
-		activities: storeActivities,
-		activitiesSet: storeActivitiesSet,
+		activities,
+		activitiesSet,
+		claims,
+		claimsSet,
 	} = useStore();
 
 	createEffect(async () => {
-		const data = await activitiesApi.read({}) as ReadListResponse<ActivityCollectionItem>;
+		const activitiesData = await activitiesApi.read({
+			expand: "activity_weapons(activity)"
+		}) as ReadListResponse<ActivityCollectionItem>;
 
-		storeActivitiesSet(data.items);
+
+		const claimsData = await claimsApi.read({}) as ReadListResponse<ClaimCollectionItem>;
+
+		activitiesSet(activitiesData.items);
+		claimsSet(claimsData.items);
 	});
 
 	return (
@@ -45,24 +61,37 @@ export const ActivitiesPage = () => {
 					value="activities"
 					class="my-8 bg-accent rounded-lg py-4 px-8"
 				>
-					<Show when={!storeActivities().length}>
+					<Show when={!activities().length}>
 						<h2>
 							Inga skytteaktiviteter loggade.
 						</h2>
 					</Show>
-					<For each={storeActivities()}>
+					<For each={activities()}>
 						{(item, index) => (
 							<ActivityItem
 								{...item}
-								isLast={storeActivities().length === index() + 1}
+								isLast={activities().length === index() + 1}
 							/>
 						)}
 					</For>
 				</TabsContent>
-				<TabsContent value="claims">
-					<section class="p-8">
-						<h1>WIP</h1>
-					</section>
+				<TabsContent
+					value="claims"
+					class="my-8 bg-accent rounded-lg py-4 px-8"
+				>
+					<Show when={!claims().length}>
+						<h2>
+							Inga fordringar sparade.
+						</h2>
+					</Show>
+					<For each={claims()}>
+						{(item, index) => (
+							<ClaimItem
+								{...item}
+								isLast={claims().length === index() + 1}
+							/>
+						)}
+					</For>
 				</TabsContent>
 			</Tabs>
 		</>
