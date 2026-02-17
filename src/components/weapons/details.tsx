@@ -31,6 +31,12 @@ export interface DetailsControl {
 	close: () => void;
 	isOpen: () => boolean;
 }
+
+export interface DetailsControl {
+	open: () => void;
+	close: () => void;
+	isOpen: () => boolean;
+}
 interface WeaponDetailsProps {
 	weapon: WeaponCollectionItem;
 	ref: (control: DetailsControl) => void;
@@ -100,6 +106,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 
 	const editWeapon = (weapon: WeaponCollectionItem) => {
 		detailsControl?.close();
+		detailsControl?.close();
 		setSearchParams({ edit: weapon.id });
 	};
 
@@ -113,6 +120,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 		});
 
 		weaponsSet((prev) => prev.filter((item) => item.id !== id));
+		detailsControl?.close();
 		detailsControl?.close();
 	};
 
@@ -243,6 +251,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 							</DialogContent>
 						</Dialog>
 					</div>
+
 
 					<Button
 						variant="outline"
