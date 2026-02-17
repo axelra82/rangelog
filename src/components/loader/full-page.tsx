@@ -1,26 +1,13 @@
 import { Component } from "solid-js";
-import { Box, CircularProgress, Typography } from "@suid/material";
+import { Spinner } from "~/components";
 
-export const FullPageLoader: Component<{ message?: string }> = (props) => {
-	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: "column",
-				justifyContent: "center",
-				alignItems: "center",
-				width: "100vw",
-				height: "100vh",
-				bgcolor: "background.default",
-				gap: 2,
-			}}
-		>
-			<CircularProgress size={48} />
-			{props.message && (
-				<Typography marginTop={2} variant="body2" color="text.secondary">
-					{props.message}
-				</Typography>
-			)}
-		</Box>
-	);
-};
+export const FullPageLoader: Component<{ message?: string }> = (props) => (
+	<div class="flex flex-col justify-center items-center w-screen h-screen bg-background gap-2">
+		<Spinner size="lg" />
+		{props.message && (
+			<p class="mt-2 text-sm text-muted-foreground">
+				{props.message}
+			</p>
+		)}
+	</div>
+);

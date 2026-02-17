@@ -41,9 +41,12 @@ export const ActivitiesPage = () => {
 					<TabsTrigger value="activities">Skytte</TabsTrigger>
 					<TabsTrigger value="claims">Fordringar</TabsTrigger>
 				</TabsList>
-				<TabsContent value="activities">
+				<TabsContent
+					value="activities"
+					class="my-8 bg-muted rounded-lg"
+				>
 					<For each={storeActivities()}>
-						{(item) => <ActivityItem {...item} />}
+						{(item, index) => <ActivityItem {...item} isLast={storeActivities().length === index() + 1} />}
 					</For>
 				</TabsContent>
 				<TabsContent value="claims">
