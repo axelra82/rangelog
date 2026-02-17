@@ -59,7 +59,7 @@ export const ActivityItem: Component<ActivityItemProps> = (props) => {
 						})}
 					</div>
 				</div>
-				<div class="col-span-3 flex items-start gap-4">
+				<div class="col-span-3 flex items-center flex-wrap gap-4">
 					<Show when={props.club} keyed>
 						{(club) => (
 							<Avatar class="size-14">

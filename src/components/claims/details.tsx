@@ -12,8 +12,12 @@ import {
 	Show,
 	createSignal,
 	Component,
+	Match,
+	Switch,
 } from "solid-js";
 import { getInitials } from "~/utilities";
+import { claims } from "~/data";
+import { IconLaurelWreath1Filled, IconLaurelWreath2Filled, IconLaurelWreath3Filled } from "@tabler/icons-solidjs";
 
 interface ClaimItemProps extends ClaimCollectionItem {
 	isLast: boolean;
@@ -52,7 +56,7 @@ export const ClaimItem: Component<ClaimItemProps> = (props) => {
 						})}
 					</div>
 				</div>
-				<div class="col-span-3 flex items-start gap-4">
+				<div class="col-span-3 flex items-center flex-wrap gap-4">
 					<Show when={props.club} keyed>
 						{(club) => (
 							<Avatar class="size-14">
@@ -69,6 +73,23 @@ export const ClaimItem: Component<ClaimItemProps> = (props) => {
 							</Badge>
 						)}
 					</Show>
+					<Switch>
+						<Match when={Boolean(props.type.includes("Guld"))}>
+							<IconLaurelWreath1Filled
+								class="size-12 p-2 rounded-full text-amber-800 bg-amber-300"
+							/>
+						</Match>
+						<Match when={Boolean(props.type.includes("Silver"))}>
+							<IconLaurelWreath2Filled
+								class="size-12 p-2 rounded-full text-slate-500 bg-slate-200"
+							/>
+						</Match>
+						<Match when={Boolean(props.type.includes("Brons"))}>
+							<IconLaurelWreath3Filled
+								class="size-12 p-2 rounded-full text-yellow-400 bg-yellow-700"
+							/>
+						</Match>
+					</Switch>
 				</div>
 			</section>
 			<Show when={!props.isLast}>
