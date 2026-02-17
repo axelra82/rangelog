@@ -8,8 +8,3 @@ export const pocketbaseAPIURL = `${pocketbaseURL}/api`;
 export const pocketbaseFilesURL = `${pocketbaseAPIURL}/files`;
 
 export const pb = new PocketBase(pocketbaseURL, new LocalAuthStore(import.meta.env.VITE_APP_NAME));
-
-// export * from "./authentication";
-// export * from "./file";
-// export * from "./list";
-// export * from "./user";

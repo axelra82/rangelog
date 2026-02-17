@@ -1,56 +1,108 @@
 import { ProviderFunction } from "~/types/data-provider";
 
 import {
-	pocketbaseCreateActivityCollectionItem,
-	pocketbaseReadActivityCollectionItem,
-	pocketbaseUpdateActivityCollectionItem,
-	pocketbaseDeleteActivityCollectionItem,
-} from "../../adapters/pocketbase/activities";
-
-import {
-	pocketbaseCreateActivityWeaponCollectionItem,
-	pocketbaseReadActivityWeaponCollectionItem,
-	pocketbaseUpdateActivityWeaponCollectionItem,
-	pocketbaseDeleteActivityWeaponCollectionItem,
-	pocketbaseDeleteActivityWeaponsByActivity,
-} from "../../adapters/pocketbase/activitiesWeapon";
-
-import {
-	pocketbaseAuthValidate,
-	pocketbaseLogin,
-	pocketbaseLogout
-} from "../../adapters/pocketbase/authentication";
-
-import {
-	pocketbaseCreateWeaponCollectionItem,
-	pocketbaseReadWeaponCollectionItem,
-	pocketbaseUpdateWeaponCollectionItem,
-	pocketbaseDeleteWeaponCollectionItem,
-} from "../../adapters/pocketbase/weapons";
+	pocketbaseCreateCollectionItem,
+	pocketbaseReadCollectionItem,
+	pocketbaseUpdateCollectionItem,
+	pocketbaseDeleteCollectionItem,
+} from "../../adapters/pocketbase/helpers";
+import { pocketbaseAuthValidate, pocketbaseLogin, pocketbaseLogout } from "infrastructure/adapters/pocketbase/authentication";
+import { pocketbaseDeleteActivityWeaponsByActivity } from "infrastructure/adapters/pocketbase/activitiesWeapon";
+import { Collections } from "~/types";
 
 export const createPocketbaseProvider = (): ProviderFunction => ({
 	activities: {
-		create: pocketbaseCreateActivityCollectionItem,
-		read: pocketbaseReadActivityCollectionItem,
-		update: pocketbaseUpdateActivityCollectionItem,
-		delete: pocketbaseDeleteActivityCollectionItem,
+		create: (data) => pocketbaseCreateCollectionItem(
+			data,
+			Collections.ACTIVITIES,
+		),
+		read: (data) => pocketbaseReadCollectionItem(
+			data,
+			Collections.ACTIVITIES,
+		),
+		update: (
+			id,
+			data,
+		) => pocketbaseUpdateCollectionItem(
+			id,
+			data,
+			Collections.ACTIVITIES,
+		),
+		delete: (id) => pocketbaseDeleteCollectionItem(
+			id,
+			Collections.ACTIVITIES,
+		),
 	},
 	activitiesWeapons: {
-		create: pocketbaseCreateActivityWeaponCollectionItem,
-		read: pocketbaseReadActivityWeaponCollectionItem,
-		update: pocketbaseUpdateActivityWeaponCollectionItem,
-		delete: pocketbaseDeleteActivityWeaponCollectionItem,
-		deleteByActivity: pocketbaseDeleteActivityWeaponsByActivity,
+		create: (data) => pocketbaseCreateCollectionItem(
+			data,
+			Collections.ACTIVITIES_WEAPONS,
+		),
+		read: (data) => pocketbaseReadCollectionItem(
+			data,
+			Collections.ACTIVITIES_WEAPONS,
+		),
+		update: (
+			id,
+			data,
+		) => pocketbaseUpdateCollectionItem(
+			id,
+			data,
+			Collections.ACTIVITIES_WEAPONS,
+		),
+		delete: (id) => pocketbaseDeleteCollectionItem(
+			id,
+			Collections.ACTIVITIES_WEAPONS,
+		),
+		deleteByActivity: (activityId) => pocketbaseDeleteActivityWeaponsByActivity(activityId),
+	},
+	claims: {
+		create: (data) => pocketbaseCreateCollectionItem(
+			data,
+			Collections.CLAIMS,
+		),
+		read: (data) => pocketbaseReadCollectionItem(
+			data,
+			Collections.CLAIMS,
+		),
+		update: (
+			id,
+			data,
+		) => pocketbaseUpdateCollectionItem(
+			id,
+			data,
+			Collections.CLAIMS,
+		),
+		delete: (id) => pocketbaseDeleteCollectionItem(
+			id,
+			Collections.CLAIMS,
+		),
 	},
 	auth: {
 		validate: pocketbaseAuthValidate,
-		login: pocketbaseLogin,
+		login: (props) => pocketbaseLogin(props),
 		logout: pocketbaseLogout,
 	},
 	weapons: {
-		create: pocketbaseCreateWeaponCollectionItem,
-		read: pocketbaseReadWeaponCollectionItem,
-		update: pocketbaseUpdateWeaponCollectionItem,
-		delete: pocketbaseDeleteWeaponCollectionItem,
+		create: (data) => pocketbaseCreateCollectionItem(
+			data,
+			Collections.WEAPONS,
+		),
+		read: (data) => pocketbaseReadCollectionItem(
+			data,
+			Collections.WEAPONS,
+		),
+		update: (
+			id,
+			data,
+		) => pocketbaseUpdateCollectionItem(
+			id,
+			data,
+			Collections.WEAPONS,
+		),
+		delete: (id) => pocketbaseDeleteCollectionItem(
+			id,
+			Collections.WEAPONS,
+		),
 	}
 });

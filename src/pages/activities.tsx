@@ -8,10 +8,9 @@ import {
 } from "~/components";
 import { useStore } from "~/store";
 import { createEffect, For, Show } from "solid-js";
-import { activities } from "infrastructure/services";
+import { activities as activitiesApi } from "infrastructure";
 import { ActivityCollectionItem, ReadListResponse } from "~/types";
 import { ActivityItem } from "~/components/activities";
-import { cn } from "~/utilities";
 
 export const ActivitiesPage = () => {
 	const {
@@ -20,7 +19,7 @@ export const ActivitiesPage = () => {
 	} = useStore();
 
 	createEffect(async () => {
-		const data = await activities.read({}) as ReadListResponse<ActivityCollectionItem>;
+		const data = await activitiesApi.read({}) as ReadListResponse<ActivityCollectionItem>;
 
 		storeActivitiesSet(data.items);
 	});

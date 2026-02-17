@@ -105,3 +105,19 @@ export interface ShootingEntry {
 	rounds?: number;
 	weapon: string;
 }
+
+export interface ClaimCollectionItem {
+	created: string;
+	date: string;
+	id: string;
+	type?: string;
+	notes?: string;
+	owner: string;
+	rangeMaster?: string;
+	updated: string;
+}
+
+export type ClaimCreateInput = Omit<
+	ClaimCollectionItem,
+	"id" | "created" | "updated"
+>;
