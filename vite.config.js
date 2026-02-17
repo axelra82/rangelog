@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import solidPlugin from "vite-plugin-solid";
-import suidPlugin from "@suid/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -33,7 +32,6 @@ export default defineConfig({
 		"import.meta.env.VITE_APP_REPO": repo,
 	},
 	plugins: [
-		suidPlugin(),
 		solidPlugin(),
 		tailwindcss(),
 		VitePWA({

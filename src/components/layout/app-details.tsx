@@ -6,7 +6,7 @@ import {
 	IconDots,
 } from "@tabler/icons-solidjs";
 import { Severity } from "~/types";
-import { Button, pushSnackbar } from "~/components";
+import { Button, showToast } from "~/components";
 
 export const AppDetails: Component = () => {
 	const environment = import.meta.env;
@@ -30,10 +30,11 @@ export const AppDetails: Component = () => {
 
 		const copyToClipboard = async (text: string) => {
 			await navigator.clipboard.writeText(text);
-			pushSnackbar({
-				message: "Hash copied",
-				severity: Severity.INFO,
-				autoHideDuration: 3000,
+			showToast({
+				title: "Copied",
+				description: "Hash copied to clipboard",
+				variant: "success",
+				duration: 3000,
 			});
 		};
 

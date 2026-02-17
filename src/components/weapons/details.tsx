@@ -14,18 +14,26 @@ import {
 	DialogDescription,
 	DialogHeader,
 	DialogTrigger,
-	Drawer,
-	DrawerControl,
 	LicenseExpiryIndicator,
 	Separator,
 	showToast,
+	Sheet,
+	SheetContent,
+	SheetHeader,
+	SheetTitle,
 } from "~/components";
 import { useStore } from "~/store";
 import type { WeaponCollectionItem } from "~/types";
+import { cn } from "~/utilities";
 
-interface WeaponDrawerProps {
+export interface DetailsControl {
+	open: () => void;
+	close: () => void;
+	isOpen: () => boolean;
+}
+interface WeaponDetailsProps {
 	weapon: WeaponCollectionItem;
-	ref: (control: DrawerControl) => void;
+	ref: (control: DetailsControl) => void;
 }
 
 interface DetailItemProps {
@@ -34,37 +42,64 @@ interface DetailItemProps {
 	value?: string;
 }
 
-export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
+export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 	const {
+		isMobile,
 		weaponsSet,
 	} = useStore();
 
+	const [open, openSet] = createSignal(false);
+
+	const control: DetailsControl = {
+		open: () => openSet(true),
+		close: () => openSet(false),
+		isOpen: () => open(),
+	};
+
+	// Expose control methods to parent
+	props.ref?.(control);
+
 	const [_, setSearchParams] = useSearchParams();
 	const [items, itemsSet] = createSignal<DetailItemProps[]>([]);
-	let drawerControl: DrawerControl | undefined;
+	let detailsControl: DetailsControl | undefined;
 
-	const DetailItem: Component<DetailItemProps> = (props) => (
-		<div class="flex gap-4">
-			<span class="text-muted-foreground">
-				{props.key}:
-			</span>
-			<strong>{
-				props.value
-					?
-					props.isDate
-						?
-						new Date(props.value).toLocaleDateString("sv-SE")
-						:
+	const DetailItem: Component<DetailItemProps> = (props) => {
+		const isNote = props.key === "Anteckningar";
+
+		return (
+			<div class={cn(
+				"flex gap-4",
+				{
+					"flex-col": isNote,
+				}
+			)}>
+				<span class="text-muted-foreground">
+					{props.key}:
+				</span>
+				<span class={cn(
+					{
+						"font-medium": !isNote,
+						"whitespace-pre-wrap": isNote,
+					}
+				)}>
+					{
 						props.value
-					:
-					"-"
-			}
-			</strong>
-		</div>
-	);
+							?
+							props.isDate
+								?
+								new Date(props.value).toLocaleDateString("sv-SE")
+								:
+								props.value
+							:
+							"-"
+					}
+				</span>
+			</div>
+		)
+	};
 
 	const editWeapon = (weapon: WeaponCollectionItem) => {
-		drawerControl?.close();
+		detailsControl?.close();
 		setSearchParams({ edit: weapon.id });
 	};
 
@@ -78,7 +113,7 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 		});
 
 		weaponsSet((prev) => prev.filter((item) => item.id !== id));
-		drawerControl?.close();
+		detailsControl?.close();
 	};
 
 	onMount(() => {
@@ -139,18 +174,21 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 
 	return (
 		<>
-			<Drawer
-				title={
-					<span class="flex items-center gap-2">
-						<LicenseExpiryIndicator size={10} licenseEnd={props.weapon.licenseEnd} /> {props.weapon.name}
-					</span>
-				}
-				ref={(control) => {
-					drawerControl = control;
-					props.ref?.(control);
-				}}
+			<Sheet
+				open={open()}
+				onOpenChange={openSet}
 			>
-				<>
+				<SheetContent
+					position="right"
+					class={cn(
+						"space-y-6",
+						isMobile() ? "w-full border-l-0" : "w-lg",
+					)}>
+					<SheetHeader>
+						<SheetTitle class="flex items-center gap-2 text-2xl">
+							<LicenseExpiryIndicator size={10} licenseEnd={props.weapon.licenseEnd} /> {props.weapon.name}
+						</SheetTitle>
+					</SheetHeader>
 					<For each={items()}>
 						{(item) => <DetailItem {...item} />}
 					</For>
@@ -161,7 +199,10 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 						<Button
 							variant="default"
 							class="flex-1"
-							onClick={() => editWeapon(props.weapon)}
+							onClick={() => {
+								editWeapon(props.weapon);
+								control.close();
+							}}
 						>
 							Redigera
 						</Button>
@@ -202,16 +243,16 @@ export const WeaponDrawer: Component<WeaponDrawerProps> = (props) => {
 							</DialogContent>
 						</Dialog>
 					</div>
+
 					<Button
 						variant="outline"
 						class="w-full"
-						onClick={() => drawerControl?.close()}
+						onClick={() => control.close()}
 					>
 						Stäng
 					</Button>
-
-				</>
-			</Drawer>
+				</SheetContent>
+			</Sheet>
 		</>
 	);
 };

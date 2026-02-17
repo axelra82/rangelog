@@ -28,6 +28,7 @@ import {
 	SelectGridItem,
 	TextFieldInputGridItem,
 	Spinner,
+	TextFieldAreaGridItem,
 } from "~/components";
 
 interface ManageActivityFormProps {
@@ -126,7 +127,7 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 					updated[index] = {
 						...updated[index],
 						weapon: value,
-						caliber: selectedWeapon.caliber,
+						// caliber: selectedWeapon.caliber,
 					};
 					return updated;
 				}
@@ -354,19 +355,17 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 				</Button>
 			</div>
 
-			<TextFieldInputGridItem
+			<TextFieldAreaGridItem
 				key={"exercises"}
 				onChange={handleInputChange}
 				title="Övningar"
-				type="textarea"
 				value={form().exercises}
 			/>
 
-			<TextFieldInputGridItem
+			<TextFieldAreaGridItem
 				key={"notes"}
 				onChange={handleInputChange}
 				title="Egna Anteckningar"
-				type="textarea"
 				value={form().notes}
 			/>
 

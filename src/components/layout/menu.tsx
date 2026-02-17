@@ -1,22 +1,22 @@
 import { ParentComponent, Show } from "solid-js";
 import { A } from "@solidjs/router";
+import {
+	Avatar,
+	AvatarFallback,
+	BottomNavTabBars,
+	Button,
+	DropdownMenu,
+	DropdownMenuTrigger,
+	ProfileMenu,
+} from "~/components";
 import { useStore } from "~/store";
-import { ProfileMenu } from "./profile-menu";
-import { Button } from "~/components/ui/button";
-import { Avatar, AvatarFallback } from "~/components/ui/avatar";
-import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { BottomNavTabBars } from "./bottom-nav-tab-bars";
+import { getInitials } from "~/utilities";
 
 export const LayoutMainMenu: ParentComponent = () => {
 	const {
 		user,
 		isMobile
 	} = useStore();
-
-	const getInitials = (email?: string) => {
-		if (!email) return "?";
-		return email.substring(0, 2).toUpperCase();
-	};
 
 	return (
 		<Show
@@ -49,7 +49,9 @@ export const LayoutMainMenu: ParentComponent = () => {
 								class="rounded-full"
 							>
 								<Avatar>
-									<AvatarFallback>{getInitials(user()?.email)}</AvatarFallback>
+									<AvatarFallback>
+										{getInitials(user()?.email)}
+									</AvatarFallback>
 								</Avatar>
 								<span class="sr-only">Toggle theme</span>
 							</DropdownMenuTrigger>
