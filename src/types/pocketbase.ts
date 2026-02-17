@@ -33,8 +33,8 @@ export interface ReadListRequest {
 export interface ReadListResponse<T> {
 	items: T[];
 	page: number;
-	totalPages: number;
 	totalItems: number;
+	totalPages: number;
 }
 
 export interface WeaponCollectionItem {
@@ -65,50 +65,43 @@ export type WeaponUpdateInput = Partial<WeaponCreateInput>;
 
 // Activity types
 export interface ActivityCollectionItem {
-	id: string;
-	date: string;
-	owner: string;
-	rangeMaster: string;
-	exercises?: string;
-	notes?: string;
-	location?: string;
 	club?: string;
 	created: string;
-	updated: string;
-	expand?: {
-		'activities_weapons(activity)': ActivityWeaponEntry[];
-	};
-}
-
-export interface ActivityCreateInput {
 	date: string;
-	owner: string;
-	rangeMaster: string;
 	exercises?: string;
-	notes?: string;
+	expand?: {
+		"activities_weapons(activity)": ActivityWeaponEntry[];
+	};
+	id: string;
 	location?: string;
-	club?: string;
+	notes?: string;
+	owner: string;
+	rangeMaster?: string;
+	updated: string;
 }
 
-// Activity-Weapon junction table types
+export type ActivityCreateInput = Omit<
+	ActivityCollectionItem,
+	"id" | "created" | "updated"
+>;
+
 export interface ActivityWeaponEntry {
-	id: string;
 	activity: string;
+	caliber?: Calibers;
+	id: string;
+	rounds?: number;
 	weapon: string;
-	rounds: number;
-	caliber?: string;
 }
 
 export interface ActivityWeaponCreateInput {
 	activity: string;
+	caliber?: Calibers;
+	rounds?: number;
 	weapon: string;
-	rounds: number;
-	caliber?: string;
 }
 
-// UI helper type
 export interface ShootingEntry {
+	caliber?: Calibers;
+	rounds?: number;
 	weapon: string;
-	caliber: string;
-	rounds: number;
 }

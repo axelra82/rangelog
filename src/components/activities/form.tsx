@@ -2,17 +2,19 @@ import {
 	Component,
 	createSignal,
 	Show,
-	onMount,
 	For,
 	createEffect,
+	Setter,
 } from "solid-js";
 import { clubs } from "~/data/clubs";
-import {
-	activities,
-	activitiesWeapons,
-} from "infrastructure/services";
 import { isoDateTimeToDateInput, todayISODate } from "~/utilities";
-import { ActivityCreateInput, ActivityCollectionItem, ShootingEntry } from "~/types";
+import {
+	ActivityCreateInput,
+	ActivityCollectionItem,
+	ActivityWeaponEntry,
+	ShootingEntry,
+	ReadListResponse,
+} from "~/types";
 import { useStore } from "~/store";
 import {
 	Alert,
@@ -29,108 +31,117 @@ import {
 	TextFieldInputGridItem,
 	Spinner,
 	TextFieldAreaGridItem,
+	Separator,
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+	showToast,
+	Label,
+	TextField,
+	TextFieldLabel,
+	TextFieldInput,
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogTrigger,
 } from "~/components";
+import { useSearchParams } from "@solidjs/router";
+import {
+	activities as activitiesApi,
+	activitiesWeapons as activitiesWeaponsApi,
+} from "infrastructure";
+import { Calibers } from "~/data";
 
 interface ManageActivityFormProps {
 	modal?: boolean;
-	editActivity?: ActivityCollectionItem;
-	onSuccess?: () => void;
+	modalControl?: Setter<boolean>;
+	edit?: ActivityCollectionItem;
 }
 
-type FormData = {
-	date: string;
-	owner: string;
-	rangeMaster: string;
-	exercises: string;
-	notes: string;
-	location: string;
-	club: string;
-};
+interface ShootingEntryWithId extends ShootingEntry {
+	existingId?: string;
+}
 
-export const ManageActivityForm: Component<ManageActivityFormProps> = (props) => {
+export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 	const {
 		user,
 		activitiesSet,
 		weapons: storeWeapons,
 	} = useStore();
 
-	const defaultFormValues: FormData = {
+	const [_, setSearchParams] = useSearchParams();
+
+	const defaultFormValues = {
+		club: "",
 		date: todayISODate(true),
+		exercises: "",
+		location: "",
+		notes: "",
 		owner: user().id,
 		rangeMaster: "",
-		exercises: "",
-		notes: "",
-		location: "",
-		club: "",
 	};
 
-	const [form, formSet] = createSignal<FormData>(defaultFormValues);
-	const [shootingEntries, shootingEntriesSet] = createSignal<ShootingEntry[]>([
-		{ weapon: "", caliber: "", rounds: 0 },
-	]);
+	const defaultWeaponEntry = {
+		weapon: "",
+		caliber: "",
+		rounds: 0,
+	};
 
+	const [form, formSet] = createSignal<ActivityCreateInput>(defaultFormValues);
+	const [editForm, editFormSet] = createSignal<ActivityCollectionItem>();
 	const [loading, loadingSet] = createSignal(false);
 	const [error, errorSet] = createSignal<string | null>(null);
-	const [success, successSet] = createSignal(false);
 	const [title, titleSet] = createSignal<string>();
-	const [eventNote, eventNoteSet] = createSignal<string>();
+	const [shootingEntries, shootingEntriesSet] = createSignal<ShootingEntryWithId[]>([defaultWeaponEntry]);
 
-	// Populate form when editing
-	createEffect(() => {
-		if (props.editActivity) {
-			formSet({
-				date: props.editActivity.date
-					? isoDateTimeToDateInput(props.editActivity.date)
-					: todayISODate(true),
-				owner: props.editActivity.owner,
-				rangeMaster: props.editActivity.rangeMaster,
-				exercises: props.editActivity.exercises || "",
-				notes: props.editActivity.notes || "",
-				location: props.editActivity.location || "",
-				club: props.editActivity.club || "",
-			});
+	const closeModal = () => {
+		if (props.modal && props.modalControl) {
+			props.modalControl(false);
 		}
-	});
+	}
 
-	onMount(() => {
-		if (props.editActivity) {
-			titleSet("Redigera skjutaktivitet");
-			eventNoteSet("Aktivitet uppdaterad");
-		} else {
-			titleSet("Lägg till ny skjutaktivitet");
-			eventNoteSet("Aktivitet tillagd");
-		}
-	});
+	const getWeaponById = (id: string) =>
+		storeWeapons().find((item) => item.id === id);
 
-	const handleInputChange = (
-		field: string,
-		value: string | string[],
-	) => {
-		formSet((prev) => ({
+	const getCalibersForWeapon = (weaponId: string): Calibers[] =>
+		getWeaponById(weaponId)?.caliber ?? [];
+
+	const addShootingEntry = () => {
+		shootingEntriesSet((prev) => [
 			...prev,
-			[field]: value,
-		}));
+			defaultWeaponEntry,
+		]);
+	};
+
+	const removeShootingEntry = (index: number) => {
+		if (shootingEntries().length === 1) {
+			shootingEntriesSet([defaultWeaponEntry]);
+			return;
+		}
+
+		shootingEntriesSet((prev) => prev.filter((_, i) => i !== index));
 	};
 
 	const handleShootingEntryChange = (
 		index: number,
 		field: keyof ShootingEntry,
-		value: any
+		value: string | number | Calibers[],
 	) => {
 		shootingEntriesSet((prev) => {
 			const updated = [...prev];
 
-			// If weapon changed, auto-populate caliber
-			if (field === "weapon" && value) {
-				const selectedWeapon = storeWeapons().find(w => w.id === value);
-				if (selectedWeapon) {
-					updated[index] = {
-						...updated[index],
-						weapon: value,
-						// caliber: selectedWeapon.caliber,
-					};
-					return updated;
-				}
+			if (field === "weapon" && typeof value === "string") {
+				const calibers = getCalibersForWeapon(value);
+
+				updated[index] = {
+					...updated[index],
+					...defaultWeaponEntry,
+					weapon: value,
+					caliber: calibers.length === 1 ? calibers[0] : "",
+				};
+				return updated;
 			}
 
 			updated[index] = { ...updated[index], [field]: value };
@@ -138,112 +149,177 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 		});
 	};
 
-	const addShootingEntry = () => {
-		shootingEntriesSet((prev) => [...prev, { weapon: "", caliber: "", rounds: 0 }]);
-	};
-
-	const removeShootingEntry = (index: number) => {
-		shootingEntriesSet((prev) => prev.filter((_, i) => i !== index));
+	const handleInputChange = (field: string, value: string | string[]) => {
+		formSet((prev) => ({ ...prev, [field]: value }));
 	};
 
 	const reformSet = () => {
 		formSet(defaultFormValues);
-		shootingEntriesSet([{ weapon: "", caliber: "", rounds: 0 }]);
+		shootingEntriesSet([defaultWeaponEntry]);
+	};
+
+	const cancelEdit = () => {
+		setSearchParams({ edit: undefined });
+		editFormSet();
+		reformSet();
+		closeModal();
+	};
+
+	const handleDelete = async () => {
+		try {
+			await activitiesWeaponsApi.deleteByActivity(editForm()!.id);
+			await activitiesApi.delete(editForm()!.id);
+
+			activitiesSet((prev) => prev.filter((item) => item.id !== editForm()!.id));
+
+			showToast({
+				description: "Aktiviteten raderades",
+				variant: "success",
+				duration: 3000,
+			});
+
+			if (props.modal && props.modalControl) {
+				props.modalControl(false);
+			}
+		} catch (err) {
+			errorSet(err instanceof Error ? err.message : "Något gick fel");
+		}
 	};
 
 	const handleSubmit = async (event: Event) => {
 		event.preventDefault();
 		errorSet(null);
-		successSet(false);
 		loadingSet(true);
 
 		try {
 			const current = form();
 
-			if (!current.date || !current.rangeMaster) {
-				throw new Error("Fyll i datum och skjutledare.");
+			if (!current.date) {
+				throw new Error("Ange datum.");
 			}
 
 			const activityData: ActivityCreateInput = {
-				date: isoDateTimeToDateInput(current.date, true),
-				owner: current.owner,
+				club: current.club,
+				date: isoDateTimeToDateInput(current.date, true, true),
+				exercises: current.exercises,
+				location: current.location,
+				notes: current.notes,
+				owner: user().id,
 				rangeMaster: current.rangeMaster,
-				exercises: current.exercises || undefined,
-				notes: current.notes || undefined,
-				location: current.location || undefined,
-				club: current.club || undefined,
 			};
 
-			let activityId: string;
+			// Only save entries where a weapon has actually been selected
+			const validEntries = shootingEntries().filter((item) => item.weapon !== "");
 
-			if (props.editActivity) {
-				const updatedItem = await activities.update(props.editActivity.id, activityData);
-				activityId = updatedItem.id;
+			if (editForm()) {
+				// Update activity
+				const updatedItem = await activitiesApi.update(editForm()!.id, activityData);
 
-				// Delete existing activity_weapons entries
-				await activitiesWeapons.deleteByActivity(props.editActivity.id);
+				// Delete all existing junction records and recreate — avoids diff logic
+				await activitiesWeaponsApi.deleteByActivity(editForm()!.id);
 
-				activitiesSet((prev) =>
-					prev.map((a) => (a.id === props.editActivity!.id ? updatedItem : a))
-				);
-			} else {
-				const newItem = await activities.create(activityData);
-				activityId = newItem.id;
-				activitiesSet((prev) => [...prev, newItem]);
-			}
-
-			// Create activity_weapons entries
-			for (const entry of shootingEntries()) {
-				if (entry.weapon) {
-					await activitiesWeapons.create({
-						activity: activityId,
-						weapon: entry.weapon,
-						rounds: entry.rounds,
+				for (const entry of validEntries) {
+					await activitiesWeaponsApi.create({
+						activity: editForm()!.id,
 						caliber: entry.caliber,
+						rounds: entry.rounds,
+						weapon: entry.weapon,
 					});
 				}
-			}
 
-			reformSet();
-			successSet(true);
+				activitiesSet((prev) =>
+					prev.map((item) => (item.id === editForm()!.id ? updatedItem : item))
+				);
 
-			if (props.onSuccess) {
-				setTimeout(() => {
-					props.onSuccess!();
-				}, 1000);
+				showToast({
+					description: "Aktiviteten uppdaterades",
+					variant: "success",
+					duration: 3000,
+				});
+			} else {
+				// Create activity then junction records
+				const newItem = await activitiesApi.create(activityData);
+
+				for (const entry of validEntries) {
+					await activitiesWeaponsApi.create({
+						activity: newItem.id,
+						caliber: entry.caliber,
+						rounds: entry.rounds,
+						weapon: entry.weapon,
+					});
+				}
+
+				activitiesSet((prev) => [...prev, newItem]);
+
+				showToast({
+					description: "Aktiviteten loggades",
+					variant: "success",
+					duration: 3000,
+				});
+
+				reformSet();
 			}
-		} catch (err: any) {
-			errorSet(err?.message ?? "Något gick fel");
-		} finally {
-			loadingSet(false);
+		} catch (err) {
+			errorSet(err instanceof Error ? err.message : "Något gick fel");
 		}
+
+		closeModal();
+		loadingSet(false);
 	};
 
-	const FormContent = () => (
-		<>
-			<Show when={props.modal}>
-				<DialogHeader>
-					<DialogTitle>
-						{title()}
-					</DialogTitle>
-				</DialogHeader>
-				<div class="px-6 pb-6">
-					<FormFields />
-				</div>
-			</Show>
+	createEffect(() => {
+		if (props.edit) editFormSet(props.edit);
+	});
 
-			<Show when={!props.modal}>
-				<CardHeader>
-					<CardTitle>
-						{title()}
-					</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<FormFields />
-				</CardContent>
-			</Show>
-		</>
-	);
+	createEffect(() => {
+		titleSet(editForm() ? "Redigera skytteaktivitet" : "Logga skytteaktivitet");
+	});
+
+	createEffect(() => {
+		if (editForm()) {
+			formSet({
+				club: editForm()!.club ?? "",
+				date: isoDateTimeToDateInput(editForm()!.date, true, true),
+				exercises: editForm()!.exercises || "",
+				location: editForm()!.location,
+				notes: editForm()!.notes || "",
+				owner: user().id,
+				rangeMaster: editForm()!.rangeMaster,
+			});
+		}
+	});
+
+	// Fetch existing activity_weapons when editing
+	createEffect(async () => {
+		const activity = editForm();
+		if (!activity) {
+			return
+		};
+
+		try {
+			const response = await activitiesWeaponsApi.read({
+				filter: `activity = "${activity.id}"`
+			}) as ReadListResponse<ActivityWeaponEntry>;
+
+			if (response.items.length === 0) {
+				shootingEntriesSet([defaultWeaponEntry]);
+				return;
+			}
+
+			shootingEntriesSet(
+				response.items.map((entry: ActivityWeaponEntry) => ({
+					existingId: entry.id,
+					weapon: entry.weapon,
+					caliber: entry.caliber,
+					rounds: entry.rounds ?? 0,
+				}))
+			);
+		} catch (error) {
+			console.error(error);
+			shootingEntriesSet([defaultWeaponEntry]);
+		}
+
+	});
 
 	const FormFields = () => (
 		<form onSubmit={handleSubmit} class="space-y-6">
@@ -253,515 +329,268 @@ export const ManageActivityForm: Component<ManageActivityFormProps> = (props) =>
 				</Alert>
 			</Show>
 
-			<Show when={success()}>
-				<Alert>
-					<AlertDescription>
-						{eventNote()}
-					</AlertDescription>
-				</Alert>
-			</Show>
-
-			{/* Label-Input Grid Layout */}
 			<TextFieldInputGridItem
-				key={"date"}
+				key="date"
 				onChange={handleInputChange}
 				required
 				title="Datum"
-				type="date"
+				type="datetime-local"
 				value={form().date}
 			/>
 
 			<SelectGridItem
-				key={"club"}
-				options={clubs.map(club => club.name)}
+				key="club"
+				options={clubs.map((club) => club.name)}
 				placeholder="Välj klubb"
 				title="Klubb"
 				onChange={handleInputChange}
-				value={form().club}
+				value={form().club || ""}
 			/>
 
 			<TextFieldInputGridItem
-				key={"location"}
+				key="location"
 				onChange={handleInputChange}
 				title="Plats"
 				type="text"
-				value={form().location}
+				value={form().location || ""}
 			/>
 
 			<TextFieldInputGridItem
-				key={"rangeMaster"}
+				key="rangeMaster"
 				onChange={handleInputChange}
-				required
 				title="Skjutledare"
 				type="text"
-				value={form().rangeMaster}
+				value={form().rangeMaster || ""}
 			/>
 
-			{/* Shooting Entries Section */}
-			<div class="space-y-4">
-				<div class="text-sm font-medium">Skytte</div>
+			<Separator />
+
+			<div class="flex flex-col">
 				<For each={shootingEntries()}>
-					{(entry, index) => (
-						<div class="grid grid-cols-[2fr_1fr_1fr_auto] gap-4 items-start">
-							<SelectGridItem
-								key={`weapon-${index()}`}
-								options={storeWeapons().map(weapon => weapon.name)}
-								placeholder="Välj vapen"
-								title={index() === 0 ? "Vapen" : ""}
-								onChange={(field, value) => handleShootingEntryChange(index(), "weapon", value)}
-								value={entry.weapon}
-								required
-							/>
+					{(item, index) => {
+						const availableCalibers = () => getCalibersForWeapon(item.weapon);
+						const hasWeapon = () => item.weapon !== "";
 
-							<TextFieldInputGridItem
-								key={`caliber-${index()}`}
-								title={index() === 0 ? "Kaliber" : ""}
-								type="text"
-								value={entry.caliber}
-								onChange={() => { }}
-							/>
-
-							<TextFieldInputGridItem
-								key={`rounds-${index()}`}
-								title={index() === 0 ? "Ant.skott" : ""}
-								type="text"
-								value={entry.rounds.toString()}
-								onChange={(value) => handleShootingEntryChange(index(), "rounds", parseInt(value as string) || 0)}
-								required
-							/>
-
-							<div class={index() === 0 ? "pt-6" : ""}>
+						return (
+							<section class="flex gap-2 items-center mb-2 text-sm">
 								<Button
-									type="button"
+									class="size-8 mt-6"
 									variant="destructive"
 									size="sm"
 									onClick={() => removeShootingEntry(index())}
-									disabled={shootingEntries().length === 1}
+									disabled={shootingEntries().length === 1 && item.weapon === ""}
 								>
 									-
 								</Button>
-							</div>
-						</div>
-					)}
+
+								<div class="flex-1 flex flex-col gap-2">
+									<Label class="text-muted-foreground font-light">
+										Vapen
+									</Label>
+									<Select
+										value={item.weapon || null}
+										onChange={(value) =>
+											handleShootingEntryChange(index(), "weapon", value ?? "")
+										}
+										options={storeWeapons().map((item) => item.id)}
+										placeholder="Välj vapen"
+										itemComponent={(itemProps) => {
+											const weapon = getWeaponById(itemProps.item.rawValue);
+											return (
+												<SelectItem item={itemProps.item}>
+													{weapon?.name ?? itemProps.item.rawValue}
+												</SelectItem>
+											);
+										}}
+									>
+										<SelectTrigger>
+											<SelectValue<string>>
+												{(state) => {
+													const weapon = getWeaponById(state.selectedOption());
+													return weapon?.name ?? state.selectedOption();
+												}}
+											</SelectValue>
+										</SelectTrigger>
+										<SelectContent />
+									</Select>
+								</div>
+
+								<Show when={hasWeapon()}>
+									<div class="flex-1 flex flex-col gap-2">
+										<Label class="text-muted-foreground font-light">
+											Kaliber
+										</Label>
+										<Select
+											value={item.caliber ?? null}
+											onChange={(value) =>
+												handleShootingEntryChange(
+													index(),
+													"caliber",
+													value ?? "",
+												)
+											}
+											options={availableCalibers()}
+											placeholder="Välj kaliber"
+											itemComponent={(itemProps) => (
+												<SelectItem item={itemProps.item}>
+													{itemProps.item.rawValue}
+												</SelectItem>
+											)}
+										>
+											<SelectTrigger>
+												<SelectValue<string>>
+													{(state) => state.selectedOption()}
+												</SelectValue>
+											</SelectTrigger>
+											<SelectContent />
+										</Select>
+									</div>
+
+									<TextField
+										class="w-20"
+										onChange={(value) =>
+											handleShootingEntryChange(
+												index(),
+												"rounds",
+												parseInt(value) || 0,
+											)
+										}
+									>
+										<TextFieldLabel class="text-muted-foreground font-light mb-1">Ant. skott</TextFieldLabel>
+										<TextFieldInput value={item.rounds} type="number" min="0" />
+									</TextField>
+								</Show>
+							</section>
+						);
+					}}
 				</For>
 
 				<Button
-					type="button"
-					variant="outline"
+					class="justify-end text-muted-foreground"
+					variant="link"
 					size="sm"
 					onClick={addShootingEntry}
 				>
-					+ Lägg till vapen
+					+ Lägg till
 				</Button>
 			</div>
 
+			<Separator />
+
 			<TextFieldAreaGridItem
-				key={"exercises"}
+				key="exercises"
 				onChange={handleInputChange}
 				title="Övningar"
-				value={form().exercises}
+				value={form().exercises || ""}
 			/>
 
 			<TextFieldAreaGridItem
-				key={"notes"}
+				key="notes"
 				onChange={handleInputChange}
 				title="Egna Anteckningar"
-				value={form().notes}
+				value={form().notes || ""}
 			/>
 
-			<div class="flex justify-end pt-4">
-				<Button
-					type="submit"
-					disabled={loading()}
-					variant="success"
-				>
-					<Show when={loading()} fallback={props.editActivity ? "Uppdatera" : "Spara"}>
-						<Spinner size="sm" variant="white" class="mr-2" />
-						Sparar...
+			<div class="flex justify-between pt-4">
+				<div>
+					<Show when={editForm()}>
+						<Dialog>
+							<DialogTrigger
+								as={Button}
+								type="button"
+								variant="destructive"
+							>
+								Radera
+							</DialogTrigger>
+							<DialogContent class="max-w-sm">
+								<DialogHeader>
+									<DialogTitle>
+										Är du säker på att du vill radera aktiviteten?
+									</DialogTitle>
+								</DialogHeader>
+								<DialogDescription>
+									Detta kommer att ta bort aktiviteten permanent. Denna åtgärd kan inte ångras.
+								</DialogDescription>
+								<DialogTrigger
+									as={Button}
+									variant="outline"
+								>
+									Avbryt
+								</DialogTrigger>
+								<DialogTrigger
+									as={Button}
+									variant="destructive"
+									onClick={handleDelete}
+								>
+									Fortsätt
+								</DialogTrigger>
+							</DialogContent>
+						</Dialog>
 					</Show>
-				</Button>
+				</div>
+
+				<div class="justify-end flex gap-4">
+					<Show when={editForm()}>
+						<Button
+							variant="outline"
+							onClick={cancelEdit}
+						>
+							Avbryt
+						</Button>
+					</Show>
+					<Button
+						type="submit"
+						disabled={loading()}
+						variant="success"
+					>
+						<Show
+							when={loading()}
+							fallback={
+								editForm()
+									? "Uppdatera"
+									: "Spara"
+							}
+						>
+							<Spinner
+								size="sm"
+								variant="white"
+								class="mr-2"
+							/>
+							Sparar...
+						</Show>
+					</Button>
+				</div>
 			</div>
 		</form>
+	);
+
+	const FormContent = () => (
+		<>
+			<Show when={props.modal}>
+				<DialogHeader>
+					<DialogTitle>{title()}</DialogTitle>
+				</DialogHeader>
+				<div class="px-6 pb-6">
+					<FormFields />
+				</div>
+			</Show>
+			<Show when={!props.modal}>
+				<CardHeader>
+					<CardTitle>{title()}</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<FormFields />
+				</CardContent>
+			</Show>
+		</>
 	);
 
 	return (
 		<ConditionalWrapper
 			condition={!Boolean(props.modal)}
-			wrapper={(wrapperChildren) => (
-				<Card>
-					{wrapperChildren}
-				</Card>
-			)}
+			wrapper={(wrapperChildren) => <Card>{wrapperChildren}</Card>}
 		>
 			<FormContent />
 		</ConditionalWrapper>
 	);
 };
-
-// import { Component, createSignal, createEffect, For } from "solid-js";
-// import {
-// 	TextField,
-// 	Button,
-// 	MenuItem,
-// 	Stack,
-// 	Alert,
-// 	Typography,
-// 	CircularProgress,
-// 	Paper,
-// 	FormControl,
-// 	InputLabel,
-// 	Select,
-// 	IconButton,
-// 	Box,
-// } from "@suid/material";
-// import AddIcon from "@suid/icons-material/Add";
-// import RemoveIcon from "@suid/icons-material/Remove";
-
-// import { clubs } from "~/data/clubs"; // You'll need to create this
-// import {
-// 	activities,
-// 	activitiesWeapons,
-// } from "infrastructure/services";
-// import { isoDateTimeToDateInput, todayISODate } from "~/utilities";
-// import { ActivityCreateInput, ActivityCollectionItem, ShootingEntry } from "~/types";
-// import { useStore } from "~/store";
-// import { ConditionalWrapper } from "~/components/conditional-wrapper";
-
-// interface ManageActivityFormProps {
-// 	modal?: boolean;
-// 	editActivity?: ActivityCollectionItem;
-// 	onSuccess?: () => void;
-// }
-
-// export const ManageActivityForm: Component<ManageActivityFormProps> = (props) => {
-// 	const {
-// 		user,
-// 		activitiesSet,
-// 		weapons: storeWeapons,
-// 	} = useStore();
-
-// 	const defaultFormValues: ActivityCreateInput = {
-// 		date: todayISODate(true),
-// 		owner: user().id,
-// 		rangeMaster: "",
-// 		exercises: "",
-// 		notes: "",
-// 		location: "",
-// 		club: "",
-// 	};
-
-// 	const [form, setForm] = createSignal<ActivityCreateInput>(defaultFormValues);
-// 	const [shootingEntries, setShootingEntries] = createSignal<ShootingEntry[]>([
-// 		{ weapon: "", caliber: "", rounds: 0 },
-// 	]);
-
-// 	const [loading, setLoading] = createSignal(false);
-// 	const [error, setError] = createSignal<string | null>(null);
-// 	const [success, setSuccess] = createSignal(false);
-
-// 	// Populate form when editing
-// 	createEffect(() => {
-// 		if (props.editActivity) {
-// 			setForm({
-// 				date: props.editActivity.date
-// 					? isoDateTimeToDateInput(props.editActivity.date)
-// 					: todayISODate(true),
-// 				owner: props.editActivity.owner,
-// 				rangeMaster: props.editActivity.rangeMaster,
-// 				exercises: props.editActivity.exercises || "",
-// 				notes: props.editActivity.notes || "",
-// 				location: props.editActivity.location || "",
-// 				club: props.editActivity.club || "",
-// 			});
-// 		}
-// 	});
-
-// 	const handleChange =
-// 		<K extends keyof ActivityCreateInput>(field: K) =>
-// 			(e: any) => {
-// 				setForm((prev) => ({
-// 					...prev,
-// 					[field]: e.target.value as ActivityCreateInput[K],
-// 				}));
-// 			};
-
-// 	const handleShootingEntryChange = (index: number, field: keyof ShootingEntry, value: any) => {
-// 		setShootingEntries((prev) => {
-// 			const updated = [...prev];
-
-// 			// If weapon changed, auto-populate caliber
-// 			if (field === "weapon" && value) {
-// 				const selectedWeapon = storeWeapons().find(w => w.id === value);
-// 				if (selectedWeapon) {
-// 					updated[index] = {
-// 						...updated[index],
-// 						weapon: value,
-// 						caliber: selectedWeapon.caliber, // Auto-populate caliber
-// 					};
-// 					return updated;
-// 				}
-// 			}
-
-// 			updated[index] = { ...updated[index], [field]: value };
-// 			return updated;
-// 		});
-// 	};
-
-// 	const addShootingEntry = () => {
-// 		setShootingEntries((prev) => [...prev, { weapon: "", caliber: "", rounds: 0 }]);
-// 	};
-
-// 	const removeShootingEntry = (index: number) => {
-// 		setShootingEntries((prev) => prev.filter((_, i) => i !== index));
-// 	};
-
-// 	const resetForm = () => {
-// 		setForm(defaultFormValues);
-// 		setShootingEntries([{ weapon: "", caliber: "", rounds: 0 }]);
-// 	};
-
-// 	const handleSubmit = async (event: Event) => {
-// 		event.preventDefault();
-// 		setError(null);
-// 		setSuccess(false);
-// 		setLoading(true);
-
-// 		try {
-// 			const current = form();
-
-// 			if (!current.date || !current.rangeMaster) {
-// 				throw new Error("Fyll i datum och skjutledare.");
-// 			}
-
-// 			const activityData = {
-// 				date: isoDateTimeToDateInput(current.date, true),
-// 				owner: current.owner,
-// 				rangeMaster: current.rangeMaster,
-// 				exercises: current.exercises || undefined,
-// 				notes: current.notes || undefined,
-// 				location: current.location || undefined,
-// 				club: current.club || undefined,
-// 			};
-
-// 			let activityId: string;
-
-// 			if (props.editActivity) {
-// 				const updatedItem = await activities.update(props.editActivity.id, activityData);
-// 				activityId = updatedItem.id;
-
-// 				// Delete existing activity_weapons entries
-// 				await activitiesWeapons.deleteByActivity(props.editActivity.id);
-
-// 				activitiesSet((prev) =>
-// 					prev.map((a) => (a.id === props.editActivity!.id ? updatedItem : a))
-// 				);
-// 			} else {
-// 				const newItem = await activities.create(activityData);
-// 				activityId = newItem.id;
-// 				activitiesSet((prev) => [...prev, newItem]);
-// 			}
-
-// 			// Create activity_weapons entries
-// 			for (const entry of shootingEntries()) {
-// 				if (entry.weapon) {
-// 					await activitiesWeapons.create({
-// 						activity: activityId,
-// 						weapon: entry.weapon,
-// 						rounds: entry.rounds,
-// 						caliber: entry.caliber,
-// 					});
-// 				}
-// 			}
-
-// 			resetForm();
-// 			setSuccess(true);
-
-// 			if (props.onSuccess) {
-// 				setTimeout(() => {
-// 					props.onSuccess!();
-// 				}, 1000);
-// 			}
-// 		} catch (err: any) {
-// 			setError(err?.message ?? "Något gick fel");
-// 		} finally {
-// 			setLoading(false);
-// 		}
-// 	};
-
-// 	return (
-// 		<ConditionalWrapper
-// 			condition={!Boolean(props.modal)}
-// 			wrapper={(wrapperChildren) => <Paper sx={{ p: 4 }}>{wrapperChildren}</Paper>}
-// 		>
-// 			<>
-// 				<Typography variant="h5" gutterBottom>
-// 					{props.editActivity ? "Redigera skjutaktivitet" : "Lägg till ny skjutaktivitet"}
-// 				</Typography>
-
-// 				<form onSubmit={handleSubmit}>
-// 					<Stack spacing={3}>
-// 						{error() && <Alert severity="error">{error()}</Alert>}
-// 						{success() && (
-// 							<Alert severity="success">
-// 								{props.editActivity ? "Aktivitet uppdaterad" : "Aktivitet tillagd"}
-// 							</Alert>
-// 						)}
-
-// 						<TextField
-// 							label="Datum"
-// 							type="datetime-local"
-// 							value={form().date}
-// 							onChange={handleChange("date")}
-// 							InputLabelProps={{ shrink: true }}
-// 							required
-// 							fullWidth
-// 						/>
-
-// 						<FormControl fullWidth>
-// 							<InputLabel id="club-label">Klubb</InputLabel>
-// 							<Select
-// 								labelId="club-label"
-// 								value={form().club ?? ""}
-// 								label="Klubb"
-// 								onChange={handleChange("club")}
-// 							>
-// 								<MenuItem value="">Välj klubb</MenuItem>
-// 								{clubs.map((club) => (
-// 									<MenuItem value={club.name}>{club.name}</MenuItem>
-// 								))}
-// 							</Select>
-// 						</FormControl>
-
-// 						<TextField
-// 							label="Plats"
-// 							value={form().location}
-// 							onChange={handleChange("location")}
-// 							fullWidth
-// 						/>
-
-// 						<TextField
-// 							label="Skjutledare"
-// 							value={form().rangeMaster}
-// 							onChange={handleChange("rangeMaster")}
-// 							required
-// 							fullWidth
-// 						/>
-
-// 						{/* Shooting Entries Section */}
-// 						<Box>
-// 							<Typography variant="subtitle1" gutterBottom>
-// 								Skytte
-// 							</Typography>
-// 							<Stack spacing={2}>
-// 								<For each={shootingEntries()}>
-// 									{(entry, index) => (
-// 										<Stack direction="row" spacing={2} alignItems="center">
-// 											<FormControl sx={{ flex: 2 }} required>
-// 												<InputLabel>Vapen</InputLabel>
-// 												<Select
-// 													value={entry.weapon}
-// 													label="Vapen"
-// 													onChange={(e) =>
-// 														handleShootingEntryChange(index(), "weapon", e.target.value)
-// 													}
-// 												>
-// 													<MenuItem value="">Välj vapen</MenuItem>
-// 													<For each={storeWeapons()}>
-// 														{(weapon) => (
-// 															<MenuItem value={weapon.id}>
-// 																{weapon.name} ({weapon.caliber})
-// 															</MenuItem>
-// 														)}
-// 													</For>
-// 												</Select>
-// 											</FormControl>
-
-// 											<TextField
-// 												label="Kaliber"
-// 												value={entry.caliber}
-// 												disabled
-// 												sx={{ flex: 1 }}
-// 												InputProps={{
-// 													readOnly: true,
-// 												}}
-// 											/>
-
-// 											<TextField
-// 												label="Ant.skott"
-// 												type="number"
-// 												value={entry.rounds}
-// 												onChange={(e) =>
-// 													handleShootingEntryChange(index(), "rounds", parseInt(e.target.value) || 0)
-// 												}
-// 												required
-// 												sx={{ flex: 1 }}
-// 											/>
-
-// 											<IconButton
-// 												color="error"
-// 												onClick={() => removeShootingEntry(index())}
-// 												disabled={shootingEntries().length === 1}
-// 											>
-// 												<RemoveIcon />
-// 											</IconButton>
-// 										</Stack>
-// 									)}
-// 								</For>
-
-// 								<Button
-// 									variant="text"
-// 									startIcon={<AddIcon />}
-// 									onClick={addShootingEntry}
-// 									sx={{ alignSelf: "flex-start" }}
-// 								>
-// 									LÄGG TILL VAPEN
-// 								</Button>
-// 							</Stack>
-// 						</Box>
-
-// 						<TextField
-// 							label="Övningar"
-// 							value={form().exercises}
-// 							onChange={handleChange("exercises")}
-// 							multiline
-// 							rows={4}
-// 							fullWidth
-// 						/>
-
-// 						<TextField
-// 							label="Egna Anteckningar"
-// 							value={form().notes}
-// 							onChange={handleChange("notes")}
-// 							multiline
-// 							rows={4}
-// 							fullWidth
-// 						/>
-
-// 						<Stack direction="row" spacing={2} justifyContent="flex-end">
-// 							<Button variant="outlined" onClick={resetForm} disabled={loading()}>
-// 								AVBRYT
-// 							</Button>
-// 							<Button
-// 								type="submit"
-// 								variant="contained"
-// 								disabled={loading()}
-// 								sx={{
-// 									bgcolor: "success.main",
-// 									"&:hover": { bgcolor: "success.dark" },
-// 								}}
-// 							>
-// 								{loading() ? (
-// 									<CircularProgress size={24} />
-// 								) : props.editActivity ? (
-// 									"UPPDATERA"
-// 								) : (
-// 									"SPARA"
-// 								)}
-// 							</Button>
-// 						</Stack>
-// 					</Stack>
-// 				</form>
-// 			</>
-// 		</ConditionalWrapper>
-// 	);
-// };

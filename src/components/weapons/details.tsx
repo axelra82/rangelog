@@ -106,7 +106,6 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 
 	const editWeapon = (weapon: WeaponCollectionItem) => {
 		detailsControl?.close();
-		detailsControl?.close();
 		setSearchParams({ edit: weapon.id });
 	};
 

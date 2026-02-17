@@ -1,26 +1,36 @@
-import { createSignal } from "solid-js";
 import { IconPlus } from "@tabler/icons-solidjs";
+import { createSignal } from "solid-js";
 import {
+	ActivityForm,
 	Button,
 	Dialog,
 	DialogContent,
 	DialogTrigger,
-	ManageActivityForm,
 } from "~/components";
 
-export const AddActivity = () => (
-	<Dialog>
-		<DialogTrigger
-			as={Button}
-			variant="success"
-			size="lg"
-			class="w-full"
+export const AddActivity = () => {
+	const [open, openSet] = createSignal(false);
+
+	return (
+		<Dialog
+			open={open()}
+			onOpenChange={openSet}
 		>
-			<IconPlus />
-			Lägg till skytte
-		</DialogTrigger>
-		<DialogContent>
-			<ManageActivityForm modal />
-		</DialogContent>
-	</Dialog>
-);
+			<DialogTrigger
+				as={Button}
+				variant="success"
+				size="lg"
+				class="w-full"
+			>
+				<IconPlus />
+				Logga skytte
+			</DialogTrigger>
+			<DialogContent>
+				<ActivityForm
+					modal
+					modalControl={openSet}
+				/>
+			</DialogContent>
+		</Dialog>
+	)
+};

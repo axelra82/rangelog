@@ -9,17 +9,25 @@ import { cva } from "class-variance-authority"
 
 import { cn } from "~/utilities"
 
+import {
+	IconXboxX,
+	IconExclamationCircle,
+	IconCircleCheck,
+	IconAlertTriangle,
+	IconAlertCircle,
+	IconAlertOctagon,
+} from "@tabler/icons-solidjs"
+
 const toastVariants = cva(
-	"group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--kb-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--kb-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[opened]:animate-in data-[closed]:animate-out data-[swipe=end]:animate-out data-[closed]:fade-out-80 data-[closed]:slide-out-to-right-full data-[opened]:slide-in-from-top-full data-[opened]:sm:slide-in-from-bottom-full",
+	"group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md p-4 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--kb-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--kb-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[opened]:animate-in data-[closed]:animate-out data-[swipe=end]:animate-out data-[closed]:fade-out-80 data-[closed]:slide-out-to-right-full data-[opened]:slide-in-from-top-full data-[opened]:sm:slide-in-from-bottom-full",
 	{
 		variants: {
 			variant: {
-				default: "border border-border bg-background text-foreground",
-				destructive:
-					"destructive group border-red-600 bg-red-100 text-red-800",
-				success: "success border-green-600 bg-green-100 text-green-800",
-				warning: "warning border-orange-600 bg-orange-100 text-orange-800",
-				error: "error border-red-600 bg-red-100 text-red-800"
+				default: "bg-background text-foreground",
+				destructive: "destructive group bg-red-100 text-red-800",
+				success: "success bg-green-100 text-green-800",
+				warning: "warning bg-orange-100 text-orange-800",
+				error: "error bg-red-100 text-red-800",
 			}
 		},
 		defaultVariants: {
@@ -59,7 +67,11 @@ const Toast = <T extends ValidComponent = "li">(props: PolymorphicProps<T, Toast
 	const [local, others] = splitProps(props as ToastRootProps, ["class", "variant"])
 	return (
 		<ToastPrimitive.Root
-			class={cn(toastVariants({ variant: local.variant }), local.class)}
+			class={cn(
+				toastVariants({
+					variant: local.variant
+				}),
+				local.class)}
 			{...others}
 		/>
 	)
@@ -80,19 +92,7 @@ const ToastClose = <T extends ValidComponent = "button">(
 			)}
 			{...others}
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				class="size-4"
-			>
-				<path d="M18 6l-12 12" />
-				<path d="M6 6l12 12" />
-			</svg>
+			<IconXboxX />
 		</ToastPrimitive.CloseButton>
 	)
 }
@@ -125,10 +125,45 @@ function showToast(props: {
 	duration?: number
 }) {
 	ToastPrimitive.toaster.show((data) => (
-		<Toast toastId={data.toastId} variant={props.variant} duration={props.duration}>
-			<div class="grid gap-1">
-				{props.title && <ToastTitle>{props.title}</ToastTitle>}
-				{props.description && <ToastDescription>{props.description}</ToastDescription>}
+		<Toast
+			toastId={data.toastId}
+			variant={props.variant}
+			duration={props.duration}
+		>
+			<div class="flex items-center gap-2">
+				<div class="flex-0">
+					<Switch>
+						<Match when={props.variant === "default"}>
+							<IconExclamationCircle />
+						</Match>
+						<Match when={props.variant === "destructive"}>
+							<IconAlertOctagon />
+						</Match>
+						<Match when={props.variant === "error"}>
+							<IconAlertCircle />
+						</Match>
+						<Match when={props.variant === "success"}>
+							<IconExclamationCircle />
+						</Match>
+						<Match when={props.variant === "warning"}>
+							<IconAlertTriangle />
+						</Match>
+					</Switch>
+				</div>
+				<div class="grid gap-1">
+					{
+						props.title
+						&& <ToastTitle>
+							{props.title}
+						</ToastTitle>
+					}
+					{
+						props.description
+						&& <ToastDescription>
+							{props.description}
+						</ToastDescription>
+					}
+				</div>
 			</div>
 			<ToastClose />
 		</Toast>
@@ -149,6 +184,7 @@ function showToastPromise<T, U>(
 		fulfilled: "success",
 		rejected: "error"
 	}
+
 	return ToastPrimitive.toaster.promise<T, U>(promise, (props) => (
 		<Toast toastId={props.toastId} variant={variant[props.state]} duration={options.duration}>
 			<Switch>
@@ -160,4 +196,12 @@ function showToastPromise<T, U>(
 	))
 }
 
-export { Toaster, Toast, ToastClose, ToastTitle, ToastDescription, showToast, showToastPromise }
+export {
+	showToastPromise,
+	showToast,
+	ToastDescription,
+	ToastTitle,
+	ToastClose,
+	Toast,
+	Toaster,
+}

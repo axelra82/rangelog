@@ -106,7 +106,6 @@ export const WeaponsPage: Component = () => {
 								<TableHead class="w-max">
 									Licens Utg.
 								</TableHead>
-								<TableHead class="w-5" />
 							</TableRow>
 						</TableHeader>
 						<TableBody>
@@ -147,9 +146,6 @@ export const WeaponsPage: Component = () => {
 													{weapon.licenseEnd ? new Date(weapon.licenseEnd).toLocaleDateString("sv-SE") : "-"}
 												</div>
 											</TableCell>
-											<TableCell class="text-right">
-												<IconChevronRight class="size-4" />
-											</TableCell>
 										</TableRow>
 									)
 								}}
@@ -159,7 +155,7 @@ export const WeaponsPage: Component = () => {
 				</div>
 			</Show>
 
-			<WeaponForm editWeapon={editWeapon()} />
+			<WeaponForm edit={editWeapon()} />
 
 			<Show when={selectedWeapon()} keyed>
 				{(weapon) => (

@@ -10,7 +10,7 @@ import {
 	federations,
 	weaponTypes,
 } from "~/data";
-import { weapons } from "infrastructure";
+import { weapons as weaponsApi } from "infrastructure";
 import {
 	WeaponCollectionItem,
 	WeaponCreateInput,
@@ -40,7 +40,7 @@ import { isoDateTimeToDateInput } from "~/utilities";
 interface WeaponFormProps {
 	modal?: boolean;
 	modalControl?: Setter<boolean>;
-	editWeapon?: WeaponCollectionItem;
+	edit?: WeaponCollectionItem;
 }
 
 export const WeaponForm: Component<WeaponFormProps> = (props) => {
@@ -128,7 +128,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 			};
 
 			if (editForm()) {
-				const updatedItem = await weapons.update(editForm()!.id, weaponData);
+				const updatedItem = await weaponsApi.update(editForm()!.id, weaponData);
 
 				weaponsSet((prev) =>
 					prev.map((item) => (item.id === editForm()!.id ? updatedItem : item))
@@ -141,7 +141,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					duration: 3000,
 				});
 			} else {
-				const newItem = await weapons.create(weaponData);
+				const newItem = await weaponsApi.create(weaponData);
 				weaponsSet((prev) => [...prev, newItem]);
 
 				showToast({
@@ -339,8 +339,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 	);
 
 	createEffect(() => {
-		if (props.editWeapon) {
-			editFormSet(props.editWeapon);
+		if (props.edit) {
+			editFormSet(props.edit);
 		}
 	});
 

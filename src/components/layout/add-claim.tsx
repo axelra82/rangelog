@@ -19,7 +19,7 @@ export const AddClaim = () => {
 				class="w-full"
 			>
 				<IconPlus />
-				Fordring
+				Spara fordring
 			</DialogTrigger>
 			<DialogContent>
 				<>TBD</>
