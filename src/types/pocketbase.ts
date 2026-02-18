@@ -38,6 +38,25 @@ export interface ReadListResponse<T> {
 	totalPages: number;
 }
 
+export interface UserCollectionItem {
+	admin: string;
+	avatar: string;
+	created: string;
+	email: string;
+	emailVisibility: string;
+	id: string;
+	name: string;
+	password: string;
+	tokenKey: string;
+	updated: string;
+	verified: string;
+}
+
+export type UserUpdateInput = Pick<
+	UserCollectionItem,
+	"email" | "name" | "password"
+>;
+
 export interface WeaponCollectionItem {
 	barrelLength?: string;
 	brand: string;

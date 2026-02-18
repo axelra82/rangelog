@@ -1,5 +1,5 @@
 export const notImplemented = (functionName?: string) => () => {
-	throw new Error(
+	throw Error(
 		`Function ${functionName ? `<${functionName}>` : "<NOT_PROVIDED>"} not implemented`,
 	);
 };

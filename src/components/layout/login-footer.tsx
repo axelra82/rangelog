@@ -5,11 +5,11 @@ import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
 
 export const LoginFooter: Component = () => {
-	const environment = import.meta.env;
-	const buildHash = environment.VITE_APP_BUILD;
-	const buildTime = environment.VITE_APP_BUILD_TIME;
-	const buildVersion = environment.VITE_APP_VERSION;
-	const repo = environment.VITE_APP_REPO;
+	const env = import.meta.env;
+	const buildHash = env.VITE_RANGELOG_APP_BUILD;
+	const buildTime = env.VITE_RANGELOG_APP_BUILD_TIME;
+	const buildVersion = env.VITE_RANGELOG_APP_VERSION;
+	const repo = env.VITE_RANGELOG_APP_REPO;
 
 	const [revealHash, revealHashSet] = createSignal(false);
 	const [copied, setCopied] = createSignal(false);

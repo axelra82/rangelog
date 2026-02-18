@@ -1,6 +1,3 @@
-import { DefaultThemePaletteColor } from "~/types/theme";
-import { AlertColor } from "@suid/material/Alert";
-
 const second = 1000;
 const minute = second * 60;
 const hour = minute * 60;

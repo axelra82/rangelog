@@ -5,7 +5,8 @@ export * from "./helpers";
 export const {
 	activities,
 	activitiesWeapons,
-	claims,
 	auth,
+	claims,
+	user,
 	weapons,
 } = createProvider();

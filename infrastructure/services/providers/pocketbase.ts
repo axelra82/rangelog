@@ -1,14 +1,19 @@
-import { ProviderFunction } from "~/types/service-provider";
-
 import {
+	pocketbaseAuthValidate,
 	pocketbaseCreateCollectionItem,
+	pocketbaseDeleteActivityWeaponsByActivity,
+	pocketbaseDeleteCollectionItem,
+	pocketbaseLogin,
+	pocketbaseLogout,
 	pocketbaseReadCollectionItem,
 	pocketbaseUpdateCollectionItem,
-	pocketbaseDeleteCollectionItem,
-} from "../../adapters/pocketbase/helpers";
-import { pocketbaseAuthValidate, pocketbaseLogin, pocketbaseLogout } from "infrastructure/adapters/pocketbase/authentication";
-import { pocketbaseDeleteActivityWeaponsByActivity } from "infrastructure/adapters/pocketbase/activitiesWeapon";
-import { Collections } from "~/types";
+	pocketbaseUpdateUserEmail,
+} from "infrastructure/adapters/pocketbase";
+
+import {
+	Collections,
+	ProviderFunction,
+} from "~/types";
 
 export const createPocketbaseProvider = (): ProviderFunction => ({
 	activities: {
@@ -56,6 +61,11 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		),
 		deleteByActivity: (activityId) => pocketbaseDeleteActivityWeaponsByActivity(activityId),
 	},
+	auth: {
+		validate: pocketbaseAuthValidate,
+		login: (props) => pocketbaseLogin(props),
+		logout: pocketbaseLogout,
+	},
 	claims: {
 		create: (data) => pocketbaseCreateCollectionItem(
 			data,
@@ -78,10 +88,20 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 			Collections.CLAIMS,
 		),
 	},
-	auth: {
-		validate: pocketbaseAuthValidate,
-		login: (props) => pocketbaseLogin(props),
-		logout: pocketbaseLogout,
+	user: {
+		update: (
+			id,
+			data,
+		) => pocketbaseUpdateCollectionItem(
+			id,
+			data,
+			Collections.USERS,
+		),
+		updateEmail: (
+			newEmail: string,
+		) => pocketbaseUpdateUserEmail(
+			newEmail,
+		),
 	},
 	weapons: {
 		create: (data) => pocketbaseCreateCollectionItem(
