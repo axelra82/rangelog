@@ -3,7 +3,7 @@ import { BackendProvider, ProviderFunction } from "~/types/data-provider";
 import { providers } from "./providers";
 
 export const createProvider = (): ProviderFunction => {
-	const dataProvider = import.meta.env.VITE_DATA_PROVIDER as BackendProvider;
+	const dataProvider = import.meta.env.VITE_RANGELOG_SERVICE_PROVIDER as BackendProvider;
 
 	const providerFactory = providers[dataProvider];
 

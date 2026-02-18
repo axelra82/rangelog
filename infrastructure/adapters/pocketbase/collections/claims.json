@@ -1,12 +1,12 @@
 [
 	{
-		"id": "pbc_1262591861",
+		"id": "pbc_2310041328",
 		"listRule": "@request.auth.id = owner",
 		"viewRule": "@request.auth.id = owner",
 		"createRule": "@request.auth.id != \"\"",
 		"updateRule": "@request.auth.id = owner",
 		"deleteRule": "@request.auth.id = owner",
-		"name": "activities",
+		"name": "claims",
 		"type": "base",
 		"fields": [
 			{
@@ -24,6 +24,49 @@
 				"type": "text"
 			},
 			{
+				"convertURLs": false,
+				"hidden": false,
+				"id": "editor18589324",
+				"maxSize": 0,
+				"name": "notes",
+				"presentable": false,
+				"required": false,
+				"system": false,
+				"type": "editor"
+			},
+			{
+				"autogeneratePattern": "",
+				"hidden": false,
+				"id": "text4287275525",
+				"max": 0,
+				"min": 0,
+				"name": "rangeMaster",
+				"pattern": "",
+				"presentable": false,
+				"primaryKey": false,
+				"required": false,
+				"system": false,
+				"type": "text"
+			},
+			{
+				"hidden": false,
+				"id": "select2363381545",
+				"maxSelect": 1,
+				"name": "type",
+				"presentable": false,
+				"required": true,
+				"system": false,
+				"type": "select",
+				"values": [
+					"Precision Guld",
+					"Precision Silver",
+					"Precision Brons",
+					"Snabb Guld",
+					"Snabb Silver",
+					"Snabb Brons"
+				]
+			},
+			{
 				"hidden": false,
 				"id": "date2862495610",
 				"max": "",
@@ -38,7 +81,7 @@
 				"cascadeDelete": false,
 				"collectionId": "_pb_users_auth_",
 				"hidden": false,
-				"id": "relation2375276105",
+				"id": "relation3479234172",
 				"maxSelect": 1,
 				"minSelect": 0,
 				"name": "owner",
@@ -48,54 +91,29 @@
 				"type": "relation"
 			},
 			{
-				"autogeneratePattern": "",
 				"hidden": false,
-				"id": "text2548442600",
-				"max": 0,
-				"min": 0,
-				"name": "rangeMaster",
-				"pattern": "",
-				"presentable": false,
-				"primaryKey": false,
-				"required": false,
-				"system": false,
-				"type": "text"
-			},
-			{
-				"convertURLs": false,
-				"hidden": false,
-				"id": "editor1102213670",
-				"maxSize": 0,
-				"name": "exercises",
+				"id": "select2904824781",
+				"maxSelect": 1,
+				"name": "federation",
 				"presentable": false,
 				"required": false,
 				"system": false,
-				"type": "editor"
-			},
-			{
-				"convertURLs": false,
-				"hidden": false,
-				"id": "editor18589324",
-				"maxSize": 0,
-				"name": "notes",
-				"presentable": false,
-				"required": false,
-				"system": false,
-				"type": "editor"
-			},
-			{
-				"autogeneratePattern": "",
-				"hidden": false,
-				"id": "text1587448267",
-				"max": 0,
-				"min": 0,
-				"name": "location",
-				"pattern": "",
-				"presentable": false,
-				"primaryKey": false,
-				"required": false,
-				"system": false,
-				"type": "text"
+				"type": "select",
+				"values": [
+					"Svenska Svartkruts Skytte Federationen",
+					"Jägarnas Riksförbund/Landsbygdens jägare",
+					"Svenska Armborst Unionen",
+					"Svenska Dynamiska Sportskytteförbundet",
+					"Svenska Jägareförbundet",
+					"Sveriges Metallsilhuettförbund",
+					"Svenska Mångkampsförbundet",
+					"Svenska Pistolskytteförbundet",
+					"Svenska Skidskytteförbundet",
+					"Svenska Skyttesportförbundet",
+					"Svenska Westernskytteförbundet",
+					"Annat förbund",
+					"Föreningsegen gren"
+				]
 			},
 			{
 				"hidden": false,
@@ -621,6 +639,20 @@
 					"Överby Pistolklubb",
 					"Överums Pistolklubb"
 				]
+			},
+			{
+				"autogeneratePattern": "",
+				"hidden": false,
+				"id": "text1587448267",
+				"max": 0,
+				"min": 0,
+				"name": "location",
+				"pattern": "",
+				"presentable": false,
+				"primaryKey": false,
+				"required": false,
+				"system": false,
+				"type": "text"
 			},
 			{
 				"hidden": false,

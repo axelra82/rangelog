@@ -1,11 +1,11 @@
 [
 	{
 		"id": "pbc_1278440324",
-		"listRule": null,
-		"viewRule": null,
-		"createRule": null,
-		"updateRule": null,
-		"deleteRule": null,
+		"listRule": "@request.auth.id = activity.owner",
+		"viewRule": "@request.auth.id = activity.owner",
+		"createRule": "@request.auth.id != \"\"",
+		"updateRule": "@request.auth.id = activity.owner",
+		"deleteRule": "@request.auth.id = activity.owner",
 		"name": "activity_weapons",
 		"type": "base",
 		"fields": [
@@ -45,7 +45,7 @@
 				"minSelect": 0,
 				"name": "weapon",
 				"presentable": false,
-				"required": true,
+				"required": false,
 				"system": false,
 				"type": "relation"
 			},
@@ -57,7 +57,7 @@
 				"name": "rounds",
 				"onlyInt": false,
 				"presentable": false,
-				"required": true,
+				"required": false,
 				"system": false,
 				"type": "number"
 			},

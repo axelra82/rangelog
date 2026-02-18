@@ -5,15 +5,14 @@ import {
 	IconCopy,
 	IconDots,
 } from "@tabler/icons-solidjs";
-import { Severity } from "~/types";
 import { Button, showToast } from "~/components";
 
 export const AppDetails: Component = () => {
-	const environment = import.meta.env;
-	const buildHash = environment.VITE_APP_BUILD;
-	const buildTime = environment.VITE_APP_BUILD_TIME;
-	const buildVersion = environment.VITE_APP_VERSION;
-	const repo = environment.VITE_APP_REPO;
+	const env = import.meta.env;
+	const buildHash = env.VITE_RANGELOG_APP_BUILD;
+	const buildTime = env.VITE_RANGELOG_APP_BUILD_TIME;
+	const buildVersion = env.VITE_RANGELOG_APP_VERSION;
+	const repo = env.VITE_RANGELOG_APP_REPO;
 
 	const RepoReference: Component = () => (
 		<Button

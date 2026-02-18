@@ -8,9 +8,9 @@
 	},
 	"scripts": {
 		"component": "npx solidui-cli@latest add",
-		"dev": "cross-env VITE_DATA_PROVIDER=pocketbase vite",
-		"build": "cross-env VITE_DATA_PROVIDER=pocketbase vite build",
-		"serve": "cross-env VITE_DATA_PROVIDER=pocketbase vite serve",
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite serve",
 		"clean": "rm -rf node_modules && rm pnpm-lock.yaml",
 		"generate-pwa-assets": "pwa-assets-generator"
 	},

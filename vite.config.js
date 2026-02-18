@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import solidPlugin from "vite-plugin-solid";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
@@ -23,65 +23,71 @@ const appName = JSON.stringify(name);
 const appVersion = JSON.stringify(version);
 const repo = JSON.stringify(repository.url);
 
-export default defineConfig({
-	define: {
-		"import.meta.env.VITE_APP_BUILD": gitCommit,
-		"import.meta.env.VITE_APP_BUILD_TIME": buildTime,
-		"import.meta.env.VITE_APP_NAME": appName,
-		"import.meta.env.VITE_APP_VERSION": appVersion,
-		"import.meta.env.VITE_APP_REPO": repo,
-	},
-	plugins: [
-		solidPlugin(),
-		tailwindcss(),
-		VitePWA({
-			registerType: "autoUpdate",
-			workbox: {
-				cleanupOutdatedCaches: true,
-				// Critical: exclude /_/ from fallback, for pocketbase super user login.
-				navigateFallbackDenylist: [/^\/_\//],
-			},
-			manifest: {
-				background_color: "#1E1E1E",
-				display: "fullscreen",
-				icons: [
-					{
-						src: "/pwa-64x64.png",
-						sizes: "64x64",
-						type: "image/png",
-					},
-					{
-						src: "/pwa-192x192.png",
-						sizes: "192x192",
-						type: "image/png",
-					},
-					{
-						src: "/pwa-512x512.png",
-						sizes: "512x512",
-						type: "image/png",
-					},
-					{
-						src: "/maskable-icon-512x512.png",
-						sizes: "512x512",
-						type: "image/png",
-						purpose: "maskable",
-					},
-				],
-				name: "Rangelog",
-				short_name: "rangelog",
-				start_url: "https://rangelog.lalaland.app",
-				theme_color: "#0F0E14",
-			},
-		})
-	],
-	server: {
-		port: 9999,
-		host: true,
-	},
-	resolve: {
-		alias: {
-			"~": resolve(__dirname, "./src"),
-			"infrastructure": resolve(__dirname, "./infrastructure")
-		}
-	},
+
+
+export default defineConfig(({ mode }) => {
+	const env = loadEnv(mode, process.cwd(), "VITE_");
+
+	return {
+		define: {
+			"import.meta.env.VITE_RANGELOG_APP_BUILD": gitCommit,
+			"import.meta.env.VITE_RANGELOG_APP_BUILD_TIME": buildTime,
+			"import.meta.env.VITE_RANGELOG_APP_NAME": appName,
+			"import.meta.env.VITE_RANGELOG_APP_VERSION": appVersion,
+			"import.meta.env.VITE_RANGELOG_APP_REPO": repo,
+		},
+		plugins: [
+			solidPlugin(),
+			tailwindcss(),
+			VitePWA({
+				registerType: "autoUpdate",
+				workbox: {
+					cleanupOutdatedCaches: true,
+					// Critical: exclude /_/ from fallback, for pocketbase super user login.
+					navigateFallbackDenylist: [/^\/_\//],
+				},
+				manifest: {
+					background_color: "#0F0E14",
+					display: "standalone",
+					icons: [
+						{
+							src: "/pwa-64x64.png",
+							sizes: "64x64",
+							type: "image/png",
+						},
+						{
+							src: "/pwa-192x192.png",
+							sizes: "192x192",
+							type: "image/png",
+						},
+						{
+							src: "/pwa-512x512.png",
+							sizes: "512x512",
+							type: "image/png",
+						},
+						{
+							src: "/maskable-icon-512x512.png",
+							sizes: "512x512",
+							type: "image/png",
+							purpose: "maskable",
+						},
+					],
+					name: appName.substring(0, 1).toLocaleUpperCase() + appName.substring(1),
+					short_name: appName.toLocaleLowerCase(),
+					start_url: `${env.VITE_RANGELOG_URL_PROTOCOL}://${env.VITE_RANGELOG_URL_SUBDOMAIN}.${env.VITE_RANGELOG_URL_DOMAIN}`,
+					theme_color: "#0F0E14",
+				},
+			})
+		],
+		server: {
+			port: env.VITE_RANGELOG_URL_PORT,
+			host: true,
+		},
+		resolve: {
+			alias: {
+				"~": resolve(__dirname, "./src"),
+				"infrastructure": resolve(__dirname, "./infrastructure")
+			}
+		},
+	}
 });
