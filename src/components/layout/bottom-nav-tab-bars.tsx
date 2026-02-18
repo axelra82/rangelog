@@ -71,16 +71,16 @@ export const BottomNavTabBars = () => {
 								<A href={tab.path}>
 									<button
 										class={cn(
-											"relative flex flex-col items-center justify-center gap-1 p-2 rounded-full transition-all duration-200 active:scale-95",
+											"relative px-4 flex flex-col items-center justify-center gap-1 py-2 rounded-full transition-all duration-200 active:scale-95",
 											{
-												"bg-foreground/5": isCurrentPath,
+												"bg-foreground/10": isCurrentPath,
 											},
 										)}
 									>
 										<div
 											class={cn(
 												"transition-all duration-200",
-												isCurrentPath ? "text-blue-500 scale-105" : "text-foreground/50",
+												isCurrentPath ? "text-sky-500 scale-105" : "text-foreground",
 											)}
 										>
 											<tab.icon class="size-7" stroke="1" />
