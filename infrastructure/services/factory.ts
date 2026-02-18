@@ -1,5 +1,5 @@
 
-import { BackendProvider, ProviderFunction } from "~/types/data-provider";
+import { BackendProvider, ProviderFunction } from "~/types/service-provider";
 import { providers } from "./providers";
 
 export const createProvider = (): ProviderFunction => {

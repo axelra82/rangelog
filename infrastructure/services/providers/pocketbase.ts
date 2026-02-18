@@ -1,4 +1,4 @@
-import { ProviderFunction } from "~/types/data-provider";
+import { ProviderFunction } from "~/types/service-provider";
 
 import {
 	pocketbaseCreateCollectionItem,
