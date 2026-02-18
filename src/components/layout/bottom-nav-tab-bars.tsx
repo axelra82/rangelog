@@ -1,9 +1,9 @@
 import { createMemo } from "solid-js";
 import {
-	IconHome,
-	IconUserCircle,
-	IconBook,
-	IconReportAnalytics,
+	IconHomeFilled,
+	IconUserFilled,
+	IconBookFilled,
+	IconClipboardDataFilled,
 } from "@tabler/icons-solidjs";
 import { dashboardRoutes } from "~/routes";
 import { A, useLocation } from "@solidjs/router";
@@ -27,21 +27,21 @@ export const BottomNavTabBars = () => {
 	const pathIcon = (path: string) => {
 		switch (path.split("/")[1].toLowerCase()) {
 			case "activities":
-				return IconReportAnalytics;
+				return IconClipboardDataFilled;
 
 			case "weapons":
-				return IconBook;
+				return IconBookFilled;
 
 			case "profile":
-				return IconUserCircle;
+				return IconUserFilled;
 
 			default:
-				return IconHome;
+				return IconHomeFilled;
 		}
 	};
 
 	const tabs = dashboardRoutes.reduce(
-		(acc: { icon: typeof IconHome, path: string }[], route) => {
+		(acc: { icon: typeof IconHome, path: string, label: string }[], route) => {
 			const {
 				path,
 				label,
@@ -53,6 +53,7 @@ export const BottomNavTabBars = () => {
 				acc.push({
 					icon: pathIcon(resolvedPath),
 					path: `${resolvedPath}`,
+     label,
 				});
 			};
 
@@ -83,16 +84,16 @@ export const BottomNavTabBars = () => {
 												isCurrentPath ? "text-sky-500 scale-105" : "text-foreground",
 											)}
 										>
-											<tab.icon class="size-7" stroke="1" />
+											<tab.icon class="size-8" />
 										</div>
-										{/* <span
+										<span
 											class={cn(
 												"text-xs font-medium transition-all duration-200",
-												isCurrentPath ? "text-blue-500" : "text-gray-500",
+												isCurrentPath ? "text-sky-500" : "text-gray-500",
 											)}
 										>
 											{tab.label}
-										</span> */}
+										</span>
 									</button>
 								</A>
 							)
