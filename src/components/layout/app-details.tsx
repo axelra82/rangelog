@@ -1,11 +1,11 @@
 import { Component, createSignal } from "solid-js";
 import { timestampToLocaleDate } from "~/utilities";
 import {
-	IconBrandGithub,
-	IconCopy,
-	IconDots,
-} from "@tabler/icons-solidjs";
-import { Button, showToast } from "~/components";
+	Button,
+	Icon,
+	showToast,
+} from "~/components";
+import { Icons } from "~/types";
 
 export const AppDetails: Component = () => {
 	const env = import.meta.env;
@@ -20,7 +20,10 @@ export const AppDetails: Component = () => {
 			size="icon"
 			onClick={() => window.open(repo, "_blank", "noopener,noreferrer")}
 		>
-			<IconBrandGithub class="size-4" />
+			<Icon
+				icon={Icons.BRAND_GITHUB}
+				class="size-4"
+			/>
 		</Button>
 	);
 
@@ -44,7 +47,10 @@ export const AppDetails: Component = () => {
 					size="icon"
 					onClick={() => copyToClipboard(buildHash)}
 				>
-					<IconCopy class="size-4" />
+					<Icon
+						icon={Icons.COPY}
+						class="size-4"
+					/>
 				</Button>
 				<strong>{revealHash() ? buildHash : buildHash.slice(0, 8)}</strong>
 				<Button
@@ -52,7 +58,10 @@ export const AppDetails: Component = () => {
 					size="icon"
 					onClick={() => revealHashSet((prev) => !prev)}
 				>
-					<IconDots class="size-4" />
+					<Icon
+						icon={Icons.DOTS}
+						class="size-4"
+					/>
 				</Button>
 			</div>
 		);

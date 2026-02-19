@@ -301,3 +301,21 @@ export const licenseExpiryStatusMessage = (licenseEnd?: string): {
 
 	return null;
 }
+
+export const getYear = (date?: string) => {
+	const current = new Date().getFullYear();
+
+	let year;
+	let isCurrent;
+
+	if (date) {
+		year = new Date(date).getFullYear();
+		isCurrent = year === current;
+	}
+
+	return {
+		current,
+		year,
+		isCurrent
+	}
+}

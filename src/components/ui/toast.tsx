@@ -8,15 +8,8 @@ import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
 
 import { cn } from "~/utilities"
-
-import {
-	IconXboxX,
-	IconExclamationCircle,
-	IconCircleCheck,
-	IconAlertTriangle,
-	IconAlertCircle,
-	IconAlertOctagon,
-} from "@tabler/icons-solidjs"
+import { Icon } from "~/components"
+import { Icons } from "~/types"
 
 const toastVariants = cva(
 	"group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md p-4 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--kb-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--kb-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[opened]:animate-in data-[closed]:animate-out data-[swipe=end]:animate-out data-[closed]:fade-out-80 data-[closed]:slide-out-to-right-full data-[opened]:slide-in-from-top-full data-[opened]:sm:slide-in-from-bottom-full",
@@ -92,7 +85,7 @@ const ToastClose = <T extends ValidComponent = "button">(
 			)}
 			{...others}
 		>
-			<IconXboxX />
+			<Icon icon={Icons.XboxX} />
 		</ToastPrimitive.CloseButton>
 	)
 }
@@ -134,19 +127,19 @@ function showToast(props: {
 				<div class="flex-0">
 					<Switch>
 						<Match when={props.variant === "default"}>
-							<IconExclamationCircle />
+							<Icon icon={Icons.EXCLAMATION_CIRCLE} />
 						</Match>
 						<Match when={props.variant === "destructive"}>
-							<IconAlertOctagon />
+							<Icon icon={Icons.ALERT_OCTAGON} />
 						</Match>
 						<Match when={props.variant === "error"}>
-							<IconAlertCircle />
+							<Icon icon={Icons.ALERT_CIRCLE} />
 						</Match>
 						<Match when={props.variant === "success"}>
-							<IconExclamationCircle />
+							<Icon icon={Icons.EXCLAMATION_CIRCLE} />
 						</Match>
 						<Match when={props.variant === "warning"}>
-							<IconAlertTriangle />
+							<Icon icon={Icons.ALERT_TRIANGLE} />
 						</Match>
 					</Switch>
 				</div>

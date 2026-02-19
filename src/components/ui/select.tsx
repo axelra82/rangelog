@@ -1,12 +1,13 @@
 import type { Component, JSX, ValidComponent } from "solid-js"
-import { splitProps } from "solid-js"
+import { For, Show, splitProps } from "solid-js"
 
 import type { PolymorphicProps } from "@kobalte/core/polymorphic"
 import * as SelectPrimitive from "@kobalte/core/select"
 import { cva } from "class-variance-authority"
 
 import { cn } from "~/utilities"
-import { Label } from "./label"
+import { Icon, Label } from "~/components"
+import { Icons } from "~/types"
 
 const Select = SelectPrimitive.Root
 const SelectValue = SelectPrimitive.Value
@@ -169,38 +170,65 @@ const SelectErrorMessage = <T extends ValidComponent = "div">(
 	)
 }
 
+type SelectNativeProps = JSX.SelectHTMLAttributes<HTMLSelectElement> & {
+	class?: string;
+	multiple?: boolean;
+}
+
+const SelectNative = (props: SelectNativeProps) => {
+	const [local, others] = splitProps(props, ["class", "multiple"])
+	return (
+		<div class="relative w-full">
+			<select
+				{...local.multiple && { multiple: true }}
+				class={cn(
+					"flex w-full appearance-none items-center rounded-md border border-border bg-transparent pr-8 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+					!local.multiple && "h-10",
+					local.class
+				)}
+				{...others}
+			/>
+			<Show when={!local.multiple}>
+				<Icon
+					icon={Icons.SELECTOR}
+					class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 opacity-50"
+				/>
+			</Show>
+		</div>
+	)
+}
+
 const SelectGridItem: Component<{
 	key: string;
+	multiple?: boolean;
+	onChange: (key: string, value: string) => void;
 	options: string[];
 	placeholder: string;
 	required?: boolean;
 	title: string;
-	value: string;
-	onChange: (key: string, value: string) => void;
+	value: string | string[];
 }> = (props) => (
 	<div class="grid md:grid-cols-2 grid-cols-1">
 		<Label class="text-sm font-medium">
 			{props.title}
 			{props.required && " *"}
 		</Label>
-		<Select
+		<SelectNative
+			{...props.multiple && { multiple: true }}
 			value={props.value}
-			onChange={(value) => props.onChange(props.key, value ?? "")}
-			options={[...props.options]}
-			placeholder={props.placeholder}
-			itemComponent={(itemProps) => (
-				<SelectItem item={itemProps.item}>
-					{itemProps.item.rawValue}
-				</SelectItem>
-			)}
+			onChange={(event) => props.onChange(props.key, event.target.value ?? "")}
 		>
-			<SelectTrigger>
-				<SelectValue<string>>
-					{(state) => state.selectedOption()}
-				</SelectValue>
-			</SelectTrigger>
-			<SelectContent />
-		</Select>
+			<Show when={!props.multiple}>
+				<option disabled>
+					{props.placeholder}
+				</option>
+			</Show>
+			<For each={props.options}>
+				{(option) => (
+					<option value={option}>{option}</option>
+				)}
+			</For>
+		</SelectNative>
 	</div>
 );
 
@@ -215,4 +243,6 @@ export {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue,
+
+	SelectNative,
 }

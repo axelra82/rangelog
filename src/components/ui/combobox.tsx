@@ -5,8 +5,8 @@ import * as ComboboxPrimitive from "@kobalte/core/combobox"
 import type { PolymorphicProps } from "@kobalte/core/polymorphic"
 
 import { cn } from "~/utilities"
-import { IconCheck, IconX } from "@tabler/icons-solidjs"
-import { Label } from "./label"
+import { Icon } from "~/components"
+import { Icons } from "~/types"
 
 const Combobox = ComboboxPrimitive.Root
 const ComboboxItemLabel = ComboboxPrimitive.ItemLabel
@@ -210,7 +210,10 @@ const ComboboxMultiSelectGridItem: Component<{
 						<div class="flex">
 							<div class="w-6 shrink">
 								<ComboboxItemIndicator>
-									<IconCheck class="size-4 opacity-35" />
+									<Icon
+										icon={Icons.CHECK}
+										class="size-4 opacity-35"
+									/>
 								</ComboboxItemIndicator>
 							</div>
 							<ComboboxItemLabel>{itemProps.item.rawValue}</ComboboxItemLabel>
@@ -242,7 +245,8 @@ const ComboboxMultiSelectGridItem: Component<{
 												onPointerDown={(event) => event.stopPropagation()}
 											>
 												{option}
-												<IconX
+												<Icon
+													icon={Icons.X}
 													onClick={() => state.remove(option)}
 													class="size-3 hover:opacity-80"
 												/>

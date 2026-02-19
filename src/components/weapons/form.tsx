@@ -172,9 +172,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 						{title()}
 					</DialogTitle>
 				</DialogHeader>
-				<div class="px-6 pb-6">
-					<FormFields />
-				</div>
+				<FormFields />
 			</Show>
 
 			<Show when={!props.modal}>
@@ -236,7 +234,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					value={form().model}
 				/>
 
-				<ComboboxMultiSelectGridItem
+				<SelectGridItem
 					key="caliber"
 					onChange={handleInputChange}
 					options={calibers}
@@ -244,6 +242,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					required
 					title="Kaliber"
 					value={form().caliber}
+					multiple
 				/>
 
 				<TextFieldInputGridItem

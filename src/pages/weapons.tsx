@@ -103,7 +103,7 @@ export const WeaponsPage: Component = () => {
 								<TableHead>
 									Aktiviter
 								</TableHead>
-								<TableHead class="w-max">
+								<TableHead class="whitespace-nowrap">
 									Licens Utg.
 								</TableHead>
 							</TableRow>
@@ -141,10 +141,8 @@ export const WeaponsPage: Component = () => {
 											<TableCell>
 												{act()}
 											</TableCell>
-											<TableCell>
-												<div class="flex items-center gap-2">
-													{weapon.licenseEnd ? new Date(weapon.licenseEnd).toLocaleDateString("sv-SE") : "-"}
-												</div>
+											<TableCell class="whitespace-nowrap">
+												{weapon.licenseEnd ? new Date(weapon.licenseEnd).toLocaleDateString("sv-SE") : "-"}
 											</TableCell>
 										</TableRow>
 									)

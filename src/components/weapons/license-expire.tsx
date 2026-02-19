@@ -1,7 +1,30 @@
-import { cn, licenseExpiryStatusMessage } from "~/utilities";
-import { Callout, Popover, PopoverContent, PopoverTrigger } from "~/components";
-import { Component, createMemo, createSignal, JSXElement, Match, onMount, Show, Switch } from "solid-js";
-import { IconAlertCircle, IconAlertTriangle } from "@tabler/icons-solidjs";
+import {
+	cn,
+	licenseExpiryStatusMessage,
+} from "~/utilities";
+
+import {
+	Callout,
+	Icon,
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "~/components";
+
+import {
+	Icons,
+} from "~/types";
+
+import {
+	Component,
+	createMemo,
+	createSignal,
+	JSXElement,
+	Match,
+	onMount,
+	Show,
+	Switch,
+} from "solid-js";
 
 interface WeaponLicenseExpireWarningProps {
 	endDate?: string;
@@ -24,10 +47,16 @@ export const WeaponLicenseExpireWarning: Component<WeaponLicenseExpireWarningPro
 						<Switch
 						>
 							<Match when={warning.status === "error"}>
-								<IconAlertCircle class={iconSize} />
+								<Icon
+									icon={Icons.ALERT_CIRCLE}
+									class={iconSize}
+								/>
 							</Match>
 							<Match when={warning.status === "warning"}>
-								<IconAlertTriangle class={iconSize} />
+								<Icon
+									icon={Icons.ALERT_TRIANGLE}
+									class={iconSize}
+								/>
 							</Match>
 						</Switch>
 						<div>
@@ -67,16 +96,21 @@ export const LicenseExpiryIndicator: Component<LicenseExpiryIndicatorProps> = (p
 						<Show
 							when={item.status === "error"}
 							fallback={
-								<IconAlertTriangle class={cn(
-									"text-orange-500",
-									size(),
-								)} />
+								<Icon
+									icon={Icons.ALERT_TRIANGLE}
+									class={cn(
+										"text-orange-500",
+										size(),
+									)}
+								/>
 							}
 						>
-							<IconAlertCircle class={cn(
-								"text-red-500",
-								size(),
-							)} />
+							<Icon
+								icon={Icons.ALERT_CIRCLE}
+								class={cn(
+									"text-red-500",
+									size(),
+								)} />
 						</Show>
 					</PopoverTrigger>
 					<PopoverContent class={cn(

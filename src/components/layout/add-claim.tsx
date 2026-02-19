@@ -1,14 +1,20 @@
 import { IconPlus } from "@tabler/icons-solidjs";
-import { createSignal } from "solid-js";
+import { Component, createSignal } from "solid-js";
 import {
 	Button,
 	ClaimsForm,
 	Dialog,
 	DialogContent,
 	DialogTrigger,
+	Icon,
 } from "~/components";
+import { Icons } from "~/types";
 
-export const AddClaim = () => {
+interface AddClaimProps {
+	buttonClass?: string;
+}
+
+export const AddClaim: Component<AddClaimProps> = (props) => {
 	const [open, openSet] = createSignal(false);
 
 	return (
@@ -19,10 +25,9 @@ export const AddClaim = () => {
 			<DialogTrigger
 				as={Button}
 				variant="warning"
-				size="lg"
-				class="w-full"
+				{...props.buttonClass && { class: props.buttonClass }}
 			>
-				<IconPlus />
+				<Icon icon={Icons.PLUS} />
 				Spara fordring
 			</DialogTrigger>
 			<DialogContent>

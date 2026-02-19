@@ -342,9 +342,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				<DialogHeader>
 					<DialogTitle>{title()}</DialogTitle>
 				</DialogHeader>
-				<div class="px-6 pb-6">
-					<FormFields />
-				</div>
+				<FormFields />
 			</Show>
 			<Show when={!props.modal}>
 				<CardHeader>

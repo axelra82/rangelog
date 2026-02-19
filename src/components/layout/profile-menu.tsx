@@ -5,10 +5,12 @@ import { useStore } from "~/store";
 import {
 	DropdownMenuContent,
 	DropdownMenuItem,
+	Icon,
 	Separator,
 	ThemeSelect
 } from "~/components/";
 import { A } from "@solidjs/router";
+import { Icons } from "~/types";
 
 export const ProfileMenu: Component = () => {
 	const {
@@ -34,7 +36,10 @@ export const ProfileMenu: Component = () => {
 			<A href="/profile">
 				<DropdownMenuItem>
 					<div class="flex gap-2 items-center py-2">
-						<IconUser class="size-4" />
+						<Icon
+							icon={Icons.USER}
+							class="size-4"
+						/>
 						Profil
 					</div>
 				</DropdownMenuItem>
@@ -44,7 +49,10 @@ export const ProfileMenu: Component = () => {
 
 			<DropdownMenuItem onSelect={handleLogout}>
 				<div class="flex gap-2 items-center py-2">
-					<IconLogout class="size-4" />
+					<Icon
+						icon={Icons.LOGOUT}
+						class="size-4"
+					/>
 					Logga ut
 				</div>
 			</DropdownMenuItem>

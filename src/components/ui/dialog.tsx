@@ -5,6 +5,8 @@ import * as DialogPrimitive from "@kobalte/core/dialog"
 import type { PolymorphicProps } from "@kobalte/core/polymorphic"
 
 import { cn } from "~/utilities"
+import { Icon } from "~/components"
+import { Icons } from "~/types"
 
 const Dialog = DialogPrimitive.Root
 const DialogTrigger = DialogPrimitive.Trigger
@@ -47,32 +49,20 @@ type DialogContentProps<T extends ValidComponent = "div"> =
 const DialogContent = <T extends ValidComponent = "div">(
 	props: PolymorphicProps<T, DialogContentProps<T>>
 ) => {
-	const [, rest] = splitProps(props as DialogContentProps, ["class", "children"])
+	const [_, rest] = splitProps(props as (DialogContentProps), ["class", "children"]);
 	return (
 		<DialogPortal>
 			<DialogOverlay />
 			<DialogPrimitive.Content
 				class={cn(
-					"fixed left-1/2 top-1/2 z-50 grid max-h-screen w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto border border-border bg-background p-6 shadow-lg duration-250 data-expanded:animate-in data-closed:animate-out data-closed:fade-out-0 data-expanded:fade-in-0 data-closed:slide-out-to-top-[48%] data-expanded:slide-in-from-top-[48%] sm:rounded-lg",
+					"p-6 fixed left-1/2 top-1/2 z-50 grid max-h-screen w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto border border-border bg-background shadow-lg duration-250 data-expanded:animate-in data-closed:animate-out data-closed:fade-out-0 data-expanded:fade-in-0 data-closed:slide-out-to-top-[48%] data-expanded:slide-in-from-top-[48%] sm:rounded-lg",
 					props.class
 				)}
 				{...rest}
 			>
 				{props.children}
 				<DialogPrimitive.CloseButton class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-expanded:bg-accent data-expanded:text-muted-foreground">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						class="size-4"
-					>
-						<path d="M18 6l-12 12" />
-						<path d="M6 6l12 12" />
-					</svg>
+					<Icon icon={Icons.X} class="size-4" />
 					<span class="sr-only">Close</span>
 				</DialogPrimitive.CloseButton>
 			</DialogPrimitive.Content>

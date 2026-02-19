@@ -1,14 +1,20 @@
-import { createSignal } from "solid-js";
+import { Component, createSignal } from "solid-js";
 import { IconPlus } from "@tabler/icons-solidjs";
 import {
 	Button,
 	Dialog,
 	DialogContent,
 	DialogTrigger,
+	Icon,
 	WeaponForm,
 } from "~/components";
+import { Icons } from "~/types";
 
-export const AddWeapon = () => {
+interface AddWeaponProps {
+	buttonClass?: string;
+}
+
+export const AddWeapon: Component<AddWeaponProps> = (props) => {
 	const [open, setOpen] = createSignal(false);
 
 	return (
@@ -16,10 +22,9 @@ export const AddWeapon = () => {
 			<DialogTrigger
 				as={Button}
 				variant="info"
-				size="lg"
-				class="w-full"
+				{...props.buttonClass && { class: props.buttonClass }}
 			>
-				<IconPlus />
+				<Icon icon={Icons.PLUS} />
 				Lägg till vapen
 			</DialogTrigger>
 			<DialogContent>

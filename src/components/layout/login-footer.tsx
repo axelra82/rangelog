@@ -1,8 +1,8 @@
 import { Component, createSignal } from "solid-js";
 import { timestampToLocaleDate } from "~/utilities";
-import { IconBrandGithub, IconCopy, IconDots } from "@tabler/icons-solidjs";
 import { Button } from "~/components/ui/button";
-import { Separator } from "~/components/ui/separator";
+import { Icons } from "~/types";
+import { Icon } from "../ui";
 
 export const LoginFooter: Component = () => {
 	const env = import.meta.env;
@@ -31,7 +31,10 @@ export const LoginFooter: Component = () => {
 							class="h-8 w-8"
 							onClick={() => window.open(repo, "_blank", "noopener,noreferrer")}
 						>
-							<IconBrandGithub class="size-4" />
+							<Icon
+								icon={Icons.BRAND_GITHUB}
+								class="size-4"
+							/>
 						</Button>
 						<span class="font-medium">{buildVersion}</span>
 					</div>
@@ -45,7 +48,10 @@ export const LoginFooter: Component = () => {
 							class="h-8 w-8"
 							onClick={() => revealHashSet((prev) => !prev)}
 						>
-							<IconDots class="size-3" />
+							<Icon
+								icon={Icons.DOTS}
+								class="size-3"
+							/>
 						</Button>
 						<Button
 							variant="ghost"
@@ -54,7 +60,10 @@ export const LoginFooter: Component = () => {
 							onClick={() => copyToClipboard(buildHash)}
 							title={copied() ? "Copied!" : "Copy hash"}
 						>
-							<IconCopy class="size-3" />
+							<Icon
+								icon={Icons.COPY}
+								class="size-3"
+							/>
 						</Button>
 					</div>
 				</div>

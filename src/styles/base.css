@@ -10,6 +10,11 @@
       "rlig" 1,
       "calt" 1;
   }
+
+	select {
+    background-image: none !important;
+    padding-right: unset;
+  }
 }
 
 @media (max-width: 640px) {

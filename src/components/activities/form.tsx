@@ -7,7 +7,7 @@ import {
 	Setter,
 } from "solid-js";
 import { clubs } from "~/data/clubs";
-import { isoDateTimeToDateInput, todayISODate } from "~/utilities";
+import { cn, isoDateTimeToDateInput, todayISODate } from "~/utilities";
 import {
 	ActivityCreateInput,
 	ActivityCollectionItem,
@@ -46,6 +46,7 @@ import {
 	DialogContent,
 	DialogDescription,
 	DialogTrigger,
+	SelectNative,
 } from "~/components";
 import { useSearchParams } from "@solidjs/router";
 import {
@@ -268,6 +269,22 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 		loadingSet(false);
 	};
 
+	const allCombinationsTaken = () => {
+		return storeWeapons().every((weapon) => {
+			const calibers = getCalibersForWeapon(weapon.id);
+
+			if (calibers.length > 1) {
+				const takenCalibers = shootingEntries()
+					.filter((item) => item.weapon === weapon.id)
+					.map((item) => item.caliber);
+				return calibers.every((caliber) => takenCalibers.includes(caliber));
+			}
+
+			return shootingEntries().some((item) => item.weapon === weapon.id);
+		});
+	};
+
+
 	createEffect(() => {
 		if (props.edit) editFormSet(props.edit);
 	});
@@ -372,10 +389,26 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 						const availableCalibers = () => getCalibersForWeapon(item.weapon);
 						const hasWeapon = () => item.weapon !== "";
 
+						createEffect(() => {
+							const calibers = availableCalibers();
+							if (calibers.length === 0) return;
+
+							const usedCalibers = shootingEntries()
+								.filter((_, entryIndex) => entryIndex !== index())
+								.filter((entry) => entry.weapon === item.weapon)
+								.map((entry) => entry.caliber);
+
+							const firstAvailable = calibers.find((c) => !usedCalibers.includes(c));
+
+							if (firstAvailable && item.caliber === "") {
+								handleShootingEntryChange(index(), "caliber", firstAvailable);
+							}
+						});
+
 						return (
-							<section class="flex gap-2 items-center mb-2 text-sm">
+							<section class="grid grid-cols-12 gap-2 mb-2 text-sm">
 								<Button
-									class="size-8 mt-6"
+									class="mt-6 col-span-1"
 									variant="destructive"
 									size="sm"
 									onClick={() => removeShootingEntry(index())}
@@ -384,71 +417,88 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 									-
 								</Button>
 
-								<div class="flex-1 flex flex-col gap-2">
+								<div class="flex-1 flex flex-col gap-2 col-span-4">
 									<Label class="text-muted-foreground font-light">
 										Vapen
 									</Label>
-									<Select
-										value={item.weapon || null}
-										onChange={(value) =>
-											handleShootingEntryChange(index(), "weapon", value ?? "")
+									<SelectNative
+										onChange={(event) =>
+											handleShootingEntryChange(index(), "weapon", event.target.value ?? "")
 										}
-										options={storeWeapons().map((item) => item.id)}
-										placeholder="Välj vapen"
-										itemComponent={(itemProps) => {
-											const weapon = getWeaponById(itemProps.item.rawValue);
-											return (
-												<SelectItem item={itemProps.item}>
-													{weapon?.name ?? itemProps.item.rawValue}
-												</SelectItem>
-											);
-										}}
+										value={item.weapon}
 									>
-										<SelectTrigger>
-											<SelectValue<string>>
-												{(state) => {
-													const weapon = getWeaponById(state.selectedOption());
-													return weapon?.name ?? state.selectedOption();
-												}}
-											</SelectValue>
-										</SelectTrigger>
-										<SelectContent />
-									</Select>
+										<option disabled>
+											Välj vapen
+										</option>
+										<For each={storeWeapons()}>
+											{(weapon) => {
+												const isDisabled = () => {
+													const calibers = getCalibersForWeapon(weapon.id);
+													if (calibers.length > 1) {
+														const selectedCalibers = shootingEntries()
+															.filter((_, entryIndex) => entryIndex !== index())
+															.filter((entry) => entry.weapon === weapon.id)
+															.map((entry) => entry.caliber);
+														return calibers.every((caliber) => selectedCalibers.includes(caliber));
+													} else {
+														return shootingEntries()
+															.filter((_, entryIndex) => entryIndex !== index())
+															.some((entry) => entry.weapon === weapon.id);
+													}
+												};
+
+												return (
+													<option
+														value={weapon.id}
+														disabled={isDisabled()}
+													>
+														{weapon.name}
+													</option>
+												)
+											}}
+										</For>
+									</SelectNative>
 								</div>
 
 								<Show when={hasWeapon()}>
-									<div class="flex-1 flex flex-col gap-2">
+									<div class="flex-1 flex flex-col gap-2 col-span-4">
 										<Label class="text-muted-foreground font-light">
 											Kaliber
 										</Label>
-										<Select
-											value={item.caliber ?? null}
-											onChange={(value) =>
+										<SelectNative
+											onChange={(event) => {
+												handleShootingEntryChange(index(), "caliber", "");
+
 												handleShootingEntryChange(
 													index(),
 													"caliber",
-													value ?? "",
-												)
+													event.target.value ?? "",
+												);
 											}
-											options={availableCalibers()}
-											placeholder="Välj kaliber"
-											itemComponent={(itemProps) => (
-												<SelectItem item={itemProps.item}>
-													{itemProps.item.rawValue}
-												</SelectItem>
-											)}
+											}
+											value={item.caliber}
 										>
-											<SelectTrigger>
-												<SelectValue<string>>
-													{(state) => state.selectedOption()}
-												</SelectValue>
-											</SelectTrigger>
-											<SelectContent />
-										</Select>
+											<option disabled>
+												Välj kaliber
+											</option>
+											<For each={availableCalibers()}>
+												{(caliber) => (
+													<option
+														value={caliber}
+														disabled={shootingEntries()
+															.filter((_, i) => i !== index())
+															.filter((entry) => entry.weapon === item.weapon)
+															.some((entry) => entry.caliber === caliber)}
+													>
+														{caliber}
+													</option>
+												)}
+											</For>
+										</SelectNative>
 									</div>
 
 									<TextField
-										class="w-20"
+										class="col-span-3"
 										onChange={(value) =>
 											handleShootingEntryChange(
 												index(),
@@ -471,6 +521,10 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 					variant="link"
 					size="sm"
 					onClick={addShootingEntry}
+					disabled={
+						shootingEntries().some((item) => item.weapon === "")
+						|| allCombinationsTaken()
+					}
 				>
 					+ Lägg till
 				</Button>
@@ -571,9 +625,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 				<DialogHeader>
 					<DialogTitle>{title()}</DialogTitle>
 				</DialogHeader>
-				<div class="px-6 pb-6">
-					<FormFields />
-				</div>
+				<FormFields />
 			</Show>
 			<Show when={!props.modal}>
 				<CardHeader>

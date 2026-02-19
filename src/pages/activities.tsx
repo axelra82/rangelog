@@ -43,12 +43,12 @@ export const ActivitiesPage = () => {
 	return (
 		<>
 			<nav class="py-8">
-				<ul class="flex gap-4">
+				<ul class="grid grid-cols-2 md:grid-cols-none md:flex gap-4">
 					<li>
-						<AddActivity />
+						<AddActivity buttonClass="w-full" />
 					</li>
 					<li>
-						<AddClaim />
+						<AddClaim buttonClass="w-full" />
 					</li>
 				</ul>
 			</nav>
@@ -59,7 +59,7 @@ export const ActivitiesPage = () => {
 				</TabsList>
 				<TabsContent
 					value="activities"
-					class="my-8 bg-accent rounded-lg py-4 px-8"
+					class="my-8 bg-accent rounded-lg p-4"
 				>
 					<Show when={!activities().length}>
 						<h2>
@@ -77,7 +77,7 @@ export const ActivitiesPage = () => {
 				</TabsContent>
 				<TabsContent
 					value="claims"
-					class="my-8 bg-accent rounded-lg py-4 px-8"
+					class="my-8 bg-accent rounded-lg p-4"
 				>
 					<Show when={!claims().length}>
 						<h2>

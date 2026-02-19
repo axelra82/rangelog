@@ -1,4 +1,3 @@
-import { IconLogout } from "@tabler/icons-solidjs";
 import {
 	auth as authApi,
 	user as userApi,
@@ -14,6 +13,7 @@ import {
 	CardContent,
 	CardHeader,
 	CardTitle,
+	Icon,
 	Label,
 	showToast,
 	Spinner,
@@ -22,6 +22,7 @@ import {
 	TextFieldLabel,
 	ThemeSelect,
 } from "~/components";
+import { Icons } from "~/types";
 import { useStore } from "~/store";
 import { isoDateTimeToDateInput } from "~/utilities";
 
@@ -294,7 +295,7 @@ const ProfilePage = () => {
 				<section class="mt-8 px-4 flex justify-between items-center">
 					<ThemeSelect />
 					<Button size="lg" onClick={handleLogout}>
-						<IconLogout />
+						<Icon icon={Icons.LOGOUT} />
 						Logga ut
 					</Button>
 				</section>

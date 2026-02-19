@@ -1,14 +1,20 @@
 import { IconPlus } from "@tabler/icons-solidjs";
-import { createSignal } from "solid-js";
+import { Component, createSignal } from "solid-js";
 import {
 	ActivityForm,
 	Button,
 	Dialog,
 	DialogContent,
 	DialogTrigger,
+	Icon,
 } from "~/components";
+import { Icons } from "~/types";
 
-export const AddActivity = () => {
+interface AddActivityProps {
+	buttonClass?: string;
+}
+
+export const AddActivity: Component<AddActivityProps> = (props) => {
 	const [open, openSet] = createSignal(false);
 
 	return (
@@ -19,10 +25,9 @@ export const AddActivity = () => {
 			<DialogTrigger
 				as={Button}
 				variant="success"
-				size="lg"
-				class="w-full"
+				{...props.buttonClass && { class: props.buttonClass }}
 			>
-				<IconPlus />
+				<Icon icon={Icons.PLUS} />
 				Logga skytte
 			</DialogTrigger>
 			<DialogContent>
