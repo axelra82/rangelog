@@ -85,7 +85,7 @@ const ToastClose = <T extends ValidComponent = "button">(
 			)}
 			{...others}
 		>
-			<Icon icon={Icons.XboxX} />
+			<Icon icon={Icons.XBOX_X} />
 		</ToastPrimitive.CloseButton>
 	)
 }

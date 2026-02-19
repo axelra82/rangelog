@@ -31,8 +31,10 @@ export enum Icons {
 	LOGOUT = "Logout",
 	PLUS = "Plus",
 	SELECTOR = "Selector",
+	SORT_ASCENDING = "SortAscending",
+	SORT_DESCENDING = "SortDescending",
 	USER = "User",
 	USER_FILLED = "UserFilled",
 	X = "X",
-	XboxX = "XboxX",
+	XBOX_X = "XboxX",
 }

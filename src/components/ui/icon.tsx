@@ -18,6 +18,8 @@ import {
 	IconLogout,
 	IconPlus,
 	IconSelector,
+	IconSortAscending,
+	IconSortDescending,
 	IconUser,
 	IconUserFilled,
 	IconX,
@@ -46,10 +48,12 @@ const iconMap: Record<Icons, Component<JSX.SvgSVGAttributes<SVGSVGElement>>> = {
 	[Icons.LOGOUT]: IconLogout,
 	[Icons.PLUS]: IconPlus,
 	[Icons.SELECTOR]: IconSelector,
+	[Icons.SORT_ASCENDING]: IconSortAscending,
+	[Icons.SORT_DESCENDING]: IconSortDescending,
 	[Icons.USER_FILLED]: IconUserFilled,
 	[Icons.USER]: IconUser,
 	[Icons.X]: IconX,
-	[Icons.XboxX]: IconXboxX,
+	[Icons.XBOX_X]: IconXboxX,
 }
 
 interface IconProps extends JSX.SvgSVGAttributes<SVGSVGElement> {
