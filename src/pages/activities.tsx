@@ -29,17 +29,26 @@ export const ActivitiesPage = () => {
 	const {
 		activities,
 		activitiesSet,
+		activitiesTotal,
+		activitiesTotalSet,
+		activitiesPageCount,
+		activitiesPageCountSet,
+		activitiesCurrentPage,
+		activitiesCurrentPageSet,
 		claims,
 		claimsSet,
+		claimsTotal,
+		claimsTotalSet,
+		claimsPageCount,
+		claimsPageCountSet,
+		claimsCurrentPage,
+		claimsCurrentPageSet,
 	} = useStore();
 
 	const perPage = 20;
 
 	const [sort, sortSet] = createSignal<"+" | "-">("-");
 
-	const [activitiesTotal, activitiesTotalSet] = createSignal(0);
-	const [activitiesPageCount, activitiesPageCountSet] = createSignal(-1);
-	const [activitiesCurrentPage, activitiesCurrentPageSet] = createSignal(1);
 	const [loadingActivities, loadingActivitiesSet] = createSignal(false);
 
 	const hasMoreActivities = () => activitiesPageCount() === -1
@@ -47,9 +56,6 @@ export const ActivitiesPage = () => {
 
 	let activitiesSentinelRef: HTMLDivElement | undefined;
 
-	const [claimsTotal, claimsTotalSet] = createSignal(0);
-	const [claimsPageCount, claimsPageCountSet] = createSignal(-1);
-	const [claimsCurrentPage, claimsCurrentPageSet] = createSignal(1);
 	const [loadingClaims, loadingClaimsSet] = createSignal(false);
 
 	const hasMoreClaims = () => claimsPageCount() === -1
@@ -145,8 +151,23 @@ export const ActivitiesPage = () => {
 	}
 
 	onMount(() => {
-		getActivities();
-		getClaims();
+		// getActivities();
+		// getClaims();
+
+		if (activities().length) {
+			// Restore pagination state from existing data
+			activitiesCurrentPageSet(Math.ceil(activities().length / perPage) + 1);
+			activitiesPageCountSet(Math.ceil(activitiesTotal() / perPage));
+		} else {
+			getActivities();
+		}
+
+		if (claims().length) {
+			claimsCurrentPageSet(Math.ceil(claims().length / perPage) + 1);
+			claimsPageCountSet(Math.ceil(claimsTotal() / perPage));
+		} else {
+			getClaims();
+		}
 
 		const threshold = 0;
 

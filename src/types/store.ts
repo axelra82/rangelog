@@ -23,11 +23,23 @@ export interface StoreFactoryProps {
 
 export type ResourceHelper<T> = T & { disabled: false };
 
-export type StoreContextType = {
+export interface StoreContextProps {
 	activities: Accessor<ActivityCollectionItem[]>;
 	activitiesSet: Setter<ActivityCollectionItem[]>;
+	activitiesTotal: Accessor<number>;
+	activitiesTotalSet: Setter<number>;
+	activitiesPageCount: Accessor<number>;
+	activitiesPageCountSet: Setter<number>;
+	activitiesCurrentPage: Accessor<number>;
+	activitiesCurrentPageSet: Setter<number>;
 	claims: Accessor<ClaimCollectionItem[]>;
 	claimsSet: Setter<ClaimCollectionItem[]>;
+	claimsTotal: Accessor<number>;
+	claimsTotalSet: Setter<number>;
+	claimsPageCount: Accessor<number>;
+	claimsPageCountSet: Setter<number>;
+	claimsCurrentPage: Accessor<number>;
+	claimsCurrentPageSet: Setter<number>;
 	colorMode: Accessor<ColorMode>;
 	isAuthenticated: Accessor<boolean>;
 	isAuthenticatedSet: Setter<boolean>;

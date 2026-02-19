@@ -1,7 +1,7 @@
 import {
 	ActivityCollectionItem,
 	ClaimCollectionItem,
-	StoreContextType,
+	StoreContextProps,
 	WeaponCollectionItem,
 } from "./types";
 import { ColorMode } from "./types";
@@ -20,11 +20,19 @@ import MobileDetect from "mobile-detect";
 const STORAGE_KEY = "color-mode";
 const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.SYSTEM;
 
-const StoreContext = createContext<StoreContextType>();
+const StoreContext = createContext<StoreContextProps>();
 
 export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const [activities, activitiesSet] = createSignal<ActivityCollectionItem[]>([]);
+	const [activitiesTotal, activitiesTotalSet] = createSignal(0);
+	const [activitiesPageCount, activitiesPageCountSet] = createSignal(-1);
+	const [activitiesCurrentPage, activitiesCurrentPageSet] = createSignal(1);
+
 	const [claims, claimsSet] = createSignal<ClaimCollectionItem[]>([]);
+	const [claimsTotal, claimsTotalSet] = createSignal(0);
+	const [claimsPageCount, claimsPageCountSet] = createSignal(-1);
+	const [claimsCurrentPage, claimsCurrentPageSet] = createSignal(1);
+
 	const [colorMode, colorModeSet] = createSignal<ColorMode>(savedMode);
 	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
 	const [user, userSet] = createSignal<ClientUser>({
@@ -49,8 +57,20 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const storeContextValue = {
 		activities,
 		activitiesSet,
+		activitiesTotal,
+		activitiesTotalSet,
+		activitiesPageCount,
+		activitiesPageCountSet,
+		activitiesCurrentPage,
+		activitiesCurrentPageSet,
 		claims,
 		claimsSet,
+		claimsTotal,
+		claimsTotalSet,
+		claimsPageCount,
+		claimsPageCountSet,
+		claimsCurrentPage,
+		claimsCurrentPageSet,
 		colorMode,
 		colorModeSet,
 		isAuthenticated,
