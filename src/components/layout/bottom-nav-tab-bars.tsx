@@ -63,7 +63,7 @@ export const BottomNavTabBars = () => {
 	return (
 		<div class="space-y-6">
 			<div class="fixed bottom-0 left-0 right-0 z-50 px-5 pb-7">
-				<div class="bg-background/60 backdrop-blur-xl rounded-full shadow-lg border border-border/75 py-0.5">
+				<div class="bg-background/60 backdrop-blur-xl rounded-full shadow-lg border border-border/75 py-1">
 					<nav class="flex items-center justify-evenly">
 						{tabs.map((tab) => {
 							const isCurrentPath = currentRoute() === tab.path;
@@ -72,7 +72,7 @@ export const BottomNavTabBars = () => {
 								<A href={tab.path}>
 									<button
 										class={cn(
-											"relative px-4 flex flex-col items-center justify-center gap-1 py-2 rounded-full transition-all duration-200 active:scale-95",
+											"relative px-4 flex flex-col items-center justify-center gap-1 p-1 rounded-full transition-all duration-200 active:scale-95",
 											{
 												"bg-foreground/10": isCurrentPath,
 											},
