@@ -29,8 +29,8 @@ export const LoginPage: Component = () => {
 	const [password, setPassword] = createSignal("");
 	const [showPassword, setShowPassword] = createSignal(false);
 
-	const handleLogin = async (e: Event) => {
-		e.preventDefault();
+	const handleLogin = async (event: Event) => {
+		event.preventDefault();
 		workingSet(true);
 
 		const authUser = await auth.login({
@@ -140,5 +140,3 @@ export const LoginPage: Component = () => {
 		</div>
 	);
 };
-
-export default LoginPage;

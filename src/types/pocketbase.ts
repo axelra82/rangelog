@@ -39,18 +39,23 @@ export interface ReadListResponse<T> {
 }
 
 export interface UserCollectionItem {
-	admin: string;
-	avatar: string;
+	admin: boolean;
+	avatar?: string;
 	created: string;
 	email: string;
-	emailVisibility: string;
+	emailVisibility: boolean;
 	id: string;
 	name: string;
 	password: string;
 	tokenKey: string;
 	updated: string;
-	verified: string;
+	verified: boolean;
 }
+
+export type UserCreateInput = Pick<
+	UserCollectionItem,
+	"avatar" | "email" | "name" | "password"
+>;
 
 export type UserUpdateInput = Pick<
 	UserCollectionItem,

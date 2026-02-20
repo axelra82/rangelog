@@ -25,7 +25,7 @@ import {
 	ReadListResponse,
 } from "~/types";
 
-export const ActivitiesPage = () => {
+const ActivitiesPage = () => {
 	const {
 		activities,
 		activitiesSet,
@@ -151,9 +151,6 @@ export const ActivitiesPage = () => {
 	}
 
 	onMount(() => {
-		// getActivities();
-		// getClaims();
-
 		if (activities().length) {
 			// Restore pagination state from existing data
 			activitiesCurrentPageSet(Math.ceil(activities().length / perPage) + 1);

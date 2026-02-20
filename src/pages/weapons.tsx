@@ -29,7 +29,7 @@ import { ActivityWeaponEntry, ReadListResponse, WeaponCollectionItem } from "~/t
 import { activitiesWeapons } from "infrastructure";
 import { useLocation, useParams } from "@solidjs/router";
 
-export const WeaponsPage: Component = () => {
+const WeaponsPage: Component = () => {
 	const location = useLocation();
 
 	const {

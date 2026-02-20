@@ -1,9 +1,5 @@
 import { For } from "solid-js";
 import {
-	CardTitle,
-	CardHeader,
-	CardContent,
-	Card,
 	WeaponLicenseExpireWarning,
 	AddWeapon,
 	AddClaim,
@@ -12,7 +8,7 @@ import {
 } from "~/components";
 import { useStore } from "~/store";
 
-export const DashboardPage = () => {
+const DashboardPage = () => {
 	const {
 		weapons
 	} = useStore();

@@ -16,7 +16,10 @@ import {
 	onMount,
 	Switch,
 } from "solid-js";
-import { auth, weapons } from "infrastructure/services";
+import {
+	auth as authApi,
+	weapons as weaponsApi,
+} from "infrastructure";
 import { FullPageLoader } from "~/components";
 
 export const AuthChecker = () => {
@@ -31,7 +34,7 @@ export const AuthChecker = () => {
 	const [ready, setReady] = createSignal(false);
 
 	onMount(async () => {
-		const result = await auth.validate();
+		const result = await authApi.validate();
 
 		if (result.user) {
 			userSet(result.user);
@@ -43,7 +46,7 @@ export const AuthChecker = () => {
 
 	createEffect(async () => {
 		if (isAuthenticated()) {
-			const weaponsData = await weapons.read({}) as ReadListResponse<WeaponCollectionItem>;
+			const weaponsData = await weaponsApi.read({}) as ReadListResponse<WeaponCollectionItem>;
 			weaponsSet(weaponsData.items);
 		}
 	});

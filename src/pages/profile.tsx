@@ -25,6 +25,7 @@ import {
 import { Icons } from "~/types";
 import { useStore } from "~/store";
 import { isoDateTimeToDateInput } from "~/utilities";
+import { A } from "@solidjs/router";
 
 const ProfilePage = () => {
 	const {
@@ -299,7 +300,19 @@ const ProfilePage = () => {
 						Logga ut
 					</Button>
 				</section>
+
 			</Show>
+			<Show when={user().admin}>
+				<div class="flex justify-end mt-4 px-4">
+					<A href="/admin">
+						<Button size="lg">
+							<Icon icon={Icons.SHIELD} />
+							Admin
+						</Button>
+					</A>
+				</div>
+			</Show>
+
 		</>
 	);
 };

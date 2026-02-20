@@ -3,17 +3,17 @@ import {
 	Avatar,
 	AvatarFallback,
 	Badge,
+	ClaimsForm,
 	Dialog,
 	DialogContent,
-	ClaimsForm,
-	Separator,
 	Icon,
+	Separator,
 } from "~/components";
 import {
-	Show,
-	createSignal,
 	Component,
+	createSignal,
 	Match,
+	Show,
 	Switch,
 } from "solid-js";
 import { getInitials, getYear } from "~/utilities";
@@ -119,9 +119,10 @@ export const ClaimItem: Component<ClaimItemProps> = (props) => {
 					</Show>
 				</div>
 			</section>
-			<Show when={!props.isLast}>
-				<Separator class="my-4" />
-			</Show>
+			<Separator
+				class="my-4"
+				isLast={props.isLast}
+			/>
 		</>
 	);
 };

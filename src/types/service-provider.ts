@@ -10,6 +10,7 @@ import {
 	ReadListResponse,
 	ReadSingleOptions,
 	UserCollectionItem,
+	UserCreateInput,
 	WeaponCollectionItem,
 	WeaponCreateInput,
 } from "./pocketbase";
@@ -71,9 +72,10 @@ export type ProviderFunction = {
 		deleteByActivity: (activityId: string) => Promise<boolean>;
 	};
 	auth: {
-		validate: () => Promise<{ user: ClientUser | null }>
 		login: (props: SigninProps) => Promise<ClientUser>;
 		logout: () => boolean;
+		refresh: () => void;
+		validate: () => Promise<{ user: ClientUser | null }>
 	};
 	claims: {
 		create: (
@@ -95,6 +97,14 @@ export type ProviderFunction = {
 		) => Promise<boolean>;
 	};
 	user: {
+		create: (
+			data: UserCreateInput,
+			collection?: Collections.USERS,
+		) => Promise<UserCollectionItem>;
+		read: (
+			options: ReadSingleOptions | ReadListRequest,
+			collection?: Collections.USERS,
+		) => Promise<UserCollectionItem | ReadListResponse<UserCollectionItem>>;
 		update: (
 			id: string,
 			data: any,
@@ -103,6 +113,10 @@ export type ProviderFunction = {
 		updateEmail: (
 			newEmail: string,
 		) => Promise<boolean>,
+		delete: (
+			id: string,
+			collection?: Collections.USERS,
+		) => Promise<boolean>;
 	},
 	weapons: {
 		create: (

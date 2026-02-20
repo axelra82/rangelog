@@ -123,9 +123,10 @@ export const ActivityItem: Component<ActivityItemProps> = (props) => {
 					</div>
 				</div>
 			</section>
-			<Show when={!props.isLast}>
-				<Separator class="my-4" />
-			</Show>
+			<Separator
+				class="my-4"
+				isLast={props.isLast}
+			/>
 		</>
 	);
 };

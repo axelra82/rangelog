@@ -1,6 +1,6 @@
 import { IconLogout, IconUser } from "@tabler/icons-solidjs";
 import { auth } from "infrastructure";
-import { Component } from "solid-js";
+import { Component, Show } from "solid-js";
 import { useStore } from "~/store";
 import {
 	DropdownMenuContent,
@@ -14,6 +14,7 @@ import { Icons } from "~/types";
 
 export const ProfileMenu: Component = () => {
 	const {
+		user,
 		isAuthenticatedSet
 	} = useStore();
 
@@ -46,6 +47,22 @@ export const ProfileMenu: Component = () => {
 			</A>
 
 			<Separator />
+
+			<Show when={user().admin}>
+				<A href="/admin">
+					<DropdownMenuItem>
+						<div class="flex gap-2 items-center py-2">
+							<Icon
+								icon={Icons.SHIELD}
+								class="size-4"
+							/>
+							Admin
+						</div>
+					</DropdownMenuItem>
+				</A>
+
+				<Separator />
+			</Show>
 
 			<DropdownMenuItem onSelect={handleLogout}>
 				<div class="flex gap-2 items-center py-2">

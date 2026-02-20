@@ -24,4 +24,9 @@ export const dashboardRoutes = [
 		path: "/profile",
 		component: lazy(() => import("./pages/profile")),
 	},
+	{
+		label: "Admin",
+		path: "/admin",
+		component: lazy(() => import("./pages/admin")),
+	},
 ];
