@@ -45,8 +45,9 @@ export interface UserCollectionItem {
 	email: string;
 	emailVisibility: boolean;
 	id: string;
-	name: string;
+	name?: string;
 	password: string;
+	passwordConfirm?: string;
 	tokenKey: string;
 	updated: string;
 	verified: boolean;
@@ -54,7 +55,7 @@ export interface UserCollectionItem {
 
 export type UserCreateInput = Pick<
 	UserCollectionItem,
-	"avatar" | "email" | "name" | "password"
+	"avatar" | "email" | "emailVisibility" | "name" | "password" | "passwordConfirm"
 >;
 
 export type UserUpdateInput = Pick<

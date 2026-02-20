@@ -14,7 +14,7 @@ import {
 } from "infrastructure";
 import { ClientUser } from "~/types/user";
 import { useNavigate } from "@solidjs/router";
-import { Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Separator, showToast, Spinner } from "~/components";
+import { Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Separator, showToast, Spinner, TextField, TextFieldInput, TextFieldLabel } from "~/components";
 import { cn, isoDateTimeToDateInput } from "~/utilities";
 
 const AdminPage = () => {
@@ -42,21 +42,58 @@ const AdminPage = () => {
 			});
 	});
 
-	const deleteUser = async (id: string, email: string) => {
-		workingOnSet(id);
+	const createUser = async (event: Event) => {
+		event.preventDefault();
+		const form = event.target as HTMLFormElement;
+		const formData = new FormData(form);
+
+		const email = formData.get("email") as string;
+		const password = formData.get("password") as string;
 
 		try {
-			await userApi.delete(id);
+			const response = await userApi.create({
+				email,
+				emailVisibility: true,
+				password,
+				passwordConfirm: password,
+			});
+
+			usersSet((prev) => [...prev, (response as unknown as ClientUser)]);
+
 			showToast({
+				description: `Konto skapat för ${email}`,
 				variant: "success",
-				description: `${email} (${id}) raderades.`,
 				duration: 3000,
 			});
 		} catch (error) {
 			console.error(error);
 			showToast({
+				description: `Konto kunde inte skapas för ${email}`,
 				variant: "destructive",
-				description: `Användare kunde inte raders: ${JSON.stringify(error)}`,
+				duration: 3000,
+			});
+		}
+	}
+
+	const deleteUser = async (id: string, email: string) => {
+		workingOnSet(id);
+
+		try {
+			const success = await userApi.delete(id);
+			showToast({
+				variant: "success",
+				description: `${email} (${id}) raderades.`,
+				duration: 3000,
+			});
+
+			if (success) {
+				usersSet((prev) => prev.filter((item) => item.id !== id));
+			}
+		} catch (error) {
+			console.error(error);
+			showToast({
+				variant: "destructive",
+				description: `Användare ${email} kunde inte raders`,
 				duration: 3000,
 			});
 		}
@@ -68,7 +105,7 @@ const AdminPage = () => {
 		<>
 			<section class="bg-accent rounded-lg p-8 mt-8 space-y-6">
 				<h1>
-					User accounts <span class="text-sm text-muted-foreground font-medium">({users().length})</span>
+					Användare <span class="text-sm text-muted-foreground font-medium">({users().length})</span>
 				</h1>
 				<Separator />
 				<For each={users()}>
@@ -149,8 +186,59 @@ const AdminPage = () => {
 					}}
 				</For>
 			</section>
+
+			<Card class="p-8 mt-8 space-y-6">
+				<CardHeader>
+					<CardTitle>
+						<h1>
+							Skapa ny användare
+						</h1>
+					</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<form
+						class="flex flex-col space-y-6"
+						onSubmit={createUser}
+					>
+						<TextField class="max-w-sm">
+							<TextFieldLabel class="text-muted-foreground mb-1">
+								Epost
+							</TextFieldLabel>
+
+							<TextFieldInput
+								required
+								name="email"
+								type="email"
+							/>
+						</TextField>
+
+						<TextField class="max-w-sm">
+							<TextFieldLabel class="text-muted-foreground mb-1">
+								Lösenord
+							</TextFieldLabel>
+
+							<TextFieldInput
+								required
+								minLength={8}
+								name="password"
+								type="password"
+							/>
+						</TextField>
+
+						<Button
+							class="mr-auto"
+							type="submit"
+						>
+							Skapa
+						</Button>
+					</form>
+				</CardContent>
+			</Card>
 		</>
 	);
 }
 
 export default AdminPage;
+
+// axel+t@lalaland.app
+// abcd1234
