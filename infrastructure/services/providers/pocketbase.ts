@@ -1,4 +1,5 @@
 import {
+	pocketbaseAuthRefresh,
 	pocketbaseAuthValidate,
 	pocketbaseCreateCollectionItem,
 	pocketbaseDeleteActivityWeaponsByActivity,
@@ -62,9 +63,10 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		deleteByActivity: (activityId) => pocketbaseDeleteActivityWeaponsByActivity(activityId),
 	},
 	auth: {
-		validate: pocketbaseAuthValidate,
 		login: (props) => pocketbaseLogin(props),
 		logout: pocketbaseLogout,
+		refresh: pocketbaseAuthRefresh,
+		validate: pocketbaseAuthValidate,
 	},
 	claims: {
 		create: (data) => pocketbaseCreateCollectionItem(
@@ -89,6 +91,14 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		),
 	},
 	user: {
+		create: (data) => pocketbaseCreateCollectionItem(
+			data,
+			Collections.USERS,
+		),
+		read: (data) => pocketbaseReadCollectionItem(
+			data,
+			Collections.USERS,
+		),
 		update: (
 			id,
 			data,
@@ -101,6 +111,10 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 			newEmail: string,
 		) => pocketbaseUpdateUserEmail(
 			newEmail,
+		),
+		delete: (id) => pocketbaseDeleteCollectionItem(
+			id,
+			Collections.USERS,
 		),
 	},
 	weapons: {

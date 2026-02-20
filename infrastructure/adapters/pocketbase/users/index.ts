@@ -1,5 +1,4 @@
 import {
-	ActivityWeaponEntry,
 	Collections,
 } from "~/types";
 import { pb } from "..";

@@ -42,3 +42,8 @@ export const pocketbaseAuthValidate = async () => {
 		user: pb.authStore.record as unknown as ClientUser,
 	};
 };
+
+export const pocketbaseAuthRefresh = async () => {
+	await pb.collection(Collections.USERS).authRefresh();
+	pocketbaseAuthValidate();
+};
