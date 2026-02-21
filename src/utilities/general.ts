@@ -13,3 +13,7 @@ export const downloadFile = (url: string, name: string) => {
 	link.download = name;
 	link.click();
 }
+
+export const viewFile = (url: string) => {
+	window.open(url, "_blank");
+};

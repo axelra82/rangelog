@@ -1,6 +1,7 @@
 import { useSearchParams } from "@solidjs/router";
 import { weapons } from "infrastructure/services";
 import {
+	Accessor,
 	Component,
 	createSignal,
 	For,
@@ -30,7 +31,7 @@ import { useStore } from "~/store";
 import { Icons, type FileCollectionItem, type WeaponCollectionItem } from "~/types";
 import { cn, isoDateTimeToDateInput } from "~/utilities";
 import { file as fileApi } from "infrastructure";
-import { downloadFile } from "~/utilities/general";
+import { downloadFile, viewFile } from "~/utilities/general";
 
 export interface DetailsControl {
 	open: () => void;
@@ -78,9 +79,41 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 	const [items, itemsSet] = createSignal<DetailItemProps[]>([]);
 	let detailsControl: DetailsControl | undefined;
 
+	const ViewButton: Component<{
+		file: FileCollectionItem,
+		url: Accessor<string>,
+	}> = (props) => (
+		<Button
+			title={props.file.name}
+			size="sm"
+			onClick={() => viewFile(props.url())}
+		>
+			<Icon
+				icon={Icons.EYE}
+			/>
+		</Button>
+	);
+
+	const DownloadButton: Component<{
+		file: FileCollectionItem,
+		url: Accessor<string>,
+	}> = (props) => (
+		<Button
+			title={props.file.name}
+			size="sm"
+			onClick={() => downloadFile(props.url(), props.file.name)}
+		>
+			<Icon
+				icon={Icons.DOWNLOAD}
+			/>
+		</Button>
+	);
+
 	const FileSource: Component<{
 		file: FileCollectionItem,
 		image?: boolean,
+		show?: boolean,
+		double?: boolean,
 	}> = (props) => {
 		const [url, urlSet] = createSignal("");
 
@@ -100,19 +133,22 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 				}
 			>
 				<div class="flex gap-4 items-center">
-					<Button
-						onClick={() => downloadFile(url(), props.file.name)}
-						title={props.file.name}
-					>
-						<Icon
-							icon={Icons.DOWNLOAD}
-						/>
-					</Button>
+					<Switch fallback={
+						<DownloadButton file={props.file} url={url} />
+					}>
+						<Match when={props.double}>
+							<DownloadButton file={props.file} url={url} />
+							<ViewButton file={props.file} url={url} />
+						</Match>
+						<Match when={props.show}>
+							<ViewButton file={props.file} url={url} />
+						</Match>
+					</Switch>
 					<div class="text-sm text-muted-foreground break-all">
 						{props.file.name}
 					</div>
 				</div>
-			</Show>
+			</Show >
 		);
 	};
 
@@ -182,7 +218,13 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 						<Show when={Array.isArray(item.value) && item.value.length}>
 							<div class="flex flex-col space-y-6">
 								<For each={item.value as FileCollectionItem[]}>
-									{(file) => <FileSource file={file} />}
+									{(file) => {
+										return (
+											<div class="flex gap-2">
+												<FileSource file={file} double />
+											</div>
+										);
+									}}
 								</For>
 							</div>
 						</Show>
