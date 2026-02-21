@@ -84,7 +84,7 @@ export interface WeaponCollectionItem {
 
 export type WeaponCreateInput = Omit<
 	WeaponCollectionItem,
-	"id" | "created" | "updated"
+	"created" | "id" | "updated"
 >;
 
 export type WeaponUpdateInput = Partial<WeaponCreateInput>;
@@ -96,7 +96,7 @@ export interface ActivityCollectionItem {
 	date: string;
 	exercises?: string;
 	expand?: {
-		"activity_weapons(activity)": ActivityWeaponEntry[];
+		"activity_weapons_via_activity": ActivityWeaponEntry[];
 	};
 	id: string;
 	location?: string;

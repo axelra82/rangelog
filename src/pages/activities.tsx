@@ -86,7 +86,7 @@ const ActivitiesPage = () => {
 
 		try {
 			const data = await activitiesApi.read({
-				expand: "activity_weapons(activity)",
+				expand: "activity_weapons_via_activity",
 				sort: `${sort()}date`,
 				perPage,
 				page: activitiesCurrentPage(),

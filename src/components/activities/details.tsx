@@ -27,7 +27,7 @@ export const ActivityItem: Component<ActivityItemProps> = (props) => {
 	} = useStore();
 
 	const [showEditDialog, showEditDialogSet] = createSignal(false);
-	const weapons = props.expand?.["activity_weapons(activity)"];
+	const weapons = props.expand?.["activity_weapons_via_activity"];
 
 	const year = getYear(props.date).year;
 	const isCurrentYear = getYear(props.date).isCurrent;
