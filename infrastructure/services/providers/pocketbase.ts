@@ -4,6 +4,7 @@ import {
 	pocketbaseCreateCollectionItem,
 	pocketbaseDeleteActivityWeaponsByActivity,
 	pocketbaseDeleteCollectionItem,
+	pocketbaseGetFileUrl,
 	pocketbaseLogin,
 	pocketbaseLogout,
 	pocketbaseReadCollectionItem,
@@ -89,6 +90,29 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 			id,
 			Collections.CLAIMS,
 		),
+	},
+	file: {
+		create: (data) => pocketbaseCreateCollectionItem(
+			data,
+			Collections.FILES,
+		),
+		read: (data) => pocketbaseReadCollectionItem(
+			data,
+			Collections.FILES,
+		),
+		update: (
+			id,
+			data,
+		) => pocketbaseUpdateCollectionItem(
+			id,
+			data,
+			Collections.FILES,
+		),
+		delete: (id) => pocketbaseDeleteCollectionItem(
+			id,
+			Collections.FILES,
+		),
+		getUrl: (record) => pocketbaseGetFileUrl(record),
 	},
 	user: {
 		create: (data) => pocketbaseCreateCollectionItem(

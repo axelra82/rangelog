@@ -7,6 +7,7 @@ export const {
 	activitiesWeapons,
 	auth,
 	claims,
+	file,
 	user,
 	weapons,
 } = createProvider();

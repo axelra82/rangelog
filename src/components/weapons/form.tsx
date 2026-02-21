@@ -2,6 +2,7 @@ import {
 	Component,
 	createEffect,
 	createSignal,
+	For,
 	Setter,
 	Show,
 } from "solid-js";
@@ -10,8 +11,12 @@ import {
 	federations,
 	weaponTypes,
 } from "~/data";
-import { weapons as weaponsApi } from "infrastructure";
 import {
+	file as fileApi,
+	weapons as weaponsApi,
+} from "infrastructure";
+import {
+	FileCollectionItem,
 	WeaponCollectionItem,
 	WeaponCreateInput,
 } from "~/types";
@@ -79,6 +84,18 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 	const [error, errorSet] = createSignal<string | null>(null);
 	const [title, titleSet] = createSignal<string>();
 
+	const [existingDocuments, existingDocumentsSet] = createSignal<FileCollectionItem[]>([]);
+	const [pendingFiles, pendingFilesSet] = createSignal<File[] | null>(null);
+	const handleFilesChange = (event: Event) => {
+		const input = event.target as HTMLInputElement;
+		pendingFilesSet((prev) => [
+			...prev ?? [],
+			...input.files ?? []
+		]);
+	};
+
+	let fileInputRef: HTMLInputElement | undefined;
+
 	const cancelEdit = () => {
 		setSearchParams({ edit: undefined });
 		editFormSet();
@@ -117,12 +134,31 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				throw new Error("Ange tillverkare, model, förbund, kaliber och typ.");
 			}
 
+			// Upload file first if one is pending
+			let documentIds: string[] = current.documents ?? [];
+
+			const files = pendingFiles();
+
+			if (files) {
+				for (const file of files) {
+					const fileRecord = await fileApi.create({
+						owner: current.owner,
+						name: file.name,
+						source: file,
+						size: file.size,
+						type: file.type,
+					});
+
+					documentIds.push(fileRecord.id);
+				}
+			}
+
 			const weaponData: WeaponCreateInput = {
 				barrelLength: current.barrelLength,
 				brand: current.brand,
 				caliber: current.caliber,
 				classification: current.classification,
-				documents: current.documents,
+				documents: documentIds,
 				federation: current.federation,
 				image: current.image,
 				licenseEnd: current.licenseEnd || undefined,
@@ -165,6 +201,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				});
 
 				reformSet();
+				pendingFilesSet(null);
 
 				if (props.modal && props.modalControl) {
 					props.modalControl(false);
@@ -241,7 +278,6 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key={"manufacturerUrl"}
 					onChange={handleInputChange}
-					required
 					title="Produktlänk"
 					type="text"
 					value={form().manufacturerUrl}
@@ -357,6 +393,90 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 			</section>
 
+			<h3>
+				Dokument
+			</h3>
+
+			<input
+				ref={fileInputRef}
+				type="file"
+				multiple
+				class="hidden"
+				onChange={handleFilesChange}
+			/>
+
+			<div class="flex gap-4">
+				<Button
+					onClick={() => fileInputRef?.click()}
+					size="sm"
+					variant="outline"
+				>
+					Välj filer
+				</Button>
+
+				<Show when={pendingFiles()?.length}>
+					<Button
+						onClick={() => pendingFilesSet(null)}
+						size="sm"
+						variant="default"
+					>
+						Rensa
+					</Button>
+				</Show>
+			</div>
+
+			<Show when={existingDocuments().length}>
+				<div class="flex flex-col gap-4">
+					<For each={existingDocuments()}>
+						{(doc) => (
+							<div class="flex gap-2 items-center">
+								<Button
+									size="sm"
+									variant="destructive"
+									onClick={() => {
+										existingDocumentsSet((prev) => prev.filter((d) => d.id !== doc.id));
+										formSet((prev) => ({
+											...prev,
+											documents: prev.documents?.filter((id) => id !== doc.id) ?? [],
+										}));
+									}}
+								>
+									Ta bort
+								</Button>
+								<div class="text-sm text-muted-foreground">
+									{doc.name}
+								</div>
+							</div>
+						)}
+					</For>
+				</div>
+			</Show>
+
+			<Show when={pendingFiles()?.length}>
+				<div class="flex flex-col gap-4">
+					<For each={pendingFiles()}>
+						{(pendingFile) => {
+							return (
+								<div class="flex gap-2 items-center">
+									<Button
+										size="sm"
+										variant="destructive"
+										onClick={() => {
+											pendingFilesSet((prev) => prev?.filter((item) => item.name !== pendingFile.name) ?? null)
+										}}
+									>
+										Ta bort
+									</Button>
+									<div class="text-sm text-muted-foreground">
+										{pendingFile.name}
+									</div>
+								</div>
+							);
+						}}
+					</For>
+				</div>
+			</Show>
+
 			<div class="flex justify-end pt-4 gap-4">
 				<Show when={editForm()}>
 					<Button
@@ -407,6 +527,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 	createEffect(() => {
 		if (editForm()) {
+			existingDocumentsSet(editForm()!.expand?.documents || []);
 			formSet({
 				barrelLength: editForm()!.barrelLength,
 				brand: editForm()!.brand,

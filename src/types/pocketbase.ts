@@ -5,6 +5,7 @@ export enum Collections {
 	ACTIVITIES = "activities",
 	ACTIVITIES_WEAPONS = "activity_weapons", // Add this
 	CLAIMS = "claims",
+	FILES = "files",
 	USERS = "users",
 	WEAPONS = "weapons",
 }
@@ -65,6 +66,28 @@ export type UserUpdateInput = Pick<
 	"email" | "name" | "password"
 >;
 
+export interface FileCollectionItem {
+	id: string;
+	owner: string;
+	name: string;
+	source: string;
+	size: number;
+	type: string;
+	created: string;
+}
+
+export type FileCreateInput = Omit<
+	FileCollectionItem,
+	"id" | "created" | "source"
+> & {
+	source: File;
+};
+
+export type FileUpdateInput = Pick<
+	FileCollectionItem,
+	"name"
+>;
+
 export interface WeaponCollectionItem {
 	barrelLength?: string;
 	brand: string;
@@ -72,6 +95,9 @@ export interface WeaponCollectionItem {
 	classification?: string;
 	created: string;
 	documents?: string[];
+	expand?: {
+		"documents": FileCollectionItem[];
+	};
 	federation: Federations;
 	id: string;
 	image?: string;

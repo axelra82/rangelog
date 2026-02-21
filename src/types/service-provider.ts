@@ -6,6 +6,8 @@ import {
 	ClaimCollectionItem,
 	ClaimCreateInput,
 	Collections,
+	FileCollectionItem,
+	FileCreateInput,
 	ReadListRequest,
 	ReadListResponse,
 	ReadSingleOptions,
@@ -95,6 +97,26 @@ export type ProviderFunction = {
 			id: string,
 			collection?: Collections.CLAIMS,
 		) => Promise<boolean>;
+	};
+	file: {
+		create: (
+			data: FileCreateInput,
+			collection?: Collections.FILES,
+		) => Promise<FileCollectionItem>;
+		read: (
+			options: ReadSingleOptions | ReadListRequest,
+			collection?: Collections.FILES,
+		) => Promise<FileCollectionItem | ReadListResponse<FileCollectionItem>>;
+		update: (
+			id: string,
+			data: any,
+			collection?: Collections.FILES,
+		) => Promise<FileCollectionItem>;
+		delete: (
+			id: string,
+			collection?: Collections.FILES,
+		) => Promise<boolean>;
+		getUrl: (record: FileCollectionItem) => Promise<string>;
 	};
 	user: {
 		create: (

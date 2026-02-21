@@ -22,12 +22,9 @@ import {
 	CardTitle,
 	DetailsControl,
 } from "~/components";
-import {
-	IconChevronRight,
-} from "@tabler/icons-solidjs";
 import { ActivityWeaponEntry, ReadListResponse, WeaponCollectionItem } from "~/types";
 import { activitiesWeapons } from "infrastructure";
-import { useLocation, useParams } from "@solidjs/router";
+import { useLocation } from "@solidjs/router";
 
 const WeaponsPage: Component = () => {
 	const location = useLocation();

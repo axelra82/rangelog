@@ -46,7 +46,9 @@ export const AuthChecker = () => {
 
 	createEffect(async () => {
 		if (isAuthenticated()) {
-			const weaponsData = await weaponsApi.read({}) as ReadListResponse<WeaponCollectionItem>;
+			const weaponsData = await weaponsApi.read({
+				expand: "documents",
+			}) as ReadListResponse<WeaponCollectionItem>;
 			weaponsSet(weaponsData.items);
 		}
 	});

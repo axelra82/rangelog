@@ -4,7 +4,10 @@ import {
 	Component,
 	createSignal,
 	For,
+	Match,
 	onMount,
+	Show,
+	Switch,
 } from "solid-js";
 import {
 	DialogTitle,
@@ -21,10 +24,13 @@ import {
 	SheetContent,
 	SheetHeader,
 	SheetTitle,
+	Icon,
 } from "~/components";
 import { useStore } from "~/store";
-import type { WeaponCollectionItem } from "~/types";
+import { Icons, type FileCollectionItem, type WeaponCollectionItem } from "~/types";
 import { cn, isoDateTimeToDateInput } from "~/utilities";
+import { file as fileApi } from "infrastructure";
+import { downloadFile } from "~/utilities/general";
 
 export interface DetailsControl {
 	open: () => void;
@@ -37,16 +43,18 @@ export interface DetailsControl {
 	close: () => void;
 	isOpen: () => boolean;
 }
+
 interface WeaponDetailsProps {
 	weapon: WeaponCollectionItem;
 	ref: (control: DetailsControl) => void;
 }
 
 interface DetailItemProps {
-	isUrl?: boolean;
 	isDate?: boolean;
+	isFile?: boolean;
+	isUrl?: boolean;
 	key: string;
-	value?: string | number;
+	value?: string | string[] | number | FileCollectionItem[];
 }
 
 export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
@@ -70,9 +78,51 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 	const [items, itemsSet] = createSignal<DetailItemProps[]>([]);
 	let detailsControl: DetailsControl | undefined;
 
-	const DetailItem: Component<DetailItemProps> = (props) => {
-		const isNote = props.key === "Anteckningar";
-		const isPrice = props.key === "Pris";
+	const FileSource: Component<{
+		file: FileCollectionItem,
+		image?: boolean,
+	}> = (props) => {
+		const [url, urlSet] = createSignal("");
+
+		onMount(async () => {
+			const resolved = await fileApi.getUrl(props.file);
+			urlSet(resolved);
+		});
+
+		return (
+			<Show
+				when={!props.image}
+				fallback={
+					<img
+						class="w-full max-h-64"
+						src={url()}
+					/>
+				}
+			>
+				<div class="flex gap-4 items-center">
+					<Button
+						onClick={() => downloadFile(url(), props.file.name)}
+						title={props.file.name}
+					>
+						<Icon
+							icon={Icons.DOWNLOAD}
+						/>
+					</Button>
+					<div class="text-sm text-muted-foreground break-all">
+						{props.file.name}
+					</div>
+				</div>
+			</Show>
+		);
+	};
+
+	const DetailItem: Component<DetailItemProps> = (item) => {
+		const isNote = item.key === "Anteckningar";
+		const isDate = item.value !== "" && item.isDate;
+		const isPrice = item.key === "Pris" && typeof item.value === "number";
+		const isImage = item.key === "" && item.isFile;
+		const isDocument = item.key !== "" && item.isFile;
+		const isEntry = !isImage && !isDocument;
 
 		return (
 			<div class={cn(
@@ -81,46 +131,70 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 					"flex-col": isNote,
 				}
 			)}>
-				<span class="text-muted-foreground">
-					{props.key}:
-				</span>
-				<span class={cn(
-					{
-						"font-medium": !isNote,
-						"whitespace-pre-wrap": isNote || props.isUrl,
-					}
-				)}>
-					{
-						props.value
-							?
-							props.isDate
-								?
-								isoDateTimeToDateInput(props.value as string)
-								:
-								isPrice
-									?
-									// Use navigator.language later.
-									new Intl.NumberFormat("sv-SE", {
+				<Show when={isEntry}>
+					<span class="text-muted-foreground">
+						{item.key}:
+					</span>
+				</Show>
+
+				<Switch>
+					<Match when={isEntry}>
+						<span class={cn(
+							{
+								"font-medium": !isNote,
+								"whitespace-pre-wrap": isNote || item.isUrl,
+							}
+						)}>
+							<Switch fallback="-">
+
+								<Match when={isDate}>
+									{isoDateTimeToDateInput(item.value as string)}
+								</Match>
+
+								<Match when={isPrice}>
+									{new Intl.NumberFormat("sv-SE", {
+										// Use navigator.language later.
 										style: "currency",
 										currency: "SEK",
-									}).format(props.value as number)
-									:
-									props.isUrl
-										?
-										<a
-											href={`${props.value}`}
-											rel="noopener noreferrer"
-											target="_blank"
-											class="break-all"
-										>
-											{(props.value as string).replace(/^[a-z]+:\/\/(www\.)?/i, "")}
-										</a>
-										:
-										props.value
-							:
-							"-"
-					}
-				</span>
+									}).format(item.value as number)}
+								</Match>
+
+								<Match when={item.isUrl}>
+									<a
+										href={`${item.value}`}
+										rel="noopener noreferrer"
+										target="_blank"
+										class="break-all"
+									>
+										{(item.value as string).replace(/^[a-z]+:\/\/(www\.)?/i, "")}
+									</a>
+								</Match>
+
+								<Match when={typeof item.value === "string"}>
+									{item.value as string}
+								</Match>
+
+							</Switch>
+						</span>
+					</Match>
+
+					<Match when={isDocument}>
+						<Show when={Array.isArray(item.value) && item.value.length}>
+							<div class="flex flex-col space-y-6">
+								<For each={item.value as FileCollectionItem[]}>
+									{(file) => <FileSource file={file} />}
+								</For>
+							</div>
+						</Show>
+					</Match>
+
+					<Match when={isImage}>
+						<FileSource
+							file={item.value as unknown as FileCollectionItem}
+							image
+						/>
+					</Match>
+				</Switch>
 			</div>
 		)
 	};
@@ -214,6 +288,16 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 			{
 				key: "Anteckningar",
 				value: props.weapon.notes,
+			},
+			{
+				isFile: true,
+				key: "",
+				value: props.weapon.image,
+			},
+			{
+				isFile: true,
+				key: "Dokument",
+				value: props.weapon.expand?.documents,
 			},
 		]);
 	});
