@@ -22,4 +22,10 @@ To use it with this PWA you can either set it up locally and serve it from there
 
 For instructions on local hosting, simply follow the [Pocketbase docs](https://pocketbase.io/docs/).
 
-For Railway, see instructions [here](https://github.com/axelra82/rangelog/blob/master/infrastructure/adapters/pocketbase/_setup/RAILWWAY.md).
+For Railway, see instructions [here](https://github.com/axelra82/rangelog/blob/master/infrastructure/adapters/pocketbase/_setup/RAILWAY.md).
+
+## Initial setup
+
+Once you have your Pocketbase setup you will need to import the `collections` provided in `_setup`. Login to your Pocketbase go to `settings > Import collections`.
+
+You now have everything you need to get started with Pocketbase for Rangelog.

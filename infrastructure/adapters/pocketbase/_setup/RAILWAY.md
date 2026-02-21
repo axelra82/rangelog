@@ -26,9 +26,11 @@ Create your free account on [railway.com](https://railway.com).
 
   - Assign the volume to your service.
 
-You are now done with the initial setup. Continue with deploying the app (see [ instructions]() for building app) to your service and finally creating initial super user for you Pocketbase admin.
+You are now done with the initial setup. Continue with deploying the app (see [ instructions](#building-app) for building app) to your service and finally creating initial super user for you Pocketbase admin.
 
 ## Building app
+
+Make sure to follow the environment instructions in the main [README](https://github.com/axelra82/rangelog/blob/master/README.md) before you continue. You will need `.env.production` in place (or any other build time variable handling).
 
 - Build.
 
@@ -38,7 +40,7 @@ You are now done with the initial setup. Continue with deploying the app (see [ 
 
 `tar -czf dist.tar.gz -C /PATH/TO/APP/DIST/FOLDER dist`
 
-- Upload
+- Upload.
 
 Share your file from a publicly available source.
 
