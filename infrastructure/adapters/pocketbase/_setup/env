@@ -1,0 +1,15 @@
+# Remember to append `.` to this filename when using.
+
+# Forgotten super user account; create new in container.
+# pocketbase superuser upsert newemail@example.com newpassword123
+
+# Create initial pocketbase superuser
+# ./pocketbase superuser upsert EMAIL PASSWD
+
+COMPOSE_PROJECT_NAME=apps
+
+# Rangelog
+RANGELOG_PORT=8090
+RANGELOG_PATH=./PATH/TO/APP/CONTAINER/MOUNTS
+RANGELOG_ADMIN_EMAIL=email@example.com
+RANGELOG_ADMIN_PASSWORD=SOME-SAFE-PASSWORD
