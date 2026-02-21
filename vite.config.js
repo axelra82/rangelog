@@ -44,7 +44,7 @@ export default defineConfig(({ mode }) => {
 				workbox: {
 					cleanupOutdatedCaches: true,
 					// Critical: exclude /_/ from fallback, for pocketbase super user login.
-					navigateFallbackDenylist: [/^\/_\//],
+					navigateFallbackDenylist: [/^\/_\//, /^\/api\//],
 				},
 				manifest: {
 					background_color: "#0F0E14",
