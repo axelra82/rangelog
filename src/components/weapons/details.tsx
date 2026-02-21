@@ -24,7 +24,7 @@ import {
 } from "~/components";
 import { useStore } from "~/store";
 import type { WeaponCollectionItem } from "~/types";
-import { cn } from "~/utilities";
+import { cn, isoDateTimeToDateInput } from "~/utilities";
 
 export interface DetailsControl {
 	open: () => void;
@@ -43,9 +43,10 @@ interface WeaponDetailsProps {
 }
 
 interface DetailItemProps {
+	isUrl?: boolean;
 	isDate?: boolean;
 	key: string;
-	value?: string;
+	value?: string | number;
 }
 
 export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
@@ -71,10 +72,11 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 
 	const DetailItem: Component<DetailItemProps> = (props) => {
 		const isNote = props.key === "Anteckningar";
+		const isPrice = props.key === "Pris";
 
 		return (
 			<div class={cn(
-				"flex gap-4",
+				"flex gap-2",
 				{
 					"flex-col": isNote,
 				}
@@ -85,7 +87,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 				<span class={cn(
 					{
 						"font-medium": !isNote,
-						"whitespace-pre-wrap": isNote,
+						"whitespace-pre-wrap": isNote || props.isUrl,
 					}
 				)}>
 					{
@@ -93,9 +95,28 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 							?
 							props.isDate
 								?
-								new Date(props.value).toLocaleDateString("sv-SE")
+								isoDateTimeToDateInput(props.value as string)
 								:
-								props.value
+								isPrice
+									?
+									// Use navigator.language later.
+									new Intl.NumberFormat("sv-SE", {
+										style: "currency",
+										currency: "SEK",
+									}).format(props.value as number)
+									:
+									props.isUrl
+										?
+										<a
+											href={`${props.value}`}
+											rel="noopener noreferrer"
+											target="_blank"
+											class="break-all"
+										>
+											{(props.value as string).replace(/^[a-z]+:\/\/(www\.)?/i, "")}
+										</a>
+										:
+										props.value
 							:
 							"-"
 					}
@@ -134,6 +155,11 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 				value: props.weapon.brand,
 			},
 			{
+				isUrl: true,
+				key: "Produktlänk",
+				value: props.weapon.manufacturerUrl,
+			},
+			{
 				key: "Modell",
 				value: props.weapon.model,
 			},
@@ -169,8 +195,21 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 			},
 			{
 				isDate: true,
-				key: "Tillagd",
-				value: props.weapon.created,
+				key: "Inköpsdatum",
+				value: props.weapon.purchaseDate,
+			},
+			{
+				key: "Pris",
+				value: props.weapon.price,
+			},
+			{
+				key: "Säljare",
+				value: props.weapon.seller,
+			},
+			{
+				isUrl: true,
+				key: "Länk till säljare",
+				value: props.weapon.sellerUrl,
 			},
 			{
 				key: "Anteckningar",
@@ -189,11 +228,16 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 					position="right"
 					class={cn(
 						"space-y-6",
-						isMobile() ? "w-full border-l-0" : "w-lg",
+						isMobile() ? "border-l-0" : "",
 					)}>
 					<SheetHeader>
-						<SheetTitle class="flex items-center gap-2 text-2xl">
-							<LicenseExpiryIndicator size={10} licenseEnd={props.weapon.licenseEnd} /> {props.weapon.name}
+						<SheetTitle class="flex flex-col items-start space-y-1">
+							<div class="flex items-center gap-2 text-2xl">
+								<LicenseExpiryIndicator size={10} licenseEnd={props.weapon.licenseEnd} /> {props.weapon.name}
+							</div>
+							<div class="text-xs text-muted-foreground font-light">
+								Skapad {isoDateTimeToDateInput(props.weapon.created)}
+							</div>
 						</SheetTitle>
 					</SheetHeader>
 					<For each={items()}>

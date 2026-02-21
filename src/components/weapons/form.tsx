@@ -24,7 +24,6 @@ import {
 	CardContent,
 	CardHeader,
 	CardTitle,
-	ComboboxMultiSelectGridItem,
 	ConditionalWrapper,
 	DialogHeader,
 	DialogTitle,
@@ -52,17 +51,24 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 	const [_, setSearchParams] = useSearchParams();
 
 	const defaultFormValues = {
-		barrelLength: "",
+		barrelLength: undefined,
 		brand: "",
 		caliber: [],
-		classification: "",
+		classification: undefined,
+		documents: undefined,
 		federation: "",
+		image: undefined,
 		licenseEnd: undefined,
 		licenseStart: undefined,
 		model: "",
 		name: "",
-		notes: "",
+		notes: undefined,
 		owner: user().id,
+		price: undefined,
+		manufacturerUrl: undefined,
+		purchaseDate: undefined,
+		seller: undefined,
+		sellerUrl: undefined,
 		serialNumber: "",
 		type: "",
 	};
@@ -116,15 +122,22 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				brand: current.brand,
 				caliber: current.caliber,
 				classification: current.classification,
+				documents: current.documents,
 				federation: current.federation,
+				image: current.image,
 				licenseEnd: current.licenseEnd || undefined,
 				licenseStart: current.licenseStart || undefined,
+				manufacturerUrl: current.manufacturerUrl,
 				model: current.model,
 				name: current.name,
+				notes: current.notes,
 				owner: current.owner,
+				price: current.price,
+				purchaseDate: current.purchaseDate,
+				seller: current.seller,
+				sellerUrl: current.sellerUrl,
 				serialNumber: current.serialNumber,
 				type: current.type,
-				notes: current.notes,
 			};
 
 			if (editForm()) {
@@ -226,6 +239,15 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
+					key={"manufacturerUrl"}
+					onChange={handleInputChange}
+					required
+					title="Produktlänk"
+					type="text"
+					value={form().manufacturerUrl}
+				/>
+
+				<TextFieldInputGridItem
 					key={"model"}
 					onChange={handleInputChange}
 					required
@@ -295,6 +317,38 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					type="date"
 				/>
 
+				<TextFieldInputGridItem
+					key={"purchaseDate"}
+					value={form().purchaseDate || ""}
+					onChange={handleInputChange}
+					title="Inköpsdatum"
+					type="date"
+				/>
+
+				<TextFieldInputGridItem
+					key={"price"}
+					value={form().price}
+					onChange={handleInputChange}
+					title="Pris"
+					type="number"
+				/>
+
+				<TextFieldInputGridItem
+					key={"seller"}
+					value={form().seller || ""}
+					onChange={handleInputChange}
+					title="Säljare"
+					type="text"
+				/>
+
+				<TextFieldInputGridItem
+					key={"sellerUrl"}
+					value={form().sellerUrl || ""}
+					onChange={handleInputChange}
+					title="Länk till säljare"
+					type="text"
+				/>
+
 				<TextFieldAreaGridItem
 					key={"notes"}
 					onChange={handleInputChange}
@@ -354,18 +408,25 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 	createEffect(() => {
 		if (editForm()) {
 			formSet({
-				barrelLength: editForm()!.barrelLength || "",
+				barrelLength: editForm()!.barrelLength,
 				brand: editForm()!.brand,
 				caliber: editForm()!.caliber,
-				classification: editForm()!.classification || "",
+				classification: editForm()!.classification,
+				documents: editForm()!.documents || [],
 				federation: editForm()!.federation,
+				image: editForm()!.image,
 				licenseEnd: editForm()!.licenseEnd ? isoDateTimeToDateInput(editForm()!.licenseEnd!) : undefined,
 				licenseStart: editForm()!.licenseStart ? isoDateTimeToDateInput(editForm()!.licenseStart!) : undefined,
+				manufacturerUrl: editForm()!.manufacturerUrl,
 				model: editForm()!.model,
 				name: editForm()!.name,
-				notes: editForm()!.notes || "",
+				notes: editForm()!.notes,
 				owner: editForm()!.owner || user().id,
-				serialNumber: editForm()!.serialNumber || "",
+				price: editForm()!.price,
+				purchaseDate: editForm()!.purchaseDate ? isoDateTimeToDateInput(editForm()!.purchaseDate!) : undefined,
+				seller: editForm()!.seller,
+				sellerUrl: editForm()!.sellerUrl,
+				serialNumber: editForm()!.serialNumber,
 				type: editForm()!.type,
 			});
 		}
