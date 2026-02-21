@@ -1,5 +1,5 @@
-import { ParentComponent, Show } from "solid-js";
-import { A } from "@solidjs/router";
+import { createEffect, createMemo, ParentComponent, Show } from "solid-js";
+import { A, useLocation } from "@solidjs/router";
 import {
 	Avatar,
 	AvatarFallback,
@@ -18,6 +18,15 @@ export const LayoutMainMenu: ParentComponent = () => {
 		isMobile
 	} = useStore();
 
+	const router = useLocation();
+
+	const currentRoute = createMemo(() => {
+		const path = router.pathname.split("/")[1];
+		return `/${path}`;
+	});
+
+	const activeState = (route: string) => currentRoute() === route ? "default" : "ghost";
+
 	return (
 		<Show
 			when={isMobile()}
@@ -26,17 +35,30 @@ export const LayoutMainMenu: ParentComponent = () => {
 					<nav class="p-2 flex justify-between items-center max-w-4xl mx-auto">
 						<ul class="flex gap-2">
 							<li>
-								<Button variant="ghost" as={A} href="/">
+								<Button
+									as={A}
+									href="/"
+									variant={activeState("/")}
+								// variant="default"
+								>
 									Dashboard
 								</Button>
 							</li>
 							<li>
-								<Button variant="ghost" as={A} href="/activities">
+								<Button
+									as={A}
+									href="/activities"
+									variant={activeState("/activities")}
+								>
 									Aktiviteter
 								</Button>
 							</li>
 							<li>
-								<Button variant="ghost" as={A} href="/weapons">
+								<Button
+									as={A}
+									href="/weapons"
+									variant={activeState("/weapons")}
+								>
 									Vapen
 								</Button>
 							</li>
