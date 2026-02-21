@@ -57,7 +57,7 @@ export interface UserCollectionItem {
 
 export type UserCreateInput = Pick<
 	UserCollectionItem,
-	"activities" | "avatar" | "email" | "emailVisibility" | "name" | "password" | "passwordConfirm" | "weapons"
+	"avatar" | "email" | "emailVisibility" | "name" | "password" | "passwordConfirm"
 >;
 
 export type UserUpdateInput = Pick<

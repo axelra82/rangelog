@@ -16,8 +16,13 @@ import { ClientUser } from "~/types/user";
 import { useNavigate } from "@solidjs/router";
 import { Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Separator, showToast, Spinner, TextField, TextFieldInput, TextFieldLabel } from "~/components";
 import { cn, isoDateTimeToDateInput } from "~/utilities";
+import { useStore } from "~/store";
 
 const AdminPage = () => {
+	const {
+		user: storeUser,
+	} = useStore();
+
 	const navigate = useNavigate();
 
 	const [users, usersSet] = createSignal<ClientUser[]>([]);
@@ -135,50 +140,53 @@ const AdminPage = () => {
 										</div>
 									</div>
 
-									<div class="mt-4 md:mt-0">
-										<Dialog>
-											<DialogTrigger
-												as={Button}
-												variant="destructive"
-												disabled={workingOn() === user.id}
-												class="flex gap-4"
-											>
-												<Show
-													when={workingOn() === user.id}
-													fallback="Radera"
-												>
-													Raderar
-													<Spinner variant="secondary" />
-												</Show>
-											</DialogTrigger>
-											<DialogContent class="max-w-sm">
-												<DialogHeader>
-													<DialogTitle>
-														Är du säker på att du vill radera {user.email}?
-													</DialogTitle>
-												</DialogHeader>
-
-												<DialogDescription>
-													Detta kommer att ta bort användaren permanent. Denna åtgärd kan inte ångras.
-												</DialogDescription>
-
-												<DialogTrigger
-													as={Button}
-													variant="outline"
-												>
-													Avbryt
-												</DialogTrigger>
-
+									<Show when={user.id !== storeUser().id && !user.admin}>
+										<div class="mt-4 md:mt-0">
+											<Dialog>
 												<DialogTrigger
 													as={Button}
 													variant="destructive"
-													onClick={() => deleteUser(user.id, user.email)}
+													disabled={workingOn() === user.id}
+													class="flex gap-4"
 												>
-													Fortsätt
+													<Show
+														when={workingOn() === user.id}
+														fallback="Radera"
+													>
+														Raderar
+														<Spinner variant="secondary" />
+													</Show>
 												</DialogTrigger>
-											</DialogContent>
-										</Dialog>
-									</div>
+												<DialogContent class="max-w-sm">
+													<DialogHeader>
+														<DialogTitle>
+															Är du säker på att du vill radera {user.email}?
+														</DialogTitle>
+													</DialogHeader>
+
+													<DialogDescription>
+														Detta kommer att ta bort användaren permanent. Denna åtgärd kan inte ångras.
+													</DialogDescription>
+
+													<DialogTrigger
+														as={Button}
+														variant="outline"
+													>
+														Avbryt
+													</DialogTrigger>
+
+													<DialogTrigger
+														as={Button}
+														variant="destructive"
+														onClick={() => deleteUser(user.id, user.email)}
+													>
+														Fortsätt
+													</DialogTrigger>
+												</DialogContent>
+											</Dialog>
+										</div>
+									</Show>
+
 								</div>
 								<Separator isLast={users().length === index() + 1} />
 							</>
@@ -187,11 +195,11 @@ const AdminPage = () => {
 				</For>
 			</section>
 
-			<Card class="p-8 mt-8 space-y-6">
+			<Card class="p-4 mt-8 space-y-6">
 				<CardHeader>
 					<CardTitle>
 						<h1>
-							Skapa ny användare
+							Ny användare
 						</h1>
 					</CardTitle>
 				</CardHeader>
