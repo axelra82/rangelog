@@ -148,10 +148,9 @@ const TextFieldInputGridItem: Component<{
 	required?: boolean;
 	title: string;
 	type: "text" | "date" | "datetime-local" | "email" | "month" | "number" | "password" | "search" | "tel" | "time" | "url" | "week";
-	value: string;
+	value?: string | number;
 }> = (props) => (
 	<TextField
-		value={props.value}
 		onChange={(value) => props.onChange(props.key, value)}
 		class="grid md:grid-cols-2 grid-cols-1"
 		{...props.required && { required: true }}
@@ -160,7 +159,10 @@ const TextFieldInputGridItem: Component<{
 			{props.title}
 			{props.required && " *"}
 		</TextFieldLabel>
-		<TextFieldInput type={props.type} />
+		<TextFieldInput
+			value={props.value}
+			type={props.type}
+		/>
 	</TextField>
 );
 
