@@ -46,7 +46,7 @@ const DashboardPage = () => {
 				</nav>
 			</section>
 
-			<Card class="py-8 text-center">
+			<Card class="py-8 mx-4 text-center">
 				<CardHeader>
 					<CardTitle>
 						<h1>
