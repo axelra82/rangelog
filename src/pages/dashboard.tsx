@@ -5,11 +5,16 @@ import {
 	AddClaim,
 	AddActivity,
 	Palette,
+	Card,
+	CardHeader,
+	CardTitle,
+	CardContent,
 } from "~/components";
 import { useStore } from "~/store";
 
 const DashboardPage = () => {
 	const {
+		user,
 		weapons
 	} = useStore();
 
@@ -40,6 +45,32 @@ const DashboardPage = () => {
 					<AddWeapon />
 				</nav>
 			</section>
+
+			<Card class="py-8 text-center">
+				<CardHeader>
+					<CardTitle>
+						<h1>
+							Överblick
+						</h1>
+					</CardTitle>
+				</CardHeader>
+				<CardContent class="flex flex-col md:flex-row gap-12 justify-around mt-8">
+					<section>
+						<strong>Aktiviteter</strong>
+						<p class="text-7xl font-black">
+							{user().activities}
+						</p>
+					</section>
+
+					<section class="text-center">
+						<strong>Vapen</strong>
+						<p class="text-center text-7xl font-black">
+							{user().weapons}
+						</p>
+					</section>
+				</CardContent>
+			</Card>
+
 			{/* <Palette
 				colors={[
 					"info",

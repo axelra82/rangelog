@@ -39,6 +39,7 @@ export interface ReadListResponse<T> {
 }
 
 export interface UserCollectionItem {
+	activities: number;
 	admin: boolean;
 	avatar?: string;
 	created: string;
@@ -51,11 +52,12 @@ export interface UserCollectionItem {
 	tokenKey: string;
 	updated: string;
 	verified: boolean;
+	weapons: number;
 }
 
 export type UserCreateInput = Pick<
 	UserCollectionItem,
-	"avatar" | "email" | "emailVisibility" | "name" | "password" | "passwordConfirm"
+	"activities" | "avatar" | "email" | "emailVisibility" | "name" | "password" | "passwordConfirm" | "weapons"
 >;
 
 export type UserUpdateInput = Pick<
@@ -69,14 +71,21 @@ export interface WeaponCollectionItem {
 	caliber: Calibers[];
 	classification?: string;
 	created: string;
+	documents?: string[];
 	federation: Federations;
 	id: string;
+	image?: string;
 	licenseEnd?: string;
 	licenseStart?: string;
+	manufacturerUrl?: string;
 	model: string;
 	name: string;
 	notes?: string;
 	owner: string;
+	price?: number;
+	purchaseDate?: string;
+	seller?: string;
+	sellerUrl?: string;
 	serialNumber?: string;
 	type: WeaponTypes;
 	updated: string;
