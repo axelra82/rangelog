@@ -173,6 +173,7 @@ export interface ClaimCollectionItem {
 	date: string;
 	federation?: Federations;
 	id: string;
+	image?: string;
 	location?: string;
 	notes?: string;
 	owner: string;

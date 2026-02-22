@@ -5,7 +5,6 @@ import {
 	createEffect,
 	Setter,
 } from "solid-js";
-import { clubs } from "~/data/clubs";
 import { isoDateTimeToDateInput, todayISODate } from "~/utilities";
 import {
 	ClaimCreateInput,
@@ -32,11 +31,15 @@ import {
 	DialogContent,
 	DialogDescription,
 	DialogTrigger,
+	Label,
+	FileSource,
 } from "~/components";
 import { useSearchParams } from "@solidjs/router";
-import { claims as claimsApi } from "infrastructure";
-import { federations, Calibers, claims } from "~/data";
-
+import {
+	claims as claimsApi,
+	file as fileApi,
+} from "infrastructure";
+import { federations, clubs, claims } from "~/data";
 interface ManageActivityFormProps {
 	modal?: boolean;
 	modalControl?: Setter<boolean>;
@@ -52,14 +55,15 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 	const [_, setSearchParams] = useSearchParams();
 
 	const defaultFormValues = {
-		club: "",
+		club: undefined,
 		date: todayISODate(true),
-		location: "",
-		notes: "",
+		federation: undefined,
+		image: undefined,
+		location: undefined,
+		notes: undefined,
 		owner: user().id,
-		rangeMaster: "",
+		rangeMaster: undefined,
 		type: "",
-		federation: "",
 	};
 
 	const [form, formSet] = createSignal<ClaimCreateInput>(defaultFormValues);
@@ -74,18 +78,30 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 		}
 	}
 
+	const [existingImage, existingImageSet] = createSignal<string>();
+	const [pendingImage, pendingImageSet] = createSignal<File | null>(null);
+	const handleImageChange = (event: Event) => {
+		const input = event.target as HTMLInputElement;
+		pendingImageSet(() => input.files?.[0] ?? null);
+	};
+
+	let imageInputRef: HTMLInputElement | undefined;
+
+
 	const handleInputChange = (field: string, value: string | string[]) => {
 		formSet((prev) => ({ ...prev, [field]: value }));
 	};
 
-	const reformSet = () => {
+	const formReset = () => {
 		formSet(defaultFormValues);
+		existingImageSet();
+		pendingImageSet(null);
 	};
 
 	const cancelEdit = () => {
 		setSearchParams({ edit: undefined });
 		editFormSet();
-		reformSet();
+		formReset();
 		closeModal();
 	};
 
@@ -120,15 +136,15 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 			if (
 				!current.date
 				|| !current.type
-				|| !current.federation
 			) {
-				throw new Error("Ange datum, fordran och förbund.");
+				throw new Error("Ange datum och fordran.");
 			}
 
 			const claimData: ClaimCreateInput = {
 				club: current.club,
 				date: isoDateTimeToDateInput(current.date, true, true),
 				federation: current.federation,
+				image: current.image,
 				location: current.location,
 				notes: current.notes,
 				owner: user().id,
@@ -136,8 +152,36 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				type: current.type,
 			};
 
+			// Handle image
+			let imageId: string | undefined = current.image;
+
+			if (editForm() && !existingImage() && current.image) {
+				// Image was removed — delete the old file record
+				await fileApi.delete(current.image);
+				imageId = undefined;
+			}
+
+			const pending = pendingImage();
+			if (pending) {
+				const imageRecord = await fileApi.create({
+					owner: current.owner,
+					name: pending.name,
+					source: pending,
+					size: pending.size,
+					type: pending.type,
+				});
+				imageId = imageRecord.id;
+				pendingImageSet(null);
+			}
+
 			if (editForm()) {
-				const updatedItem = await claimsApi.update(editForm()!.id, claimData);
+				const updatedItem = await claimsApi.update(
+					editForm()!.id,
+					{
+						...claimData,
+						image: imageId,
+					},
+				);
 
 				claimsSet((prev) =>
 					prev.map((item) => (item.id === editForm()!.id ? updatedItem : item))
@@ -150,7 +194,10 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				});
 			} else {
 				// Create activity then junction records
-				const newItem = await claimsApi.create(claimData);
+				const newItem = await claimsApi.create({
+					...claimData,
+					image: imageId,
+				});
 
 				claimsSet((prev) => [...prev, newItem]);
 
@@ -160,7 +207,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 					duration: 3000,
 				});
 
-				reformSet();
+				formReset();
 			}
 
 			closeModal();
@@ -171,29 +218,6 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 		loadingSet(false);
 	};
 
-	createEffect(() => {
-		if (props.edit) editFormSet(props.edit);
-	});
-
-	createEffect(() => {
-		titleSet(editForm() ? "Redigera fordring" : "Spara fordring");
-	});
-
-	createEffect(() => {
-		if (editForm()) {
-			formSet({
-				club: editForm()!.club ?? "",
-				date: isoDateTimeToDateInput(editForm()!.date, true, true),
-				federation: editForm()!.federation,
-				location: editForm()!.location,
-				notes: editForm()!.notes || "",
-				owner: user().id,
-				rangeMaster: editForm()!.rangeMaster,
-				type: editForm()!.type,
-			});
-		}
-	});
-
 	const FormFields = () => (
 		<form onSubmit={handleSubmit} class="space-y-6">
 			<Show when={error()}>
@@ -202,66 +226,126 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				</Alert>
 			</Show>
 
-			<TextFieldInputGridItem
-				key="date"
-				onChange={handleInputChange}
-				required
-				title="Datum"
-				type="datetime-local"
-				value={form().date}
-			/>
+			<div class="space-y-6">
+				<TextFieldInputGridItem
+					key="date"
+					onChange={handleInputChange}
+					required
+					title="Datum"
+					type="datetime-local"
+					value={form().date}
+				/>
 
-			<SelectGridItem
-				key="club"
-				options={clubs.map((club) => club.name)}
-				placeholder="Välj klubb"
-				title="Klubb"
-				onChange={handleInputChange}
-				value={form().club || ""}
-			/>
+				<SelectGridItem
+					key="club"
+					options={clubs.map((club) => club.name)}
+					placeholder="Välj klubb"
+					title="Klubb"
+					onChange={handleInputChange}
+					value={form().club || ""}
+				/>
 
-			<TextFieldInputGridItem
-				key="location"
-				onChange={handleInputChange}
-				title="Plats"
-				type="text"
-				value={form().location || ""}
-			/>
+				<TextFieldInputGridItem
+					key="location"
+					onChange={handleInputChange}
+					title="Plats"
+					type="text"
+					value={form().location || ""}
+				/>
 
-			<TextFieldInputGridItem
-				key="rangeMaster"
-				onChange={handleInputChange}
-				title="Skjutledare"
-				type="text"
-				value={form().rangeMaster || ""}
-			/>
+				<TextFieldInputGridItem
+					key="rangeMaster"
+					onChange={handleInputChange}
+					title="Skjutledare"
+					type="text"
+					value={form().rangeMaster || ""}
+				/>
 
-			<SelectGridItem
-				key={"type"}
-				options={claims}
-				placeholder="Välj typ"
-				title="Fordran"
-				required
-				onChange={handleInputChange}
-				value={form().type}
-			/>
+				<SelectGridItem
+					key={"type"}
+					options={claims}
+					placeholder="Välj typ"
+					title="Fordran"
+					required
+					onChange={handleInputChange}
+					value={form().type}
+				/>
 
-			<SelectGridItem
-				key={"federation"}
-				options={federations}
-				placeholder="Välj förbund"
-				title="Förbund"
-				required
-				onChange={handleInputChange}
-				value={form().federation || ""}
-			/>
+				<SelectGridItem
+					key={"federation"}
+					options={federations}
+					placeholder="Välj förbund"
+					title="Förbund"
+					required
+					onChange={handleInputChange}
+					value={form().federation || ""}
+				/>
 
-			<TextFieldAreaGridItem
-				key="notes"
-				onChange={handleInputChange}
-				title="Egna Anteckningar"
-				value={form().notes || ""}
-			/>
+				<TextFieldAreaGridItem
+					key="notes"
+					onChange={handleInputChange}
+					title="Egna Anteckningar"
+					value={form().notes || ""}
+				/>
+			</div>
+
+			<div class="space-y-6">
+				<Label>
+					Bild
+				</Label>
+				<input
+					ref={imageInputRef}
+					type="file"
+					multiple
+					class="hidden"
+					onChange={handleImageChange}
+					accept="image/png,image/jpeg,image/jpg"
+				/>
+
+				<div class="flex gap-4 mt-2">
+					<Button
+						onClick={() => imageInputRef?.click()}
+						size="sm"
+						variant="outline"
+					>
+						Välj bild
+					</Button>
+
+					<Show when={pendingImage() || existingImage()}>
+						<Button
+							onClick={() => {
+								if (pendingImage()) {
+									pendingImageSet(null)
+								}
+								if (existingImage()) {
+									existingImageSet()
+								}
+							}}
+							size="sm"
+							variant="destructive"
+						>
+							Ta bort
+						</Button>
+					</Show>
+				</div>
+
+				<div class="w-full">
+					<Show when={existingImage()} keyed>
+						{
+							(image) =>
+								<FileSource
+									id={image}
+									size="1280x0"
+									image
+								/>
+						}
+					</Show>
+				</div>
+
+				<Show when={pendingImage()} keyed>
+					{(image) => <img src={URL.createObjectURL(image)} />}
+				</Show>
+			</div>
 
 			<div class="flex justify-between pt-4">
 				<div>
@@ -354,6 +438,32 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 			</Show>
 		</>
 	);
+
+	createEffect(() => {
+		if (props.edit) editFormSet(props.edit);
+	});
+
+	createEffect(() => {
+		titleSet(editForm() ? "Redigera fordring" : "Spara fordring");
+	});
+
+	createEffect(() => {
+		if (editForm()) {
+			existingImageSet(editForm()!.image);
+
+			formSet({
+				club: editForm()!.club ?? "",
+				date: isoDateTimeToDateInput(editForm()!.date, true, true),
+				federation: editForm()!.federation,
+				image: editForm()!.image,
+				location: editForm()!.location,
+				notes: editForm()!.notes || "",
+				owner: user().id,
+				rangeMaster: editForm()!.rangeMaster,
+				type: editForm()!.type,
+			});
+		}
+	});
 
 	return (
 		<ConditionalWrapper

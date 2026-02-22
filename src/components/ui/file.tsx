@@ -9,7 +9,7 @@ import {
 } from "solid-js";
 import { FileCollectionItem, Icons } from "~/types";
 import { file as fileApi } from "infrastructure";
-import { viewFile, downloadFile } from "~/utilities";
+import { viewFile, downloadFile, cn } from "~/utilities";
 import { Button } from "./button";
 import { Icon } from "./icon";
 import { lookup } from "node:dns";
@@ -46,11 +46,12 @@ const DownloadButton: Component<{
 );
 
 export const FileSource: Component<{
+	double?: boolean,
 	file?: FileCollectionItem,
+	id?: string,
 	image?: boolean,
 	show?: boolean,
-	double?: boolean,
-	id?: string,
+	size?: string;
 }> = (props) => {
 	const [url, urlSet] = createSignal("");
 	const [file, fileSet] = createSignal<FileCollectionItem>();
@@ -78,8 +79,13 @@ export const FileSource: Component<{
 			when={!props.image && file()}
 			fallback={
 				<img
-					class="w-full max-h-64 object-contain"
-					src={url()}
+					class={cn(
+						"w-full object-contain",
+						{
+							"max-h-64": !props.size,
+						}
+					)}
+					src={props.size ? `${url()}&thumb=${props.size}` : url()}
 				/>
 			}
 		>
