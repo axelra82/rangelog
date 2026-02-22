@@ -28,7 +28,7 @@ export const AddClaim: Component<AddClaimProps> = (props) => {
 				{...props.buttonClass && { class: props.buttonClass }}
 			>
 				<Icon icon={Icons.PLUS} />
-				Spara fordring
+				Spara fordran
 			</DialogTrigger>
 			<DialogContent>
 				<ClaimsForm

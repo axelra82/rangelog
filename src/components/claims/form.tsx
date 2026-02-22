@@ -112,7 +112,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 			claimsSet((prev) => prev.filter((item) => item.id !== editForm()!.id));
 
 			showToast({
-				description: "Fordringen raderades",
+				description: "Fordran raderades",
 				variant: "success",
 				duration: 3000,
 			});
@@ -202,7 +202,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				claimsSet((prev) => [...prev, newItem]);
 
 				showToast({
-					description: "Fordringen sparades",
+					description: "Fordran sparades",
 					variant: "success",
 					duration: 3000,
 				});
@@ -361,11 +361,11 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 							<DialogContent class="max-w-sm">
 								<DialogHeader>
 									<DialogTitle>
-										Är du säker på att du vill radera fordringen?
+										Är du säker på att du vill radera fordran?
 									</DialogTitle>
 								</DialogHeader>
 								<DialogDescription>
-									Detta kommer att ta bort fordringen permanent. Denna åtgärd kan inte ångras.
+									Detta kommer att ta bort fordran permanent. Denna åtgärd kan inte ångras.
 								</DialogDescription>
 								<DialogTrigger
 									as={Button}
@@ -444,7 +444,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 	});
 
 	createEffect(() => {
-		titleSet(editForm() ? "Redigera fordring" : "Spara fordring");
+		titleSet(editForm() ? "Redigera fordran" : "Spara fordran");
 	});
 
 	createEffect(() => {

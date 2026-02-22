@@ -314,7 +314,7 @@ const ActivitiesPage = () => {
 						when={claims().length}
 						fallback={
 							<h2>
-								Inga fordringar sparade.
+								Inge fordran sparad.
 							</h2>
 						}
 					>
