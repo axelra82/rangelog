@@ -187,7 +187,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 									{isoDateTimeToDateInput(item.value as string)}
 								</Match>
 
-								<Match when={isPrice}>
+								<Match when={isPrice && (item.value as number) > 0}>
 									{new Intl.NumberFormat("sv-SE", {
 										// Use navigator.language later.
 										style: "currency",
@@ -299,14 +299,14 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 			},
 			{
 				key: "Kaliber",
-				value: props.weapon.caliber.join(", "),
+				value: (props.weapon.caliber || []).join(", "),
 			},
 			{
 				key: "Förbund",
 				value: props.weapon.federation,
 			},
 			{
-				key: "Vapengrupp",
+				key: "Skytteform",
 				value: props.weapon.classification,
 			},
 			{
