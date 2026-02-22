@@ -90,21 +90,21 @@ export type FileUpdateInput = Pick<
 
 export interface WeaponCollectionItem {
 	barrelLength?: string;
-	brand: string;
-	caliber: Calibers[];
+	brand?: string;
+	caliber?: Calibers[];
 	classification?: string;
 	created: string;
 	documents?: string[];
 	expand?: {
 		"documents": FileCollectionItem[];
 	};
-	federation: Federations;
+	federation?: Federations;
 	id: string;
 	image?: string;
 	licenseEnd?: string;
 	licenseStart?: string;
 	manufacturerUrl?: string;
-	model: string;
+	model?: string;
 	name: string;
 	notes?: string;
 	owner: string;

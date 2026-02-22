@@ -57,15 +57,15 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 	const defaultFormValues = {
 		barrelLength: undefined,
-		brand: "",
+		brand: undefined,
 		caliber: [],
 		classification: undefined,
 		documents: undefined,
-		federation: "",
+		federation: undefined,
 		image: undefined,
 		licenseEnd: undefined,
 		licenseStart: undefined,
-		model: "",
+		model: undefined,
 		name: "",
 		notes: undefined,
 		owner: user().id,
@@ -74,7 +74,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 		purchaseDate: undefined,
 		seller: undefined,
 		sellerUrl: undefined,
-		serialNumber: "",
+		serialNumber: undefined,
 		type: "",
 	};
 
@@ -125,13 +125,10 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 			const current = form();
 
 			if (
-				!current.federation
-				|| !current.caliber.length
-				|| !current.type
-				|| !current.brand
-				|| !current.model
+				!current.type
+				|| !current.name
 			) {
-				throw new Error("Ange tillverkare, model, förbund, kaliber och typ.");
+				throw new Error("Ange name och typ.");
 			}
 
 			// Upload file first if one is pending
@@ -269,7 +266,6 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key={"brand"}
 					onChange={handleInputChange}
-					required
 					title="Tillverkare"
 					type="text"
 					value={form().brand}
@@ -286,7 +282,6 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key={"model"}
 					onChange={handleInputChange}
-					required
 					title="Modell"
 					type="text"
 					value={form().model}
@@ -297,9 +292,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					onChange={handleInputChange}
 					options={calibers}
 					placeholder="Kaliber"
-					required
 					title="Kaliber"
-					value={form().caliber}
+					value={form().caliber || []}
 					multiple
 				/>
 
@@ -332,9 +326,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					options={federations}
 					placeholder="Välj förbund"
 					title="Förbund"
-					required
 					onChange={handleInputChange}
-					value={form().federation}
+					value={form().federation || ""}
 				/>
 
 				<TextFieldInputGridItem
