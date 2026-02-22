@@ -1,7 +1,8 @@
 import { useSearchParams } from "@solidjs/router";
-import { weapons } from "infrastructure/services";
 import {
-	Accessor,
+	weapons as weaponsApi,
+} from "infrastructure";
+import {
 	Component,
 	createSignal,
 	For,
@@ -10,6 +11,7 @@ import {
 	Show,
 	Switch,
 } from "solid-js";
+
 import {
 	DialogTitle,
 	DialogContent,
@@ -25,19 +27,14 @@ import {
 	SheetContent,
 	SheetHeader,
 	SheetTitle,
-	Icon,
+	FileSource,
 } from "~/components";
 import { useStore } from "~/store";
-import { Icons, type FileCollectionItem, type WeaponCollectionItem } from "~/types";
+import {
+	FileCollectionItem,
+	WeaponCollectionItem
+} from "~/types";
 import { cn, isoDateTimeToDateInput } from "~/utilities";
-import { file as fileApi } from "infrastructure";
-import { downloadFile, viewFile } from "~/utilities/general";
-
-export interface DetailsControl {
-	open: () => void;
-	close: () => void;
-	isOpen: () => boolean;
-}
 
 export interface DetailsControl {
 	open: () => void;
@@ -77,104 +74,28 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 
 	const [_, setSearchParams] = useSearchParams();
 	const [items, itemsSet] = createSignal<DetailItemProps[]>([]);
-	let detailsControl: DetailsControl | undefined;
-
-	const ViewButton: Component<{
-		file: FileCollectionItem,
-		url: Accessor<string>,
-	}> = (props) => (
-		<Button
-			title={props.file.name}
-			size="sm"
-			onClick={() => viewFile(props.url())}
-		>
-			<Icon
-				icon={Icons.EYE}
-			/>
-		</Button>
-	);
-
-	const DownloadButton: Component<{
-		file: FileCollectionItem,
-		url: Accessor<string>,
-	}> = (props) => (
-		<Button
-			title={props.file.name}
-			size="sm"
-			onClick={() => downloadFile(props.url(), props.file.name)}
-		>
-			<Icon
-				icon={Icons.DOWNLOAD}
-			/>
-		</Button>
-	);
-
-	const FileSource: Component<{
-		file: FileCollectionItem,
-		image?: boolean,
-		show?: boolean,
-		double?: boolean,
-	}> = (props) => {
-		const [url, urlSet] = createSignal("");
-
-		onMount(async () => {
-			const resolved = await fileApi.getUrl(props.file);
-			urlSet(resolved);
-		});
-
-		return (
-			<Show
-				when={!props.image}
-				fallback={
-					<img
-						class="w-full max-h-64"
-						src={url()}
-					/>
-				}
-			>
-				<div class="flex gap-4 items-center">
-					<Switch fallback={
-						<DownloadButton file={props.file} url={url} />
-					}>
-						<Match when={props.double}>
-							<DownloadButton file={props.file} url={url} />
-							<ViewButton file={props.file} url={url} />
-						</Match>
-						<Match when={props.show}>
-							<ViewButton file={props.file} url={url} />
-						</Match>
-					</Switch>
-					<div class="text-sm text-muted-foreground break-all">
-						{props.file.name}
-					</div>
-				</div>
-			</Show >
-		);
-	};
 
 	const DetailItem: Component<DetailItemProps> = (item) => {
 		const isNote = item.key === "Anteckningar";
 		const isDate = item.value !== "" && item.isDate;
 		const isPrice = item.key === "Pris" && typeof item.value === "number";
-		const isImage = item.key === "" && item.isFile;
+		const isImage = item.isFile && item.key === "" && item.value;
 		const isDocument = item.key !== "" && item.isFile;
-		const isEntry = !isImage && !isDocument;
+		const isEntry = !isImage && !isDocument && item.key !== "";
 
 		return (
-			<div class={cn(
-				"flex gap-2",
-				{
-					"flex-col": isNote,
-				}
-			)}>
-				<Show when={isEntry}>
-					<span class="text-muted-foreground">
-						{item.key}:
-					</span>
-				</Show>
+			<Switch>
+				<Match when={isEntry}>
+					<div class={cn(
+						"flex gap-2",
+						{
+							"flex-col": isNote,
+						}
+					)}>
+						<span class="text-muted-foreground">
+							{item.key}
+						</span>
 
-				<Switch>
-					<Match when={isEntry}>
 						<span class={cn(
 							{
 								"font-medium": !isNote,
@@ -212,10 +133,13 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 
 							</Switch>
 						</span>
-					</Match>
+					</div>
+				</Match>
 
-					<Match when={isDocument}>
-						<Show when={Array.isArray(item.value) && item.value.length}>
+				<Match when={isDocument}>
+					<Show when={Array.isArray(item.value) && item.value.length}>
+						<div>
+							<Separator class="mb-8" />
 							<div class="flex flex-col space-y-6">
 								<For each={item.value as FileCollectionItem[]}>
 									{(file) => {
@@ -227,37 +151,50 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 									}}
 								</For>
 							</div>
-						</Show>
-					</Match>
+						</div>
+					</Show>
+				</Match>
 
-					<Match when={isImage}>
-						<FileSource
-							file={item.value as unknown as FileCollectionItem}
-							image
-						/>
-					</Match>
-				</Switch>
-			</div>
+				<Match when={isImage}>
+					<FileSource
+						image
+						id={item.value as string}
+					/>
+				</Match>
+			</Switch>
 		)
 	};
 
 	const editWeapon = (weapon: WeaponCollectionItem) => {
-		detailsControl?.close();
+		control.close();
 		setSearchParams({ edit: weapon.id });
 	};
 
-	const deleteWeapon = (id: string, name: string) => {
-		weapons.delete(id);
-		showToast({
-			title: "Raderat",
-			description: `${name} togs bort från vapenboken`,
-			variant: "warning",
-			duration: 3000,
-		});
+	const deleteWeapon = async (id: string, name: string) => {
+		try {
+			const response = await weaponsApi.delete(id);
 
-		weaponsSet((prev) => prev.filter((item) => item.id !== id));
-		detailsControl?.close();
-		detailsControl?.close();
+			if (!response) {
+				throw Error("DELETE WEAPON FAILED");
+			}
+
+			weaponsSet((prev) => prev.filter((item) => item.id !== id));
+			control.close();
+
+			showToast({
+				description: `${name} togs bort från vapenboken`,
+				variant: "success",
+				duration: 3000,
+			});
+		} catch (error) {
+			console.error(error);
+
+			showToast({
+				description: `${name} kunde inte raderas`,
+				variant: "error",
+				duration: 3000,
+			});
+		}
 	};
 
 	onMount(() => {

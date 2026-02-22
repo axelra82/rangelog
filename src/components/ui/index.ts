@@ -9,6 +9,7 @@ export * from "./checkbox";
 export * from "./combobox";
 export * from "./dialog";
 export * from "./dropdown-menu";
+export * from "./file";
 export * from "./flex";
 export * from "./grid";
 export * from "./icon";

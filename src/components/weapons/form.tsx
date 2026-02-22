@@ -32,7 +32,10 @@ import {
 	ConditionalWrapper,
 	DialogHeader,
 	DialogTitle,
+	FileSource,
+	Label,
 	SelectGridItem,
+	Separator,
 	showToast,
 	Spinner,
 	TextFieldAreaGridItem,
@@ -60,7 +63,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 		brand: undefined,
 		caliber: [],
 		classification: undefined,
-		documents: undefined,
+		documents: [],
 		federation: undefined,
 		image: undefined,
 		licenseEnd: undefined,
@@ -69,7 +72,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 		name: "",
 		notes: undefined,
 		owner: user().id,
-		price: undefined,
+		price: 0,
 		manufacturerUrl: undefined,
 		purchaseDate: undefined,
 		seller: undefined,
@@ -96,10 +99,19 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 	let fileInputRef: HTMLInputElement | undefined;
 
+	const [existingImage, existingImageSet] = createSignal<string>();
+	const [pendingImage, pendingImageSet] = createSignal<File | null>(null);
+	const handleImageChange = (event: Event) => {
+		const input = event.target as HTMLInputElement;
+		pendingImageSet(() => input.files?.[0] ?? null);
+	};
+
+	let imageInputRef: HTMLInputElement | undefined;
+
 	const cancelEdit = () => {
 		setSearchParams({ edit: undefined });
 		editFormSet();
-		reformSet();
+		formReset();
 	};
 
 	const handleInputChange = (
@@ -112,8 +124,12 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 		}));
 	};
 
-	const reformSet = () => {
+	const formReset = () => {
 		formSet(defaultFormValues);
+		existingDocumentsSet([]);
+		pendingFilesSet([]);
+		existingImageSet();
+		pendingImageSet(null);
 	};
 
 	const handleSubmit = async (event: Event) => {
@@ -131,31 +147,12 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				throw new Error("Ange name och typ.");
 			}
 
-			// Upload file first if one is pending
-			let documentIds: string[] = current.documents ?? [];
-
-			const files = pendingFiles();
-
-			if (files) {
-				for (const file of files) {
-					const fileRecord = await fileApi.create({
-						owner: current.owner,
-						name: file.name,
-						source: file,
-						size: file.size,
-						type: file.type,
-					});
-
-					documentIds.push(fileRecord.id);
-				}
-			}
-
 			const weaponData: WeaponCreateInput = {
 				barrelLength: current.barrelLength,
 				brand: current.brand,
 				caliber: current.caliber,
 				classification: current.classification,
-				documents: documentIds,
+				documents: current.documents,
 				federation: current.federation,
 				image: current.image,
 				licenseEnd: current.licenseEnd || undefined,
@@ -173,8 +170,63 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				type: current.type,
 			};
 
+			// Handle image
+			let imageId: string | undefined = current.image;
+
+			if (editForm() && !existingImage() && current.image) {
+				// Image was removed — delete the old file record
+				await fileApi.delete(current.image);
+				imageId = undefined;
+			}
+
+			const pending = pendingImage();
+			if (pending) {
+				const imageRecord = await fileApi.create({
+					owner: current.owner,
+					name: pending.name,
+					source: pending,
+					size: pending.size,
+					type: pending.type,
+				});
+				imageId = imageRecord.id;
+				pendingImageSet(null);
+			}
+
 			if (editForm()) {
-				const updatedItem = await weaponsApi.update(editForm()!.id, weaponData);
+				const originalDocumentIds = weaponData.documents || [];
+				const currentDocumentIds = existingDocuments().map((document) => document.id);
+				const removedIds = originalDocumentIds.filter((id) => !currentDocumentIds.includes(id));
+
+				// Delete removed documents.
+				for (const documentId of removedIds) {
+					await fileApi.delete(documentId);
+				}
+
+				// Upload new documents.
+				let documentIds = [...currentDocumentIds];
+				const files = pendingFiles();
+
+				if (files?.length) {
+					for (const file of files) {
+						const fileRecord = await fileApi.create({
+							owner: current.owner,
+							name: file.name,
+							source: file,
+							size: file.size,
+							type: file.type,
+						});
+						documentIds.push(fileRecord.id);
+					}
+				}
+
+				const updatedItem = await weaponsApi.update(
+					editForm()!.id,
+					{
+						...weaponData,
+						documents: documentIds,
+						image: imageId,
+					},
+				);
 
 				weaponsSet((prev) =>
 					prev.map((item) => (item.id === editForm()!.id ? updatedItem : item))
@@ -186,8 +238,34 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					variant: "success",
 					duration: 3000,
 				});
+
+				formReset();
 			} else {
-				const newItem = await weaponsApi.create(weaponData);
+				// Upload file first if one is pending
+				let documentIds: string[] = weaponData.documents || [];
+
+				const files = pendingFiles();
+
+				if (files?.length) {
+					for (const file of files) {
+						const fileRecord = await fileApi.create({
+							owner: current.owner,
+							name: file.name,
+							source: file,
+							size: file.size,
+							type: file.type,
+						});
+
+						documentIds.push(fileRecord.id);
+					}
+				}
+
+				const newItem = await weaponsApi.create({
+					...weaponData,
+					documents: documentIds,
+					image: imageId,
+				});
+
 				weaponsSet((prev) => [...prev, newItem]);
 
 				showToast({
@@ -197,8 +275,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					duration: 3000,
 				});
 
-				reformSet();
-				pendingFilesSet(null);
+				formReset();
 
 				if (props.modal && props.modalControl) {
 					props.modalControl(false);
@@ -268,7 +345,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					onChange={handleInputChange}
 					title="Tillverkare"
 					type="text"
-					value={form().brand}
+					value={form().brand || ""}
 				/>
 
 				<TextFieldInputGridItem
@@ -276,7 +353,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					onChange={handleInputChange}
 					title="Produktlänk"
 					type="text"
-					value={form().manufacturerUrl}
+					value={form().manufacturerUrl || ""}
 				/>
 
 				<TextFieldInputGridItem
@@ -284,7 +361,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					onChange={handleInputChange}
 					title="Modell"
 					type="text"
-					value={form().model}
+					value={form().model || ""}
 				/>
 
 				<SelectGridItem
@@ -340,42 +417,42 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 				<TextFieldInputGridItem
 					key={"licenseEnd"}
-					value={form().licenseEnd || ""}
 					onChange={handleInputChange}
 					title="Licens utgångsdatum"
 					type="date"
+					value={form().licenseEnd || ""}
 				/>
 
 				<TextFieldInputGridItem
 					key={"purchaseDate"}
-					value={form().purchaseDate || ""}
 					onChange={handleInputChange}
 					title="Inköpsdatum"
 					type="date"
+					value={form().purchaseDate || ""}
 				/>
 
 				<TextFieldInputGridItem
 					key={"price"}
-					value={form().price}
 					onChange={handleInputChange}
 					title="Pris"
 					type="number"
+					value={form().price}
 				/>
 
 				<TextFieldInputGridItem
 					key={"seller"}
-					value={form().seller || ""}
 					onChange={handleInputChange}
 					title="Säljare"
 					type="text"
+					value={form().seller || ""}
 				/>
 
 				<TextFieldInputGridItem
 					key={"sellerUrl"}
-					value={form().sellerUrl || ""}
 					onChange={handleInputChange}
 					title="Länk till säljare"
 					type="text"
+					value={form().sellerUrl || ""}
 				/>
 
 				<TextFieldAreaGridItem
@@ -386,99 +463,154 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 			</section>
 
-			<h3>
-				Dokument
-			</h3>
+			<section class="flex flex-col gap-8">
+				<div>
+					<Label>
+						Bild
+					</Label>
+					<input
+						ref={imageInputRef}
+						type="file"
+						multiple
+						class="hidden"
+						onChange={handleImageChange}
+						accept="image/png,image/jpeg,image/jpg"
+					/>
 
-			<input
-				ref={fileInputRef}
-				type="file"
-				multiple
-				class="hidden"
-				onChange={handleFilesChange}
-			/>
+					<div class="flex gap-4 mt-2">
+						<Button
+							onClick={() => imageInputRef?.click()}
+							size="sm"
+							variant="outline"
+						>
+							Välj bild
+						</Button>
 
-			<div class="flex gap-4">
-				<Button
-					onClick={() => fileInputRef?.click()}
-					size="sm"
-					variant="outline"
-				>
-					Välj filer
-				</Button>
+						<Show when={pendingImage() || existingImage()}>
+							<Button
+								onClick={() => {
+									if (pendingImage()) {
+										pendingImageSet(null)
+									}
+									if (existingImage()) {
+										existingImageSet()
+									}
+								}}
+								size="sm"
+								variant="destructive"
+							>
+								Ta bort
+							</Button>
+						</Show>
+					</div>
 
-				<Show when={pendingFiles()?.length}>
-					<Button
-						onClick={() => pendingFilesSet(null)}
-						size="sm"
-						variant="default"
-					>
-						Rensa
-					</Button>
-				</Show>
-			</div>
+					<div class="w-full">
+						<Show when={existingImage()} keyed>
+							{(image) => <FileSource id={image} image />}
+						</Show>
+					</div>
 
-			<Show when={existingDocuments().length}>
-				<div class="flex flex-col gap-4">
-					<For each={existingDocuments()}>
-						{(doc) => (
-							<div class="flex gap-2 items-center">
-								<Button
-									size="sm"
-									variant="destructive"
-									onClick={() => {
-										existingDocumentsSet((prev) => prev.filter((d) => d.id !== doc.id));
-										formSet((prev) => ({
-											...prev,
-											documents: prev.documents?.filter((id) => id !== doc.id) ?? [],
-										}));
-									}}
-								>
-									Ta bort
-								</Button>
-								<div class="text-sm text-muted-foreground">
-									{doc.name}
-								</div>
-							</div>
-						)}
-					</For>
+					<Show when={pendingImage()} keyed>
+						{(image) => <img src={URL.createObjectURL(image)} />}
+					</Show>
 				</div>
-			</Show>
 
-			<Show when={pendingFiles()?.length}>
-				<div class="flex flex-col gap-4">
-					<For each={pendingFiles()}>
-						{(pendingFile) => {
-							return (
-								<div class="flex gap-2 items-center">
-									<Button
-										size="sm"
-										variant="destructive"
-										onClick={() => {
-											pendingFilesSet((prev) => prev?.filter((item) => item.name !== pendingFile.name) ?? null)
-										}}
-									>
-										Ta bort
-									</Button>
-									<div class="text-sm text-muted-foreground">
-										{pendingFile.name}
+				<div>
+					<Label>
+						Dokument
+					</Label>
+					<input
+						ref={fileInputRef}
+						type="file"
+						multiple
+						class="hidden"
+						onChange={handleFilesChange}
+						accept="image/*,.pdf,.doc,.docx,.zip,.rar,.tar.gz"
+					/>
+
+					<div class="flex gap-4 my-4">
+						<Button
+							onClick={() => fileInputRef?.click()}
+							size="sm"
+							variant="outline"
+						>
+							Välj filer
+						</Button>
+
+						<Show when={pendingFiles()?.length}>
+							<Button
+								onClick={() => pendingFilesSet(null)}
+								size="sm"
+								variant="default"
+							>
+								Rensa
+							</Button>
+						</Show>
+					</div>
+
+					<Show when={existingDocuments().length}>
+						<div class="flex flex-col gap-4">
+							<For each={existingDocuments()}>
+								{(doc) => (
+									<div class="flex gap-2 items-center">
+										<Button
+											size="sm"
+											variant="destructive"
+											onClick={() => {
+												existingDocumentsSet((prev) => prev.filter((d) => d.id !== doc.id));
+												formSet((prev) => ({
+													...prev,
+													documents: prev.documents?.filter((id) => id !== doc.id) ?? [],
+												}));
+											}}
+										>
+											Ta bort
+										</Button>
+										<div class="text-sm text-muted-foreground">
+											{doc.name}
+										</div>
 									</div>
-								</div>
-							);
-						}}
-					</For>
-				</div>
-			</Show>
+								)}
+							</For>
+						</div>
+					</Show>
 
-			<div class="flex justify-end pt-4 gap-4">
-				<Show when={editForm()}>
-					<Button
-						variant="outline"
-						onClick={cancelEdit}
-					>
-						Avbryt
-					</Button>
-				</Show>
+					<Show when={pendingFiles()?.length}>
+						<div class="flex flex-col gap-4">
+							<For each={pendingFiles()}>
+								{(pendingFile) => {
+									return (
+										<div class="flex gap-2 items-center">
+											<Button
+												size="sm"
+												variant="destructive"
+												onClick={() => {
+													pendingFilesSet((prev) => prev?.filter((item) => item.name !== pendingFile.name) ?? null)
+												}}
+											>
+												Ta bort
+											</Button>
+											<div class="text-sm text-muted-foreground">
+												{pendingFile.name}
+											</div>
+										</div>
+									);
+								}}
+							</For>
+						</div>
+					</Show>
+				</div>
+			</section>
+
+			<Separator class="mt-4" />
+
+			<div class="flex justify-end py-4 gap-4">
+				<Button
+					variant="outline"
+					onClick={editForm() ? cancelEdit : formReset}
+				>
+					Avbryt
+				</Button>
 				<Button
 					type="submit"
 					disabled={loading()}
@@ -521,6 +653,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 	createEffect(() => {
 		if (editForm()) {
 			existingDocumentsSet(editForm()!.expand?.documents || []);
+			existingImageSet(editForm()!.image);
+
 			formSet({
 				barrelLength: editForm()!.barrelLength,
 				brand: editForm()!.brand,
