@@ -11,7 +11,7 @@ import { cn, isoDateTimeToDateInput, todayISODate } from "~/utilities";
 import {
 	ActivityCreateInput,
 	ActivityCollectionItem,
-	ActivityWeaponEntry,
+	ActivityWeaponCollectionItem,
 	ShootingEntry,
 	ReadListResponse,
 } from "~/types";
@@ -317,7 +317,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 		try {
 			const response = await activitiesWeaponsApi.read({
 				filter: `activity = "${activity.id}"`
-			}) as ReadListResponse<ActivityWeaponEntry>;
+			}) as ReadListResponse<ActivityWeaponCollectionItem>;
 
 			if (response.items.length === 0) {
 				shootingEntriesSet([defaultWeaponEntry]);
@@ -325,7 +325,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 			}
 
 			shootingEntriesSet(
-				response.items.map((entry: ActivityWeaponEntry) => ({
+				response.items.map((entry: ActivityWeaponCollectionItem) => ({
 					existingId: entry.id,
 					weapon: entry.weapon,
 					caliber: entry.caliber,

@@ -1,4 +1,4 @@
-import { ClaimCollectionItem, Icons } from "~/types";
+import { Icons } from "~/types";
 import {
 	Avatar,
 	AvatarFallback,
@@ -17,8 +17,9 @@ import {
 	Switch,
 } from "solid-js";
 import { getInitials, getYear } from "~/utilities";
+import { Claim } from "~/schemas";
 
-interface ClaimItemProps extends ClaimCollectionItem {
+interface ClaimItemProps extends Claim {
 	isLast: boolean;
 }
 

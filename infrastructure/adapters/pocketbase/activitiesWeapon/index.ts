@@ -1,15 +1,15 @@
 import {
-	ActivityWeaponEntry,
+	ActivityWeaponCollectionItem,
 	Collections,
-} from "~/types";
-import { pb } from "..";
+	pb,
+} from "..";
 
 export const pocketbaseDeleteActivityWeaponsByActivity = async (
 	activityId: string
 ): Promise<boolean> => {
 	const entries = await pb
 		.collection(Collections.ACTIVITIES_WEAPONS)
-		.getFullList<ActivityWeaponEntry>({
+		.getFullList<ActivityWeaponCollectionItem>({
 			filter: `activity = "${activityId}"`,
 		});
 

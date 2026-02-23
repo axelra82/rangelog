@@ -12,7 +12,7 @@ import {
 	auth as authApi,
 	user as userApi,
 } from "infrastructure";
-import { ClientUser } from "~/types/user";
+import { ClientUser } from "~/schemas/user";
 import { useNavigate } from "@solidjs/router";
 import { Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Separator, showToast, Spinner, TextField, TextFieldInput, TextFieldLabel } from "~/components";
 import { cn, isoDateTimeToDateInput } from "~/utilities";
@@ -124,19 +124,29 @@ const AdminPage = () => {
 											"pointer-events-none opacity-50": workingOn() === user.id,
 										}
 									)}>
-										<Show when={user.name}>
+										<Show
+											when={user.name}
+											fallback={
+												<div>
+													<strong>{user.email}</strong>
+												</div>
+											}
+										>
 											<h3>
-												{user.name}
+												{user.name} <span class="text-sm font-medium">({user.email})</span>
 											</h3>
 										</Show>
-										<div>
-											<strong>{user.email}</strong>
-										</div>
 										<div class="text-xs text-muted-foreground">
-											{user.id}
+											{user.id} | {isoDateTimeToDateInput(user.created)}
 										</div>
-										<div class="text-xs mt-2">
-											created: {isoDateTimeToDateInput(user.created)}
+
+										<div class="mt-4 space-y-2">
+											<div>
+												Aktiviteter: <strong>{user.activities}</strong>
+											</div>
+											<div>
+												Vapen: <strong>{user.weapons}</strong>
+											</div>
 										</div>
 									</div>
 

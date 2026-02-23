@@ -12,18 +12,32 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "~/components";
+
 import { useStore } from "~/store";
-import { Component, createSignal, For, onCleanup, onMount, Show } from "solid-js";
+
+import {
+	Component,
+	createSignal,
+	For,
+	onCleanup,
+	onMount,
+	Show,
+} from "solid-js";
+
 import {
 	activities as activitiesApi,
 	claims as claimsApi,
 } from "infrastructure";
+
 import {
-	ActivityCollectionItem,
-	ClaimCollectionItem,
 	Icons,
 	ReadListResponse,
 } from "~/types";
+
+import {
+	Activity,
+	Claim,
+} from "~/schemas";
 
 const ActivitiesPage = () => {
 	const {
@@ -90,7 +104,7 @@ const ActivitiesPage = () => {
 				sort: `${sort()}date`,
 				perPage,
 				page: activitiesCurrentPage(),
-			}) as ReadListResponse<ActivityCollectionItem>;
+			}) as ReadListResponse<Activity>;
 
 			if (activitiesCurrentPage() === 1) {
 				activitiesTotalSet(data.totalItems);
@@ -131,7 +145,7 @@ const ActivitiesPage = () => {
 				sort: `${sort()}date`,
 				perPage,
 				page: claimsCurrentPage(),
-			}) as ReadListResponse<ClaimCollectionItem>;
+			}) as ReadListResponse<Claim>;
 
 			if (claimsCurrentPage() === 1) {
 				claimsTotalSet(data.totalItems);

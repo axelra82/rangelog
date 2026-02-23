@@ -22,7 +22,7 @@ import {
 	CardTitle,
 	DetailsControl,
 } from "~/components";
-import { ActivityWeaponEntry, ReadListResponse, WeaponCollectionItem } from "~/types";
+import { ActivityWeaponCollectionItem, ReadListResponse, WeaponCollectionItem } from "~/types";
 import { activitiesWeapons } from "infrastructure";
 import { useLocation } from "@solidjs/router";
 
@@ -114,7 +114,7 @@ const WeaponsPage: Component = () => {
 									createEffect(async () => {
 										const activity = await activitiesWeapons.read({
 											filter: `weapon = "${weapon.id}"`
-										}) as ReadListResponse<ActivityWeaponEntry>;
+										}) as ReadListResponse<ActivityWeaponCollectionItem>;
 
 										if (activity.totalItems > 0) {
 											actSet(activity.totalItems);

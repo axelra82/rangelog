@@ -1,5 +1,6 @@
 import claimsData from "./claims.json";
 
-export const claims = claimsData;
+export const claims = claimsData as string[];
+export const claimsValues = claims as [string, ...string[]];
 
-export type Claims = typeof claims[number];
+export type Claims = typeof claimsValues[number];

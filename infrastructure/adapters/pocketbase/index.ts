@@ -29,6 +29,8 @@ export const pb = new PocketBase(pocketbaseURL, new LocalAuthStore(import.meta.e
 
 export * from "./activitiesWeapon";
 export * from "./authentication";
-export * from "./helpers";
 export * from "./files";
+export * from "./helpers";
+export * from "./schema";
+export * from "./types";
 export * from "./users";

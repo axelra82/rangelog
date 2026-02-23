@@ -7,16 +7,15 @@ import {
 	Match,
 	Accessor,
 } from "solid-js";
-import { FileCollectionItem, Icons } from "~/types";
 import { file as fileApi } from "infrastructure";
 import { viewFile, downloadFile, cn } from "~/utilities";
 import { Button } from "./button";
 import { Icon } from "./icon";
-import { lookup } from "node:dns";
-
+import { AppFile } from "~/schemas";
+import { Icons } from "~/types";
 
 const ViewButton: Component<{
-	file: FileCollectionItem,
+	file: AppFile,
 	url: Accessor<string>,
 }> = (props) => (
 	<Button
@@ -31,7 +30,7 @@ const ViewButton: Component<{
 );
 
 const DownloadButton: Component<{
-	file: FileCollectionItem,
+	file: AppFile,
 	url: Accessor<string>,
 }> = (props) => (
 	<Button
@@ -47,29 +46,38 @@ const DownloadButton: Component<{
 
 export const FileSource: Component<{
 	double?: boolean,
-	file?: FileCollectionItem,
+	file?: AppFile,
 	id?: string,
 	image?: boolean,
 	show?: boolean,
 	size?: string;
 }> = (props) => {
 	const [url, urlSet] = createSignal("");
-	const [file, fileSet] = createSignal<FileCollectionItem>();
+	const [file, fileSet] = createSignal<AppFile>();
 
 	onMount(async () => {
 		if (props.id) {
 			const response = await fileApi.read({ id: props.id }) as
-				FileCollectionItem;
+				AppFile;
 			fileSet(response);
 		} else {
 			fileSet(props.file);
 		}
 
 		if (file()) {
-			const resolved = await fileApi.getUrl(file()!);
-			urlSet(resolved);
+			try {
+				const resolved = await fileApi.getUrl(file()!);
+
+				if (resolved && resolved.trim().length > 0) {
+					urlSet(resolved);
+				} else {
+					console.error("URL was not generated or came back empty.");
+				}
+			} catch (error) {
+				console.error(error);
+			}
 		} else {
-			console.error("missing file");
+			console.error("Missing file.");
 			return;
 		}
 	});

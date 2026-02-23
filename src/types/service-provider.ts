@@ -1,22 +1,46 @@
 import {
 	ActivityCollectionItem,
 	ActivityCreateInput,
+	ActivityWeaponCollectionItem,
 	ActivityWeaponCreateInput,
-	ActivityWeaponEntry,
 	ClaimCollectionItem,
-	ClaimCreateInput,
 	Collections,
 	FileCollectionItem,
 	FileCreateInput,
-	ReadListRequest,
-	ReadListResponse,
-	ReadSingleOptions,
 	UserCollectionItem,
 	UserCreateInput,
 	WeaponCollectionItem,
 	WeaponCreateInput,
-} from "./pocketbase";
-import { ClientUser } from "./user";
+} from "infrastructure/adapters/pocketbase";
+
+import {
+	Activity,
+	ActivityWeapon,
+	AppFile,
+	Claim,
+	ClaimCreateInput,
+	ClientUser,
+	Weapon,
+} from "~/schemas";
+
+export interface ReadSingleOptions {
+	id: string;
+}
+
+export interface ReadListRequest {
+	expand?: string;
+	filter?: string;
+	page?: number;
+	perPage?: number;
+	sort?: string;
+}
+
+export interface ReadListResponse<T> {
+	items: T[];
+	page: number;
+	totalItems: number;
+	totalPages: number;
+}
 
 /**
 	* Backend (infrastructure) provider enum used to determine which backend to use at build time.
@@ -41,8 +65,7 @@ export type ProviderFunction = {
 		) => Promise<ActivityCollectionItem>;
 		read: (
 			options: ReadSingleOptions | ReadListRequest,
-			collection?: Collections.ACTIVITIES,
-		) => Promise<ActivityCollectionItem | ReadListResponse<ActivityCollectionItem>>;
+		) => Promise<Activity | ReadListResponse<Activity>>;
 		update: (
 			id: string,
 			data: any,
@@ -57,16 +80,15 @@ export type ProviderFunction = {
 		create: (
 			data: ActivityWeaponCreateInput,
 			collection?: Collections.ACTIVITIES_WEAPONS,
-		) => Promise<ActivityWeaponEntry>;
+		) => Promise<ActivityWeaponCollectionItem>;
 		read: (
 			options: ReadSingleOptions | ReadListRequest,
-			collection?: Collections.ACTIVITIES_WEAPONS,
-		) => Promise<ActivityWeaponEntry | ReadListResponse<ActivityWeaponEntry>>;
+		) => Promise<ActivityWeapon | ReadListResponse<ActivityWeapon>>;
 		update: (
 			id: string,
 			data: Partial<ActivityWeaponCreateInput>,
 			collection?: Collections.ACTIVITIES_WEAPONS,
-		) => Promise<ActivityWeaponEntry>;
+		) => Promise<ActivityWeaponCollectionItem>;
 		delete: (
 			id: string,
 			collection?: Collections.ACTIVITIES_WEAPONS,
@@ -86,8 +108,7 @@ export type ProviderFunction = {
 		) => Promise<ClaimCollectionItem>;
 		read: (
 			options: ReadSingleOptions | ReadListRequest,
-			collection?: Collections.CLAIMS,
-		) => Promise<ClaimCollectionItem | ReadListResponse<ClaimCollectionItem>>;
+		) => Promise<Claim | ReadListResponse<Claim>>;
 		update: (
 			id: string,
 			data: any,
@@ -104,9 +125,8 @@ export type ProviderFunction = {
 			collection?: Collections.FILES,
 		) => Promise<FileCollectionItem>;
 		read: (
-			options: ReadSingleOptions | ReadListRequest,
-			collection?: Collections.FILES,
-		) => Promise<FileCollectionItem | ReadListResponse<FileCollectionItem>>;
+			options: ReadSingleOptions | ReadListRequest
+		) => Promise<AppFile | ReadListResponse<AppFile>>;
 		update: (
 			id: string,
 			data: any,
@@ -116,7 +136,7 @@ export type ProviderFunction = {
 			id: string,
 			collection?: Collections.FILES,
 		) => Promise<boolean>;
-		getUrl: (record: FileCollectionItem) => Promise<string>;
+		getUrl: (record: AppFile) => Promise<string>;
 	};
 	user: {
 		create: (
@@ -124,9 +144,8 @@ export type ProviderFunction = {
 			collection?: Collections.USERS,
 		) => Promise<UserCollectionItem>;
 		read: (
-			options: ReadSingleOptions | ReadListRequest,
-			collection?: Collections.USERS,
-		) => Promise<UserCollectionItem | ReadListResponse<UserCollectionItem>>;
+			options: ReadSingleOptions | ReadListRequest
+		) => Promise<ClientUser | ReadListResponse<ClientUser>>;
 		update: (
 			id: string,
 			data: any,
@@ -146,9 +165,8 @@ export type ProviderFunction = {
 			collection?: Collections.WEAPONS,
 		) => Promise<WeaponCollectionItem>;
 		read: (
-			options: ReadSingleOptions | ReadListRequest,
-			collection?: Collections.WEAPONS,
-		) => Promise<WeaponCollectionItem | ReadListResponse<WeaponCollectionItem>>;
+			options: ReadSingleOptions | ReadListRequest
+		) => Promise<Weapon | ReadListResponse<Weapon>>;
 		update: (
 			id: string,
 			data: any,

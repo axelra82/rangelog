@@ -1,14 +1,14 @@
-import {
-	FileCollectionItem,
-} from "~/types";
-import { pb } from "..";
+import { AppFile } from "~/schemas";
+import { Collections, pb } from "..";
 
 export const pocketbaseGetFileUrl = async (
-	record: FileCollectionItem
+	record: AppFile
 ): Promise<string> => {
-
 	const token = await pb.files.getToken();
-	const url = pb.files.getURL(record, record.source, { token });
+	const url = pb.files.getURL({
+		...record,
+		collectionName: Collections.FILES,
+	}, record.source, { token });
 
 	return url;
 };

@@ -4,8 +4,8 @@ import { useStore } from "~/store";
 import {
 	ColorMode,
 	ReadListResponse,
-	WeaponCollectionItem,
 } from "~/types";
+
 import { Router } from "@solidjs/router";
 import { LoginPage } from "~/pages/login";
 import {
@@ -16,11 +16,14 @@ import {
 	onMount,
 	Switch,
 } from "solid-js";
+
 import {
 	auth as authApi,
 	weapons as weaponsApi,
 } from "infrastructure";
+
 import { FullPageLoader } from "~/components";
+import { Weapon } from "~/schemas";
 
 export const AuthChecker = () => {
 	const {
@@ -48,7 +51,7 @@ export const AuthChecker = () => {
 		if (isAuthenticated()) {
 			const weaponsData = await weaponsApi.read({
 				expand: "documents",
-			}) as ReadListResponse<WeaponCollectionItem>;
+			}) as ReadListResponse<Weapon>;
 			weaponsSet(weaponsData.items);
 		}
 	});

@@ -1,7 +1,7 @@
 import {
 	Collections,
-} from "~/types";
-import { pb } from "..";
+	pb,
+} from "..";
 
 export const pocketbaseUpdateUserEmail = async (
 	newEmail: string

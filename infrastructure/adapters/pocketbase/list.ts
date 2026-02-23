@@ -1,5 +1,4 @@
-import { Collections } from "~/types/pocketbase";
-import { pb } from "./";
+import { Collections, pb } from "./";
 import { RecordModel } from "pocketbase";
 
 const list = async <T = RecordModel>(

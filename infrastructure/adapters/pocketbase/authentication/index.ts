@@ -1,6 +1,5 @@
-import { Collections } from "~/types";
-import { pb } from "../";
-import { ClientUser } from "~/types/user";
+import { Collections, pb } from "../";
+import { ClientUser } from "~/schemas/user";
 
 export const pocketbaseAuthCheck = () => {
 	const validAuthUser = pb.authStore.isValid;

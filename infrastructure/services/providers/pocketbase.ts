@@ -10,12 +10,25 @@ import {
 	pocketbaseReadCollectionItem,
 	pocketbaseUpdateCollectionItem,
 	pocketbaseUpdateUserEmail,
+	pocketbaseActivitySchema,
+	pocketbaseActivityWeaponSchema,
+	pocketbaseAppFileSchema,
+	pocketbaseClaimSchema,
+	pocketbaseUserSchema,
+	pocketbaseWeaponSchema,
+	Collections,
 } from "infrastructure/adapters/pocketbase";
 
+import { ProviderFunction } from "~/types";
+
 import {
-	Collections,
-	ProviderFunction,
-} from "~/types";
+	normalizeActivity,
+	normalizeActivityWeapon,
+	normalizeAppFile,
+	normalizeClaim,
+	normalizeUser,
+	normalizeWeapon,
+} from "~/utilities";
 
 export const createPocketbaseProvider = (): ProviderFunction => ({
 	activities: {
@@ -26,6 +39,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.ACTIVITIES,
+			(raw) => normalizeActivity(raw, pocketbaseActivitySchema),
 		),
 		update: (
 			id,
@@ -48,6 +62,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.ACTIVITIES_WEAPONS,
+			(raw) => normalizeActivityWeapon(raw, pocketbaseActivityWeaponSchema),
 		),
 		update: (
 			id,
@@ -77,6 +92,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.CLAIMS,
+			(raw) => normalizeClaim(raw, pocketbaseClaimSchema),
 		),
 		update: (
 			id,
@@ -99,6 +115,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.FILES,
+			(raw) => normalizeAppFile(raw, pocketbaseAppFileSchema),
 		),
 		update: (
 			id,
@@ -122,6 +139,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.USERS,
+			(raw) => normalizeUser(raw, pocketbaseUserSchema),
 		),
 		update: (
 			id,
@@ -149,6 +167,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.WEAPONS,
+			(raw) => normalizeWeapon(raw, pocketbaseWeaponSchema),
 		),
 		update: (
 			id,

@@ -1,10 +1,13 @@
 import {
-	Collections,
 	ReadListRequest,
 	ReadListResponse,
 	ReadSingleOptions,
 } from "~/types";
-import { pb } from ".";
+
+import {
+	Collections,
+	pb,
+} from ".";
 
 export const pocketbaseCreateCollectionItem = async <T>(
 	data: { [key: string]: any; } | FormData | undefined,
@@ -23,19 +26,14 @@ export const pocketbaseCreateCollectionItem = async <T>(
 
 export const pocketbaseReadCollectionItem = async <T>(
 	options: ReadSingleOptions | ReadListRequest,
-	collection?: Collections,
-): Promise<T | ReadListResponse<T>> => {
-	if (!collection) {
-		throw Error("Missing collection for read");
-	}
+	collection: Collections,
+	normalize: (data: Record<string, any>) => Readonly<T>,
+): Promise<Readonly<T> | ReadListResponse<T>> => {
 
 	// SINGLE RECORD
 	if ("id" in options) {
-		const singleItem = await pb
-			.collection(collection)
-			.getOne<T>(options.id);
-
-		return singleItem;
+		const singleItem = await pb.collection(collection).getOne(options.id);
+		return normalize(singleItem);
 	}
 
 	// LIST MODE
@@ -49,7 +47,7 @@ export const pocketbaseReadCollectionItem = async <T>(
 
 	const result = await pb
 		.collection(collection)
-		.getList<T>(
+		.getList(
 			page,
 			perPage,
 			{
@@ -60,7 +58,7 @@ export const pocketbaseReadCollectionItem = async <T>(
 		);
 
 	return {
-		items: result.items,
+		items: result.items.map(normalize),
 		page: result.page,
 		totalPages: result.totalPages,
 		totalItems: result.totalItems,

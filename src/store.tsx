@@ -1,10 +1,4 @@
-import {
-	ActivityCollectionItem,
-	ClaimCollectionItem,
-	StoreContextProps,
-	WeaponCollectionItem,
-} from "./types";
-import { ColorMode } from "./types";
+import { ColorMode, StoreContextProps } from "./types";
 
 import {
 	createContext,
@@ -14,8 +8,9 @@ import {
 	JSXElement,
 	onMount,
 } from "solid-js";
-import { ClientUser } from "./types/user";
+import { ClientUser } from "./schemas/user";
 import MobileDetect from "mobile-detect";
+import { Activity, Claim, Weapon } from "./schemas";
 
 const STORAGE_KEY = "color-mode";
 const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.SYSTEM;
@@ -23,12 +18,12 @@ const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.
 const StoreContext = createContext<StoreContextProps>();
 
 export const StoreContextProvider = (props: { children: JSXElement }) => {
-	const [activities, activitiesSet] = createSignal<ActivityCollectionItem[]>([]);
+	const [activities, activitiesSet] = createSignal<Activity[]>([]);
 	const [activitiesTotal, activitiesTotalSet] = createSignal(0);
 	const [activitiesPageCount, activitiesPageCountSet] = createSignal(-1);
 	const [activitiesCurrentPage, activitiesCurrentPageSet] = createSignal(1);
 
-	const [claims, claimsSet] = createSignal<ClaimCollectionItem[]>([]);
+	const [claims, claimsSet] = createSignal<Claim[]>([]);
 	const [claimsTotal, claimsTotalSet] = createSignal(0);
 	const [claimsPageCount, claimsPageCountSet] = createSignal(-1);
 	const [claimsCurrentPage, claimsCurrentPageSet] = createSignal(1);
@@ -36,11 +31,13 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const [colorMode, colorModeSet] = createSignal<ColorMode>(savedMode);
 	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
 	const [user, userSet] = createSignal<ClientUser>({
+		activities: 0,
 		created: "",
 		email: "",
-		id: ""
+		id: "",
+		weapons: 0,
 	});
-	const [weapons, weaponsSet] = createSignal<WeaponCollectionItem[]>([]);
+	const [weapons, weaponsSet] = createSignal<Weapon[]>([]);
 	const [working, workingSet] = createSignal<boolean>(false);
 
 	const [isMobile, setIsMobile] = createSignal(false);

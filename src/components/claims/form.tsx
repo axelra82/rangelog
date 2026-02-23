@@ -5,12 +5,14 @@ import {
 	createEffect,
 	Setter,
 } from "solid-js";
-import { isoDateTimeToDateInput, todayISODate } from "~/utilities";
+
 import {
-	ClaimCreateInput,
-	ClaimCollectionItem,
-} from "~/types";
+	isoDateTimeToDateInput,
+	todayISODate,
+} from "~/utilities";
+
 import { useStore } from "~/store";
+
 import {
 	Alert,
 	AlertDescription,
@@ -34,16 +36,24 @@ import {
 	Label,
 	FileSource,
 } from "~/components";
+
 import { useSearchParams } from "@solidjs/router";
+
 import {
 	claims as claimsApi,
 	file as fileApi,
 } from "infrastructure";
+
 import { federations, clubs, claims } from "~/data";
+
+import {
+	Claim,
+	ClaimCreateInput,
+} from "~/schemas";
 interface ManageActivityFormProps {
 	modal?: boolean;
 	modalControl?: Setter<boolean>;
-	edit?: ClaimCollectionItem;
+	edit?: Claim;
 }
 
 export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
@@ -57,7 +67,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 	const defaultFormValues = {
 		club: undefined,
 		date: todayISODate(true),
-		federation: undefined,
+		federation: "",
 		image: undefined,
 		location: undefined,
 		notes: undefined,
@@ -67,7 +77,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 	};
 
 	const [form, formSet] = createSignal<ClaimCreateInput>(defaultFormValues);
-	const [editForm, editFormSet] = createSignal<ClaimCollectionItem>();
+	const [editForm, editFormSet] = createSignal<Claim>();
 	const [loading, loadingSet] = createSignal(false);
 	const [error, errorSet] = createSignal<string | null>(null);
 	const [title, titleSet] = createSignal<string>();
@@ -136,8 +146,9 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 			if (
 				!current.date
 				|| !current.type
+				|| !current.federation
 			) {
-				throw new Error("Ange datum och fordran.");
+				throw Error("Ange datum, fordran och förbund.");
 			}
 
 			const claimData: ClaimCreateInput = {

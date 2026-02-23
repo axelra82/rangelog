@@ -1,16 +1,15 @@
 import { Accessor, Setter } from "solid-js";
-import { ColorMode } from "./enum";
+import { ColorMode } from "~/types";
+
 import {
-	ActivityCollectionItem,
-	ClaimCollectionItem,
-	Collections,
-	WeaponCollectionItem,
-} from "./pocketbase";
-import { ClientUser } from "./user";
+	Activity,
+	Claim,
+	ClientUser,
+	Weapon,
+} from "~/schemas";
 
 export interface StoreFactoryProps {
 	storeItem: Setter<any>;
-	collection: Collections;
 	getOne?: {
 		id: string;
 		field: string;
@@ -24,16 +23,16 @@ export interface StoreFactoryProps {
 export type ResourceHelper<T> = T & { disabled: false };
 
 export interface StoreContextProps {
-	activities: Accessor<ActivityCollectionItem[]>;
-	activitiesSet: Setter<ActivityCollectionItem[]>;
+	activities: Accessor<Activity[]>;
+	activitiesSet: Setter<Activity[]>;
 	activitiesTotal: Accessor<number>;
 	activitiesTotalSet: Setter<number>;
 	activitiesPageCount: Accessor<number>;
 	activitiesPageCountSet: Setter<number>;
 	activitiesCurrentPage: Accessor<number>;
 	activitiesCurrentPageSet: Setter<number>;
-	claims: Accessor<ClaimCollectionItem[]>;
-	claimsSet: Setter<ClaimCollectionItem[]>;
+	claims: Accessor<Claim[]>;
+	claimsSet: Setter<Claim[]>;
 	claimsTotal: Accessor<number>;
 	claimsTotalSet: Setter<number>;
 	claimsPageCount: Accessor<number>;
@@ -47,8 +46,8 @@ export interface StoreContextProps {
 	colorModeSet: Setter<ColorMode>;
 	user: Accessor<ClientUser>;
 	userSet: Setter<ClientUser>;
-	weapons: Accessor<WeaponCollectionItem[]>;
-	weaponsSet: Setter<WeaponCollectionItem[]>;
+	weapons: Accessor<Weapon[]>;
+	weaponsSet: Setter<Weapon[]>;
 	working: Accessor<boolean>;
 	workingSet: Setter<boolean>;
 }
