@@ -4,6 +4,7 @@ export const clientUserSchema = z.object({
 	activities: z.number(),
 	admin: z.boolean().optional(),
 	avatar: z.string().optional(),
+	claims: z.number(),
 	created: z.string(),
 	email: z.email(),
 	id: z.string(),

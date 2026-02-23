@@ -3,6 +3,7 @@ export interface UserCollectionItem {
 	activities: number;
 	admin: boolean;
 	avatar?: string;
+	claims: number;
 	created: string;
 	email: string;
 	emailVisibility: boolean;

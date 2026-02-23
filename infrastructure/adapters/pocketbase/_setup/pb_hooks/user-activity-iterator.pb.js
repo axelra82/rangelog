@@ -31,7 +31,7 @@ onRecordAfterCreateSuccess((event) => {
 	}
 
 	event.next();
-}, "activities", "weapons");
+}, "activities", "claims", "weapons");
 
 onRecordAfterDeleteSuccess((event) => {
 	try {
@@ -82,7 +82,7 @@ onRecordAfterDeleteSuccess((event) => {
 		}
 
 		// User count update (scoped to activities and weapons).
-		const scopedCollections = ["activities", "weapons"];
+		const scopedCollections = ["activities", "claims", "weapons"];
 		if (scopedCollections.includes(collection.name)) {
 			const userId = record.get("owner");
 

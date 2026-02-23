@@ -62,6 +62,13 @@ const DashboardPage = () => {
 						</p>
 					</section>
 
+					<section>
+						<strong>Fordningar</strong>
+						<p class="text-7xl font-black">
+							{user().claims}
+						</p>
+					</section>
+
 					<section class="text-center">
 						<strong>Vapen</strong>
 						<p class="text-center text-7xl font-black">

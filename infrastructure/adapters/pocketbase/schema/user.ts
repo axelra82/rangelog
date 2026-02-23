@@ -11,6 +11,7 @@ export const pocketbaseUserSchema: NormalizerSchema<ClientUser> = {
 	email: {},
 	name: {},
 	avatar: {},
+	claims: {},
 	created: {},
 	updated: {},
 	verified: {},
