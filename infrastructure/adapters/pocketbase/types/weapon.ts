@@ -29,10 +29,3 @@ export interface WeaponCollectionItem {
 	type: WeaponTypes;
 	updated: string;
 }
-
-export type WeaponCreateInput = Omit<
-	WeaponCollectionItem,
-	"created" | "id" | "updated"
->;
-
-export type WeaponUpdateInput = Partial<WeaponCreateInput>;

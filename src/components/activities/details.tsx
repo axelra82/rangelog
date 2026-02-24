@@ -1,4 +1,3 @@
-import { ActivityCollectionItem } from "~/types";
 import {
 	Avatar,
 	AvatarFallback,
@@ -16,8 +15,9 @@ import {
 } from "solid-js";
 import { getInitials, getYear } from "~/utilities";
 import { useStore } from "~/store";
+import { Activity } from "~/schemas";
 
-interface ActivityItemProps extends ActivityCollectionItem {
+interface ActivityItemProps extends Activity {
 	isLast: boolean;
 }
 

@@ -5,7 +5,7 @@ import { appFileSchema } from "./file";
 export const weaponSchema = z.object({
 	barrelLength: z.string().optional(),
 	brand: z.string().optional(),
-	caliber: z.array(z.enum(caliberValues)),
+	caliber: z.array(z.enum(caliberValues)).optional(),
 	classification: z.string().optional(),
 	created: z.string(),
 	documents: z.array(z.string()).optional(),
@@ -32,3 +32,10 @@ export const weaponSchema = z.object({
 });
 
 export type Weapon = z.infer<typeof weaponSchema>;
+
+export type WeaponCreateInput = Omit<
+	Weapon,
+	"id" | "created" | "updated"
+>;
+
+export type WeaponUpdateInput = Partial<Weapon>;

@@ -14,7 +14,9 @@ export const pocketbaseWeaponSchema: NormalizerSchema<Weapon> = {
 	created: {},
 	documents: {},
 	expand: {},
-	federation: {},
+	federation: {
+		transform: (value) => value === "" ? undefined : value,
+	},
 	id: {},
 	image: {},
 	licenseEnd: {},

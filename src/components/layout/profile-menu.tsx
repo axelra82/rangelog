@@ -1,4 +1,3 @@
-import { IconLogout, IconUser } from "@tabler/icons-solidjs";
 import { auth } from "infrastructure";
 import { Component, Show } from "solid-js";
 import { useStore } from "~/store";

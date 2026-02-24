@@ -1,4 +1,4 @@
-import { createEffect, createMemo, ParentComponent, Show } from "solid-js";
+import { createMemo, ParentComponent, Show } from "solid-js";
 import { A, useLocation } from "@solidjs/router";
 import {
 	Avatar,

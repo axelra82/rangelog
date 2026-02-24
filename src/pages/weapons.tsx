@@ -3,7 +3,9 @@ import {
 	createEffect,
 	createSignal,
 	For,
+	Match,
 	Show,
+	Switch,
 } from "solid-js";
 import { useStore } from "~/store";
 import {
@@ -21,10 +23,16 @@ import {
 	CardHeader,
 	CardTitle,
 	DetailsControl,
+	DialogContent,
+	Dialog,
+	FileSource,
+	AddWeapon,
+	Button,
 } from "~/components";
-import { ActivityWeaponCollectionItem, ReadListResponse, WeaponCollectionItem } from "~/types";
+import { ReadListResponse } from "~/types";
 import { activitiesWeapons } from "infrastructure";
 import { useLocation } from "@solidjs/router";
+import { ActivityWeapon, Weapon } from "~/schemas";
 
 const WeaponsPage: Component = () => {
 	const location = useLocation();
@@ -37,12 +45,13 @@ const WeaponsPage: Component = () => {
 		weapons,
 	} = useStore();
 
-	const [selectedWeapon, selectedWeaponSet] = createSignal<WeaponCollectionItem | null>(null);
-	const [editWeapon, editWeaponSet] = createSignal<WeaponCollectionItem>();
+	const [showEditDialog, showEditDialogSet] = createSignal<boolean>(false);
+	const [selectedWeapon, selectedWeaponSet] = createSignal<Weapon | null>(null);
+	const [editWeapon, editWeaponSet] = createSignal<Weapon>();
 
 	const [detailsControl, detailsControlSet] = createSignal<DetailsControl>();
 
-	const openDrawer = (weapon: WeaponCollectionItem) => {
+	const openDrawer = (weapon: Weapon) => {
 		selectedWeaponSet(weapon);
 		detailsControl()?.open();
 	};
@@ -71,8 +80,101 @@ const WeaponsPage: Component = () => {
 	});
 
 	return (
-		<section class="space-y-6">
-			<Show
+		<>
+			<Dialog
+				open={showEditDialog()}
+				onOpenChange={showEditDialogSet}
+			>
+				<DialogContent>
+					<WeaponForm
+						edit={editWeapon()}
+						modal
+						modalControl={showEditDialogSet}
+					/>
+				</DialogContent>
+			</Dialog>
+			<section>
+				<AddWeapon />
+			</section>
+
+			<Show when={selectedWeapon()} keyed>
+				{(weapon) => (
+					<WeaponDetails
+						weapon={weapon}
+						ref={(control) => detailsControlSet(control)}
+					/>
+				)}
+			</Show>
+			<section class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+				<Show when={weapons().length > 0}>
+					<For each={weapons()}>
+						{(weapon) => {
+							return (
+								<Card>
+									<CardContent class="flex flex-col h-full space-y-2">
+										<Show when={weapon.image}>
+											<FileSource
+												id={weapon.image}
+												image
+												class="mb-auto grow"
+											/>
+										</Show>
+
+										<h1 class="mt-4">
+											{weapon.name}
+										</h1>
+
+										<div>
+											<Show when={weapon.type}>
+												<strong>{weapon.type}</strong>
+											</Show>
+
+											<Show when={weapon.caliber}>
+												<For each={weapon.caliber}>
+													{(caliber) => <span class="mx-2 text-sm">{caliber}</span>}
+												</For>
+											</Show>
+										</div>
+
+										<Show when={weapon.brand || weapon.model}>
+											<div class="flex gap-4 text-sm text-muted-foreground">
+												<Switch>
+													<Match when={weapon.brand && weapon.model}>
+														{weapon.brand} | {weapon.model}
+													</Match>
+
+													<Match when={weapon.brand}>
+														{weapon.brand}
+													</Match>
+
+													<Match when={weapon.model}>
+														{weapon.model}
+													</Match>
+												</Switch>
+											</div>
+										</Show>
+
+										<div class="mt-auto">
+											<Button
+												variant="outline"
+												onClick={() => {
+													editWeaponSet(weapon);
+													showEditDialogSet((prev) => !prev);
+												}}
+												class="mt-4 w-full"
+											>
+												Mer
+											</Button>
+										</div>
+									</CardContent>
+								</Card>
+							);
+						}}
+					</For>
+				</Show>
+
+
+				{/* <Show
 				when={weapons().length > 0}
 				fallback={
 					<Card>
@@ -114,7 +216,7 @@ const WeaponsPage: Component = () => {
 									createEffect(async () => {
 										const activity = await activitiesWeapons.read({
 											filter: `weapon = "${weapon.id}"`
-										}) as ReadListResponse<ActivityWeaponCollectionItem>;
+										}) as ReadListResponse<ActivityWeapon>;
 
 										if (activity.totalItems > 0) {
 											actSet(activity.totalItems);
@@ -148,19 +250,9 @@ const WeaponsPage: Component = () => {
 						</TableBody>
 					</Table>
 				</div>
-			</Show>
-
-			<WeaponForm edit={editWeapon()} />
-
-			<Show when={selectedWeapon()} keyed>
-				{(weapon) => (
-					<WeaponDetails
-						weapon={weapon}
-						ref={(control) => detailsControlSet(control)}
-					/>
-				)}
-			</Show>
-		</section>
+			</Show> */}
+			</section >
+		</>
 	);
 };
 

@@ -19,7 +19,7 @@ const ViewButton: Component<{
 	url: Accessor<string>,
 }> = (props) => (
 	<Button
-		title={props.file.name}
+		title={`open ${props.file.name}`}
 		size="sm"
 		onClick={() => viewFile(props.url())}
 	>
@@ -34,7 +34,7 @@ const DownloadButton: Component<{
 	url: Accessor<string>,
 }> = (props) => (
 	<Button
-		title={props.file.name}
+		title={`download ${props.file.name}`}
 		size="sm"
 		onClick={() => downloadFile(props.url(), props.file.name)}
 	>
@@ -45,6 +45,7 @@ const DownloadButton: Component<{
 );
 
 export const FileSource: Component<{
+	class?: string;
 	double?: boolean,
 	file?: AppFile,
 	id?: string,
@@ -91,7 +92,8 @@ export const FileSource: Component<{
 						"w-full object-contain",
 						{
 							"max-h-64": !props.size,
-						}
+						},
+						props.class,
 					)}
 					src={props.size ? `${url()}&thumb=${props.size}` : url()}
 				/>
@@ -99,7 +101,10 @@ export const FileSource: Component<{
 		>
 			<Show when={file()} keyed>
 				{(localFile) => (
-					<div class="flex gap-4 items-center">
+					<div class={cn(
+						"flex gap-4 items-center",
+						props.class,
+					)}>
 						<Switch fallback={
 							<DownloadButton file={localFile} url={url} />
 						}>
@@ -111,7 +116,10 @@ export const FileSource: Component<{
 								<ViewButton file={localFile} url={url} />
 							</Match>
 						</Switch>
-						<div class="text-sm text-muted-foreground break-all">
+						<div class={cn(
+							"text-sm text-muted-foreground break-all",
+							props.class,
+						)}>
 							{localFile.name}
 						</div>
 					</div>

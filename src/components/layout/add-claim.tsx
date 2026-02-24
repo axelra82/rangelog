@@ -1,4 +1,3 @@
-import { IconPlus } from "@tabler/icons-solidjs";
 import { Component, createSignal } from "solid-js";
 import {
 	Button,

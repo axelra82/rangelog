@@ -1,5 +1,4 @@
 import { Component, createSignal } from "solid-js";
-import { IconPlus } from "@tabler/icons-solidjs";
 import {
 	Button,
 	Dialog,

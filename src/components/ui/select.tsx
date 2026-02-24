@@ -206,7 +206,7 @@ const SelectGridItem: Component<{
 	placeholder: string;
 	required?: boolean;
 	title: string;
-	value: string | string[];
+	value?: string | string[];
 }> = (props) => (
 	<div class="grid md:grid-cols-2 grid-cols-1">
 		<Label class="text-sm font-medium">

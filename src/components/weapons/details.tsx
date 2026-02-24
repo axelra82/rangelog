@@ -29,11 +29,11 @@ import {
 	SheetTitle,
 	FileSource,
 } from "~/components";
-import { useStore } from "~/store";
 import {
-	FileCollectionItem,
-	WeaponCollectionItem
-} from "~/types";
+	AppFile,
+	Weapon,
+} from "~/schemas";
+import { useStore } from "~/store";
 import { cn, isoDateTimeToDateInput } from "~/utilities";
 
 export interface DetailsControl {
@@ -43,7 +43,7 @@ export interface DetailsControl {
 }
 
 interface WeaponDetailsProps {
-	weapon: WeaponCollectionItem;
+	weapon: Weapon;
 	ref: (control: DetailsControl) => void;
 }
 
@@ -52,7 +52,7 @@ interface DetailItemProps {
 	isFile?: boolean;
 	isUrl?: boolean;
 	key: string;
-	value?: string | string[] | number | FileCollectionItem[];
+	value?: string | string[] | number | AppFile[];
 }
 
 export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
@@ -141,7 +141,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 						<div>
 							<Separator class="mb-8" />
 							<div class="flex flex-col space-y-6">
-								<For each={item.value as FileCollectionItem[]}>
+								<For each={item.value as AppFile[]}>
 									{(file) => {
 										return (
 											<div class="flex gap-2">
@@ -165,7 +165,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 		)
 	};
 
-	const editWeapon = (weapon: WeaponCollectionItem) => {
+	const editWeapon = (weapon: Weapon) => {
 		control.close();
 		setSearchParams({ edit: weapon.id });
 	};

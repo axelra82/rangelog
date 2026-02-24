@@ -15,11 +15,6 @@ import {
 	file as fileApi,
 	weapons as weaponsApi,
 } from "infrastructure";
-import {
-	FileCollectionItem,
-	WeaponCollectionItem,
-	WeaponCreateInput,
-} from "~/types";
 import { useStore } from "~/store";
 import {
 	Alert,
@@ -30,8 +25,12 @@ import {
 	CardHeader,
 	CardTitle,
 	ConditionalWrapper,
+	Dialog,
+	DialogContent,
+	DialogDescription,
 	DialogHeader,
 	DialogTitle,
+	DialogTrigger,
 	FileSource,
 	Label,
 	SelectGridItem,
@@ -44,10 +43,16 @@ import {
 import { useSearchParams } from "@solidjs/router";
 import { isoDateTimeToDateInput } from "~/utilities";
 
+import {
+	Weapon,
+	AppFile,
+	WeaponCreateInput,
+} from "~/schemas";
+
 interface WeaponFormProps {
 	modal?: boolean;
 	modalControl?: Setter<boolean>;
-	edit?: WeaponCollectionItem;
+	edit?: Weapon;
 }
 
 export const WeaponForm: Component<WeaponFormProps> = (props) => {
@@ -82,12 +87,12 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 	};
 
 	const [form, formSet] = createSignal<WeaponCreateInput>(defaultFormValues);
-	const [editForm, editFormSet] = createSignal<WeaponCollectionItem>();
+	const [editForm, editFormSet] = createSignal<Weapon>();
 	const [loading, loadingSet] = createSignal(false);
 	const [error, errorSet] = createSignal<string | null>(null);
 	const [title, titleSet] = createSignal<string>();
 
-	const [existingDocuments, existingDocumentsSet] = createSignal<FileCollectionItem[]>([]);
+	const [existingDocuments, existingDocumentsSet] = createSignal<AppFile[]>([]);
 	const [pendingFiles, pendingFilesSet] = createSignal<File[] | null>(null);
 	const handleFilesChange = (event: Event) => {
 		const input = event.target as HTMLInputElement;
@@ -130,6 +135,10 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 		pendingFilesSet([]);
 		existingImageSet();
 		pendingImageSet(null);
+
+		if (props.modal && props.modalControl) {
+			props.modalControl(false);
+		}
 	};
 
 	const handleSubmit = async (event: Event) => {
@@ -288,6 +297,36 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 		loadingSet(false);
 	};
 
+	const deleteWeapon = async (id: string, name: string) => {
+		try {
+			const response = await weaponsApi.delete(id);
+
+			if (!response) {
+				throw Error("DELETE WEAPON FAILED");
+			}
+
+			weaponsSet((prev) => prev.filter((item) => item.id !== id));
+
+			if (props.modal && props.modalControl) {
+				props.modalControl(false);
+			}
+			showToast({
+				description: `${name} togs bort från vapenboken`,
+				variant: "success",
+				duration: 3000,
+			});
+		} catch (error) {
+			console.error(error);
+
+			showToast({
+				description: `${name} kunde inte raderas`,
+				variant: "error",
+				duration: 3000,
+			});
+		}
+	};
+
+
 	const FormContent = () => (
 		<>
 			<Show when={props.modal}>
@@ -404,7 +443,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					placeholder="Välj förbund"
 					title="Förbund"
 					onChange={handleInputChange}
-					value={form().federation || ""}
+					value={form().federation}
 				/>
 
 				<TextFieldInputGridItem
@@ -551,24 +590,23 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					<Show when={existingDocuments().length}>
 						<div class="flex flex-col gap-4">
 							<For each={existingDocuments()}>
-								{(doc) => (
-									<div class="flex gap-2 items-center">
+								{(file) => (
+									<div class="flex gap-4 items-center">
 										<Button
 											size="sm"
 											variant="destructive"
 											onClick={() => {
-												existingDocumentsSet((prev) => prev.filter((d) => d.id !== doc.id));
+												existingDocumentsSet((prev) => prev.filter((d) => d.id !== file.id));
 												formSet((prev) => ({
 													...prev,
-													documents: prev.documents?.filter((id) => id !== doc.id) ?? [],
+													documents: prev.documents?.filter((id) => id !== file.id) ?? [],
 												}));
 											}}
 										>
 											Ta bort
 										</Button>
-										<div class="text-sm text-muted-foreground">
-											{doc.name}
-										</div>
+
+										<FileSource file={file} double />
 									</div>
 								)}
 							</For>
@@ -604,34 +642,77 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 			<Separator class="mt-4" />
 
-			<div class="flex justify-end py-4 gap-4">
-				<Button
-					variant="outline"
-					onClick={editForm() ? cancelEdit : formReset}
-				>
-					Avbryt
-				</Button>
-				<Button
-					type="submit"
-					disabled={loading()}
-					variant="success"
-				>
-					<Show
-						when={loading()}
-						fallback={
-							editForm()
-								? "Spara"
-								: "Lägg till"
-						}
+			<div class="flex justify-between items-center">
+				<Show when={props.edit} keyed>
+					{(weapon) =>
+						<div>
+							<Dialog>
+								<DialogTrigger
+									as={Button}
+									variant="destructive"
+									class="flex-1 w-full"
+								>
+									Ta bort
+								</DialogTrigger>
+								<DialogContent class="max-w-sm">
+									<DialogHeader>
+										<DialogTitle>
+											Är du säker på att du vill radera {weapon.name}?
+										</DialogTitle>
+									</DialogHeader>
+
+									<DialogDescription>
+										Detta kommer att ta bort vapnet permanent. Denna åtgärd kan inte ångras.
+									</DialogDescription>
+
+									<DialogTrigger
+										as={Button}
+										variant="outline"
+									>
+										Avbryt
+									</DialogTrigger>
+
+									<DialogTrigger
+										as={Button}
+										variant="destructive"
+										onClick={() => deleteWeapon(weapon.id, weapon.name)}
+									>
+										Fortsätt
+									</DialogTrigger>
+								</DialogContent>
+							</Dialog>
+						</div>
+					}
+				</Show>
+				<div class="flex justify-end py-4 gap-4">
+					<Button
+						variant="outline"
+						onClick={editForm() ? cancelEdit : formReset}
 					>
-						<Spinner
-							size="sm"
-							variant="white"
-							class="mr-2"
-						/>
-						Sparar...
-					</Show>
-				</Button>
+						Avbryt
+					</Button>
+					<Button
+						type="submit"
+						disabled={loading()}
+						variant="success"
+					>
+						<Show
+							when={loading()}
+							fallback={
+								editForm()
+									? "Spara"
+									: "Lägg till"
+							}
+						>
+							<Spinner
+								size="sm"
+								variant="white"
+								class="mr-2"
+							/>
+							Sparar...
+						</Show>
+					</Button>
+				</div>
 			</div>
 		</form>
 	);

@@ -32,6 +32,7 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
 	const [user, userSet] = createSignal<ClientUser>({
 		activities: 0,
+		claims: 0,
 		created: "",
 		email: "",
 		id: "",
