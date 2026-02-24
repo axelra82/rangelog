@@ -6,7 +6,6 @@ import {
 } from "solid-js";
 import {
 	ReadListResponse,
-	UserCollectionItem,
 } from "~/types";
 import {
 	auth as authApi,
@@ -31,7 +30,7 @@ const AdminPage = () => {
 	const getUsers = async () => {
 		const data = await userApi.read({
 			expand: "activities(id)"
-		}) as ReadListResponse<UserCollectionItem>;
+		}) as ReadListResponse<ClientUser>;
 
 		usersSet(data.items as unknown as ClientUser[]);
 	}
@@ -143,6 +142,9 @@ const AdminPage = () => {
 										<div class="mt-4 space-y-2">
 											<div>
 												Aktiviteter: <strong>{user.activities}</strong>
+											</div>
+											<div>
+												Fordringar: <strong>{user.claims}</strong>
 											</div>
 											<div>
 												Vapen: <strong>{user.weapons}</strong>
