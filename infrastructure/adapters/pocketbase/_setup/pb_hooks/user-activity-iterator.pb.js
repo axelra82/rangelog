@@ -5,33 +5,69 @@ onRecordAfterCreateSuccess((event) => {
 		const record = event.record;
 		const collection = record.collection();
 
-		const userId = record.get("owner");
-		if (userId) {
-			const user = $app.findRecordById("users", userId);
+		const userCountCollections = ["activities", "claims", "weapons"];
+		if (userCountCollections.includes(collection.name)) {
+			const userId = record.get("owner");
+			if (userId) {
+				const user = $app.findRecordById("users", userId);
 
-			if (user) {
-				const result = new DynamicModel({ total: 0 });
-				$app
-					.db()
-					.newQuery(
-						`SELECT COUNT(*) as total FROM ${collection.name} WHERE owner = {:owner}`
-					)
-					.bind({ owner: userId })
-					.one(result);
+				if (user) {
+					const result = new DynamicModel({ total: 0 });
+					$app
+						.db()
+						.newQuery(
+							`SELECT COUNT(*) as total FROM ${collection.name} WHERE owner = {:owner}`
+						)
+						.bind({ owner: userId })
+						.one(result);
 
-				const total = parseInt(result.total) || 0;
+					const total = parseInt(result.total) || 0;
 
 
-				user.set(collection.name, total);
-				$app.save(user);
+					user.set(collection.name, total);
+					$app.save(user);
+				}
+			}
+		}
+
+		if (collection.name === "activity_weapons") {
+			const weaponId = record.get("weapon");
+			if (weaponId) {
+				const weapon = $app.findRecordById("weapons", weaponId);
+
+				if (weapon) {
+					const activityStats = new DynamicModel({
+						total: 0,
+						rounds: 0,
+					});
+
+					$app
+						.db()
+						.newQuery(`
+							SELECT
+								COUNT(*) as total,
+								COALESCE(SUM(rounds), 0) as rounds
+							FROM activity_weapons
+							WHERE weapon = {:weapon}
+						`)
+						.bind({ weapon: weaponId })
+						.one(activityStats);
+
+					const totalWeaponActivities = parseInt(activityStats.total) || 0;
+					const totalRounds = parseInt(activityStats.rounds) || 0;
+
+					weapon.set("activities", totalWeaponActivities);
+					weapon.set("rounds", totalRounds);
+					$app.save(weapon);
+				}
 			}
 		}
 	} catch (error) {
-		console.error("CREATE: failed:", error);
+		console.error("CREATE hook failed: ", error);
 	}
 
 	event.next();
-}, "activities", "claims", "weapons");
+});
 
 onRecordAfterDeleteSuccess((event) => {
 	try {
@@ -81,9 +117,8 @@ onRecordAfterDeleteSuccess((event) => {
 			}
 		}
 
-		// User count update (scoped to activities and weapons).
-		const scopedCollections = ["activities", "claims", "weapons"];
-		if (scopedCollections.includes(collection.name)) {
+		const userCountCollections = ["activities", "claims", "weapons"];
+		if (userCountCollections.includes(collection.name)) {
 			const userId = record.get("owner");
 
 			if (userId) {
@@ -105,8 +140,41 @@ onRecordAfterDeleteSuccess((event) => {
 				}
 			}
 		}
+
+		if (collection.name === "activity_weapons") {
+			const weaponId = record.get("weapon");
+			if (weaponId) {
+				const weapon = $app.findRecordById("weapons", weaponId);
+
+				if (weapon) {
+					const activityStats = new DynamicModel({
+						total: 0,
+						rounds: 0,
+					});
+
+					$app
+						.db()
+						.newQuery(`
+							SELECT
+								COUNT(*) as total,
+								COALESCE(SUM(rounds), 0) as rounds
+							FROM activity_weapons
+							WHERE weapon = {:weapon}
+						`)
+						.bind({ weapon: weaponId })
+						.one(activityStats);
+
+					const totalWeaponActivities = parseInt(activityStats.total) || 0;
+					const totalRounds = parseInt(activityStats.rounds) || 0;
+
+					weapon.set("activities", totalWeaponActivities);
+					weapon.set("rounds", totalRounds);
+					$app.save(weapon);
+				}
+			}
+		}
 	} catch (error) {
-		console.error("DELETE hook failed:", error);
+		console.error("DELETE hook failed: ", error);
 	}
 
 	event.next();

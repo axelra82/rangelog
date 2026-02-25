@@ -2,9 +2,9 @@ import { Calibers } from "~/data";
 
 export interface ActivityWeaponCollectionItem {
 	activity: string;
-	caliber?: Calibers;
+	caliber: Calibers;
 	id: string;
-	rounds?: number;
+	rounds: number;
 	weapon: string;
 }
 
@@ -14,7 +14,7 @@ export type ActivityWeaponCreateInput = Omit<
 >;
 
 export interface ShootingEntry {
-	caliber?: Calibers;
-	rounds?: number;
+	caliber: Calibers;
+	rounds: number;
 	weapon: string;
 }

@@ -1,3 +1,4 @@
+import { activities } from "infrastructure/services";
 import {
 	Weapon,
 } from "~/schemas";
@@ -7,6 +8,7 @@ import {
 } from "~/types";
 
 export const pocketbaseWeaponSchema: NormalizerSchema<Weapon> = {
+	activities: {},
 	barrelLength: {},
 	brand: {},
 	caliber: {},
@@ -28,6 +30,7 @@ export const pocketbaseWeaponSchema: NormalizerSchema<Weapon> = {
 	owner: {},
 	price: {},
 	purchaseDate: {},
+	rounds: {},
 	seller: {},
 	sellerUrl: {},
 	serialNumber: {},

@@ -14,7 +14,7 @@ import {
 import { ClientUser } from "~/schemas/user";
 import { useNavigate } from "@solidjs/router";
 import { Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Separator, showToast, Spinner, TextField, TextFieldInput, TextFieldLabel } from "~/components";
-import { cn, isoDateTimeToDateInput } from "~/utilities";
+import { cn, dateTimeLocale } from "~/utilities";
 import { useStore } from "~/store";
 
 const AdminPage = () => {
@@ -136,7 +136,9 @@ const AdminPage = () => {
 											</h3>
 										</Show>
 										<div class="text-xs text-muted-foreground">
-											{user.id} | {isoDateTimeToDateInput(user.created)}
+											{user.id} | {dateTimeLocale({
+												dateTime: user.created,
+											})}
 										</div>
 
 										<div class="mt-4 space-y-2">

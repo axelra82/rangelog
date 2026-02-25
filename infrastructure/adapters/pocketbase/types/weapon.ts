@@ -2,6 +2,7 @@ import { Calibers, Federations, WeaponTypes } from "~/data";
 import { FileCollectionItem } from "./file";
 
 export interface WeaponCollectionItem {
+	activities?: number;
 	barrelLength?: string;
 	brand?: string;
 	caliber?: Calibers[];
@@ -23,6 +24,7 @@ export interface WeaponCollectionItem {
 	owner: string;
 	price?: number;
 	purchaseDate?: string;
+	rounds?: number;
 	seller?: string;
 	sellerUrl?: string;
 	serialNumber?: string;

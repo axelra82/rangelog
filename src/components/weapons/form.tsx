@@ -41,7 +41,7 @@ import {
 	TextFieldInputGridItem,
 } from "~/components";
 import { useSearchParams } from "@solidjs/router";
-import { isoDateTimeToDateInput } from "~/utilities";
+import { dateTimeLocale } from "~/utilities";
 
 import {
 	Weapon,
@@ -165,7 +165,9 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				federation: current.federation,
 				image: current.image,
 				licenseEnd: current.licenseEnd || undefined,
-				licenseStart: current.licenseStart || undefined,
+				licenseStart: current.licenseStart ? dateTimeLocale({
+					dateTime: current.licenseStart,
+				}) : undefined,
 				manufacturerUrl: current.manufacturerUrl,
 				model: current.model,
 				name: current.name,
@@ -744,15 +746,24 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				documents: editForm()!.documents || [],
 				federation: editForm()!.federation,
 				image: editForm()!.image,
-				licenseEnd: editForm()!.licenseEnd ? isoDateTimeToDateInput(editForm()!.licenseEnd!) : undefined,
-				licenseStart: editForm()!.licenseStart ? isoDateTimeToDateInput(editForm()!.licenseStart!) : undefined,
+				licenseEnd: editForm()!.licenseEnd ? dateTimeLocale({
+					dateTime: editForm()!.licenseEnd!,
+					withTime: false,
+				}) : undefined,
+				licenseStart: editForm()!.licenseStart ? dateTimeLocale({
+					dateTime: editForm()!.licenseStart!,
+					withTime: false,
+				}) : undefined,
 				manufacturerUrl: editForm()!.manufacturerUrl,
 				model: editForm()!.model,
 				name: editForm()!.name,
 				notes: editForm()!.notes,
 				owner: editForm()!.owner || user().id,
 				price: editForm()!.price,
-				purchaseDate: editForm()!.purchaseDate ? isoDateTimeToDateInput(editForm()!.purchaseDate!) : undefined,
+				purchaseDate: editForm()!.purchaseDate ? dateTimeLocale({
+					dateTime: editForm()!.purchaseDate!,
+					withTime: false,
+				}) : undefined,
 				seller: editForm()!.seller,
 				sellerUrl: editForm()!.sellerUrl,
 				serialNumber: editForm()!.serialNumber,

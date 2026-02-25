@@ -24,7 +24,7 @@ import {
 } from "~/components";
 import { Icons } from "~/types";
 import { useStore } from "~/store";
-import { isoDateTimeToDateInput } from "~/utilities";
+import { dateTimeLocale } from "~/utilities";
 import { A } from "@solidjs/router";
 
 const ProfilePage = () => {
@@ -169,7 +169,9 @@ const ProfilePage = () => {
 						<CardTitle>
 							Profilinformation
 							<p class="mt-2 text-xs font-light text-muted-foreground">
-								Konto skapat: {isoDateTimeToDateInput(user().created)}
+								Konto skapat: {dateTimeLocale({
+									dateTime: user().created,
+								})}
 							</p>
 						</CardTitle>
 					</CardHeader>

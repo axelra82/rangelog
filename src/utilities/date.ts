@@ -1,3 +1,5 @@
+import { DateTimeLocaleProps } from "~/types/date";
+
 const second = 1000;
 const minute = second * 60;
 const hour = minute * 60;
@@ -213,58 +215,46 @@ export const timestampToSeconds = (timestamp: number) => {
 };
 
 /**
-	* Creates a string with todays date in ISO format (full year-two numbered month-two numbered day), e.g. `2026-02-12`
+	* Convert ISO datetime string to format suitable for HTML date/datetime inputs
+	*
+	* @param dateTime ISO datetime string like "2025-01-05T10:30:00.000Z" or "2025-01-05 10:30:00.000Z"
+	* @param withTime Default `false`. If `true` returns "yyyy-MM-ddTHH:mm" for datetime-local input, otherwise "yyyy-MM-dd" for date input
+	* @param spacedTime Default `true`. If `false` for datetime-local input returns "yyyy-MM-ddTHH:mm" otherwise "yyyy-MM-dd HH:mm"
+	* @returns Formatted string for HTML input
+	*/
+export const dateTimeLocale = ({
+	dateTime,
+	spacedTime = true,
+	withTime = false,
+}: DateTimeLocaleProps): string => {
+	const date = new Date(dateTime);
+
+	const year = date.getUTCFullYear();
+	const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+	const day = String(date.getUTCDate()).padStart(2, "0");
+
+	if (withTime) {
+		const hours = String(date.getUTCHours()).padStart(2, "0");
+		const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+
+		return `${year}-${month}-${day}${spacedTime ? " " : "T"}${hours}:${minutes}`;
+	}
+
+	return `${year}-${month}-${day}`;
+};
+
+/**
+	* Wrapper for {@link dateTimeLocale} using todays date.
 	*
 	* @returns {string}
 	*/
-export const todayISODate = (
-	preserveTime = false,
-	spacedTime = false,
-): string => {
+export const dateTimeLocaleToday = (props?: Omit<DateTimeLocaleProps, "dateTime">): string => {
 	const date = new Date();
-
-	if (preserveTime) {
-		// Format for datetime-local input: "yyyy-MM-ddTHH:mm"
-		const year = date.getFullYear();
-		const month = String(date.getMonth() + 1).padStart(2, "0");
-		const day = String(date.getDate()).padStart(2, "0");
-		const hours = String(date.getHours()).padStart(2, "0");
-		const minutes = String(date.getMinutes()).padStart(2, "0");
-
-		return `${year}-${month}-${day}${spacedTime ? " " : "T"}${hours}:${minutes}:00`;
-	}
-
-	// Format for date input: "yyyy-MM-dd"
-	return date.toISOString().split("T")[0];
+	return dateTimeLocale({
+		dateTime: date.toISOString(),
+		...props,
+	});
 }
-
-/**
-	* Convert ISO datetime string to format suitable for HTML date/datetime inputs
-	*
-	* @param isoDateTime ISO datetime string like "2025-01-05T10:30:00.000Z" or "2025-01-05 10:30:00.000Z"
-	* @param withTime If true, returns "yyyy-MM-ddTHH:mm" for datetime-local input, otherwise "yyyy-MM-dd" for date input
-	* @returns Formatted string for HTML input
-	*/
-export const isoDateTimeToDateInput = (
-	isoDateTime: string,
-	withTime = false,
-	spacedTime = true,
-): string => {
-	const date = new Date(isoDateTime);
-
-	if (withTime) {
-		// Format for datetime-local input: "yyyy-MM-ddTHH:mm"
-		const year = date.getFullYear();
-		const month = String(date.getMonth() + 1).padStart(2, "0");
-		const day = String(date.getDate()).padStart(2, "0");
-		const hours = String(date.getHours()).padStart(2, "0");
-		const minutes = String(date.getMinutes()).padStart(2, "0");
-		return `${year}-${month}-${day}${spacedTime ? " " : "T"}${hours}:${minutes}:00`;
-	}
-
-	// Format for date input: "yyyy-MM-dd"
-	return date.toISOString().split("T")[0];
-};
 
 export const licenseExpiryStatusMessage = (licenseEnd?: string): {
 	message: string;
@@ -277,7 +267,7 @@ export const licenseExpiryStatusMessage = (licenseEnd?: string): {
 	const endDate = new Date(licenseEnd);
 	const today = new Date();
 	const sixMonthsFromNow = new Date();
-	sixMonthsFromNow.setMonth(today.getMonth() + 6);
+	sixMonthsFromNow.setUTCMonth(today.getUTCMonth() + 6);
 
 	const diffTime = endDate.getTime() - today.getTime();
 	const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));

@@ -3,6 +3,7 @@ import { caliberValues, federationValues, weaponValues } from "~/data";
 import { appFileSchema } from "./file";
 
 export const weaponSchema = z.object({
+	activities: z.number().optional(),
 	barrelLength: z.string().optional(),
 	brand: z.string().optional(),
 	caliber: z.array(z.enum(caliberValues)).optional(),
@@ -24,6 +25,7 @@ export const weaponSchema = z.object({
 	owner: z.string(),
 	price: z.number().optional(),
 	purchaseDate: z.string().optional(),
+	rounds: z.number().optional(),
 	seller: z.string().optional(),
 	sellerUrl: z.string().optional(),
 	serialNumber: z.string().optional(),

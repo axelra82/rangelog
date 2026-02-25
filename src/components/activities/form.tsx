@@ -7,12 +7,8 @@ import {
 	Setter,
 } from "solid-js";
 import { clubs } from "~/data/clubs";
-import { cn, isoDateTimeToDateInput, todayISODate } from "~/utilities";
+import { dateTimeLocale, dateTimeLocaleToday } from "~/utilities";
 import {
-	ActivityCreateInput,
-	ActivityCollectionItem,
-	ActivityWeaponCollectionItem,
-	ShootingEntry,
 	ReadListResponse,
 } from "~/types";
 import { useStore } from "~/store";
@@ -32,11 +28,6 @@ import {
 	Spinner,
 	TextFieldAreaGridItem,
 	Separator,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
 	showToast,
 	Label,
 	TextField,
@@ -54,6 +45,12 @@ import {
 	activitiesWeapons as activitiesWeaponsApi,
 } from "infrastructure";
 import { Calibers } from "~/data";
+import {
+	ActivityCollectionItem,
+	ShootingEntry,
+	ActivityCreateInput,
+	ActivityWeaponCollectionItem,
+} from "infrastructure/adapters/pocketbase";
 
 interface ManageActivityFormProps {
 	modal?: boolean;
@@ -76,7 +73,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 
 	const defaultFormValues = {
 		club: "",
-		date: todayISODate(true),
+		date: dateTimeLocaleToday(),
 		exercises: "",
 		location: "",
 		notes: "",
@@ -196,18 +193,22 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 			const current = form();
 
 			if (!current.date) {
-				throw new Error("Ange datum.");
+				throw Error("Ange datum.");
 			}
 
 			const activityData: ActivityCreateInput = {
 				club: current.club,
-				date: isoDateTimeToDateInput(current.date, true, true),
+				date: new Date(current.date).toLocaleString(),
 				exercises: current.exercises,
 				location: current.location,
 				notes: current.notes,
 				owner: user().id,
 				rangeMaster: current.rangeMaster,
 			};
+
+
+			console.log("–––––––––––––––––––––––––––");
+			console.log("activityData: ", activityData);
 
 			// Only save entries where a weapon has actually been selected
 			const validEntries = shootingEntries().filter((item) => item.weapon !== "");
@@ -284,7 +285,6 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 		});
 	};
 
-
 	createEffect(() => {
 		if (props.edit) editFormSet(props.edit);
 	});
@@ -297,7 +297,10 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 		if (editForm()) {
 			formSet({
 				club: editForm()!.club ?? "",
-				date: isoDateTimeToDateInput(editForm()!.date, true, true),
+				date: dateTimeLocale({
+					dateTime: editForm()!.date,
+					withTime: true
+				}),
 				exercises: editForm()!.exercises || "",
 				location: editForm()!.location,
 				notes: editForm()!.notes || "",

@@ -7,8 +7,8 @@ import {
 } from "solid-js";
 
 import {
-	isoDateTimeToDateInput,
-	todayISODate,
+	dateTimeLocale,
+	dateTimeLocaleToday,
 } from "~/utilities";
 
 import { useStore } from "~/store";
@@ -66,7 +66,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 
 	const defaultFormValues = {
 		club: undefined,
-		date: todayISODate(true),
+		date: dateTimeLocaleToday(),
 		federation: "",
 		image: undefined,
 		location: undefined,
@@ -153,7 +153,9 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 
 			const claimData: ClaimCreateInput = {
 				club: current.club,
-				date: isoDateTimeToDateInput(current.date, true, true),
+				date: dateTimeLocale({
+					dateTime: current.date,
+				}),
 				federation: current.federation,
 				image: current.image,
 				location: current.location,
@@ -464,7 +466,10 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 
 			formSet({
 				club: editForm()!.club ?? "",
-				date: isoDateTimeToDateInput(editForm()!.date, true, true),
+				date: dateTimeLocale({
+					dateTime: editForm()!.date,
+					withTime: true
+				}),
 				federation: editForm()!.federation,
 				image: editForm()!.image,
 				location: editForm()!.location,

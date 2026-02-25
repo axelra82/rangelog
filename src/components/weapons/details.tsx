@@ -34,7 +34,7 @@ import {
 	Weapon,
 } from "~/schemas";
 import { useStore } from "~/store";
-import { cn, isoDateTimeToDateInput } from "~/utilities";
+import { cn, dateTimeLocale } from "~/utilities";
 
 export interface DetailsControl {
 	open: () => void;
@@ -105,7 +105,9 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 							<Switch fallback="-">
 
 								<Match when={isDate}>
-									{isoDateTimeToDateInput(item.value as string)}
+									{dateTimeLocale({
+										dateTime: item.value as string,
+									})}
 								</Match>
 
 								<Match when={isPrice && (item.value as number) > 0}>
@@ -299,7 +301,9 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 								<LicenseExpiryIndicator size={10} licenseEnd={props.weapon.licenseEnd} /> {props.weapon.name}
 							</div>
 							<div class="text-xs text-muted-foreground font-light">
-								Skapad {isoDateTimeToDateInput(props.weapon.created)}
+								Skapad {dateTimeLocale({
+									dateTime: props.weapon.created,
+								})}
 							</div>
 						</SheetTitle>
 					</SheetHeader>
