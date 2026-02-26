@@ -55,7 +55,7 @@ const DialogContent = <T extends ValidComponent = "div">(
 			<DialogOverlay />
 			<DialogPrimitive.Content
 				class={cn(
-					"p-6 fixed left-1/2 top-1/2 z-50 grid max-h-[calc(100vh-4rem)] w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto border border-border bg-background shadow-lg duration-250 data-expanded:animate-in data-closed:animate-out data-closed:fade-out-0 data-expanded:fade-in-0 data-closed:slide-out-to-top-[48%] data-expanded:slide-in-from-top-[48%] sm:rounded-lg",
+					"p-6 fixed left-1/2 top-1/2 z-50 grid max-h-screen md:max-h-[calc(100vh-4rem)] w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto border border-border bg-background shadow-lg duration-250 data-expanded:animate-in data-closed:animate-out data-closed:fade-out-0 data-expanded:fade-in-0 data-closed:slide-out-to-top-[48%] data-expanded:slide-in-from-top-[48%] sm:rounded-lg",
 					props.class
 				)}
 				{...rest}
