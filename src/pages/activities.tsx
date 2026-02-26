@@ -287,11 +287,11 @@ const ActivitiesPage = () => {
 					value="activities"
 					class="data-selected:block hidden"
 				>
-					<Show when={activities().length}>
+					{/* <Show when={activities().length}>
 						<div class="my-8">
 							filter
 						</div>
-					</Show>
+					</Show> */}
 
 					<div class="bg-accent rounded-lg p-4">
 						<Show
