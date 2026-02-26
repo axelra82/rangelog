@@ -5,6 +5,7 @@ import {
 	Button,
 	ClaimItem,
 	Icon,
+	LoadingIndicator,
 	Separator,
 	Spinner,
 	Tabs,
@@ -224,16 +225,6 @@ const ActivitiesPage = () => {
 		});
 	});
 
-	const LoadingIndicator: Component = () => (
-		<>
-			<Separator class="my-6" />
-			<div class="flex flex-col gap-2 items-center">
-				<Spinner variant="primary" />
-				Hämtar
-			</div>
-		</>
-	);
-
 	const ShowingCount: Component<{ count: number, total: number }> = (props) => (
 		<>
 			<div class="flex items-center gap-4 ml-2 text-sm text-muted-foreground">
@@ -269,8 +260,8 @@ const ActivitiesPage = () => {
 	);
 
 	return (
-		<>
-			<nav class="py-8">
+		<section class="mt-8">
+			<nav>
 				<ul class="grid grid-cols-2 md:grid-cols-none md:flex gap-4">
 					<li>
 						<AddActivity buttonClass="w-full" />
@@ -281,7 +272,10 @@ const ActivitiesPage = () => {
 				</ul>
 			</nav>
 
-			<Tabs defaultValue="activities">
+			<Tabs
+				defaultValue="activities"
+				class="mt-8"
+			>
 				<TabsList class="grid grid-cols-2 md:w-52">
 					<TabsTrigger value="activities">Skytte</TabsTrigger>
 
@@ -291,32 +285,40 @@ const ActivitiesPage = () => {
 				<TabsContent
 					forceMount
 					value="activities"
-					class="my-8 bg-accent rounded-lg p-4 data-selected:block hidden"
+					class="data-selected:block hidden"
 				>
-					<Show
-						when={activities().length}
-						fallback={<h2>Inga skytteaktiviteter loggade.</h2>}
-					>
-						<ShowingCount
-							count={activities().length}
-							total={activitiesTotal()}
-						/>
+					<Show when={activities().length}>
+						<div class="my-8">
+							filter
+						</div>
 					</Show>
 
-					<For each={activities()}>
-						{(item, index) => (
-							<ActivityItem
-								{...item}
-								isLast={activities().length === index() + 1}
+					<div class="bg-accent rounded-lg p-4">
+						<Show
+							when={activities().length}
+							fallback={<h2>Inga skytteaktiviteter loggade.</h2>}
+						>
+							<ShowingCount
+								count={activities().length}
+								total={activitiesTotal()}
 							/>
-						)}
-					</For>
+						</Show>
 
-					<div ref={activitiesSentinelRef} class="h-1" />
+						<For each={activities()}>
+							{(item, index) => (
+								<ActivityItem
+									{...item}
+									isLast={activities().length === index() + 1}
+								/>
+							)}
+						</For>
 
-					<Show when={loadingActivities()}>
-						<LoadingIndicator />
-					</Show>
+						<div ref={activitiesSentinelRef} class="h-1" />
+
+						<Show when={loadingActivities()}>
+							<LoadingIndicator />
+						</Show>
+					</div>
 				</TabsContent>
 
 				<TabsContent
@@ -354,7 +356,7 @@ const ActivitiesPage = () => {
 					</Show>
 				</TabsContent>
 			</Tabs>
-		</>
+		</section>
 	);
 }
 

@@ -1,6 +1,6 @@
-// src/components/ui/spinner.tsx
 import { Component } from "solid-js";
 import { cn } from "~/utilities";
+import { Separator } from "~/components";
 
 interface SpinnerProps {
 	size?: "sm" | "md" | "lg" | "xl";
@@ -48,3 +48,25 @@ export const Spinner: Component<SpinnerProps> = (props) => {
 		</svg>
 	);
 };
+
+export const FullPageLoader: Component<{ message?: string }> = (props) => (
+	<div class="flex flex-col justify-center items-center w-screen h-screen bg-background gap-2">
+		<Spinner size="lg" />
+		{props.message && (
+			<p class="mt-2 text-sm text-muted-foreground">
+				{props.message}
+			</p>
+		)}
+	</div>
+);
+
+
+export const LoadingIndicator: Component = () => (
+	<>
+		<Separator class="my-6" />
+		<div class="flex flex-col gap-2 items-center">
+			<Spinner variant="primary" />
+			Hämtar
+		</div>
+	</>
+);
