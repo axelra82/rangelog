@@ -17,7 +17,6 @@ export const LayoutMainContent: ParentComponent = (props) => {
 		}>
 			<div class="p-4 max-w-4xl mx-auto">
 				{props.children}
-
 			</div>
 		</main>
 	);
