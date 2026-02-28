@@ -292,7 +292,7 @@ const ActivitiesPage = () => {
 						</div>
 					</Show> */}
 
-					<div class="bg-accent rounded-lg p-4">
+					<div class="my-8 bg-accent rounded-lg p-4">
 						<Show
 							when={activities().length}
 							fallback={<h2>Inga skytteaktiviteter loggade.</h2>}
