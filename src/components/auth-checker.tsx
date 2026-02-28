@@ -6,7 +6,7 @@ import {
 	ReadListResponse,
 } from "~/types";
 
-import { Router } from "@solidjs/router";
+import { Router, useLocation } from "@solidjs/router";
 import { LoginPage } from "~/pages/login";
 import {
 	createEffect,
@@ -24,6 +24,46 @@ import {
 
 import { FullPageLoader } from "~/components";
 import { Weapon } from "~/schemas";
+
+import { registerSW } from "virtual:pwa-register";
+
+let swRegistration: ServiceWorkerRegistration | undefined;
+
+registerSW({
+	onRegisteredSW(_swUrl, registration) {
+		if (!registration) {
+			return;
+		}
+
+		swRegistration = registration;
+
+		document.addEventListener("visibilitychange", () => {
+			if (document.visibilityState === "visible" && !registration.installing) {
+				registration.update();
+			}
+		});
+	},
+	onNeedRefresh() {
+		window.location.reload();
+	},
+});
+
+const checkForSWUpdate = () => {
+	if (swRegistration && !swRegistration.installing) {
+		swRegistration.update();
+	}
+}
+
+const SWUpdateOnNavigate = () => {
+	const location = useLocation();
+
+	createEffect(() => {
+		location.pathname;
+		checkForSWUpdate();
+	});
+
+	return null;
+}
 
 export const AuthChecker = () => {
 	const {
@@ -90,7 +130,12 @@ export const AuthChecker = () => {
 			</Match>
 
 			<Match when={isAuthenticated()}>
-				<Router root={(props) => <App {...props} />}>
+				<Router root={(props) => (
+					<>
+						<SWUpdateOnNavigate />
+						<App {...props} />
+					</>
+				)}>
 					{dashboardRoutes}
 				</Router>
 			</Match>
