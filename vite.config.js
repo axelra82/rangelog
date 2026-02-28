@@ -42,10 +42,40 @@ export default defineConfig(({ mode }) => {
 			VitePWA({
 				registerType: "autoUpdate",
 				workbox: {
-					cleanupOutdatedCaches: true,
 					// Critical: exclude /_/ from fallback, for pocketbase super user login.
 					navigateFallbackDenylist: [/^\/_\//, /^\/api\//],
+					cleanupOutdatedCaches: true,
+					clientsClaim: true,
+					globPatterns: [
+						"**/*.{js,css,html,ico,png,svg,woff2}",
+					],
+					maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+					skipWaiting: true,
+					runtimeCaching: [
+						{
+							urlPattern: /\/api\/files\//,
+							handler: "CacheFirst",
+							options: {
+								cacheName: "pb-user-images",
+								expiration: {
+									maxEntries: 50,
+									maxAgeSeconds: 90 * 24 * 60 * 60,
+								},
+								cacheableResponse: {
+									statuses: [
+										0,
+										200,
+									],
+								},
+							},
+						},
+					],
 				},
+				includeAssets: [
+					"favicon.ico",
+					"apple-touch-icon.png",
+					"masked-icon.svg",
+				],
 				manifest: {
 					background_color: "#0F0E14",
 					display: "standalone",
