@@ -10,21 +10,21 @@ See [pricing](https://railway.com/pricing) for other options.
 
 Create your free account on [railway.com](https://railway.com).
 
-- Select `New`, i.e. create a new project.
+- Select `New`, i.e. create a new project
 
 - Once the project is created click `Create` to create you first service in this project.
 
-- Select `Docker Image`.
+- Select `Docker Image`
 
-- Provide the Docker image `ghcr.io/muchobien/pocketbase:latest`.
+- Provide the Docker image `ghcr.io/muchobien/pocketbase:latest`
 
-- Once the Docker container is running you will also need to attach a volume to it.
+- Once the Docker container is running you will also need to attach a volume to it
 
-- Click `Create` and select volume.
+- Click `Create` and select volume
 
-  - Set `/pb_data` as mount path.
+  - Set `/pb_data` as mount path
 
-  - Assign the volume to your service.
+  - Assign the volume to your service
 
 You are now done with the initial setup. Continue with deploying the app (see [ instructions](#building-app) for building app) to your service and finally creating initial super user for you Pocketbase admin.
 
@@ -32,15 +32,15 @@ You are now done with the initial setup. Continue with deploying the app (see [ 
 
 Make sure to follow the environment instructions in the main [README](https://github.com/axelra82/rangelog/blob/master/README.md) before you continue. You will need `.env.production` in place (or any other build time variable handling).
 
-- Build.
+- Build
 
 `pnpm build`
 
-- Compress.
+- Compress
 
 `tar -czf dist.tar.gz -C /PATH/TO/APP/DIST/FOLDER dist`
 
-- Upload.
+- Upload
 
 Share your file from a publicly available source.
 
@@ -66,41 +66,41 @@ macOS example:
 
 `brew install railway`
 
-- Login to Railway in shell.
+- Login to Railway in shell
 
 `railway login --browserless`
 
-- Link to your railway project (follow onscreen instructions).
+- Link to your railway project (follow onscreen instructions)
 
 `railway link`
 
-- Run Docker service command line prompts.
+- Run Docker service command line prompts
 
 `railway ssh`
 
-- Create the required folder for serving the app publicly.
+- Create the required folder for serving the app publicly
 
 `mkdir -p /pb_data/public`
 
-- Symlink the `/pb_data/public` folder to `/pb_public`.
+- Symlink the `/pb_data/public` folder to `/pb_public`
 
 `ln -sf /pb_data/public /pb_public`
 
 _Since you are limited to one mount path in the Docker container volume and you need both `/pb_data` (for persisting database) and `/pb_public` (for hosing the app) you have to create the `public` folder in the only available persistent state, i.e. `pb_data` and then link that to the `/pb_public` folder. This makes the `public` folder available to the Pocketbase service when looking for public content hosting._
 
-- Change working directory to `/pb_public`.
+- Change working directory to `/pb_public`
 
 `cd /pb_public`
 
-- Fetch the `dist.tar.gz` file to your service volume.
+- Fetch the `dist.tar.gz` file to your service volume
 
 `wget "https://public-url-for-dist.tar.gz" -O dist.tar.gz`
 
-- Unpack the `dist` file.
+- Unpack the `dist` file
 
 `tar -xzf dist.tar.gz --strip-components=1 && rm dist.tar.gz`
 
-- Create/Update initial Pocketbase superuser.
+- Create/Update initial Pocketbase superuser
 
 ```
 /usr/local/bin/pocketbase superuser upsert admin@example.com yourStrongPassw

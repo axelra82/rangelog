@@ -58,6 +58,6 @@ VITE_RANGELOG_SERVICE_PROVIDER=pocketbase
 
 Depending on your needs there are several ways you could use this app and any infrastructure you would want.
 
-The `infrastructure` folder has service layers and adapters for Pocketbase. You can write any backend adapters you want here and set the new `VITE_RANGELOG_SERVICE_PROVIDER` to what that.
+The `infrastructure` folder has service layers and adapters for Pocketbase. You can write any backend adapters you want here and set the new `VITE_RANGELOG_SERVICE_PROVIDER` to that.
 
 See [adapter readme](https://github.com/axelra82/rangelog/blob/master/infrastructure/adapters/README.md) for more details on using Pocketbase as your backend.
