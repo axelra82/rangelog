@@ -53,7 +53,7 @@ export default defineConfig(({ mode }) => {
 					skipWaiting: true,
 					runtimeCaching: [
 						{
-							urlPattern: /\/api\/files\//,
+							urlPattern: /\/api\/files\/files\//,
 							handler: "CacheFirst",
 							options: {
 								cacheName: "pb-user-images",
