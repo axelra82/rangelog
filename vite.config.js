@@ -53,7 +53,7 @@ export default defineConfig(({ mode }) => {
 					skipWaiting: true,
 					runtimeCaching: [
 						{
-							urlPattern: /\/api\/files\//,
+							urlPattern: /\/api\/files\/files\//,
 							handler: "CacheFirst",
 							options: {
 								cacheName: "pb-user-images",
@@ -102,8 +102,8 @@ export default defineConfig(({ mode }) => {
 							purpose: "maskable",
 						},
 					],
-					name: appName.substring(0, 1).toLocaleUpperCase() + appName.substring(1),
-					short_name: appName.toLocaleLowerCase(),
+					name: "Rangelog",
+					short_name: "rangelog",
 					start_url: `${env.VITE_RANGELOG_URL_PROTOCOL}://${env.VITE_RANGELOG_URL_SUBDOMAIN}.${env.VITE_RANGELOG_URL_DOMAIN}`,
 					theme_color: "#0F0E14",
 				},
