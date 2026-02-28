@@ -6,12 +6,25 @@ import {
 	createEffect,
 	Setter,
 } from "solid-js";
-import { clubs } from "~/data/clubs";
-import { dateTimeLocale, dateTimeLocaleToday } from "~/utilities";
+
+import { useSearchParams } from "@solidjs/router";
+
+import {
+	Calibers,
+	clubs,
+} from "~/data";
+
+import {
+	dateTimeLocale,
+	dateTimeLocaleToday,
+} from "~/utilities";
+
 import {
 	ReadListResponse,
 } from "~/types";
+
 import { useStore } from "~/store";
+
 import {
 	Alert,
 	AlertDescription,
@@ -39,12 +52,12 @@ import {
 	DialogTrigger,
 	SelectNative,
 } from "~/components";
-import { useSearchParams } from "@solidjs/router";
+
 import {
 	activities as activitiesApi,
 	activitiesWeapons as activitiesWeaponsApi,
 } from "infrastructure";
-import { Calibers } from "~/data";
+
 import {
 	ActivityCollectionItem,
 	ShootingEntry,
