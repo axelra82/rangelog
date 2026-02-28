@@ -7,7 +7,6 @@ import {
 	Icon,
 	LoadingIndicator,
 	Separator,
-	Spinner,
 	Tabs,
 	TabsContent,
 	TabsList,

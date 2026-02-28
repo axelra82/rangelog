@@ -15,9 +15,9 @@ import {
 } from "solid-js";
 import { getInitials, getYear } from "~/utilities";
 import { useStore } from "~/store";
-import { ActivityCollectionItem } from "infrastructure/adapters/pocketbase";
+import { Activity } from "~/schemas";
 
-interface ActivityItemProps extends ActivityCollectionItem {
+interface ActivityItemProps extends Activity {
 	isLast: boolean;
 }
 

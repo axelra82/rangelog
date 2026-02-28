@@ -59,16 +59,16 @@ import {
 } from "infrastructure";
 
 import {
-	ActivityCollectionItem,
 	ShootingEntry,
 	ActivityCreateInput,
 	ActivityWeaponCollectionItem,
 } from "infrastructure/adapters/pocketbase";
+import { Activity } from "~/schemas";
 
 interface ManageActivityFormProps {
 	modal?: boolean;
 	modalControl?: Setter<boolean>;
-	edit?: ActivityCollectionItem;
+	edit?: Activity;
 }
 
 interface ShootingEntryWithId extends ShootingEntry {
@@ -101,7 +101,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 	};
 
 	const [form, formSet] = createSignal<ActivityCreateInput>(defaultFormValues);
-	const [editForm, editFormSet] = createSignal<ActivityCollectionItem>();
+	const [editForm, editFormSet] = createSignal<Activity>();
 	const [loading, loadingSet] = createSignal(false);
 	const [error, errorSet] = createSignal<string | null>(null);
 	const [title, titleSet] = createSignal<string>();
