@@ -18,6 +18,16 @@ const DashboardPage = () => {
 		weapons
 	} = useStore();
 
+	const roundsFired = () => {
+		const sum = weapons().reduce((acc, weapon) => {
+			if (weapon.rounds) {
+				acc += weapon.rounds;
+			}
+			return acc;
+		}, 0);
+
+		return sum;
+	}
 	return (
 		<>
 			<section>
@@ -57,22 +67,29 @@ const DashboardPage = () => {
 				<CardContent class="flex flex-col md:flex-row gap-12 justify-around mt-8">
 					<section>
 						<strong>Aktiviteter</strong>
-						<p class="text-7xl font-black">
+						<p class="text-6xl font-black">
 							{user().activities}
 						</p>
 					</section>
 
 					<section>
 						<strong>Fordningar</strong>
-						<p class="text-7xl font-black">
+						<p class="text-6xl font-black">
 							{user().claims}
 						</p>
 					</section>
 
 					<section class="text-center">
 						<strong>Vapen</strong>
-						<p class="text-center text-7xl font-black">
+						<p class="text-center text-6xl font-black">
 							{user().weapons}
+						</p>
+					</section>
+
+					<section class="text-center">
+						<strong>Skott</strong>
+						<p class="text-center text-6xl font-black">
+							{roundsFired()}
 						</p>
 					</section>
 				</CardContent>
