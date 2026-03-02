@@ -53,7 +53,7 @@ export default defineConfig(({ mode }) => {
 					skipWaiting: true,
 					runtimeCaching: [
 						{
-							urlPattern: /\/api\/files\/files\//,
+							urlPattern: /\/api\/files\//,
 							handler: "CacheFirst",
 							options: {
 								cacheName: "pb-user-images",
@@ -67,6 +67,16 @@ export default defineConfig(({ mode }) => {
 										200,
 									],
 								},
+								plugins: [
+									{
+										// Strip token query param before using as cache key. Otherwise each request becomes a "unique" image, as far as the cache is concerned, since they all have a new token appended.
+										cacheKeyWillBeUsed: async ({ request }) => {
+											const url = new URL(request.url);
+											url.searchParams.delete('token');
+											return url.toString();
+										},
+									},
+								],
 							},
 						},
 					],
