@@ -15,8 +15,3 @@ export interface ActivityCollectionItem {
 	rangeMaster?: string;
 	updated: string;
 }
-
-export type ActivityCreateInput = Omit<
-	ActivityCollectionItem,
-	"id" | "created" | "updated"
->;

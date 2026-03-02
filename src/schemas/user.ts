@@ -15,3 +15,8 @@ export const clientUserSchema = z.object({
 });
 
 export type ClientUser = z.infer<typeof clientUserSchema>;
+
+export type ClientUserCreateInput = Omit<
+	ClientUser,
+	"id" | "created" | "updated"
+>

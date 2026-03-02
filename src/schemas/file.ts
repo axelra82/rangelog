@@ -11,3 +11,8 @@ export const appFileSchema = z.object({
 });
 
 export type AppFile = z.infer<typeof appFileSchema>;
+
+export type AppFileCreateInput = Omit<
+	AppFile,
+	"id" | "created"
+>

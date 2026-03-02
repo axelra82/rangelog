@@ -1,26 +1,16 @@
 import {
-	ActivityCollectionItem,
-	ActivityCreateInput,
-	ActivityWeaponCollectionItem,
-	ActivityWeaponCreateInput,
-	ClaimCollectionItem,
-	Collections,
-	FileCollectionItem,
-	FileCreateInput,
-	UserCollectionItem,
-	UserCreateInput,
-	WeaponCollectionItem,
-	WeaponCreateInput,
-} from "infrastructure/adapters/pocketbase";
-
-import {
 	Activity,
+	ActivityCreateInput,
 	ActivityWeapon,
+	ActivityWeaponCreateInput,
 	AppFile,
+	AppFileCreateInput,
 	Claim,
 	ClaimCreateInput,
 	ClientUser,
+	ClientUserCreateInput,
 	Weapon,
+	WeaponCreateInput,
 } from "~/schemas";
 
 export interface ReadSingleOptions {
@@ -61,37 +51,31 @@ export type ProviderFunction = {
 	activities: {
 		create: (
 			data: ActivityCreateInput,
-			collection?: Collections.ACTIVITIES,
-		) => Promise<ActivityCollectionItem>;
+		) => Promise<Activity>;
 		read: (
 			options: ReadSingleOptions | ReadListRequest,
 		) => Promise<Activity | ReadListResponse<Activity>>;
 		update: (
 			id: string,
-			data: any,
-			collection?: Collections.ACTIVITIES,
-		) => Promise<ActivityCollectionItem>;
+			data: Partial<ActivityCreateInput>,
+		) => Promise<Activity>;
 		delete: (
 			id: string,
-			collection?: Collections.ACTIVITIES,
 		) => Promise<boolean>;
 	};
 	activitiesWeapons: {
 		create: (
 			data: ActivityWeaponCreateInput,
-			collection?: Collections.ACTIVITIES_WEAPONS,
-		) => Promise<ActivityWeaponCollectionItem>;
+		) => Promise<ActivityWeapon>;
 		read: (
 			options: ReadSingleOptions | ReadListRequest,
 		) => Promise<ActivityWeapon | ReadListResponse<ActivityWeapon>>;
 		update: (
 			id: string,
 			data: Partial<ActivityWeaponCreateInput>,
-			collection?: Collections.ACTIVITIES_WEAPONS,
-		) => Promise<ActivityWeaponCollectionItem>;
+		) => Promise<ActivityWeapon>;
 		delete: (
 			id: string,
-			collection?: Collections.ACTIVITIES_WEAPONS,
 		) => Promise<boolean>;
 		deleteByActivity: (activityId: string) => Promise<boolean>;
 	};
@@ -104,77 +88,65 @@ export type ProviderFunction = {
 	claims: {
 		create: (
 			data: ClaimCreateInput,
-			collection?: Collections.CLAIMS,
-		) => Promise<ClaimCollectionItem>;
+		) => Promise<Claim>;
 		read: (
 			options: ReadSingleOptions | ReadListRequest,
 		) => Promise<Claim | ReadListResponse<Claim>>;
 		update: (
 			id: string,
-			data: any,
-			collection?: Collections.CLAIMS,
-		) => Promise<ClaimCollectionItem>;
+			data: Partial<ClaimCreateInput>,
+		) => Promise<Claim>;
 		delete: (
 			id: string,
-			collection?: Collections.CLAIMS,
 		) => Promise<boolean>;
 	};
 	file: {
 		create: (
-			data: FileCreateInput,
-			collection?: Collections.FILES,
-		) => Promise<FileCollectionItem>;
+			data: AppFileCreateInput,
+		) => Promise<AppFile>;
 		read: (
 			options: ReadSingleOptions | ReadListRequest
 		) => Promise<AppFile | ReadListResponse<AppFile>>;
 		update: (
 			id: string,
-			data: any,
-			collection?: Collections.FILES,
-		) => Promise<FileCollectionItem>;
+			data: Partial<AppFileCreateInput>,
+		) => Promise<AppFile>;
 		delete: (
 			id: string,
-			collection?: Collections.FILES,
 		) => Promise<boolean>;
 		getUrl: (record: AppFile) => Promise<string>;
 	};
 	user: {
 		create: (
-			data: UserCreateInput,
-			collection?: Collections.USERS,
-		) => Promise<UserCollectionItem>;
+			data: ClientUserCreateInput,
+		) => Promise<ClientUser>;
 		read: (
 			options: ReadSingleOptions | ReadListRequest
 		) => Promise<ClientUser | ReadListResponse<ClientUser>>;
 		update: (
 			id: string,
-			data: any,
-			collection?: Collections.USERS,
-		) => Promise<UserCollectionItem>;
+			data: Partial<ClientUserCreateInput>,
+		) => Promise<ClientUser>;
 		updateEmail: (
 			newEmail: string,
 		) => Promise<boolean>,
 		delete: (
 			id: string,
-			collection?: Collections.USERS,
 		) => Promise<boolean>;
 	},
 	weapons: {
 		create: (
 			data: WeaponCreateInput,
-			collection?: Collections.WEAPONS,
-		) => Promise<WeaponCollectionItem>;
+		) => Promise<Weapon>;
 		read: (
 			options: ReadSingleOptions | ReadListRequest
 		) => Promise<Weapon | ReadListResponse<Weapon>>;
 		update: (
 			id: string,
-			data: any,
-			collection?: Collections.WEAPONS,
-		) => Promise<WeaponCollectionItem>;
+			data: Partial<WeaponCreateInput>,
+		) => Promise<Weapon>;
 		delete: (
 			id: string,
-			collection?: Collections.WEAPONS,
 		) => Promise<boolean>;
 	}
 };

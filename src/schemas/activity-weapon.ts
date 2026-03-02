@@ -10,3 +10,8 @@ export const activityWeaponSchema = z.object({
 });
 
 export type ActivityWeapon = z.infer<typeof activityWeaponSchema>;
+
+export type ActivityWeaponCreateInput = Omit<
+	ActivityWeapon,
+	"id"
+>;

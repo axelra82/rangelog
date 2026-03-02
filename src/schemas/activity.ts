@@ -18,3 +18,8 @@ export const activitySchema = z.object({
 });
 
 export type Activity = z.infer<typeof activitySchema>;
+
+export type ActivityCreateInput = Omit<
+	Activity,
+	"id" | "created" | "update"
+>
