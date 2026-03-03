@@ -3,6 +3,7 @@ name: Build and Attach Release Artifact
 on:
   release:
     types: [created]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -29,6 +30,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Bump version to latest tag
+        run: |
+          VERSION=$(git describe --tags --abbrev=0)
+          VERSION=${VERSION#v}
+          npm version $VERSION --no-git-tag-version
+          git config user.name "axelra82"
+          git config user.email "986301+axelra82@users.noreply.github.com"
+          git add package.json
+          git commit -m "chore: bump version to $VERSION"
+          git push
+
       - name: Build
         run: pnpm build
         env:
@@ -38,8 +50,7 @@ jobs:
           VITE_RANGELOG_SERVICE_PROVIDER: ${{ secrets.VITE_RANGELOG_SERVICE_PROVIDER }}
 
       - name: Create dist artifact
-        run: |
-          tar -czf dist.tar.gz dist/
+        run: tar -czf dist.tar.gz dist/
 
       - name: Upload artifact to release
         uses: softprops/action-gh-release@v2
