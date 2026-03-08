@@ -64,7 +64,7 @@ export const BottomNavTabBars = () => {
 					<nav class="flex items-center justify-around">
 						<For each={tabs}>
 							{(tab) => {
-								const isCurrentPath = currentRoute() === tab.path;
+								const isCurrentPath = createMemo(() => currentRoute() === tab.path);
 
 								return (
 									<A href={tab.path}>
@@ -72,14 +72,14 @@ export const BottomNavTabBars = () => {
 											class={cn(
 												"relative px-5.5 flex flex-col items-center justify-center gap-1 py-1 rounded-full transition-all duration-200 active:scale-95",
 												{
-													"bg-foreground/10": isCurrentPath,
+													"bg-foreground/10": isCurrentPath(),
 												},
 											)}
 										>
 											<div
 												class={cn(
 													"transition-all duration-200",
-												isCurrentPath ? "text-sky-500 scale-105" : "text-foreground",
+												isCurrentPath() ? "text-sky-500 scale-105" : "text-foreground",
 												)}
 											>
 												<Icon
@@ -90,7 +90,7 @@ export const BottomNavTabBars = () => {
 											<span
 												class={cn(
 													"text-xs font-medium transition-all duration-200",
-												isCurrentPath ? "text-sky-500" : "text-gray-500",
+												isCurrentPath() ? "text-sky-500" : "text-gray-500",
 												)}
 											>
 												{tab.label}
