@@ -1,4 +1,12 @@
-import { Icons } from "~/types";
+import {
+	Component,
+	createSignal,
+	Match,
+	onMount,
+	Show,
+	Switch,
+} from "solid-js";
+
 import {
 	Avatar,
 	AvatarFallback,
@@ -9,15 +17,9 @@ import {
 	Icon,
 	Separator,
 } from "~/components";
-import {
-	Component,
-	createSignal,
-	Match,
-	Show,
-	Switch,
-} from "solid-js";
-import { getInitials, getYear } from "~/utilities";
 import { Claim } from "~/schemas";
+import { Icons } from "~/types";
+import { getInitials, getYear } from "~/utilities";
 
 interface ClaimItemProps extends Claim {
 	isLast: boolean;
@@ -25,9 +27,13 @@ interface ClaimItemProps extends Claim {
 
 export const ClaimItem: Component<ClaimItemProps> = (props) => {
 	const [showEditDialog, showEditDialogSet] = createSignal(false);
+	const [year, yearSet] = createSignal<number>();
+	const [isCurrentYear, isCurrentYearSet] = createSignal<boolean>();
 
-	const year = getYear(props.date).year;
-	const isCurrentYear = getYear(props.date).isCurrent;
+	onMount(() => {
+		yearSet(getYear(props.date).year);
+		isCurrentYearSet(getYear(props.date).isCurrent);
+	});
 
 	return (
 		<>
@@ -58,9 +64,9 @@ export const ClaimItem: Component<ClaimItemProps> = (props) => {
 							month: "short",
 						})}
 					</div>
-					<Show when={!isCurrentYear}>
+					<Show when={!isCurrentYear()}>
 						<div class="text-xs font-black text-muted-foreground mt-2">
-							{year}
+							{year()}
 						</div>
 					</Show>
 				</div>

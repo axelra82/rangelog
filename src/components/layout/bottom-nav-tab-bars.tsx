@@ -1,9 +1,10 @@
-import { createMemo } from "solid-js";
-import { dashboardRoutes } from "~/routes";
 import { A, useLocation } from "@solidjs/router";
-import { cn } from "~/utilities";
+import { createMemo, For } from "solid-js";
+
 import { Icon } from "~/components";
+import { dashboardRoutes } from "~/routes";
 import { Icons } from "~/types";
+import { cn } from "~/utilities";
 
 export const BottomNavTabBars = () => {
 	const router = useLocation();
@@ -37,7 +38,7 @@ export const BottomNavTabBars = () => {
 	};
 
 	const tabs = dashboardRoutes.reduce(
-		(acc: { icon: Icons, path: string, label: string }[], route) => {
+		(acc: { icon: Icons; path: string; label: string }[], route) => {
 			const {
 				path,
 				label,
@@ -61,45 +62,47 @@ export const BottomNavTabBars = () => {
 			<div class="fixed bottom-4 left-2 right-2 z-50">
 				<div class="bg-background/60 backdrop-blur-xl rounded-full shadow-lg border border-border/85 p-1">
 					<nav class="flex items-center justify-around">
-						{tabs.map((tab) => {
-							const isCurrentPath = currentRoute() === tab.path;
+						<For each={tabs}>
+							{(tab) => {
+								const isCurrentPath = currentRoute() === tab.path;
 
-							return (
-								<A href={tab.path}>
-									<button
-										class={cn(
-											"relative px-5.5 flex flex-col items-center justify-center gap-1 py-1 rounded-full transition-all duration-200 active:scale-95",
-											{
-												"bg-foreground/10": isCurrentPath,
-											},
-										)}
-									>
-										<div
+								return (
+									<A href={tab.path}>
+										<button
 											class={cn(
-												"transition-all duration-200",
+												"relative px-5.5 flex flex-col items-center justify-center gap-1 py-1 rounded-full transition-all duration-200 active:scale-95",
+												{
+													"bg-foreground/10": isCurrentPath,
+												},
+											)}
+										>
+											<div
+												class={cn(
+													"transition-all duration-200",
 												isCurrentPath ? "text-sky-500 scale-105" : "text-foreground",
-											)}
-										>
-											<Icon
-												icon={tab.icon}
-												class="size-6"
-											/>
-										</div>
-										<span
-											class={cn(
-												"text-xs font-medium transition-all duration-200",
+												)}
+											>
+												<Icon
+													icon={tab.icon}
+													class="size-6"
+												/>
+											</div>
+											<span
+												class={cn(
+													"text-xs font-medium transition-all duration-200",
 												isCurrentPath ? "text-sky-500" : "text-gray-500",
-											)}
-										>
-											{tab.label}
-										</span>
-									</button>
-								</A>
-							)
-						})}
+												)}
+											>
+												{tab.label}
+											</span>
+										</button>
+									</A>
+								);
+							}}
+						</For>
 					</nav>
 				</div>
 			</div>
 		</div>
 	);
-}
+};

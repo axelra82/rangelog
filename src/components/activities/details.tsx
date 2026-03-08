@@ -1,21 +1,23 @@
 import {
+	Component,
+	createEffect,
+	createSignal,
+	For,
+	Show,
+} from "solid-js";
+
+import {
+	ActivityForm,
 	Avatar,
 	AvatarFallback,
 	Badge,
 	Dialog,
 	DialogContent,
-	ActivityForm,
 	Separator,
 } from "~/components";
-import {
-	Show,
-	createSignal,
-	Component,
-	For,
-} from "solid-js";
-import { getInitials, getYear } from "~/utilities";
+import { Activity, ActivityWeapon } from "~/schemas";
 import { useStore } from "~/store";
-import { Activity } from "~/schemas";
+import { getInitials, getYear } from "~/utilities";
 
 interface ActivityItemProps extends Activity {
 	isLast: boolean;
@@ -27,10 +29,15 @@ export const ActivityItem: Component<ActivityItemProps> = (props) => {
 	} = useStore();
 
 	const [showEditDialog, showEditDialogSet] = createSignal(false);
-	const weapons = props.expand?.["activity_weapons_via_activity"];
+	const [activityWeapons, activityWeaponSet] = createSignal<ActivityWeapon[]>();
+	const [year, yearSet] = createSignal<number>();
+	const [isCurrentYear, isCurrentYearSet] = createSignal<boolean>();
 
-	const year = getYear(props.date).year;
-	const isCurrentYear = getYear(props.date).isCurrent;
+	createEffect(() => {
+		activityWeaponSet(props.expand?.["activity_weapons_via_activity"]);
+		yearSet(getYear(props.date).year);
+		isCurrentYearSet(getYear(props.date).isCurrent);
+	});
 
 	return (
 		<>
@@ -63,7 +70,7 @@ export const ActivityItem: Component<ActivityItemProps> = (props) => {
 					</div>
 					<Show when={!isCurrentYear}>
 						<div class="text-xs font-black text-muted-foreground mt-2">
-							{year}
+							{year()}
 						</div>
 					</Show>
 				</div>
@@ -98,7 +105,7 @@ export const ActivityItem: Component<ActivityItemProps> = (props) => {
 						</Show>
 
 						<div class="flex flex-wrap gap-2">
-							<Show when={weapons} keyed>
+							<Show when={activityWeapons()} keyed>
 								{(localWeapons) => (
 									<For each={localWeapons}>
 										{(item) => {

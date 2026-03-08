@@ -4,7 +4,6 @@
 		"baseUrl": ".",
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
-		"incremental": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
 		"jsxImportSource": "solid-js",

@@ -1,13 +1,8 @@
-import { App } from "../app";
-import { dashboardRoutes } from "~/routes";
-import { useStore } from "~/store";
+import { Router } from "@solidjs/router";
 import {
-	ColorMode,
-	ReadListResponse,
-} from "~/types";
-
-import { Router, useLocation } from "@solidjs/router";
-import { LoginPage } from "~/pages/login";
+	auth as authApi,
+	weapons as weaponsApi,
+} from "infrastructure";
 import {
 	createEffect,
 	createSignal,
@@ -16,16 +11,19 @@ import {
 	onMount,
 	Switch,
 } from "solid-js";
-
-import {
-	auth as authApi,
-	weapons as weaponsApi,
-} from "infrastructure";
+import { registerSW } from "virtual:pwa-register";
 
 import { FullPageLoader } from "~/components";
+import { LoginPage } from "~/pages/login";
+import { dashboardRoutes } from "~/routes";
 import { Weapon } from "~/schemas";
+import { useStore } from "~/store";
+import {
+	ColorMode,
+	ReadListResponse,
+} from "~/types";
 
-import { registerSW } from "virtual:pwa-register";
+import { App } from "../app";
 
 let swRegistration: ServiceWorkerRegistration | undefined;
 
@@ -39,7 +37,7 @@ registerSW({
 
 		document.addEventListener("visibilitychange", () => {
 			if (document.visibilityState === "visible" && !registration.installing) {
-				registration.update();
+				registration.update().catch((error) => console.error(error));
 			}
 		});
 	},
@@ -48,22 +46,19 @@ registerSW({
 	},
 });
 
-const checkForSWUpdate = () => {
+const checkForSWUpdate = async () => {
 	if (swRegistration && !swRegistration.installing) {
-		swRegistration.update();
+		await swRegistration.update();
 	}
-}
+};
 
 const SWUpdateOnNavigate = () => {
-	const location = useLocation();
-
 	createEffect(() => {
-		location.pathname;
-		checkForSWUpdate();
+		checkForSWUpdate().catch((error) => console.error(error));
 	});
 
 	return null;
-}
+};
 
 export const AuthChecker = () => {
 	const {
@@ -87,12 +82,13 @@ export const AuthChecker = () => {
 		setReady(true);
 	});
 
-	createEffect(async () => {
+	createEffect(() => {
 		if (isAuthenticated()) {
-			const weaponsData = await weaponsApi.read({
+			weaponsApi.read({
 				expand: "documents",
-			}) as ReadListResponse<Weapon>;
-			weaponsSet(weaponsData.items);
+			}).then((weaponsData) => {
+				weaponsSet((weaponsData as ReadListResponse<Weapon>).items);
+			}).catch((error) => console.error(error));
 		}
 	});
 
@@ -135,7 +131,8 @@ export const AuthChecker = () => {
 						<SWUpdateOnNavigate />
 						<App {...props} />
 					</>
-				)}>
+				)}
+				>
 					{dashboardRoutes}
 				</Router>
 			</Match>

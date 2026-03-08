@@ -56,7 +56,16 @@ component: setup
 dev: setup
 	pnpm run dev
 
-test: setup
+lint: setup ## Lint code
+	pnpm run lint
+
+lint-fix: setup ## Lint code
+	pnpm run lint:fix
+
+type-check: ## Run type check
+	pnpm run type-check
+
+test: setup type-check lint ## Run tests
 	pnpm run test
 
 ######################################################

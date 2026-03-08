@@ -1,21 +1,4 @@
 import {
-	cn,
-	licenseExpiryStatusMessage,
-} from "~/utilities";
-
-import {
-	Callout,
-	Icon,
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "~/components";
-
-import {
-	Icons,
-} from "~/types";
-
-import {
 	Component,
 	createMemo,
 	createSignal,
@@ -25,6 +8,21 @@ import {
 	Show,
 	Switch,
 } from "solid-js";
+
+import {
+	Callout,
+	Icon,
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "~/components";
+import {
+	Icons,
+} from "~/types";
+import {
+	cn,
+	licenseExpiryStatusMessage,
+} from "~/utilities";
 
 interface WeaponLicenseExpireWarningProps {
 	endDate?: string;
@@ -37,15 +35,14 @@ export const WeaponLicenseExpireWarning: Component<WeaponLicenseExpireWarningPro
 	return (
 		<Show when={licenseWarning()} keyed>
 			{(warning) => {
-				const iconSize = "size-5"
+				const iconSize = "size-5";
 
 				return (
 					<Callout
 						variant={warning.status}
 						class="flex gap-4 py-4"
 					>
-						<Switch
-						>
+						<Switch>
 							<Match when={warning.status === "error"}>
 								<Icon
 									icon={Icons.ALERT_CIRCLE}
@@ -78,7 +75,8 @@ interface LicenseExpiryIndicatorProps {
 }
 
 export const LicenseExpiryIndicator: Component<LicenseExpiryIndicatorProps> = (props) => {
-	const result = licenseExpiryStatusMessage(props.licenseEnd);
+	const [licenseExpiryMessage, licenseExpiryMessageSet] = createSignal<{ message: string;
+		status: "error" | "warning"; }>();
 
 	const [size, sizeSet] = createSignal("size-5");
 
@@ -86,16 +84,18 @@ export const LicenseExpiryIndicator: Component<LicenseExpiryIndicatorProps> = (p
 		if (props.size) {
 			sizeSet(`size-${props.size}`);
 		}
+
+		licenseExpiryMessageSet(licenseExpiryStatusMessage(props.licenseEnd) ?? undefined);
 	});
 
 	return (
-		<Show when={result} keyed>
+		<Show when={licenseExpiryMessage()} keyed>
 			{(item) => (
 				<Popover>
 					<PopoverTrigger as="div" class="inline-flex items-center gap-1 cursor-pointer">
 						<Show
 							when={item.status === "error"}
-							fallback={
+							fallback={(
 								<Icon
 									icon={Icons.ALERT_TRIANGLE}
 									class={cn(
@@ -103,23 +103,26 @@ export const LicenseExpiryIndicator: Component<LicenseExpiryIndicatorProps> = (p
 										size(),
 									)}
 								/>
-							}
+							)}
 						>
 							<Icon
 								icon={Icons.ALERT_CIRCLE}
 								class={cn(
 									"text-red-500",
 									size(),
-								)} />
+								)}
+							/>
 						</Show>
 					</PopoverTrigger>
 					<PopoverContent class={cn(
 						item.status === "error" ? "bg-error" : "bg-warning",
-					)}>
+					)}
+					>
 						<p class={cn(
 							"text-sm",
 							item.status === "error" ? "text-error-foreground" : "text-warning-foreground",
-						)}>
+						)}
+						>
 							{item.message}
 						</p>
 					</PopoverContent>

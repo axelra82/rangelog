@@ -1,3 +1,8 @@
+import { useSearchParams } from "@solidjs/router";
+import {
+	file as fileApi,
+	weapons as weaponsApi,
+} from "infrastructure";
 import {
 	Component,
 	createEffect,
@@ -6,16 +11,7 @@ import {
 	Setter,
 	Show,
 } from "solid-js";
-import {
-	calibers,
-	federations,
-	weaponTypes,
-} from "~/data";
-import {
-	file as fileApi,
-	weapons as weaponsApi,
-} from "infrastructure";
-import { useStore } from "~/store";
+
 import {
 	Alert,
 	AlertDescription,
@@ -40,14 +36,18 @@ import {
 	TextFieldAreaGridItem,
 	TextFieldInputGridItem,
 } from "~/components";
-import { useSearchParams } from "@solidjs/router";
-import { dateTimeLocale } from "~/utilities";
-
 import {
-	Weapon,
+	calibers,
+	federations,
+	weaponTypes,
+} from "~/data";
+import {
 	AppFile,
+	Weapon,
 	WeaponCreateInput,
 } from "~/schemas";
+import { useStore } from "~/store";
+import { dateTimeLocale } from "~/utilities";
 
 interface WeaponFormProps {
 	modal?: boolean;
@@ -89,7 +89,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 	const [form, formSet] = createSignal<WeaponCreateInput>(defaultFormValues);
 	const [editForm, editFormSet] = createSignal<Weapon>();
 	const [loading, loadingSet] = createSignal(false);
-	const [error, errorSet] = createSignal<string | null>(null);
+	const [errorMessage, errorMessageSet] = createSignal<string | null>(null);
 	const [title, titleSet] = createSignal<string>();
 
 	const [existingDocuments, existingDocumentsSet] = createSignal<AppFile[]>([]);
@@ -98,7 +98,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 		const input = event.target as HTMLInputElement;
 		pendingFilesSet((prev) => [
 			...prev ?? [],
-			...input.files ?? []
+			...input.files ?? [],
 		]);
 	};
 
@@ -143,15 +143,15 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 	const handleSubmit = async (event: Event) => {
 		event.preventDefault();
-		errorSet(null);
+		errorMessageSet(null);
 		loadingSet(true);
 
 		try {
 			const current = form();
 
 			if (
-				!current.type
-				|| !current.name
+				!current.type ||
+				!current.name
 			) {
 				throw new Error("Ange name och typ.");
 			}
@@ -165,9 +165,11 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				federation: current.federation,
 				image: current.image,
 				licenseEnd: current.licenseEnd || undefined,
-				licenseStart: current.licenseStart ? dateTimeLocale({
-					dateTime: current.licenseStart,
-				}) : undefined,
+				licenseStart: current.licenseStart
+					? dateTimeLocale({
+						dateTime: current.licenseStart,
+					})
+					: undefined,
 				manufacturerUrl: current.manufacturerUrl,
 				model: current.model,
 				name: current.name,
@@ -214,7 +216,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				}
 
 				// Upload new documents.
-				let documentIds = [...currentDocumentIds];
+				const documentIds = [...currentDocumentIds];
 				const files = pendingFiles();
 
 				if (files?.length) {
@@ -239,8 +241,10 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					},
 				);
 
+				const editId = editForm()!.id;
+
 				weaponsSet((prev) =>
-					prev.map((item) => (item.id === editForm()!.id ? updatedItem : item))
+					prev.map((item) => (item.id === editId ? updatedItem : item)),
 				);
 
 				showToast({
@@ -253,7 +257,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				formReset();
 			} else {
 				// Upload file first if one is pending
-				let documentIds: string[] = weaponData.documents || [];
+				const documentIds: string[] = weaponData.documents || [];
 
 				const files = pendingFiles();
 
@@ -293,7 +297,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				}
 			}
 		} catch (error) {
-			errorSet(error instanceof Error ? error.message : "Något gick fel");
+			errorMessageSet(error instanceof Error ? error.message : "Något gick fel");
 		}
 
 		loadingSet(false);
@@ -328,7 +332,6 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 		}
 	};
 
-
 	const FormContent = () => (
 		<>
 			<Show when={props.modal}>
@@ -355,15 +358,15 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 	const FormFields = () => (
 		<form onSubmit={handleSubmit} class="space-y-6">
-			<Show when={error()}>
+			<Show when={errorMessage()}>
 				<Alert variant="destructive">
-					<AlertDescription>{error()}</AlertDescription>
+					<AlertDescription>{errorMessage()}</AlertDescription>
 				</Alert>
 			</Show>
 
 			<section class="space-y-6">
 				<TextFieldInputGridItem
-					key={"name"}
+					key="name"
 					onChange={handleInputChange}
 					required
 					title="Namn"
@@ -372,7 +375,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<SelectGridItem
-					key={"type"}
+					key="type"
 					options={weaponTypes}
 					placeholder="Välj typ"
 					required
@@ -382,7 +385,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"brand"}
+					key="brand"
 					onChange={handleInputChange}
 					title="Tillverkare"
 					type="text"
@@ -390,7 +393,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"manufacturerUrl"}
+					key="manufacturerUrl"
 					onChange={handleInputChange}
 					title="Produktlänk"
 					type="text"
@@ -398,7 +401,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"model"}
+					key="model"
 					onChange={handleInputChange}
 					title="Modell"
 					type="text"
@@ -416,7 +419,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"serialNumber"}
+					key="serialNumber"
 					onChange={handleInputChange}
 					title="Serienummer"
 					type="text"
@@ -424,7 +427,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"barrelLength"}
+					key="barrelLength"
 					onChange={handleInputChange}
 					title="Piplängd"
 					type="text"
@@ -432,7 +435,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"classification"}
+					key="classification"
 					onChange={handleInputChange}
 					title="Skytteform"
 					type="text"
@@ -440,7 +443,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<SelectGridItem
-					key={"federation"}
+					key="federation"
 					options={federations}
 					placeholder="Välj förbund"
 					title="Förbund"
@@ -449,7 +452,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"licenseStart"}
+					key="licenseStart"
 					onChange={handleInputChange}
 					title="Licens utfärdad datum"
 					type="date"
@@ -457,7 +460,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"licenseEnd"}
+					key="licenseEnd"
 					onChange={handleInputChange}
 					title="Licens utgångsdatum"
 					type="date"
@@ -465,7 +468,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"purchaseDate"}
+					key="purchaseDate"
 					onChange={handleInputChange}
 					title="Inköpsdatum"
 					type="date"
@@ -473,7 +476,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"price"}
+					key="price"
 					onChange={handleInputChange}
 					title="Pris"
 					type="number"
@@ -481,7 +484,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"seller"}
+					key="seller"
 					onChange={handleInputChange}
 					title="Säljare"
 					type="text"
@@ -489,7 +492,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldInputGridItem
-					key={"sellerUrl"}
+					key="sellerUrl"
 					onChange={handleInputChange}
 					title="Länk till säljare"
 					type="text"
@@ -497,7 +500,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				/>
 
 				<TextFieldAreaGridItem
-					key={"notes"}
+					key="notes"
 					onChange={handleInputChange}
 					title="Anteckningar"
 					value={form().notes || ""}
@@ -510,7 +513,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 						Bild
 					</Label>
 					<input
-						ref={imageInputRef}
+						ref={(element) => (imageInputRef = element)}
 						type="file"
 						multiple
 						class="hidden"
@@ -531,10 +534,10 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 							<Button
 								onClick={() => {
 									if (pendingImage()) {
-										pendingImageSet(null)
+										pendingImageSet(null);
 									}
 									if (existingImage()) {
-										existingImageSet()
+										existingImageSet();
 									}
 								}}
 								size="sm"
@@ -561,7 +564,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 						Dokument
 					</Label>
 					<input
-						ref={fileInputRef}
+						ref={(element) => (fileInputRef = element)}
 						type="file"
 						multiple
 						class="hidden"
@@ -625,7 +628,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 												size="sm"
 												variant="destructive"
 												onClick={() => {
-													pendingFilesSet((prev) => prev?.filter((item) => item.name !== pendingFile.name) ?? null)
+													pendingFilesSet((prev) => prev?.filter((item) => item.name !== pendingFile.name) ?? null);
 												}}
 											>
 												Ta bort
@@ -646,7 +649,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 			<div class="flex justify-between items-center">
 				<Show when={props.edit} keyed>
-					{(weapon) =>
+					{(weapon) => (
 						<div>
 							<Dialog>
 								<DialogTrigger
@@ -684,7 +687,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 								</DialogContent>
 							</Dialog>
 						</div>
-					}
+					)}
 				</Show>
 				<div class="flex justify-end py-4 gap-4">
 					<Button
@@ -746,24 +749,30 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				documents: editForm()!.documents || [],
 				federation: editForm()!.federation,
 				image: editForm()!.image,
-				licenseEnd: editForm()!.licenseEnd ? dateTimeLocale({
-					dateTime: editForm()!.licenseEnd!,
-					withTime: false,
-				}) : undefined,
-				licenseStart: editForm()!.licenseStart ? dateTimeLocale({
-					dateTime: editForm()!.licenseStart!,
-					withTime: false,
-				}) : undefined,
+				licenseEnd: editForm()!.licenseEnd
+? dateTimeLocale({
+	dateTime: editForm()!.licenseEnd!,
+	withTime: false,
+})
+: undefined,
+				licenseStart: editForm()!.licenseStart
+? dateTimeLocale({
+	dateTime: editForm()!.licenseStart!,
+	withTime: false,
+})
+: undefined,
 				manufacturerUrl: editForm()!.manufacturerUrl,
 				model: editForm()!.model,
 				name: editForm()!.name,
 				notes: editForm()!.notes,
 				owner: editForm()!.owner || user().id,
 				price: editForm()!.price,
-				purchaseDate: editForm()!.purchaseDate ? dateTimeLocale({
-					dateTime: editForm()!.purchaseDate!,
-					withTime: false,
-				}) : undefined,
+				purchaseDate: editForm()!.purchaseDate
+? dateTimeLocale({
+	dateTime: editForm()!.purchaseDate!,
+	withTime: false,
+})
+: undefined,
 				seller: editForm()!.seller,
 				sellerUrl: editForm()!.sellerUrl,
 				serialNumber: editForm()!.serialNumber,
@@ -774,7 +783,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 	return (
 		<ConditionalWrapper
-			condition={!Boolean(props.modal)}
+			condition={!props.modal}
 			wrapper={(wrapperChildren) => (
 				<Card>
 					{wrapperChildren}
@@ -784,4 +793,4 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 			<FormContent />
 		</ConditionalWrapper>
 	);
-}
+};

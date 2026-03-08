@@ -1,3 +1,4 @@
+import { useLocation } from "@solidjs/router";
 import {
 	Component,
 	createEffect,
@@ -7,22 +8,22 @@ import {
 	Show,
 	Switch,
 } from "solid-js";
-import { useStore } from "~/store";
+
 import {
-	WeaponForm,
-	Card,
-	CardContent,
-	WeaponDetails,
-	LicenseExpiryIndicator,
-	DetailsControl,
-	DialogContent,
-	Dialog,
-	FileSource,
 	AddWeapon,
 	Button,
+	Card,
+	CardContent,
+	DetailsControl,
+	Dialog,
+	DialogContent,
+	FileSource,
+	LicenseExpiryIndicator,
+	WeaponDetails,
+	WeaponForm,
 } from "~/components";
-import { useLocation } from "@solidjs/router";
 import { Weapon } from "~/schemas";
+import { useStore } from "~/store";
 import { dateTimeLocale } from "~/utilities";
 
 const WeaponsPage: Component = () => {
@@ -149,7 +150,9 @@ const WeaponsPage: Component = () => {
 											<div class="flex gap-2 text-sm text-muted-foreground">
 												<LicenseExpiryIndicator licenseEnd={licenseEnd} />
 												<div>
-													Licens giltig t.om. {dateTimeLocale({
+													Licens giltig t.om.
+													{" "}
+													{dateTimeLocale({
 														dateTime: licenseEnd,
 													})}
 												</div>
@@ -181,7 +184,7 @@ const WeaponsPage: Component = () => {
 						)}
 					</For>
 				</Show>
-			</section >
+			</section>
 		</>
 	);
 };

@@ -1,5 +1,4 @@
 import { Accessor, Setter } from "solid-js";
-import { ColorMode } from "~/types";
 
 import {
 	Activity,
@@ -7,9 +6,10 @@ import {
 	ClientUser,
 	Weapon,
 } from "~/schemas";
+import { ColorMode } from "~/types";
 
 export interface StoreFactoryProps {
-	storeItem: Setter<any>;
+	storeItem: Setter<unknown>;
 	getOne?: {
 		id: string;
 		field: string;

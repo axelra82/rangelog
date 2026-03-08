@@ -1,22 +1,24 @@
+import { file as fileApi } from "infrastructure";
 import {
+	Accessor,
 	Component,
 	createSignal,
+	Match,
 	onMount,
 	Show,
 	Switch,
-	Match,
-	Accessor,
 } from "solid-js";
-import { file as fileApi } from "infrastructure";
-import { viewFile, downloadFile, cn } from "~/utilities";
-import { Button } from "./button";
-import { Icon } from "./icon";
+
 import { AppFile } from "~/schemas";
 import { Icons } from "~/types";
+import { cn, downloadFile, viewFile } from "~/utilities";
+
+import { Button } from "./button";
+import { Icon } from "./icon";
 
 const ViewButton: Component<{
-	file: AppFile,
-	url: Accessor<string>,
+	file: AppFile;
+	url: Accessor<string>;
 }> = (props) => (
 	<Button
 		title={`open ${props.file.name}`}
@@ -30,8 +32,8 @@ const ViewButton: Component<{
 );
 
 const DownloadButton: Component<{
-	file: AppFile,
-	url: Accessor<string>,
+	file: AppFile;
+	url: Accessor<string>;
 }> = (props) => (
 	<Button
 		title={`download ${props.file.name}`}
@@ -46,11 +48,11 @@ const DownloadButton: Component<{
 
 export const FileSource: Component<{
 	class?: string;
-	double?: boolean,
-	file?: AppFile,
-	id?: string,
-	image?: boolean,
-	show?: boolean,
+	double?: boolean;
+	file?: AppFile;
+	id?: string;
+	image?: boolean;
+	show?: boolean;
 	size?: string;
 }> = (props) => {
 	const [url, urlSet] = createSignal("");
@@ -86,7 +88,7 @@ export const FileSource: Component<{
 	return (
 		<Show
 			when={!props.image && file()}
-			fallback={
+			fallback={(
 				<img
 					class={cn(
 						"w-full object-contain",
@@ -97,17 +99,19 @@ export const FileSource: Component<{
 					)}
 					src={props.size ? `${url()}&thumb=${props.size}` : url()}
 				/>
-			}
+			)}
 		>
 			<Show when={file()} keyed>
 				{(localFile) => (
 					<div class={cn(
 						"flex gap-4 items-center",
 						props.class,
-					)}>
+					)}
+					>
 						<Switch fallback={
 							<DownloadButton file={localFile} url={url} />
-						}>
+						}
+						>
 							<Match when={props.double}>
 								<DownloadButton file={localFile} url={url} />
 								<ViewButton file={localFile} url={url} />
@@ -119,12 +123,13 @@ export const FileSource: Component<{
 						<div class={cn(
 							"text-sm text-muted-foreground break-all",
 							props.class,
-						)}>
+						)}
+						>
 							{localFile.name}
 						</div>
 					</div>
 				)}
 			</Show>
-		</Show >
+		</Show>
 	);
 };

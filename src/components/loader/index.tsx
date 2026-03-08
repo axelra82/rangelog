@@ -1,6 +1,7 @@
 import { Component } from "solid-js";
-import { cn } from "~/utilities";
+
 import { Separator } from "~/components";
+import { cn } from "~/utilities";
 
 interface SpinnerProps {
 	size?: "sm" | "md" | "lg" | "xl";
@@ -31,7 +32,7 @@ export const Spinner: Component<SpinnerProps> = (props) => {
 				"animate-spinner-rotate text-secondary",
 				sizeClasses[props.size ?? "md"],
 				variantClasses[props.variant ?? "primary"],
-				props.class
+				props.class,
 			)}
 			viewBox="0 0 50 50"
 			role="status"
@@ -59,7 +60,6 @@ export const FullPageLoader: Component<{ message?: string }> = (props) => (
 		)}
 	</div>
 );
-
 
 export const LoadingIndicator: Component = () => (
 	<>

@@ -1,5 +1,6 @@
-import { createMemo, ParentComponent, Show } from "solid-js";
 import { A, useLocation } from "@solidjs/router";
+import { createMemo, ParentComponent, Show } from "solid-js";
+
 import {
 	Avatar,
 	AvatarFallback,
@@ -15,7 +16,7 @@ import { getInitials } from "~/utilities";
 export const LayoutMainMenu: ParentComponent = () => {
 	const {
 		user,
-		isMobile
+		isMobile,
 	} = useStore();
 
 	const router = useLocation();
@@ -30,7 +31,7 @@ export const LayoutMainMenu: ParentComponent = () => {
 	return (
 		<Show
 			when={isMobile()}
-			fallback={
+			fallback={(
 				<aside class="border-b border-b-border">
 					<nav class="p-2 flex justify-between items-center max-w-4xl mx-auto">
 						<ul class="flex gap-2">
@@ -82,7 +83,7 @@ export const LayoutMainMenu: ParentComponent = () => {
 						</DropdownMenu>
 					</nav>
 				</aside>
-			}
+			)}
 		>
 			<BottomNavTabBars />
 		</Show>

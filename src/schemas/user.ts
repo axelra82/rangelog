@@ -18,5 +18,19 @@ export type ClientUser = z.infer<typeof clientUserSchema>;
 
 export type ClientUserCreateInput = Omit<
 	ClientUser,
-	"id" | "created" | "updated"
->
+	"id" | "created" | "updated" | "activities" | "claims" | "weapons"
+> & {
+	password: string;
+	passwordConfirm: string;
+	emailVisibility: boolean;
+};
+
+export type ClientUserUpdateInput = Omit<
+	ClientUser,
+	"id" | "created" | "updated" | "activities" | "claims" | "weapons"
+> & {
+	oldPassword: string;
+	password: string;
+	passwordConfirm: string;
+	emailVisibility: boolean;
+};

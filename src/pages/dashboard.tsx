@@ -1,21 +1,21 @@
 import { For } from "solid-js";
+
 import {
-	WeaponLicenseExpireWarning,
-	AddWeapon,
-	AddClaim,
 	AddActivity,
-	Palette,
+	AddClaim,
+	AddWeapon,
 	Card,
+	CardContent,
 	CardHeader,
 	CardTitle,
-	CardContent,
+	WeaponLicenseExpireWarning,
 } from "~/components";
 import { useStore } from "~/store";
 
 const DashboardPage = () => {
 	const {
 		user,
-		weapons
+		weapons,
 	} = useStore();
 
 	const roundsFired = () => {
@@ -27,7 +27,7 @@ const DashboardPage = () => {
 		}, 0);
 
 		return sum;
-	}
+	};
 	return (
 		<>
 			<section>
@@ -47,8 +47,7 @@ const DashboardPage = () => {
 
 			<section class="py-8 px-4">
 				<h1>Vad vill du göra?</h1>
-				<p class="text-muted-foreground mb-6">
-				</p>
+				<p class="text-muted-foreground mb-6" />
 				<nav class="flex flex-col md:flex-row gap-4 justify-stretch">
 					<AddActivity />
 					<AddClaim />

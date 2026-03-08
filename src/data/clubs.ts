@@ -1,6 +1,6 @@
 // TODO: Look for existing Swedish gun club API.
-import clubsData from "./clubs.json";
 import clubNamesData from "./clubnames.json";
+import clubsData from "./clubs.json";
 
 interface ClubDataItem {
 	name: string;

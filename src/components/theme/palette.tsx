@@ -1,4 +1,5 @@
 import { Component, For, Show } from "solid-js";
+
 import { cn } from "~/utilities";
 
 interface PaletteProps {
@@ -51,12 +52,14 @@ export const Palette: Component<PaletteProps> = (props) => {
 												style={{
 													"background-color": isTwoToned ? controlledGradient : `oklch(var(--${color}-${gradient}))`,
 												}}
-												class="size-12 flex items-center justify-center rounded">
+												class="size-12 flex items-center justify-center rounded"
+											>
 												<Show when={!isTwoToned}>
 													<div class={cn(
 														"text-xs",
 														getTextColor(gradient as number),
-													)}>
+													)}
+													>
 														{gradient}
 													</div>
 												</Show>
@@ -71,4 +74,4 @@ export const Palette: Component<PaletteProps> = (props) => {
 			</For>
 		</section>
 	);
-}
+};

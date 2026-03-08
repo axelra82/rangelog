@@ -3,10 +3,11 @@ import {
 	IconMoon,
 	IconSun,
 } from "@tabler/icons-solidjs";
+import { Component, For } from "solid-js";
+
+import { ToggleGroup, ToggleGroupItem } from "~/components/ui/toggle-group";
 import { useStore } from "~/store";
 import { ColorMode } from "~/types";
-import { Component, For } from "solid-js";
-import { ToggleGroup, ToggleGroupItem } from "~/components/ui/toggle-group";
 import { cn } from "~/utilities";
 
 export const ThemeSelect: Component = () => {
@@ -42,8 +43,9 @@ export const ThemeSelect: Component = () => {
 							{...isMobile() && { size: "sm" }}
 						>
 							<Icon class={cn(
-								isMobile() ? "size-5" : "size-4"
-							)} />
+								isMobile() ? "size-5" : "size-4",
+							)}
+							/>
 						</ToggleGroupItem>
 					);
 				}}

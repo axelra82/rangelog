@@ -1,20 +1,21 @@
+import { A } from "@solidjs/router";
 import { auth } from "infrastructure";
 import { Component, Show } from "solid-js";
-import { useStore } from "~/store";
+
 import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 	Icon,
 	Separator,
-	ThemeSelect
+	ThemeSelect,
 } from "~/components/";
-import { A } from "@solidjs/router";
+import { useStore } from "~/store";
 import { Icons } from "~/types";
 
 export const ProfileMenu: Component = () => {
 	const {
 		user,
-		isAuthenticatedSet
+		isAuthenticatedSet,
 	} = useStore();
 
 	const handleLogout = () => {

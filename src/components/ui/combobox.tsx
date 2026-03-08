@@ -1,50 +1,49 @@
-import type { Component, JSX, ValidComponent } from "solid-js"
-import { createEffect, createSignal, For, Show, splitProps } from "solid-js"
+import * as ComboboxPrimitive from "@kobalte/core/combobox";
+import type { PolymorphicProps } from "@kobalte/core/polymorphic";
+import type { Component, JSX, ValidComponent } from "solid-js";
+import { createEffect, createSignal, For, Show, splitProps } from "solid-js";
 
-import * as ComboboxPrimitive from "@kobalte/core/combobox"
-import type { PolymorphicProps } from "@kobalte/core/polymorphic"
+import { Icon } from "~/components";
+import { Icons } from "~/types";
+import { cn } from "~/utilities";
 
-import { cn } from "~/utilities"
-import { Icon } from "~/components"
-import { Icons } from "~/types"
-
-const Combobox = ComboboxPrimitive.Root
-const ComboboxItemLabel = ComboboxPrimitive.ItemLabel
-const ComboboxHiddenSelect = ComboboxPrimitive.HiddenSelect
+const Combobox = ComboboxPrimitive.Root;
+const ComboboxItemLabel = ComboboxPrimitive.ItemLabel;
+const ComboboxHiddenSelect = ComboboxPrimitive.HiddenSelect;
 
 type ComboboxItemProps<T extends ValidComponent = "li"> = ComboboxPrimitive.ComboboxItemProps<T> & {
-	class?: string | undefined
-}
+	class?: string | undefined;
+};
 
 const ComboboxItem = <T extends ValidComponent = "li">(
-	props: PolymorphicProps<T, ComboboxItemProps<T>>
+	props: PolymorphicProps<T, ComboboxItemProps<T>>,
 ) => {
-	const [local, others] = splitProps(props as ComboboxItemProps, ["class"])
+	const [local, others] = splitProps(props as ComboboxItemProps, ["class"]);
 	return (
 		<ComboboxPrimitive.Item
 			class={cn(
 				"relative flex cursor-default select-none items-center justify-between rounded-sm px-2 py-1.5 text-sm outline-none data-disabled:pointer-events-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-disabled:opacity-50",
-				local.class
+				local.class,
 			)}
 			{...others}
 		/>
-	)
-}
+	);
+};
 
 type ComboboxItemIndicatorProps<T extends ValidComponent = "div"> =
 	ComboboxPrimitive.ComboboxItemIndicatorProps<T> & {
-		children?: JSX.Element
-	}
+		children?: JSX.Element;
+	};
 
 const ComboboxItemIndicator = <T extends ValidComponent = "div">(
-	props: PolymorphicProps<T, ComboboxItemIndicatorProps<T>>
+	props: PolymorphicProps<T, ComboboxItemIndicatorProps<T>>,
 ) => {
-	const [local, others] = splitProps(props as ComboboxItemIndicatorProps, ["children"])
+	const [local, others] = splitProps(props as ComboboxItemIndicatorProps, ["children"]);
 	return (
 		<ComboboxPrimitive.ItemIndicator {...others}>
 			<Show
 				when={local.children}
-				fallback={
+				fallback={(
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"
@@ -57,85 +56,85 @@ const ComboboxItemIndicator = <T extends ValidComponent = "div">(
 					>
 						<path d="M5 12l5 5l10 -10" />
 					</svg>
-				}
+				)}
 			>
 				{(children) => children()}
 			</Show>
 		</ComboboxPrimitive.ItemIndicator>
-	)
-}
+	);
+};
 
 type ComboboxSectionProps<T extends ValidComponent = "li"> =
-	ComboboxPrimitive.ComboboxSectionProps<T> & { class?: string | undefined }
+	ComboboxPrimitive.ComboboxSectionProps<T> & { class?: string | undefined };
 
 const ComboboxSection = <T extends ValidComponent = "li">(
-	props: PolymorphicProps<T, ComboboxSectionProps<T>>
+	props: PolymorphicProps<T, ComboboxSectionProps<T>>,
 ) => {
-	const [local, others] = splitProps(props as ComboboxSectionProps, ["class"])
+	const [local, others] = splitProps(props as ComboboxSectionProps, ["class"]);
 	return (
 		<ComboboxPrimitive.Section
 			class={cn(
 				"overflow-hidden p-1 px-2 py-1.5 text-xs font-medium text-muted-foreground ",
-				local.class
+				local.class,
 			)}
 			{...others}
 		/>
-	)
-}
+	);
+};
 
 type ComboboxControlProps<
 	U,
-	T extends ValidComponent = "div"
+	T extends ValidComponent = "div",
 > = ComboboxPrimitive.ComboboxControlProps<U, T> & {
-	class?: string | undefined
-}
+	class?: string | undefined;
+};
 
 const ComboboxControl = <T, U extends ValidComponent = "div">(
-	props: PolymorphicProps<U, ComboboxControlProps<T>>
+	props: PolymorphicProps<U, ComboboxControlProps<T>>,
 ) => {
-	const [local, others] = splitProps(props as ComboboxControlProps<T>, ["class"])
+	const [local, others] = splitProps(props as ComboboxControlProps<T>, ["class"]);
 	return (
 		<ComboboxPrimitive.Control
 			class={cn("flex h-10 items-center rounded-md border border-border px-3", local.class)}
 			{...others}
 		/>
-	)
-}
+	);
+};
 
 type ComboboxInputProps<T extends ValidComponent = "input"> =
-	ComboboxPrimitive.ComboboxInputProps<T> & { class?: string | undefined }
+	ComboboxPrimitive.ComboboxInputProps<T> & { class?: string | undefined };
 
 const ComboboxInput = <T extends ValidComponent = "input">(
-	props: PolymorphicProps<T, ComboboxInputProps<T>>
+	props: PolymorphicProps<T, ComboboxInputProps<T>>,
 ) => {
-	const [local, others] = splitProps(props as ComboboxInputProps, ["class"])
+	const [local, others] = splitProps(props as ComboboxInputProps, ["class"]);
 	return (
 		<ComboboxPrimitive.Input
 			class={cn(
 				"flex size-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
-				local.class
+				local.class,
 			)}
 			{...others}
 		/>
-	)
-}
+	);
+};
 
 type ComboboxTriggerProps<T extends ValidComponent = "button"> =
 	ComboboxPrimitive.ComboboxTriggerProps<T> & {
-		class?: string | undefined
-		children?: JSX.Element
-	}
+		class?: string | undefined;
+		children?: JSX.Element;
+	};
 
 const ComboboxTrigger = <T extends ValidComponent = "button">(
-	props: PolymorphicProps<T, ComboboxTriggerProps<T>>
+	props: PolymorphicProps<T, ComboboxTriggerProps<T>>,
 ) => {
-	const [local, others] = splitProps(props as ComboboxTriggerProps, ["class", "children"])
+	const [local, others] = splitProps(props as ComboboxTriggerProps, ["class", "children"]);
 	return (
 		<ComboboxPrimitive.Trigger class={cn("size-4 opacity-50", local.class)} {...others}>
 			<ComboboxPrimitive.Icon>
 				<Show
 					when={local.children}
-					fallback={
+					fallback={(
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
@@ -149,36 +148,36 @@ const ComboboxTrigger = <T extends ValidComponent = "button">(
 							<path d="M8 9l4 -4l4 4" />
 							<path d="M16 15l-4 4l-4 -4" />
 						</svg>
-					}
+					)}
 				>
 					{(children) => children()}
 				</Show>
 			</ComboboxPrimitive.Icon>
 		</ComboboxPrimitive.Trigger>
-	)
-}
+	);
+};
 
 type ComboboxContentProps<T extends ValidComponent = "div"> =
-	ComboboxPrimitive.ComboboxContentProps<T> & { class?: string | undefined }
+	ComboboxPrimitive.ComboboxContentProps<T> & { class?: string | undefined };
 
 const ComboboxContent = <T extends ValidComponent = "div">(
-	props: PolymorphicProps<T, ComboboxContentProps<T>>
+	props: PolymorphicProps<T, ComboboxContentProps<T>>,
 ) => {
-	const [local, others] = splitProps(props as ComboboxContentProps, ["class"])
+	const [local, others] = splitProps(props as ComboboxContentProps, ["class"]);
 	return (
 		<ComboboxPrimitive.Portal>
 			<ComboboxPrimitive.Content
 				class={cn(
 					"relative z-50 min-w-32 max-h-80 overflow-y-auto rounded-md border border-border bg-popover text-popover-foreground shadow-md animate-in fade-in-80",
-					local.class
+					local.class,
 				)}
 				{...others}
 			>
 				<ComboboxPrimitive.Listbox class="m-0 p-1" />
 			</ComboboxPrimitive.Content>
 		</ComboboxPrimitive.Portal>
-	)
-}
+	);
+};
 
 const ComboboxMultiSelectGridItem: Component<{
 	key: string;
@@ -189,7 +188,6 @@ const ComboboxMultiSelectGridItem: Component<{
 	title: string;
 	value: string[];
 }> = (props) => {
-
 	const [showPlaceholder, showPlaceholderSet] = createSignal<boolean>(true);
 
 	return (
@@ -205,7 +203,7 @@ const ComboboxMultiSelectGridItem: Component<{
 				value={props.value} // Use the value passed from parent
 				onChange={(value: string[]) => props.onChange(props.key, value)}
 				{...showPlaceholder() && { placeholder: props.placeholder }}
-				itemComponent={itemProps => (
+				itemComponent={(itemProps) => (
 					<ComboboxItem item={itemProps.item}>
 						<div class="flex">
 							<div class="w-6 shrink">
@@ -225,7 +223,7 @@ const ComboboxMultiSelectGridItem: Component<{
 					class="flex overflow-hidden h-auto items-baseline"
 					aria-label={props.title}
 				>
-					{state => {
+					{(state) => {
 						createEffect(() => {
 							showPlaceholderSet(state.selectedOptions().length === 0);
 						});
@@ -236,10 +234,11 @@ const ComboboxMultiSelectGridItem: Component<{
 									"flex flex-wrap gap-2 grow",
 									{
 										"p-2": state.selectedOptions().length,
-									}
-								)}>
+									},
+								)}
+								>
 									<For each={state.selectedOptions()}>
-										{option => (
+										{(option) => (
 											<div
 												class="bg-accent text-sm px-2 py-0.5 rounded inline-flex items-center gap-x-2"
 												onPointerDown={(event) => event.stopPropagation()}
@@ -277,7 +276,7 @@ export {
 	ComboboxItem,
 	ComboboxItemIndicator,
 	ComboboxItemLabel,
+	ComboboxMultiSelectGridItem,
 	ComboboxSection,
 	ComboboxTrigger,
-	ComboboxMultiSelectGridItem,
-}
+};

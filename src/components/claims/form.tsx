@@ -1,17 +1,15 @@
+import { useSearchParams } from "@solidjs/router";
+import {
+	claims as claimsApi,
+	file as fileApi,
+} from "infrastructure";
 import {
 	Component,
-	createSignal,
-	Show,
 	createEffect,
+	createSignal,
 	Setter,
+	Show,
 } from "solid-js";
-
-import {
-	dateTimeLocale,
-	dateTimeLocaleToday,
-} from "~/utilities";
-
-import { useStore } from "~/store";
 
 import {
 	Alert,
@@ -22,34 +20,31 @@ import {
 	CardHeader,
 	CardTitle,
 	ConditionalWrapper,
-	DialogHeader,
-	DialogTitle,
-	SelectGridItem,
-	TextFieldInputGridItem,
-	Spinner,
-	TextFieldAreaGridItem,
-	showToast,
 	Dialog,
 	DialogContent,
 	DialogDescription,
+	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
-	Label,
 	FileSource,
+	Label,
+	SelectGridItem,
+	showToast,
+	Spinner,
+	TextFieldAreaGridItem,
+	TextFieldInputGridItem,
 } from "~/components";
-
-import { useSearchParams } from "@solidjs/router";
-
-import {
-	claims as claimsApi,
-	file as fileApi,
-} from "infrastructure";
-
-import { federations, clubs, claims } from "~/data";
-
+import { claims, clubs, federations } from "~/data";
 import {
 	Claim,
 	ClaimCreateInput,
 } from "~/schemas";
+import { useStore } from "~/store";
+import {
+	dateTimeLocale,
+	dateTimeLocaleToday,
+} from "~/utilities";
+
 interface ManageActivityFormProps {
 	modal?: boolean;
 	modalControl?: Setter<boolean>;
@@ -86,7 +81,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 		if (props.modal && props.modalControl) {
 			props.modalControl(false);
 		}
-	}
+	};
 
 	const [existingImage, existingImageSet] = createSignal<string>();
 	const [pendingImage, pendingImageSet] = createSignal<File | null>(null);
@@ -96,7 +91,6 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 	};
 
 	let imageInputRef: HTMLInputElement | undefined;
-
 
 	const handleInputChange = (field: string, value: string | string[]) => {
 		formSet((prev) => ({ ...prev, [field]: value }));
@@ -119,7 +113,9 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 		try {
 			await claimsApi.delete(editForm()!.id);
 
-			claimsSet((prev) => prev.filter((item) => item.id !== editForm()!.id));
+			const editId = editForm()!.id;
+
+			claimsSet((prev) => prev.filter((item) => item.id !== editId));
 
 			showToast({
 				description: "Fordran raderades",
@@ -144,9 +140,9 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 			const current = form();
 
 			if (
-				!current.date
-				|| !current.type
-				|| !current.federation
+				!current.date ||
+				!current.type ||
+				!current.federation
 			) {
 				throw Error("Ange datum, fordran och förbund.");
 			}
@@ -196,8 +192,10 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 					},
 				);
 
+				const editId = editForm()!.id;
+
 				claimsSet((prev) =>
-					prev.map((item) => (item.id === editForm()!.id ? updatedItem : item))
+					prev.map((item) => (item.id === editId ? updatedItem : item)),
 				);
 
 				showToast({
@@ -275,7 +273,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				/>
 
 				<SelectGridItem
-					key={"type"}
+					key="type"
 					options={claims}
 					placeholder="Välj typ"
 					title="Fordran"
@@ -285,7 +283,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				/>
 
 				<SelectGridItem
-					key={"federation"}
+					key="federation"
 					options={federations}
 					placeholder="Välj förbund"
 					title="Förbund"
@@ -307,7 +305,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 					Bild
 				</Label>
 				<input
-					ref={imageInputRef}
+					ref={(element) => (imageInputRef = element)}
 					type="file"
 					multiple
 					class="hidden"
@@ -328,10 +326,10 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 						<Button
 							onClick={() => {
 								if (pendingImage()) {
-									pendingImageSet(null)
+									pendingImageSet(null);
 								}
 								if (existingImage()) {
-									existingImageSet()
+									existingImageSet();
 								}
 							}}
 							size="sm"
@@ -345,12 +343,13 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				<div class="w-full">
 					<Show when={existingImage()} keyed>
 						{
-							(image) =>
+							(image) => (
 								<FileSource
 									id={image}
 									size="1280x0"
 									image
 								/>
+							)
 						}
 					</Show>
 				</div>
@@ -468,7 +467,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				club: editForm()!.club ?? "",
 				date: dateTimeLocale({
 					dateTime: editForm()!.date,
-					withTime: true
+					withTime: true,
 				}),
 				federation: editForm()!.federation,
 				image: editForm()!.image,
@@ -483,7 +482,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 
 	return (
 		<ConditionalWrapper
-			condition={!Boolean(props.modal)}
+			condition={!props.modal}
 			wrapper={(wrapperChildren) => <Card>{wrapperChildren}</Card>}
 		>
 			<FormContent />

@@ -14,5 +14,8 @@ export type AppFile = z.infer<typeof appFileSchema>;
 
 export type AppFileCreateInput = Omit<
 	AppFile,
-	"id" | "created"
->
+	"id" | "created" | "source"
+> & {
+	// Override source to File for creation.
+	source: File;
+};

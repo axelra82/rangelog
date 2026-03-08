@@ -1,4 +1,17 @@
 import {
+	activities as activitiesApi,
+	claims as claimsApi,
+} from "infrastructure";
+import {
+	Component,
+	createSignal,
+	For,
+	onCleanup,
+	onMount,
+	Show,
+} from "solid-js";
+
+import {
 	ActivityItem,
 	AddActivity,
 	AddClaim,
@@ -12,32 +25,15 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "~/components";
-
-import { useStore } from "~/store";
-
-import {
-	Component,
-	createSignal,
-	For,
-	onCleanup,
-	onMount,
-	Show,
-} from "solid-js";
-
-import {
-	activities as activitiesApi,
-	claims as claimsApi,
-} from "infrastructure";
-
-import {
-	Icons,
-	ReadListResponse,
-} from "~/types";
-
 import {
 	Activity,
 	Claim,
 } from "~/schemas";
+import { useStore } from "~/store";
+import {
+	Icons,
+	ReadListResponse,
+} from "~/types";
 
 const ActivitiesPage = () => {
 	const {
@@ -65,19 +61,19 @@ const ActivitiesPage = () => {
 
 	const [loadingActivities, loadingActivitiesSet] = createSignal(false);
 
-	const hasMoreActivities = () => activitiesPageCount() === -1
-		|| activitiesCurrentPage() <= activitiesPageCount();
+	const hasMoreActivities = () => activitiesPageCount() === -1 ||
+		activitiesCurrentPage() <= activitiesPageCount();
 
 	let activitiesSentinelRef: HTMLDivElement | undefined;
 
 	const [loadingClaims, loadingClaimsSet] = createSignal(false);
 
-	const hasMoreClaims = () => claimsPageCount() === -1
-		|| claimsCurrentPage() <= claimsPageCount();
+	const hasMoreClaims = () => claimsPageCount() === -1 ||
+		claimsCurrentPage() <= claimsPageCount();
 
 	let claimsSentinelRef: HTMLDivElement | undefined;
 
-	const toggleSort = () => {
+	const toggleSort = async () => {
 		sortSet((prev) => prev === "-" ? "+" : "-");
 
 		activitiesCurrentPageSet(1);
@@ -87,13 +83,13 @@ const ActivitiesPage = () => {
 		claimsCurrentPageSet(1);
 		claimsPageCountSet(-1);
 		claimsSet([]);
-		getActivities();
-		getClaims();
+		await getActivities();
+		await getClaims();
 	};
 
 	const getActivities = async () => {
 		if (loadingActivities() || !hasMoreActivities()) {
-			return
+			return;
 		};
 
 		loadingActivitiesSet(true);
@@ -118,12 +114,12 @@ const ActivitiesPage = () => {
 				...data.items,
 			]);
 
-			requestAnimationFrame(() => {
+			requestAnimationFrame(async () => {
 				const sentinelVisible = activitiesSentinelRef &&
 					activitiesSentinelRef.getBoundingClientRect().top < window.innerHeight;
 
 				if (sentinelVisible) {
-					getActivities();
+					await getActivities();
 				}
 			});
 		} catch (error) {
@@ -131,11 +127,11 @@ const ActivitiesPage = () => {
 		} finally {
 			loadingActivitiesSet(false);
 		}
-	}
+	};
 
 	const getClaims = async () => {
 		if (loadingClaims() || !hasMoreClaims()) {
-			return
+			return;
 		};
 
 		loadingClaimsSet(true);
@@ -162,38 +158,38 @@ const ActivitiesPage = () => {
 		} finally {
 			loadingClaimsSet(false);
 		}
-	}
+	};
 
-	onMount(() => {
+	onMount(async () => {
 		if (activities().length) {
 			// Restore pagination state from existing data
 			activitiesCurrentPageSet(Math.ceil(activities().length / perPage) + 1);
 			activitiesPageCountSet(Math.ceil(activitiesTotal() / perPage));
 		} else {
-			getActivities();
+			await getActivities();
 		}
 
 		if (claims().length) {
 			claimsCurrentPageSet(Math.ceil(claims().length / perPage) + 1);
 			claimsPageCountSet(Math.ceil(claimsTotal() / perPage));
 		} else {
-			getClaims();
+			await getClaims();
 		}
 
 		const threshold = 0;
 
 		const activitiesObserver = new IntersectionObserver(
-			(entries) => {
+			async (entries) => {
 				if (
-					entries[0].isIntersecting
-					&& hasMoreActivities()
+					entries[0].isIntersecting &&
+					hasMoreActivities()
 				) {
-					getActivities();
+					await getActivities();
 				}
 			},
 			{
 				threshold,
-			}
+			},
 		);
 
 		if (activitiesSentinelRef) {
@@ -201,17 +197,17 @@ const ActivitiesPage = () => {
 		}
 
 		const claimsObserver = new IntersectionObserver(
-			(entries) => {
+			async (entries) => {
 				if (
-					entries[0].isIntersecting
-					&& hasMoreClaims()
+					entries[0].isIntersecting &&
+					hasMoreClaims()
 				) {
-					getClaims();
+					await getClaims();
 				}
 			},
 			{
 				threshold,
-			}
+			},
 		);
 
 		if (claimsSentinelRef) {
@@ -224,7 +220,7 @@ const ActivitiesPage = () => {
 		});
 	});
 
-	const ShowingCount: Component<{ count: number, total: number }> = (props) => (
+	const ShowingCount: Component<{ count: number; total: number }> = (props) => (
 		<>
 			<div class="flex items-center gap-4 ml-2 text-sm text-muted-foreground">
 				<Button
@@ -234,20 +230,18 @@ const ActivitiesPage = () => {
 				>
 					{
 						sort() === "-"
-							?
-							<Icon icon={Icons.SORT_DESCENDING} />
-							:
-							<Icon icon={Icons.SORT_ASCENDING} />
+							? <Icon icon={Icons.SORT_DESCENDING} />
+							: <Icon icon={Icons.SORT_ASCENDING} />
 					}
 				</Button>
 
 				<Show
 					when={props.count < props.total}
-					fallback={
+					fallback={(
 						<div>
 							Visar alla ({props.total})
 						</div>
-					}
+					)}
 				>
 					<div>
 						Visar {props.count} av {props.total}
@@ -312,7 +306,7 @@ const ActivitiesPage = () => {
 							)}
 						</For>
 
-						<div ref={activitiesSentinelRef} class="h-1" />
+						<div ref={(element) => (activitiesSentinelRef = element)} class="h-1" />
 
 						<Show when={loadingActivities()}>
 							<LoadingIndicator />
@@ -327,11 +321,11 @@ const ActivitiesPage = () => {
 				>
 					<Show
 						when={claims().length}
-						fallback={
+						fallback={(
 							<h2>
 								Inge fordran sparad.
 							</h2>
-						}
+						)}
 					>
 						<ShowingCount
 							count={claims().length}
@@ -348,7 +342,7 @@ const ActivitiesPage = () => {
 						)}
 					</For>
 
-					<div ref={claimsSentinelRef} class="h-1" />
+					<div ref={(element) => (claimsSentinelRef = element)} class="h-1" />
 
 					<Show when={loadingClaims()}>
 						<LoadingIndicator />
@@ -357,6 +351,6 @@ const ActivitiesPage = () => {
 			</Tabs>
 		</section>
 	);
-}
+};
 
 export default ActivitiesPage;

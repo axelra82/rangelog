@@ -1,4 +1,5 @@
 import { Component, createSignal } from "solid-js";
+
 import {
 	Button,
 	ClaimsForm,
@@ -36,5 +37,5 @@ export const AddClaim: Component<AddClaimProps> = (props) => {
 				/>
 			</DialogContent>
 		</Dialog>
-	)
+	);
 };

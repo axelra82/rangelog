@@ -27,9 +27,11 @@ import {
 	IconUserFilled,
 	IconX,
 	IconXboxX,
-} from "@tabler/icons-solidjs"
-import { Component, JSX, splitProps } from "solid-js"
-import { Icons } from "~/types"
+} from "@tabler/icons-solidjs";
+import { Component, JSX, splitProps } from "solid-js";
+import { Dynamic } from "solid-js/web";
+
+import { Icons } from "~/types";
 
 const iconMap: Record<Icons, Component<JSX.SvgSVGAttributes<SVGSVGElement>>> = {
 	[Icons.ALERT_CIRCLE]: IconAlertCircle,
@@ -60,21 +62,20 @@ const iconMap: Record<Icons, Component<JSX.SvgSVGAttributes<SVGSVGElement>>> = {
 	[Icons.USER]: IconUser,
 	[Icons.X]: IconX,
 	[Icons.XBOX_X]: IconXboxX,
-}
+};
 
 interface IconProps extends JSX.SvgSVGAttributes<SVGSVGElement> {
-	icon: Icons
+	icon: Icons;
 }
 
 export const Icon: Component<IconProps> = (props) => {
 	const [local, others] = splitProps(props, ["class", "icon"]);
 
-	const ResolvedIcon = iconMap[local.icon];
-
 	return (
-		<ResolvedIcon
+		<Dynamic
+			component={iconMap[local.icon]}
 			class={local.class}
 			{...others}
 		/>
 	);
-}
+};

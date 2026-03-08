@@ -1,20 +1,21 @@
+import { auth } from "infrastructure/services";
 import {
 	Component,
 	createSignal,
 	Show,
 } from "solid-js";
-import { useStore } from "~/store";
-import { auth } from "infrastructure/services";
+
 import {
 	Button,
+	Icon,
+	LoginFooter,
+	Spinner,
 	TextField,
 	TextFieldInput,
 	TextFieldLabel,
 	ThemeSelect,
-	Spinner,
-	LoginFooter,
-	Icon,
 } from "~/components";
+import { useStore } from "~/store";
 import { Icons } from "~/types";
 
 export const LoginPage: Component = () => {
@@ -111,10 +112,10 @@ export const LoginPage: Component = () => {
 										tabindex="-1"
 										disabled={password() === ""}
 									>
-										{showPassword() ?
+										{showPassword()
 
-											<Icon icon={Icons.EYE_OFF} /> : <Icon icon={Icons.EYE} />
-										}
+											? <Icon icon={Icons.EYE_OFF} />
+: <Icon icon={Icons.EYE} />}
 									</Button>
 								</div>
 							</TextField>

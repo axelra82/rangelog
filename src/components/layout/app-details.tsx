@@ -1,11 +1,12 @@
 import { Component, createSignal } from "solid-js";
-import { timestampToLocaleDate } from "~/utilities";
+
 import {
 	Button,
 	Icon,
 	showToast,
 } from "~/components";
 import { Icons } from "~/types";
+import { timestampToLocaleDate } from "~/utilities";
 
 export const AppDetails: Component = () => {
 	const env = import.meta.env;
@@ -69,7 +70,9 @@ export const AppDetails: Component = () => {
 
 	const BuildVersionDate: Component = () => (
 		<div>
-			version: <strong class="mr-2">{buildVersion}</strong>
+			version:
+			{" "}
+			<strong class="mr-2">{buildVersion}</strong>
 			{timestampToLocaleDate(buildTime)}
 		</div>
 	);

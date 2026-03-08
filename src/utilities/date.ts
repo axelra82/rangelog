@@ -1,13 +1,5 @@
 import { DateTimeLocaleProps } from "~/types/date";
 
-const second = 1000;
-const minute = second * 60;
-const hour = minute * 60;
-const day = hour * 24;
-const week = day * 7;
-const month = week * 4;
-const year = month * 12;
-
 /**
 	* Convert UNIX timestamp to local string (defaults to "sv-SE"). Default return is date only, to include hours and minutes set `withTime` to true.
 	*
@@ -60,6 +52,14 @@ export const tempDateFormatter = (timestamp: number) => {
 	* @returns {string}
 	*/
 export const timestampToRelative = (timestamp: string | number): string => {
+	const second = 1000;
+	const minute = second * 60;
+	const hour = minute * 60;
+	const day = hour * 24;
+	const week = day * 7;
+	const month = week * 4;
+	const year = month * 12;
+
 	const secondsAgo = Math.round((Date.now() - Number(timestamp)));
 
 	// If time past is less than one (1) minute, return sentence "Just now".
@@ -69,7 +69,7 @@ export const timestampToRelative = (timestamp: string | number): string => {
 	}
 
 	let divisor;
-	let unit = "";
+	let unit;
 
 	if (secondsAgo < hour) {
 		[divisor, unit] = [minute, "minute"];
@@ -254,7 +254,7 @@ export const dateTimeLocaleToday = (props?: Omit<DateTimeLocaleProps, "dateTime"
 		dateTime: date.toISOString(),
 		...props,
 	});
-}
+};
 
 export const licenseExpiryStatusMessage = (licenseEnd?: string): {
 	message: string;
@@ -283,14 +283,13 @@ export const licenseExpiryStatusMessage = (licenseEnd?: string): {
 		const isToday = diffDays === 0;
 
 		return {
-			message: `Licens går ut ${isToday ? `idag` : `om ${Math.abs(diffDays)} dagar`}`,
+			message: `Licens går ut ${isToday ? "idag" : `om ${Math.abs(diffDays)} dagar`}`,
 			status: isToday ? "error" : "warning",
 		};
-
 	}
 
 	return null;
-}
+};
 
 export const getYear = (date?: string) => {
 	const current = new Date().getFullYear();
@@ -306,6 +305,6 @@ export const getYear = (date?: string) => {
 	return {
 		current,
 		year,
-		isCurrent
-	}
-}
+		isCurrent,
+	};
+};

@@ -1,4 +1,5 @@
 import { ZodType } from "zod";
+
 import {
 	Activity,
 	activitySchema,
@@ -13,7 +14,6 @@ import {
 	Weapon,
 	weaponSchema,
 } from "~/schemas";
-
 import {
 	NormalizeParser,
 } from "~/types";
@@ -71,31 +71,31 @@ const genericNormalizer = <T>(
 };
 
 export const normalizeActivity = (
-	data: Record<string, any>,
+	data: Record<string, unknown>,
 	parser: NormalizeParser<Activity>,
 ): Readonly<Activity> => genericNormalizer(data, activitySchema, parser);
 
 export const normalizeActivityWeapon = (
-	data: Record<string, any>,
+	data: Record<string, unknown>,
 	parser: NormalizeParser<ActivityWeapon>,
 ): Readonly<ActivityWeapon> => genericNormalizer(data, activityWeaponSchema, parser);
 
 export const normalizeAppFile = (
-	data: Record<string, any>,
+	data: Record<string, unknown>,
 	parser: NormalizeParser<AppFile>,
 ): Readonly<AppFile> => genericNormalizer(data, appFileSchema, parser);
 
 export const normalizeClaim = (
-	data: Record<string, any>,
+	data: Record<string, unknown>,
 	parser: NormalizeParser<Claim>,
 ): Readonly<Claim> => genericNormalizer(data, claimSchema, parser);
 
 export const normalizeUser = (
-	data: Record<string, any>,
+	data: Record<string, unknown>,
 	parser: NormalizeParser<ClientUser>,
 ): Readonly<ClientUser> => genericNormalizer(data, clientUserSchema, parser);
 
 export const normalizeWeapon = (
-	data: Record<string, any>,
+	data: Record<string, unknown>,
 	parser: NormalizeParser<Weapon>,
 ): Readonly<Weapon> => genericNormalizer(data, weaponSchema, parser);

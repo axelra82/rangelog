@@ -1,5 +1,5 @@
-export * from "./alert-dialog";
 export * from "./alert";
+export * from "./alert-dialog";
 export * from "./avatar";
 export * from "./badge";
 export * from "./button";
@@ -26,6 +26,6 @@ export * from "./table";
 export * from "./tabs";
 export * from "./text-field";
 export * from "./toast";
-export * from "./toggle-group";
 export * from "./toggle";
+export * from "./toggle-group";
 export * from "./tooltip";

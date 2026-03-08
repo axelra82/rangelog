@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { activityWeaponSchema } from "./activity-weapon";
 
 export const activitySchema = z.object({
@@ -7,19 +8,19 @@ export const activitySchema = z.object({
 	date: z.string(),
 	exercises: z.string().optional(),
 	expand: z.object({
-		"activity_weapons_via_activity": z.array(activityWeaponSchema).optional(),
+		activity_weapons_via_activity: z.array(activityWeaponSchema).optional(),
 	}).optional(),
 	id: z.string(),
 	location: z.string().optional(),
 	notes: z.string().optional(),
 	owner: z.string(),
 	rangeMaster: z.string().optional(),
-	updated: z.string()
+	updated: z.string(),
 });
 
 export type Activity = z.infer<typeof activitySchema>;
 
 export type ActivityCreateInput = Omit<
 	Activity,
-	"id" | "created" | "update"
->
+	"id" | "created" | "updated"
+>;

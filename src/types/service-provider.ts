@@ -9,6 +9,7 @@ import {
 	ClaimCreateInput,
 	ClientUser,
 	ClientUserCreateInput,
+	ClientUserUpdateInput,
 	Weapon,
 	WeaponCreateInput,
 } from "~/schemas";
@@ -83,7 +84,7 @@ export type ProviderFunction = {
 		login: (props: SigninProps) => Promise<ClientUser>;
 		logout: () => boolean;
 		refresh: () => void;
-		validate: () => Promise<{ user: ClientUser | null }>
+		validate: () => Promise<{ user: ClientUser | null }>;
 	};
 	claims: {
 		create: (
@@ -105,7 +106,7 @@ export type ProviderFunction = {
 			data: AppFileCreateInput,
 		) => Promise<AppFile>;
 		read: (
-			options: ReadSingleOptions | ReadListRequest
+			options: ReadSingleOptions | ReadListRequest,
 		) => Promise<AppFile | ReadListResponse<AppFile>>;
 		update: (
 			id: string,
@@ -121,25 +122,25 @@ export type ProviderFunction = {
 			data: ClientUserCreateInput,
 		) => Promise<ClientUser>;
 		read: (
-			options: ReadSingleOptions | ReadListRequest
+			options: ReadSingleOptions | ReadListRequest,
 		) => Promise<ClientUser | ReadListResponse<ClientUser>>;
 		update: (
 			id: string,
-			data: Partial<ClientUserCreateInput>,
+			data: Partial<ClientUserUpdateInput>,
 		) => Promise<ClientUser>;
 		updateEmail: (
 			newEmail: string,
-		) => Promise<boolean>,
+		) => Promise<boolean>;
 		delete: (
 			id: string,
 		) => Promise<boolean>;
-	},
+	};
 	weapons: {
 		create: (
 			data: WeaponCreateInput,
 		) => Promise<Weapon>;
 		read: (
-			options: ReadSingleOptions | ReadListRequest
+			options: ReadSingleOptions | ReadListRequest,
 		) => Promise<Weapon | ReadListResponse<Weapon>>;
 		update: (
 			id: string,
@@ -148,5 +149,5 @@ export type ProviderFunction = {
 		delete: (
 			id: string,
 		) => Promise<boolean>;
-	}
+	};
 };

@@ -1,18 +1,17 @@
-import type { ValidComponent } from "solid-js"
-import { Show, splitProps } from "solid-js"
+import type { PolymorphicProps } from "@kobalte/core/polymorphic";
+import * as SeparatorPrimitive from "@kobalte/core/separator";
+import type { ValidComponent } from "solid-js";
+import { Show, splitProps } from "solid-js";
 
-import type { PolymorphicProps } from "@kobalte/core/polymorphic"
-import * as SeparatorPrimitive from "@kobalte/core/separator"
-
-import { cn } from "~/utilities"
+import { cn } from "~/utilities";
 
 type SeparatorRootProps<T extends ValidComponent = "hr"> =
-	SeparatorPrimitive.SeparatorRootProps<T> & { class?: string | undefined, isLast?: boolean }
+	SeparatorPrimitive.SeparatorRootProps<T> & { class?: string | undefined; isLast?: boolean };
 
 const Separator = <T extends ValidComponent = "hr">(
-	props: PolymorphicProps<T, SeparatorRootProps<T>>
+	props: PolymorphicProps<T, SeparatorRootProps<T>>,
 ) => {
-	const [local, others] = splitProps(props as SeparatorRootProps, ["class", "orientation", "isLast"])
+	const [local, others] = splitProps(props as SeparatorRootProps, ["class", "orientation", "isLast"]);
 	return (
 		<Show when={!local.isLast}>
 			<SeparatorPrimitive.Root
@@ -20,12 +19,12 @@ const Separator = <T extends ValidComponent = "hr">(
 				class={cn(
 					"shrink-0 bg-border border-border",
 					local.orientation === "vertical" ? "h-full w-px" : "h-px w-full",
-					local.class
+					local.class,
 				)}
 				{...others}
 			/>
 		</Show>
-	)
-}
+	);
+};
 
-export { Separator }
+export { Separator };

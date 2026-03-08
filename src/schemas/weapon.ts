@@ -1,5 +1,7 @@
 import { z } from "zod";
+
 import { caliberValues, federationValues, weaponValues } from "~/data";
+
 import { appFileSchema } from "./file";
 
 export const weaponSchema = z.object({

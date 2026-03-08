@@ -1,10 +1,10 @@
+import { auth as authApi } from "infrastructure";
 import { render } from "solid-js/web";
 
+import { AuthChecker } from "./components/auth-checker";
 import {
 	StoreContextProvider,
 } from "./store";
-import { AuthChecker } from "./components/auth-checker";
-import { auth as authApi } from "infrastructure";
 
 if (!window.location.pathname.startsWith("/_/") && !window.location.pathname.startsWith("/api/")) {
 	authApi.refresh();
@@ -15,6 +15,6 @@ if (!window.location.pathname.startsWith("/_/") && !window.location.pathname.sta
 				<AuthChecker />
 			</StoreContextProvider>
 		),
-		document.getElementById("root") as HTMLElement
+		document.getElementById("root") as HTMLElement,
 	);
 }

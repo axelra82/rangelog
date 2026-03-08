@@ -1,4 +1,5 @@
 import { Component, createSignal } from "solid-js";
+
 import {
 	ActivityForm,
 	Button,
@@ -36,5 +37,5 @@ export const AddActivity: Component<AddActivityProps> = (props) => {
 				/>
 			</DialogContent>
 		</Dialog>
-	)
+	);
 };

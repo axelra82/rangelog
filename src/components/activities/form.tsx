@@ -1,29 +1,19 @@
+import { useSearchParams } from "@solidjs/router";
+import {
+	activities as activitiesApi,
+	activitiesWeapons as activitiesWeaponsApi,
+} from "infrastructure";
+import {
+	ShootingEntry,
+} from "infrastructure/adapters/pocketbase";
 import {
 	Component,
-	createSignal,
-	Show,
-	For,
 	createEffect,
+	createSignal,
+	For,
 	Setter,
+	Show,
 } from "solid-js";
-
-import { useSearchParams } from "@solidjs/router";
-
-import {
-	Calibers,
-	clubs,
-} from "~/data";
-
-import {
-	dateTimeLocale,
-	dateTimeLocaleToday,
-} from "~/utilities";
-
-import {
-	ReadListResponse,
-} from "~/types";
-
-import { useStore } from "~/store";
 
 import {
 	Alert,
@@ -34,36 +24,37 @@ import {
 	CardHeader,
 	CardTitle,
 	ConditionalWrapper,
-	DialogHeader,
-	DialogTitle,
-	SelectGridItem,
-	TextFieldInputGridItem,
-	Spinner,
-	TextFieldAreaGridItem,
-	Separator,
-	showToast,
-	Label,
-	TextField,
-	TextFieldLabel,
-	TextFieldInput,
 	Dialog,
 	DialogContent,
 	DialogDescription,
+	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
+	Label,
+	SelectGridItem,
 	SelectNative,
+	Separator,
+	showToast,
+	Spinner,
+	TextField,
+	TextFieldAreaGridItem,
+	TextFieldInput,
+	TextFieldInputGridItem,
+	TextFieldLabel,
 } from "~/components";
-
 import {
-	activities as activitiesApi,
-	activitiesWeapons as activitiesWeaponsApi,
-} from "infrastructure";
-
+	Calibers,
+	clubs,
+} from "~/data";
+import { Activity, ActivityCreateInput, ActivityWeapon } from "~/schemas";
+import { useStore } from "~/store";
 import {
-	ShootingEntry,
-	ActivityCreateInput,
-	ActivityWeaponCollectionItem,
-} from "infrastructure/adapters/pocketbase";
-import { Activity } from "~/schemas";
+	ReadListResponse,
+} from "~/types";
+import {
+	dateTimeLocale,
+	dateTimeLocaleToday,
+} from "~/utilities";
 
 interface ManageActivityFormProps {
 	modal?: boolean;
@@ -82,7 +73,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 		weapons: storeWeapons,
 	} = useStore();
 
-	const [_, setSearchParams] = useSearchParams();
+	const [, searchParamsSet] = useSearchParams();
 
 	const defaultFormValues = {
 		club: "",
@@ -103,7 +94,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 	const [form, formSet] = createSignal<ActivityCreateInput>(defaultFormValues);
 	const [editForm, editFormSet] = createSignal<Activity>();
 	const [loading, loadingSet] = createSignal(false);
-	const [error, errorSet] = createSignal<string | null>(null);
+	const [errorMessage, errorMessageSet] = createSignal<string | null>(null);
 	const [title, titleSet] = createSignal<string>();
 	const [shootingEntries, shootingEntriesSet] = createSignal<ShootingEntryWithId[]>([defaultWeaponEntry]);
 
@@ -111,7 +102,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 		if (props.modal && props.modalControl) {
 			props.modalControl(false);
 		}
-	}
+	};
 
 	const getWeaponById = (id: string) =>
 		storeWeapons().find((item) => item.id === id);
@@ -170,7 +161,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 	};
 
 	const cancelEdit = () => {
-		setSearchParams({ edit: undefined });
+		searchParamsSet({ edit: undefined });
 		editFormSet();
 		reformSet();
 		closeModal();
@@ -181,7 +172,8 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 			await activitiesWeaponsApi.deleteByActivity(editForm()!.id);
 			await activitiesApi.delete(editForm()!.id);
 
-			activitiesSet((prev) => prev.filter((item) => item.id !== editForm()!.id));
+			const editId = editForm()!.id;
+			activitiesSet((prev) => prev.filter((item) => item.id !== editId));
 
 			showToast({
 				description: "Aktiviteten raderades",
@@ -193,13 +185,13 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 				props.modalControl(false);
 			}
 		} catch (err) {
-			errorSet(err instanceof Error ? err.message : "Något gick fel");
+			errorMessageSet(err instanceof Error ? err.message : "Något gick fel");
 		}
 	};
 
 	const handleSubmit = async (event: Event) => {
 		event.preventDefault();
-		errorSet(null);
+		errorMessageSet(null);
 		loadingSet(true);
 
 		try {
@@ -218,10 +210,6 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 				owner: user().id,
 				rangeMaster: current.rangeMaster,
 			};
-
-
-			console.log("–––––––––––––––––––––––––––");
-			console.log("activityData: ", activityData);
 
 			// Only save entries where a weapon has actually been selected
 			const validEntries = shootingEntries().filter((item) => item.weapon !== "");
@@ -242,8 +230,10 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 					});
 				}
 
+				const editId = editForm()!.id;
+
 				activitiesSet((prev) =>
-					prev.map((item) => (item.id === editForm()!.id ? updatedItem : item))
+					prev.map((item) => (item.id === editId ? updatedItem : item)),
 				);
 
 				showToast({
@@ -277,7 +267,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 
 			closeModal();
 		} catch (err) {
-			errorSet(err instanceof Error ? err.message : "Något gick fel");
+			errorMessageSet(err instanceof Error ? err.message : "Något gick fel");
 		}
 
 		loadingSet(false);
@@ -312,7 +302,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 				club: editForm()!.club ?? "",
 				date: dateTimeLocale({
 					dateTime: editForm()!.date,
-					withTime: true
+					withTime: true,
 				}),
 				exercises: editForm()!.exercises || "",
 				location: editForm()!.location,
@@ -324,42 +314,40 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 	});
 
 	// Fetch existing activity_weapons when editing
-	createEffect(async () => {
+	createEffect(() => {
 		const activity = editForm();
 		if (!activity) {
-			return
+			return;
 		};
 
-		try {
-			const response = await activitiesWeaponsApi.read({
-				filter: `activity = "${activity.id}"`
-			}) as ReadListResponse<ActivityWeaponCollectionItem>;
-
-			if (response.items.length === 0) {
+		activitiesWeaponsApi.read({
+			filter: `activity = "${activity.id}"`,
+		}).then((response) => {
+			const activitiesWeapon = response as ReadListResponse<ActivityWeapon>;
+			if (activitiesWeapon.items.length === 0) {
 				shootingEntriesSet([defaultWeaponEntry]);
 				return;
 			}
 
 			shootingEntriesSet(
-				response.items.map((entry: ActivityWeaponCollectionItem) => ({
+				activitiesWeapon.items.map((entry) => ({
 					existingId: entry.id,
 					weapon: entry.weapon,
 					caliber: entry.caliber,
 					rounds: entry.rounds ?? 0,
-				}))
+				})),
 			);
-		} catch (error) {
+		}).catch((error) => {
 			console.error(error);
 			shootingEntriesSet([defaultWeaponEntry]);
-		}
-
+		});
 	});
 
 	const FormFields = () => (
 		<form onSubmit={handleSubmit} class="space-y-6">
-			<Show when={error()}>
+			<Show when={errorMessage()}>
 				<Alert variant="destructive">
-					<AlertDescription>{error()}</AlertDescription>
+					<AlertDescription>{errorMessage()}</AlertDescription>
 				</Alert>
 			</Show>
 
@@ -439,8 +427,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 									</Label>
 									<SelectNative
 										onChange={(event) =>
-											handleShootingEntryChange(index(), "weapon", event.target.value ?? "")
-										}
+											handleShootingEntryChange(index(), "weapon", event.target.value ?? "")}
 										value={item.weapon}
 									>
 										<option disabled>
@@ -470,7 +457,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 													>
 														{weapon.name}
 													</option>
-												)
+												);
 											}}
 										</For>
 									</SelectNative>
@@ -490,8 +477,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 													"caliber",
 													event.target.value ?? "",
 												);
-											}
-											}
+											}}
 											value={item.caliber}
 										>
 											<option disabled>
@@ -520,8 +506,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 												index(),
 												"rounds",
 												parseInt(value) || 0,
-											)
-										}
+											)}
 									>
 										<TextFieldLabel class="text-muted-foreground font-light mb-1">Ant. skott</TextFieldLabel>
 										<TextFieldInput value={item.rounds} type="number" min="0" />
@@ -538,8 +523,8 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 					size="sm"
 					onClick={addShootingEntry}
 					disabled={
-						shootingEntries().some((item) => item.weapon === "")
-						|| allCombinationsTaken()
+						shootingEntries().some((item) => item.weapon === "") ||
+						allCombinationsTaken()
 					}
 				>
 					+ Lägg till
@@ -656,7 +641,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 
 	return (
 		<ConditionalWrapper
-			condition={!Boolean(props.modal)}
+			condition={!props.modal}
 			wrapper={(wrapperChildren) => <Card>{wrapperChildren}</Card>}
 		>
 			<FormContent />

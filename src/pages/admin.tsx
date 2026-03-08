@@ -1,21 +1,22 @@
+import { useNavigate } from "@solidjs/router";
+import {
+	auth as authApi,
+	user as userApi,
+} from "infrastructure";
 import {
 	createSignal,
 	For,
 	onMount,
 	Show,
 } from "solid-js";
+
+import { Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Separator, showToast, Spinner, TextField, TextFieldInput, TextFieldLabel } from "~/components";
+import { ClientUser } from "~/schemas/user";
+import { useStore } from "~/store";
 import {
 	ReadListResponse,
 } from "~/types";
-import {
-	auth as authApi,
-	user as userApi,
-} from "infrastructure";
-import { ClientUser } from "~/schemas/user";
-import { useNavigate } from "@solidjs/router";
-import { Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Separator, showToast, Spinner, TextField, TextFieldInput, TextFieldLabel } from "~/components";
 import { cn, dateTimeLocale } from "~/utilities";
-import { useStore } from "~/store";
 
 const AdminPage = () => {
 	const {
@@ -29,21 +30,20 @@ const AdminPage = () => {
 
 	const getUsers = async () => {
 		const data = await userApi.read({
-			expand: "activities(id)"
+			expand: "activities(id)",
 		}) as ReadListResponse<ClientUser>;
 
 		usersSet(data.items as unknown as ClientUser[]);
-	}
+	};
 
-	onMount(() => {
-		authApi.validate()
-			.then((response) => {
-				if (!response.user?.admin) {
-					navigate("/", { replace: true });
-				} else {
-					getUsers();
-				}
-			});
+	onMount(async () => {
+		const validAuth = await authApi.validate();
+
+		if (!validAuth.user?.admin) {
+			navigate("/", { replace: true });
+		} else {
+			await getUsers();
+		}
 	});
 
 	const createUser = async (event: Event) => {
@@ -62,7 +62,7 @@ const AdminPage = () => {
 				passwordConfirm: password,
 			});
 
-			usersSet((prev) => [...prev, (response as unknown as ClientUser)]);
+			usersSet((prev) => [...prev, response as unknown as ClientUser]);
 
 			showToast({
 				description: `Konto skapat för ${email}`,
@@ -77,7 +77,7 @@ const AdminPage = () => {
 				duration: 3000,
 			});
 		}
-	}
+	};
 
 	const deleteUser = async (id: string, email: string) => {
 		workingOnSet(id);
@@ -103,7 +103,7 @@ const AdminPage = () => {
 		}
 
 		workingOnSet();
-	}
+	};
 
 	return (
 		<>
@@ -121,22 +121,26 @@ const AdminPage = () => {
 										"flex flex-col gap-1",
 										{
 											"pointer-events-none opacity-50": workingOn() === user.id,
-										}
-									)}>
+										},
+									)}
+									>
 										<Show
 											when={user.name}
-											fallback={
+											fallback={(
 												<div>
 													<strong>{user.email}</strong>
 												</div>
-											}
+											)}
 										>
 											<h3>
 												{user.name} <span class="text-sm font-medium">({user.email})</span>
 											</h3>
 										</Show>
 										<div class="text-xs text-muted-foreground">
-											{user.id} | {dateTimeLocale({
+											{user.id}
+											{" "}
+											|
+											{dateTimeLocale({
 												dateTime: user.created,
 											})}
 										</div>
@@ -204,7 +208,7 @@ const AdminPage = () => {
 								</div>
 								<Separator isLast={users().length === index() + 1} />
 							</>
-						)
+						);
 					}}
 				</For>
 			</section>
@@ -258,7 +262,7 @@ const AdminPage = () => {
 			</Card>
 		</>
 	);
-}
+};
 
 export default AdminPage;
 

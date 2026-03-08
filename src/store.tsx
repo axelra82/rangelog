@@ -1,16 +1,16 @@
-import { ColorMode, StoreContextProps } from "./types";
-
+import MobileDetect from "mobile-detect";
 import {
 	createContext,
-	useContext,
-	createSignal,
 	createEffect,
+	createSignal,
 	JSXElement,
 	onMount,
+	useContext,
 } from "solid-js";
-import { ClientUser } from "./schemas/user";
-import MobileDetect from "mobile-detect";
+
 import { Activity, Claim, Weapon } from "./schemas";
+import { ClientUser } from "./schemas/user";
+import { ColorMode, StoreContextProps } from "./types";
 
 const STORAGE_KEY = "color-mode";
 const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.SYSTEM;

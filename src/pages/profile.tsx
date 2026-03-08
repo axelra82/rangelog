@@ -1,3 +1,4 @@
+import { A } from "@solidjs/router";
 import {
 	auth as authApi,
 	user as userApi,
@@ -6,6 +7,7 @@ import {
 	createSignal,
 	Show,
 } from "solid-js";
+
 import {
 	AppDetails,
 	Button,
@@ -22,10 +24,9 @@ import {
 	TextFieldLabel,
 	ThemeSelect,
 } from "~/components";
-import { Icons } from "~/types";
 import { useStore } from "~/store";
+import { Icons } from "~/types";
 import { dateTimeLocale } from "~/utilities";
-import { A } from "@solidjs/router";
 
 const ProfilePage = () => {
 	const {
@@ -68,7 +69,7 @@ const ProfilePage = () => {
 		}
 
 		workingSet(false);
-	}
+	};
 
 	const changeUserEmail = async (event: Event) => {
 		event.preventDefault();
@@ -78,10 +79,9 @@ const ProfilePage = () => {
 		const isNew = newEmail !== user().email;
 
 		if (
-			newEmail
-			&& isNew
+			newEmail &&
+			isNew
 		) {
-
 			try {
 				const response = await userApi.updateEmail(newEmail);
 
@@ -105,7 +105,7 @@ const ProfilePage = () => {
 		}
 
 		workingSet(false);
-	}
+	};
 
 	const verifyPassword = (password: string) => {
 		if (password.length > 7) {
@@ -114,7 +114,7 @@ const ProfilePage = () => {
 		} else {
 			newPasswordSet();
 		}
-	}
+	};
 
 	const changePassword = async (event: Event) => {
 		event.preventDefault();
@@ -152,7 +152,7 @@ const ProfilePage = () => {
 		}
 
 		workingSet(false);
-	}
+	};
 
 	const handleLogout = () => {
 		const done = authApi.logout();
@@ -169,7 +169,9 @@ const ProfilePage = () => {
 						<CardTitle>
 							Profilinformation
 							<p class="mt-2 text-xs font-light text-muted-foreground">
-								Konto skapat: {dateTimeLocale({
+								Konto skapat:
+								{" "}
+								{dateTimeLocale({
 									dateTime: user().created,
 								})}
 							</p>
@@ -196,8 +198,8 @@ const ProfilePage = () => {
 										type="submit"
 										variant="info"
 										disabled={
-											user().name === newUserName()
-											|| working()
+											user().name === newUserName() ||
+											working()
 										}
 										onClick={changeUserName}
 									>
@@ -227,9 +229,9 @@ const ProfilePage = () => {
 										type="submit"
 										variant="info"
 										disabled={
-											!newUserEmail()
-											|| user().email === newUserEmail()
-											|| working()
+											!newUserEmail() ||
+											user().email === newUserEmail() ||
+											working()
 										}
 										onClick={changeUserEmail}
 									>
@@ -274,9 +276,9 @@ const ProfilePage = () => {
 											type="submit"
 											variant="success"
 											disabled={
-												!newPassword()
-												|| !currentPassword()
-												|| working()
+												!newPassword() ||
+												!currentPassword() ||
+												working()
 											}
 											onClick={changePassword}
 										>
@@ -292,7 +294,7 @@ const ProfilePage = () => {
 				<Card class="p-4">
 					<AppDetails />
 				</Card>
-			</div >
+			</div>
 
 			<Show when={isMobile()}>
 				<section class="mt-8 px-4 flex justify-between items-center">

@@ -4,6 +4,7 @@ import {
 } from "infrastructure";
 import {
 	Component,
+	createMemo,
 	createSignal,
 	For,
 	Match,
@@ -13,21 +14,21 @@ import {
 } from "solid-js";
 
 import {
-	DialogTitle,
-	DialogContent,
 	Button,
 	Dialog,
+	DialogContent,
 	DialogDescription,
 	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
+	FileSource,
 	LicenseExpiryIndicator,
 	Separator,
-	showToast,
 	Sheet,
 	SheetContent,
 	SheetHeader,
 	SheetTitle,
-	FileSource,
+	showToast,
 } from "~/components";
 import {
 	AppFile,
@@ -55,6 +56,100 @@ interface DetailItemProps {
 	value?: string | string[] | number | AppFile[];
 }
 
+const DetailItem: Component<DetailItemProps> = (item) => {
+	const isNote = createMemo(() => item.key === "Anteckningar");
+	const isDate = createMemo(() => item.value !== "" && item.isDate);
+	const isPrice = createMemo(() => item.key === "Pris" && typeof item.value === "number");
+	const isImage = createMemo(() => item.isFile && item.key === "" && item.value);
+	const isDocument = createMemo(() => item.key !== "" && item.isFile);
+	const isEntry = createMemo(() => !isImage && !isDocument && item.key !== "");
+
+	return (
+		<Switch>
+			<Match when={isEntry()}>
+				<div class={cn(
+					"flex gap-2",
+					{
+						"flex-col": isNote(),
+					},
+				)}
+				>
+					<span class="text-muted-foreground">
+						{item.key}
+					</span>
+
+					<span class={cn(
+						{
+							"font-medium": !isNote(),
+							"whitespace-pre-wrap": isNote() || item.isUrl,
+						},
+					)}
+					>
+						<Switch fallback="-">
+
+							<Match when={isDate()}>
+								{dateTimeLocale({
+									dateTime: item.value as string,
+								})}
+							</Match>
+
+							<Match when={isPrice() && (item.value as number) > 0}>
+								{new Intl.NumberFormat("sv-SE", {
+									// Use navigator.language later.
+									style: "currency",
+									currency: "SEK",
+								}).format(item.value as number)}
+							</Match>
+
+							<Match when={item.isUrl}>
+								<a
+									href={`${item.value}`}
+									rel="noopener noreferrer"
+									target="_blank"
+									class="break-all"
+								>
+									{(item.value as string).replace(/^[a-z]+:\/\/(www\.)?/i, "")}
+								</a>
+							</Match>
+
+							<Match when={typeof item.value === "string"}>
+								{item.value as string}
+							</Match>
+
+						</Switch>
+					</span>
+				</div>
+			</Match>
+
+			<Match when={isDocument()}>
+				<Show when={Array.isArray(item.value) && item.value.length}>
+					<div>
+						<Separator class="mb-8" />
+						<div class="flex flex-col space-y-6">
+							<For each={item.value as AppFile[]}>
+								{(file) => {
+									return (
+										<div class="flex gap-2">
+											<FileSource file={file} double />
+										</div>
+									);
+								}}
+							</For>
+						</div>
+					</div>
+				</Show>
+			</Match>
+
+			<Match when={isImage()}>
+				<FileSource
+					image
+					id={item.value as string}
+				/>
+			</Match>
+		</Switch>
+	);
+};
+
 export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 	const {
 		isMobile,
@@ -69,103 +164,8 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 		isOpen: () => open(),
 	};
 
-	// Expose control methods to parent
-	props.ref?.(control);
-
 	const [_, setSearchParams] = useSearchParams();
 	const [items, itemsSet] = createSignal<DetailItemProps[]>([]);
-
-	const DetailItem: Component<DetailItemProps> = (item) => {
-		const isNote = item.key === "Anteckningar";
-		const isDate = item.value !== "" && item.isDate;
-		const isPrice = item.key === "Pris" && typeof item.value === "number";
-		const isImage = item.isFile && item.key === "" && item.value;
-		const isDocument = item.key !== "" && item.isFile;
-		const isEntry = !isImage && !isDocument && item.key !== "";
-
-		return (
-			<Switch>
-				<Match when={isEntry}>
-					<div class={cn(
-						"flex gap-2",
-						{
-							"flex-col": isNote,
-						}
-					)}>
-						<span class="text-muted-foreground">
-							{item.key}
-						</span>
-
-						<span class={cn(
-							{
-								"font-medium": !isNote,
-								"whitespace-pre-wrap": isNote || item.isUrl,
-							}
-						)}>
-							<Switch fallback="-">
-
-								<Match when={isDate}>
-									{dateTimeLocale({
-										dateTime: item.value as string,
-									})}
-								</Match>
-
-								<Match when={isPrice && (item.value as number) > 0}>
-									{new Intl.NumberFormat("sv-SE", {
-										// Use navigator.language later.
-										style: "currency",
-										currency: "SEK",
-									}).format(item.value as number)}
-								</Match>
-
-								<Match when={item.isUrl}>
-									<a
-										href={`${item.value}`}
-										rel="noopener noreferrer"
-										target="_blank"
-										class="break-all"
-									>
-										{(item.value as string).replace(/^[a-z]+:\/\/(www\.)?/i, "")}
-									</a>
-								</Match>
-
-								<Match when={typeof item.value === "string"}>
-									{item.value as string}
-								</Match>
-
-							</Switch>
-						</span>
-					</div>
-				</Match>
-
-				<Match when={isDocument}>
-					<Show when={Array.isArray(item.value) && item.value.length}>
-						<div>
-							<Separator class="mb-8" />
-							<div class="flex flex-col space-y-6">
-								<For each={item.value as AppFile[]}>
-									{(file) => {
-										return (
-											<div class="flex gap-2">
-												<FileSource file={file} double />
-											</div>
-										);
-									}}
-								</For>
-							</div>
-						</div>
-					</Show>
-				</Match>
-
-				<Match when={isImage}>
-					<FileSource
-						image
-						id={item.value as string}
-					/>
-				</Match>
-			</Switch>
-		)
-	};
 
 	const editWeapon = (weapon: Weapon) => {
 		control.close();
@@ -200,6 +200,9 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 	};
 
 	onMount(() => {
+		// Expose control methods to parent
+		props.ref?.(control);
+
 		itemsSet([
 			{
 				key: "Typ",
@@ -294,14 +297,17 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 					class={cn(
 						"space-y-6",
 						isMobile() ? "border-l-0" : "",
-					)}>
+					)}
+				>
 					<SheetHeader>
 						<SheetTitle class="flex flex-col items-start space-y-1">
 							<div class="flex items-center gap-2 text-2xl">
 								<LicenseExpiryIndicator size={10} licenseEnd={props.weapon.licenseEnd} /> {props.weapon.name}
 							</div>
 							<div class="text-xs text-muted-foreground font-light">
-								Skapad {dateTimeLocale({
+								Skapad
+								{" "}
+								{dateTimeLocale({
 									dateTime: props.weapon.created,
 								})}
 							</div>
@@ -361,7 +367,6 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 							</DialogContent>
 						</Dialog>
 					</div>
-
 
 					<Button
 						variant="outline"

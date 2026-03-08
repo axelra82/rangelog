@@ -1,7 +1,9 @@
 import { Component, createSignal } from "solid-js";
-import { timestampToLocaleDate } from "~/utilities";
+
 import { Button } from "~/components/ui/button";
 import { Icons } from "~/types";
+import { timestampToLocaleDate } from "~/utilities";
+
 import { Icon } from "../ui";
 
 export const LoginFooter: Component = () => {

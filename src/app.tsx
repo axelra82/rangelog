@@ -1,11 +1,12 @@
 import "./styles/index.css";
 
+import { ParentComponent } from "solid-js";
+
+import { Toaster } from "./components";
 import {
 	LayoutMainContent,
-	LayoutMainMenu
+	LayoutMainMenu,
 } from "./components/layout";
-import { ParentComponent } from "solid-js";
-import { Toaster } from "./components";
 
 export const App: ParentComponent = (props) => (
 	<>
