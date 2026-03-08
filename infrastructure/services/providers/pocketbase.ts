@@ -10,12 +10,12 @@ import {
 	pocketbaseReadCollectionItem,
 	pocketbaseUpdateCollectionItem,
 	pocketbaseUpdateUserEmail,
-	pocketbaseActivitySchema,
-	pocketbaseActivityWeaponSchema,
-	pocketbaseAppFileSchema,
-	pocketbaseClaimSchema,
-	pocketbaseUserSchema,
-	pocketbaseWeaponSchema,
+	pocketbaseActivityParser,
+	pocketbaseActivityWeaponParser,
+	pocketbaseAppFileParser,
+	pocketbaseClaimParser,
+	pocketbaseUserParser,
+	pocketbaseWeaponParser,
 	Collections,
 } from "infrastructure/adapters/pocketbase";
 
@@ -35,12 +35,12 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		create: (data) => pocketbaseCreateCollectionItem(
 			data,
 			Collections.ACTIVITIES,
-			(raw) => normalizeActivity(raw, pocketbaseActivitySchema),
+			(raw) => normalizeActivity(raw, pocketbaseActivityParser),
 		),
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.ACTIVITIES,
-			(raw) => normalizeActivity(raw, pocketbaseActivitySchema),
+			(raw) => normalizeActivity(raw, pocketbaseActivityParser),
 		),
 		update: (
 			id,
@@ -49,7 +49,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 			id,
 			data,
 			Collections.ACTIVITIES,
-			(raw) => normalizeActivity(raw, pocketbaseActivitySchema),
+			(raw) => normalizeActivity(raw, pocketbaseActivityParser),
 		),
 		delete: (id) => pocketbaseDeleteCollectionItem(
 			id,
@@ -60,12 +60,12 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		create: (data) => pocketbaseCreateCollectionItem(
 			data,
 			Collections.ACTIVITIES_WEAPONS,
-			(raw) => normalizeActivityWeapon(raw, pocketbaseActivityWeaponSchema),
+			(raw) => normalizeActivityWeapon(raw, pocketbaseActivityWeaponParser),
 		),
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.ACTIVITIES_WEAPONS,
-			(raw) => normalizeActivityWeapon(raw, pocketbaseActivityWeaponSchema),
+			(raw) => normalizeActivityWeapon(raw, pocketbaseActivityWeaponParser),
 		),
 		update: (
 			id,
@@ -74,7 +74,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 			id,
 			data,
 			Collections.ACTIVITIES_WEAPONS,
-			(raw) => normalizeActivityWeapon(raw, pocketbaseActivityWeaponSchema),
+			(raw) => normalizeActivityWeapon(raw, pocketbaseActivityWeaponParser),
 		),
 		delete: (id) => pocketbaseDeleteCollectionItem(
 			id,
@@ -92,12 +92,12 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		create: (data) => pocketbaseCreateCollectionItem(
 			data,
 			Collections.CLAIMS,
-			(raw) => normalizeClaim(raw, pocketbaseClaimSchema),
+			(raw) => normalizeClaim(raw, pocketbaseClaimParser),
 		),
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.CLAIMS,
-			(raw) => normalizeClaim(raw, pocketbaseClaimSchema),
+			(raw) => normalizeClaim(raw, pocketbaseClaimParser),
 		),
 		update: (
 			id,
@@ -106,7 +106,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 			id,
 			data,
 			Collections.CLAIMS,
-			(raw) => normalizeClaim(raw, pocketbaseClaimSchema),
+			(raw) => normalizeClaim(raw, pocketbaseClaimParser),
 		),
 		delete: (id) => pocketbaseDeleteCollectionItem(
 			id,
@@ -117,12 +117,12 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		create: (data) => pocketbaseCreateCollectionItem(
 			data,
 			Collections.FILES,
-			(raw) => normalizeAppFile(raw, pocketbaseAppFileSchema),
+			(raw) => normalizeAppFile(raw, pocketbaseAppFileParser),
 		),
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.FILES,
-			(raw) => normalizeAppFile(raw, pocketbaseAppFileSchema),
+			(raw) => normalizeAppFile(raw, pocketbaseAppFileParser),
 		),
 		update: (
 			id,
@@ -131,7 +131,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 			id,
 			data,
 			Collections.FILES,
-			(raw) => normalizeAppFile(raw, pocketbaseAppFileSchema),
+			(raw) => normalizeAppFile(raw, pocketbaseAppFileParser),
 		),
 		delete: (id) => pocketbaseDeleteCollectionItem(
 			id,
@@ -143,12 +143,12 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		create: (data) => pocketbaseCreateCollectionItem(
 			data,
 			Collections.USERS,
-			(raw) => normalizeUser(raw, pocketbaseUserSchema),
+			(raw) => normalizeUser(raw, pocketbaseUserParser),
 		),
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.USERS,
-			(raw) => normalizeUser(raw, pocketbaseUserSchema),
+			(raw) => normalizeUser(raw, pocketbaseUserParser),
 		),
 		update: (
 			id,
@@ -157,7 +157,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 			id,
 			data,
 			Collections.USERS,
-			(raw) => normalizeUser(raw, pocketbaseUserSchema),
+			(raw) => normalizeUser(raw, pocketbaseUserParser),
 		),
 		updateEmail: (
 			newEmail: string,
@@ -173,12 +173,12 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 		create: (data) => pocketbaseCreateCollectionItem(
 			data,
 			Collections.WEAPONS,
-			(raw) => normalizeWeapon(raw, pocketbaseWeaponSchema),
+			(raw) => normalizeWeapon(raw, pocketbaseWeaponParser),
 		),
 		read: (data) => pocketbaseReadCollectionItem(
 			data,
 			Collections.WEAPONS,
-			(raw) => normalizeWeapon(raw, pocketbaseWeaponSchema),
+			(raw) => normalizeWeapon(raw, pocketbaseWeaponParser),
 		),
 		update: (
 			id,
@@ -187,7 +187,7 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 			id,
 			data,
 			Collections.WEAPONS,
-			(raw) => normalizeWeapon(raw, pocketbaseWeaponSchema),
+			(raw) => normalizeWeapon(raw, pocketbaseWeaponParser),
 		),
 		delete: (id) => pocketbaseDeleteCollectionItem(
 			id,

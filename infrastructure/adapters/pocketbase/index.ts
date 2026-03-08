@@ -31,6 +31,6 @@ export * from "./activitiesWeapon";
 export * from "./authentication";
 export * from "./files";
 export * from "./helpers";
-export * from "./schema";
+export * from "./parser";
 export * from "./types";
 export * from "./users";

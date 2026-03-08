@@ -15,15 +15,25 @@ import {
 } from "~/schemas";
 
 import {
-	NormalizerSchema,
+	NormalizeParser,
 } from "~/types";
 
 const genericNormalizer = <T>(
-	data: Record<string, any>,
+	data: Record<string, unknown>,
 	validator: ZodType<T>,
-	schema: NormalizerSchema<T>,
+	parser: NormalizeParser<T>,
 ): Readonly<T> => {
-	const mapped = Object.keys(schema).reduce((acc, sourceKey) => {
+	// Build all keys passed through as-is (avoid adding empty values in parser)
+	const passthrough = Object.keys(data).reduce((acc, key) => {
+		// parser will handle this key
+		if (key in parser) {
+			return acc;
+		}
+		return { ...acc, [key]: data[key] };
+	}, {} as Record<string, unknown>);
+
+	// Apply parser mappings
+	const mapped = Object.keys(parser).reduce((acc, sourceKey) => {
 		if (!(sourceKey in data)) {
 			return acc;
 		}
@@ -31,57 +41,61 @@ const genericNormalizer = <T>(
 		const {
 			key,
 			transform,
-		} = schema[sourceKey]!;
+		} = parser[sourceKey]!;
 
-		const value = transform ? transform(data[sourceKey]) : data[sourceKey];
+		const value = transform
+			? transform(data[sourceKey])
+			: data[sourceKey];
+
+		// remove key if value is `undefined`
+		if (value === undefined) {
+			return acc;
+		}
 
 		const targetKey = key ?? (sourceKey as keyof T);
 
-		return {
-			...acc,
-			[targetKey]: value,
-		};
-	}, {} as Record<string, any>);
+		return { ...acc, [targetKey]: value };
+	}, passthrough);
 
 	// This throws a ZodError with a clear message if the shape is wrong.
 	const {
-		data: ParsedData,
+		data: parsedData,
 		error,
 	} = validator.safeParse(mapped);
 
 	if (error) {
-		throw Error(error.message);
+		throw new Error(error.message);
 	}
 
-	return Object.freeze(ParsedData);
+	return Object.freeze(parsedData);
 };
 
 export const normalizeActivity = (
 	data: Record<string, any>,
-	schema: NormalizerSchema<Activity>,
-): Readonly<Activity> => genericNormalizer(data, activitySchema, schema);
+	parser: NormalizeParser<Activity>,
+): Readonly<Activity> => genericNormalizer(data, activitySchema, parser);
 
 export const normalizeActivityWeapon = (
 	data: Record<string, any>,
-	schema: NormalizerSchema<ActivityWeapon>,
-): Readonly<ActivityWeapon> => genericNormalizer(data, activityWeaponSchema, schema);
+	parser: NormalizeParser<ActivityWeapon>,
+): Readonly<ActivityWeapon> => genericNormalizer(data, activityWeaponSchema, parser);
 
 export const normalizeAppFile = (
 	data: Record<string, any>,
-	schema: NormalizerSchema<AppFile>,
-): Readonly<AppFile> => genericNormalizer(data, appFileSchema, schema);
+	parser: NormalizeParser<AppFile>,
+): Readonly<AppFile> => genericNormalizer(data, appFileSchema, parser);
 
 export const normalizeClaim = (
 	data: Record<string, any>,
-	schema: NormalizerSchema<Claim>,
-): Readonly<Claim> => genericNormalizer(data, claimSchema, schema);
+	parser: NormalizeParser<Claim>,
+): Readonly<Claim> => genericNormalizer(data, claimSchema, parser);
 
 export const normalizeUser = (
 	data: Record<string, any>,
-	schema: NormalizerSchema<ClientUser>,
-): Readonly<ClientUser> => genericNormalizer(data, clientUserSchema, schema);
+	parser: NormalizeParser<ClientUser>,
+): Readonly<ClientUser> => genericNormalizer(data, clientUserSchema, parser);
 
 export const normalizeWeapon = (
 	data: Record<string, any>,
-	schema: NormalizerSchema<Weapon>,
-): Readonly<Weapon> => genericNormalizer(data, weaponSchema, schema);
+	parser: NormalizeParser<Weapon>,
+): Readonly<Weapon> => genericNormalizer(data, weaponSchema, parser);
