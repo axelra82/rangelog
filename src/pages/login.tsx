@@ -17,6 +17,7 @@ import {
 } from "~/components";
 import { useStore } from "~/store";
 import { Icons } from "~/types";
+import { t } from "~/utilities";
 
 export const LoginPage: Component = () => {
 	const {
@@ -79,7 +80,7 @@ export const LoginPage: Component = () => {
 								disabled={working()}
 								required
 							>
-								<TextFieldLabel>E-post</TextFieldLabel>
+								<TextFieldLabel>{t("email")}</TextFieldLabel>
 								<TextFieldInput
 									type="email"
 									placeholder="email@example.com"
@@ -95,7 +96,7 @@ export const LoginPage: Component = () => {
 								disabled={working()}
 								required
 							>
-								<TextFieldLabel>Lösenord</TextFieldLabel>
+								<TextFieldLabel>{t("password")}</TextFieldLabel>
 								<div class="relative">
 									<TextFieldInput
 										type={showPassword() ? "text" : "password"}
@@ -128,7 +129,7 @@ export const LoginPage: Component = () => {
 						>
 							<Show
 								when={working()}
-								fallback="Logga in"
+								fallback={t("login")}
 							>
 								<Spinner variant="secondary" />
 							</Show>

@@ -43,6 +43,7 @@ import { useStore } from "~/store";
 import {
 	dateTimeLocale,
 	dateTimeLocaleToday,
+	t,
 } from "~/utilities";
 
 interface ManageActivityFormProps {
@@ -118,7 +119,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 			claimsSet((prev) => prev.filter((item) => item.id !== editId));
 
 			showToast({
-				description: "Fordran raderades",
+				description: `${t("claim")} ${t("deleted")}`,
 				variant: "success",
 				duration: 3000,
 			});
@@ -127,7 +128,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				props.modalControl(false);
 			}
 		} catch (err) {
-			errorSet(err instanceof Error ? err.message : "Något gick fel");
+			errorSet(err instanceof Error ? err.message : t("unknownError"));
 		}
 	};
 
@@ -144,7 +145,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				!current.type ||
 				!current.federation
 			) {
-				throw Error("Ange datum, fordran och förbund.");
+				throw Error(t("component.claim.form.submit.required"));
 			}
 
 			const claimData: ClaimCreateInput = {
@@ -199,7 +200,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				);
 
 				showToast({
-					description: "Aktiviteten uppdaterades",
+					description: `${t("activity")} ${t("saved")}`,
 					variant: "success",
 					duration: 3000,
 				});
@@ -213,7 +214,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				claimsSet((prev) => [...prev, newItem]);
 
 				showToast({
-					description: "Fordran sparades",
+					description: `${t("claim")} ${t("saved")}`,
 					variant: "success",
 					duration: 3000,
 				});
@@ -223,7 +224,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 
 			closeModal();
 		} catch (err) {
-			errorSet(err instanceof Error ? err.message : "Något gick fel");
+			errorSet(err instanceof Error ? err.message : t("unknownError"));
 		}
 
 		loadingSet(false);
@@ -242,7 +243,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 					key="date"
 					onChange={handleInputChange}
 					required
-					title="Datum"
+					title={t("date")}
 					type="datetime-local"
 					value={form().date}
 				/>
@@ -250,8 +251,8 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				<SelectGridItem
 					key="club"
 					options={clubs.map((club) => club.name)}
-					placeholder="Välj klubb"
-					title="Klubb"
+					placeholder={`${t("select")} ${t("club")}`}
+					title={t("club")}
 					onChange={handleInputChange}
 					value={form().club || ""}
 				/>
@@ -259,7 +260,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="location"
 					onChange={handleInputChange}
-					title="Plats"
+					title={t("location")}
 					type="text"
 					value={form().location || ""}
 				/>
@@ -267,7 +268,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="rangeMaster"
 					onChange={handleInputChange}
-					title="Skjutledare"
+					title={t("rangeMaster")}
 					type="text"
 					value={form().rangeMaster || ""}
 				/>
@@ -276,7 +277,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 					key="type"
 					options={claims}
 					placeholder="Välj typ"
-					title="Fordran"
+					title={t("claim")}
 					required
 					onChange={handleInputChange}
 					value={form().type}
@@ -285,8 +286,8 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				<SelectGridItem
 					key="federation"
 					options={federations}
-					placeholder="Välj förbund"
-					title="Förbund"
+					placeholder={`${t("select")} ${t("federation")}`}
+					title={t("federation")}
 					required
 					onChange={handleInputChange}
 					value={form().federation || ""}
@@ -295,14 +296,14 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 				<TextFieldAreaGridItem
 					key="notes"
 					onChange={handleInputChange}
-					title="Egna Anteckningar"
+					title={t("notes")}
 					value={form().notes || ""}
 				/>
 			</div>
 
 			<div class="space-y-6">
 				<Label>
-					Bild
+					{t("image")}
 				</Label>
 				<input
 					ref={(element) => (imageInputRef = element)}
@@ -319,7 +320,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 						size="sm"
 						variant="outline"
 					>
-						Välj bild
+						{t("select")} {t("image")}
 					</Button>
 
 					<Show when={pendingImage() || existingImage()}>
@@ -335,7 +336,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 							size="sm"
 							variant="destructive"
 						>
-							Ta bort
+							{t("remove")}
 						</Button>
 					</Show>
 				</div>
@@ -368,29 +369,29 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 								type="button"
 								variant="destructive"
 							>
-								Radera
+								{t("delete")}
 							</DialogTrigger>
 							<DialogContent class="max-w-sm">
 								<DialogHeader>
 									<DialogTitle>
-										Är du säker på att du vill radera fordran?
+										{t("component.claim.form.delete.title")}
 									</DialogTitle>
 								</DialogHeader>
 								<DialogDescription>
-									Detta kommer att ta bort fordran permanent. Denna åtgärd kan inte ångras.
+									{t("component.claim.form.delete.description")}
 								</DialogDescription>
 								<DialogTrigger
 									as={Button}
 									variant="outline"
 								>
-									Avbryt
+									{t("cancel")}
 								</DialogTrigger>
 								<DialogTrigger
 									as={Button}
 									variant="destructive"
 									onClick={handleDelete}
 								>
-									Fortsätt
+									{t("continue")}
 								</DialogTrigger>
 							</DialogContent>
 						</Dialog>
@@ -403,7 +404,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 							variant="outline"
 							onClick={cancelEdit}
 						>
-							Avbryt
+							{t("cancel")}
 						</Button>
 					</Show>
 					<Button
@@ -415,8 +416,8 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 							when={loading()}
 							fallback={
 								editForm()
-									? "Uppdatera"
-									: "Spara"
+									? t("update")
+									: t("save")
 							}
 						>
 							<Spinner
@@ -424,7 +425,8 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 								variant="white"
 								class="mr-2"
 							/>
-							Sparar...
+							{t("saving")}
+							...
 						</Show>
 					</Button>
 				</div>
@@ -456,7 +458,7 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 	});
 
 	createEffect(() => {
-		titleSet(editForm() ? "Redigera fordran" : "Spara fordran");
+		titleSet(editForm() ? `${t("edit")} ${t("claim")}` : `${t("save")} ${t("claim")}`);
 	});
 
 	createEffect(() => {

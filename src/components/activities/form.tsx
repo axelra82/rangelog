@@ -54,6 +54,7 @@ import {
 import {
 	dateTimeLocale,
 	dateTimeLocaleToday,
+	t,
 } from "~/utilities";
 
 interface ManageActivityFormProps {
@@ -176,7 +177,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 			activitiesSet((prev) => prev.filter((item) => item.id !== editId));
 
 			showToast({
-				description: "Aktiviteten raderades",
+				description: `${t("activity")} ${t("deleted")}`,
 				variant: "success",
 				duration: 3000,
 			});
@@ -185,7 +186,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 				props.modalControl(false);
 			}
 		} catch (err) {
-			errorMessageSet(err instanceof Error ? err.message : "Något gick fel");
+			errorMessageSet(err instanceof Error ? err.message : t("unknownError"));
 		}
 	};
 
@@ -198,7 +199,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 			const current = form();
 
 			if (!current.date) {
-				throw Error("Ange datum.");
+				throw Error(t("component.activity.form.submit.required"));
 			}
 
 			const activityData: ActivityCreateInput = {
@@ -237,7 +238,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 				);
 
 				showToast({
-					description: "Aktiviteten uppdaterades",
+					description: `${t("activity")} ${t("saved")}`,
 					variant: "success",
 					duration: 3000,
 				});
@@ -257,7 +258,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 				activitiesSet((prev) => [...prev, newItem]);
 
 				showToast({
-					description: "Aktiviteten loggades",
+					description: `${t("activity")} ${t("logged")}`,
 					variant: "success",
 					duration: 3000,
 				});
@@ -267,7 +268,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 
 			closeModal();
 		} catch (err) {
-			errorMessageSet(err instanceof Error ? err.message : "Något gick fel");
+			errorMessageSet(err instanceof Error ? err.message : t("unknownError"));
 		}
 
 		loadingSet(false);
@@ -293,7 +294,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 	});
 
 	createEffect(() => {
-		titleSet(editForm() ? "Redigera skytteaktivitet" : "Logga skytteaktivitet");
+		titleSet(editForm() ? `${t("edit")} ${t("activity")}` : `${t("save")} ${t("activity")}`);
 	});
 
 	createEffect(() => {
@@ -355,7 +356,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 				key="date"
 				onChange={handleInputChange}
 				required
-				title="Datum"
+				title={t("date")}
 				type="datetime-local"
 				value={form().date}
 			/>
@@ -363,8 +364,8 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 			<SelectGridItem
 				key="club"
 				options={clubs.map((club) => club.name)}
-				placeholder="Välj klubb"
-				title="Klubb"
+				placeholder={`${t("select")} ${t("club")}`}
+				title={t("club")}
 				onChange={handleInputChange}
 				value={form().club || ""}
 			/>
@@ -372,7 +373,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 			<TextFieldInputGridItem
 				key="location"
 				onChange={handleInputChange}
-				title="Plats"
+				title={t("location")}
 				type="text"
 				value={form().location || ""}
 			/>
@@ -380,7 +381,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 			<TextFieldInputGridItem
 				key="rangeMaster"
 				onChange={handleInputChange}
-				title="Skjutledare"
+				title={t("rangeMaster")}
 				type="text"
 				value={form().rangeMaster || ""}
 			/>
@@ -423,7 +424,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 
 								<div class="flex-1 flex flex-col gap-2 col-span-4">
 									<Label class="text-muted-foreground font-light">
-										Vapen
+										{t("weapon")}
 									</Label>
 									<SelectNative
 										onChange={(event) =>
@@ -431,7 +432,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 										value={item.weapon}
 									>
 										<option disabled>
-											Välj vapen
+											{t("select")} {t("weapon")}
 										</option>
 										<For each={storeWeapons()}>
 											{(weapon) => {
@@ -466,7 +467,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 								<Show when={hasWeapon()}>
 									<div class="flex-1 flex flex-col gap-2 col-span-4">
 										<Label class="text-muted-foreground font-light">
-											Kaliber
+											{t("caliber")}
 										</Label>
 										<SelectNative
 											onChange={(event) => {
@@ -481,7 +482,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 											value={item.caliber}
 										>
 											<option disabled>
-												Välj kaliber
+												{t("select")} {t("caliber")}
 											</option>
 											<For each={availableCalibers()}>
 												{(caliber) => (
@@ -508,7 +509,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 												parseInt(value) || 0,
 											)}
 									>
-										<TextFieldLabel class="text-muted-foreground font-light mb-1">Ant. skott</TextFieldLabel>
+										<TextFieldLabel class="text-muted-foreground font-light mb-1">{t("shots")}</TextFieldLabel>
 										<TextFieldInput value={item.rounds} type="number" min="0" />
 									</TextField>
 								</Show>
@@ -527,7 +528,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 						allCombinationsTaken()
 					}
 				>
-					+ Lägg till
+					+ {t("add")}
 				</Button>
 			</div>
 
@@ -536,14 +537,14 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 			<TextFieldAreaGridItem
 				key="exercises"
 				onChange={handleInputChange}
-				title="Övningar"
+				title={t("exercises")}
 				value={form().exercises || ""}
 			/>
 
 			<TextFieldAreaGridItem
 				key="notes"
 				onChange={handleInputChange}
-				title="Egna Anteckningar"
+				title={t("notes")}
 				value={form().notes || ""}
 			/>
 
@@ -556,29 +557,29 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 								type="button"
 								variant="destructive"
 							>
-								Radera
+								{t("delete")}
 							</DialogTrigger>
 							<DialogContent class="max-w-sm">
 								<DialogHeader>
 									<DialogTitle>
-										Är du säker på att du vill radera aktiviteten?
+										{t("component.activity.form.delete.title")}
 									</DialogTitle>
 								</DialogHeader>
 								<DialogDescription>
-									Detta kommer att ta bort aktiviteten permanent. Denna åtgärd kan inte ångras.
+									{t("component.activity.form.delete.description")}
 								</DialogDescription>
 								<DialogTrigger
 									as={Button}
 									variant="outline"
 								>
-									Avbryt
+									{t("cancel")}
 								</DialogTrigger>
 								<DialogTrigger
 									as={Button}
 									variant="destructive"
 									onClick={handleDelete}
 								>
-									Fortsätt
+									{t("continue")}
 								</DialogTrigger>
 							</DialogContent>
 						</Dialog>
@@ -591,7 +592,7 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 							variant="outline"
 							onClick={cancelEdit}
 						>
-							Avbryt
+							{t("cancel")}
 						</Button>
 					</Show>
 					<Button
@@ -603,8 +604,8 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 							when={loading()}
 							fallback={
 								editForm()
-									? "Uppdatera"
-									: "Spara"
+									? t("update")
+									: t("save")
 							}
 						>
 							<Spinner
@@ -612,7 +613,8 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 								variant="white"
 								class="mr-2"
 							/>
-							Sparar...
+							{t("saving")}
+							...
 						</Show>
 					</Button>
 				</div>

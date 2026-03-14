@@ -9,6 +9,7 @@ import {
 	Icon,
 } from "~/components";
 import { Icons } from "~/types";
+import { t } from "~/utilities";
 
 interface AddActivityProps {
 	buttonClass?: string;
@@ -28,7 +29,9 @@ export const AddActivity: Component<AddActivityProps> = (props) => {
 				{...props.buttonClass && { class: props.buttonClass }}
 			>
 				<Icon icon={Icons.PLUS} />
-				Logga skytte
+				{t("add")}
+				{" "}
+				{t("activity")}
 			</DialogTrigger>
 			<DialogContent>
 				<ActivityForm

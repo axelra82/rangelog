@@ -11,6 +11,7 @@ import {
 } from "~/components/";
 import { useStore } from "~/store";
 import { Icons } from "~/types";
+import { t } from "~/utilities";
 
 export const ProfileMenu: Component = () => {
 	const {
@@ -41,7 +42,7 @@ export const ProfileMenu: Component = () => {
 							icon={Icons.USER}
 							class="size-4"
 						/>
-						Profil
+						{t("profile")}
 					</div>
 				</DropdownMenuItem>
 			</A>
@@ -56,7 +57,7 @@ export const ProfileMenu: Component = () => {
 								icon={Icons.SHIELD}
 								class="size-4"
 							/>
-							Admin
+							{t("admin")}
 						</div>
 					</DropdownMenuItem>
 				</A>
@@ -70,7 +71,7 @@ export const ProfileMenu: Component = () => {
 						icon={Icons.LOGOUT}
 						class="size-4"
 					/>
-					Logga ut
+					{t("logout")}
 				</div>
 			</DropdownMenuItem>
 		</DropdownMenuContent>

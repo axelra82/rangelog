@@ -34,6 +34,7 @@ import {
 	Icons,
 	ReadListResponse,
 } from "~/types";
+import { t } from "~/utilities";
 
 const ActivitiesPage = () => {
 	const {
@@ -270,9 +271,9 @@ const ActivitiesPage = () => {
 				class="mt-8"
 			>
 				<TabsList class="grid grid-cols-2 md:w-52">
-					<TabsTrigger value="activities">Skytte</TabsTrigger>
+					<TabsTrigger value="activities">{t("activities")}</TabsTrigger>
 
-					<TabsTrigger value="claims">Fordringar</TabsTrigger>
+					<TabsTrigger value="claims">{t("claims")}</TabsTrigger>
 				</TabsList>
 
 				<TabsContent

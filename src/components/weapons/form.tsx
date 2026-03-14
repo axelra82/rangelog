@@ -47,7 +47,7 @@ import {
 	WeaponCreateInput,
 } from "~/schemas";
 import { useStore } from "~/store";
-import { dateTimeLocale } from "~/utilities";
+import { dateTimeLocale, t } from "~/utilities";
 
 interface WeaponFormProps {
 	modal?: boolean;
@@ -153,7 +153,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				!current.type ||
 				!current.name
 			) {
-				throw new Error("Ange name och typ.");
+				throw new Error(t("component.weapon.form.submit.required"));
 			}
 
 			const weaponData: WeaponCreateInput = {
@@ -248,8 +248,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				);
 
 				showToast({
-					title: "Uppdaterat",
-					description: `${weaponData.name} uppdaterades`,
+					title: t("updated"),
+					description: `${weaponData.name} ${t("updated")}}`,
 					variant: "success",
 					duration: 3000,
 				});
@@ -308,7 +308,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 			const response = await weaponsApi.delete(id);
 
 			if (!response) {
-				throw Error("DELETE WEAPON FAILED");
+				throw Error(`${t("delete")} ${t("weapon")} ${t("failed")}`);
 			}
 
 			weaponsSet((prev) => prev.filter((item) => item.id !== id));
@@ -317,7 +317,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				props.modalControl(false);
 			}
 			showToast({
-				description: `${name} togs bort från vapenboken`,
+				description: `${name} ${t("deleted")}`,
 				variant: "success",
 				duration: 3000,
 			});
@@ -325,7 +325,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 			console.error(error);
 
 			showToast({
-				description: `${name} kunde inte raderas`,
+				description: `${name} ${t("couldNotBeDeleted")}}`,
 				variant: "error",
 				duration: 3000,
 			});
@@ -369,7 +369,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					key="name"
 					onChange={handleInputChange}
 					required
-					title="Namn"
+					title={t("name")}
 					type="text"
 					value={form().name}
 				/>
@@ -377,9 +377,9 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<SelectGridItem
 					key="type"
 					options={weaponTypes}
-					placeholder="Välj typ"
+					placeholder={`${t("select")} ${t("type")}`}
 					required
-					title="Typ"
+					title={t("type")}
 					onChange={handleInputChange}
 					value={form().type}
 				/>
@@ -387,7 +387,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="brand"
 					onChange={handleInputChange}
-					title="Tillverkare"
+					title={t("brand")}
 					type="text"
 					value={form().brand || ""}
 				/>
@@ -395,7 +395,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="manufacturerUrl"
 					onChange={handleInputChange}
-					title="Produktlänk"
+					title={t("brandUrl")}
 					type="text"
 					value={form().manufacturerUrl || ""}
 				/>
@@ -403,7 +403,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="model"
 					onChange={handleInputChange}
-					title="Modell"
+					title={t("model")}
 					type="text"
 					value={form().model || ""}
 				/>
@@ -412,8 +412,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 					key="caliber"
 					onChange={handleInputChange}
 					options={calibers}
-					placeholder="Kaliber"
-					title="Kaliber"
+					placeholder={t("caliber")}
+					title={t("caliber")}
 					value={form().caliber || []}
 					multiple
 				/>
@@ -421,7 +421,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="serialNumber"
 					onChange={handleInputChange}
-					title="Serienummer"
+					title={t("serialNumber")}
 					type="text"
 					value={form().serialNumber || ""}
 				/>
@@ -429,7 +429,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="barrelLength"
 					onChange={handleInputChange}
-					title="Piplängd"
+					title={t("barrelLength")}
 					type="text"
 					value={form().barrelLength || ""}
 				/>
@@ -437,7 +437,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="classification"
 					onChange={handleInputChange}
-					title="Skytteform"
+					title={t("classification")}
 					type="text"
 					value={form().classification || ""}
 				/>
@@ -445,8 +445,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<SelectGridItem
 					key="federation"
 					options={federations}
-					placeholder="Välj förbund"
-					title="Förbund"
+					placeholder={`${t("select")} ${t("federation")}`}
+					title={t("federation")}
 					onChange={handleInputChange}
 					value={form().federation}
 				/>
@@ -454,7 +454,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="licenseStart"
 					onChange={handleInputChange}
-					title="Licens utfärdad datum"
+					title={`${t("license")} ${t("issuedDate")}`}
 					type="date"
 					value={form().licenseStart || ""}
 				/>
@@ -462,7 +462,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="licenseEnd"
 					onChange={handleInputChange}
-					title="Licens utgångsdatum"
+					title={`${t("license")} ${t("expirationDate")}`}
 					type="date"
 					value={form().licenseEnd || ""}
 				/>
@@ -470,7 +470,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="purchaseDate"
 					onChange={handleInputChange}
-					title="Inköpsdatum"
+					title={t("purchaseDate")}
 					type="date"
 					value={form().purchaseDate || ""}
 				/>
@@ -478,7 +478,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="price"
 					onChange={handleInputChange}
-					title="Pris"
+					title={t("price")}
 					type="number"
 					value={form().price}
 				/>
@@ -486,7 +486,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="seller"
 					onChange={handleInputChange}
-					title="Säljare"
+					title={t("seller")}
 					type="text"
 					value={form().seller || ""}
 				/>
@@ -494,7 +494,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldInputGridItem
 					key="sellerUrl"
 					onChange={handleInputChange}
-					title="Länk till säljare"
+					title={t("sellerUrl")}
 					type="text"
 					value={form().sellerUrl || ""}
 				/>
@@ -502,7 +502,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 				<TextFieldAreaGridItem
 					key="notes"
 					onChange={handleInputChange}
-					title="Anteckningar"
+					title={t("notes")}
 					value={form().notes || ""}
 				/>
 			</section>
@@ -510,7 +510,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 			<section class="flex flex-col gap-8">
 				<div>
 					<Label>
-						Bild
+						{t("image")}
 					</Label>
 					<input
 						ref={(element) => (imageInputRef = element)}
@@ -527,7 +527,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 							size="sm"
 							variant="outline"
 						>
-							Välj bild
+							{t("select")} {t("image")}
 						</Button>
 
 						<Show when={pendingImage() || existingImage()}>
@@ -543,7 +543,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 								size="sm"
 								variant="destructive"
 							>
-								Ta bort
+								{t("remove")}
 							</Button>
 						</Show>
 					</div>
@@ -561,7 +561,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 				<div>
 					<Label>
-						Dokument
+						{t("document")}
 					</Label>
 					<input
 						ref={(element) => (fileInputRef = element)}
@@ -578,7 +578,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 							size="sm"
 							variant="outline"
 						>
-							Välj filer
+							{t("select")} {t("files")}
 						</Button>
 
 						<Show when={pendingFiles()?.length}>
@@ -587,7 +587,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 								size="sm"
 								variant="default"
 							>
-								Rensa
+								{t("clear")}
 							</Button>
 						</Show>
 					</div>
@@ -608,7 +608,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 												}));
 											}}
 										>
-											Ta bort
+											{t("remove")}
 										</Button>
 
 										<FileSource file={file} double />
@@ -631,7 +631,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 													pendingFilesSet((prev) => prev?.filter((item) => item.name !== pendingFile.name) ?? null);
 												}}
 											>
-												Ta bort
+												{t("remove")}
 											</Button>
 											<div class="text-sm text-muted-foreground">
 												{pendingFile.name}
@@ -662,19 +662,19 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 								<DialogContent class="max-w-sm">
 									<DialogHeader>
 										<DialogTitle>
-											Är du säker på att du vill radera {weapon.name}?
+											{t("component.weapon.form.delete.title")}
 										</DialogTitle>
 									</DialogHeader>
 
 									<DialogDescription>
-										Detta kommer att ta bort vapnet permanent. Denna åtgärd kan inte ångras.
+										{t("component.weapon.form.delete.description")}
 									</DialogDescription>
 
 									<DialogTrigger
 										as={Button}
 										variant="outline"
 									>
-										Avbryt
+										{t("cancel")}
 									</DialogTrigger>
 
 									<DialogTrigger
@@ -682,7 +682,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 										variant="destructive"
 										onClick={() => deleteWeapon(weapon.id, weapon.name)}
 									>
-										Fortsätt
+										{t("continue")}
 									</DialogTrigger>
 								</DialogContent>
 							</Dialog>
@@ -694,7 +694,7 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 						variant="outline"
 						onClick={editForm() ? cancelEdit : formReset}
 					>
-						Avbryt
+						{t("cancel")}
 					</Button>
 					<Button
 						type="submit"
@@ -705,8 +705,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 							when={loading()}
 							fallback={
 								editForm()
-									? "Spara"
-									: "Lägg till"
+									? t("save")
+									: t("add")
 							}
 						>
 							<Spinner
@@ -714,7 +714,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 								variant="white"
 								class="mr-2"
 							/>
-							Sparar...
+							{t("saving")}
+							...
 						</Show>
 					</Button>
 				</div>
@@ -730,9 +731,9 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 
 	createEffect(() => {
 		if (editForm()) {
-			titleSet("Redigera vapen");
+			titleSet(`${t("edit")} ${t("weapon")}`);
 		} else {
-			titleSet("Lägg till nytt vapen");
+			titleSet(`${t("add")} ${t("weapon")}`);
 		}
 	});
 

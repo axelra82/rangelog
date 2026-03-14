@@ -11,7 +11,7 @@ import {
 	ProfileMenu,
 } from "~/components";
 import { useStore } from "~/store";
-import { getInitials } from "~/utilities";
+import { getInitials, t } from "~/utilities";
 
 export const LayoutMainMenu: ParentComponent = () => {
 	const {
@@ -42,7 +42,7 @@ export const LayoutMainMenu: ParentComponent = () => {
 									variant={activeState("/")}
 								// variant="default"
 								>
-									Dashboard
+									{t("dashboard")}
 								</Button>
 							</li>
 							<li>
@@ -51,7 +51,7 @@ export const LayoutMainMenu: ParentComponent = () => {
 									href="/activities"
 									variant={activeState("/activities")}
 								>
-									Aktiviteter
+									{t("activities")}
 								</Button>
 							</li>
 							<li>
@@ -60,7 +60,7 @@ export const LayoutMainMenu: ParentComponent = () => {
 									href="/weapons"
 									variant={activeState("/weapons")}
 								>
-									Vapen
+									{t("weapons")}
 								</Button>
 							</li>
 						</ul>

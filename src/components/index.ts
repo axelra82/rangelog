@@ -2,6 +2,7 @@ export * from "./activities";
 export * from "./auth-checker";
 export * from "./claims";
 export * from "./conditional-wrapper";
+export * from "./i18n";
 export * from "./layout";
 export * from "./loader";
 export * from "./theme";

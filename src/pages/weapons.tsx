@@ -24,7 +24,7 @@ import {
 } from "~/components";
 import { Weapon } from "~/schemas";
 import { useStore } from "~/store";
-import { dateTimeLocale } from "~/utilities";
+import { dateTimeLocale, t } from "~/utilities";
 
 const WeaponsPage: Component = () => {
 	const location = useLocation();
@@ -150,7 +150,9 @@ const WeaponsPage: Component = () => {
 											<div class="flex gap-2 text-sm text-muted-foreground">
 												<LicenseExpiryIndicator licenseEnd={licenseEnd} />
 												<div>
-													Licens giltig t.om.
+													{t("license")}
+													{" "}
+													{t("validUntil").toLocaleLowerCase()}
 													{" "}
 													{dateTimeLocale({
 														dateTime: licenseEnd,
@@ -161,10 +163,10 @@ const WeaponsPage: Component = () => {
 									</Show>
 
 									<strong>
-										{weapon.activities} aktiviteter
+										{weapon.activities} {t("activities")}
 									</strong>
 									<strong>
-										{weapon.rounds} skott
+										{weapon.rounds} {t("shots")}
 									</strong>
 
 									<div class="mt-auto">
@@ -176,7 +178,7 @@ const WeaponsPage: Component = () => {
 											}}
 											class="mt-4 w-full"
 										>
-											Mer
+											{t("more")}
 										</Button>
 									</div>
 								</CardContent>

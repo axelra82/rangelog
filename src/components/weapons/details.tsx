@@ -35,7 +35,7 @@ import {
 	Weapon,
 } from "~/schemas";
 import { useStore } from "~/store";
-import { cn, dateTimeLocale } from "~/utilities";
+import { cn, dateTimeLocale, t } from "~/utilities";
 
 export interface DetailsControl {
 	open: () => void;
@@ -305,7 +305,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 								<LicenseExpiryIndicator size={10} licenseEnd={props.weapon.licenseEnd} /> {props.weapon.name}
 							</div>
 							<div class="text-xs text-muted-foreground font-light">
-								Skapad
+								{t("created")}
 								{" "}
 								{dateTimeLocale({
 									dateTime: props.weapon.created,
@@ -328,7 +328,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 								control.close();
 							}}
 						>
-							Redigera
+							{t("edit")}
 						</Button>
 
 						<Dialog>
@@ -337,24 +337,24 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 								variant="destructive"
 								class="flex-1 w-full"
 							>
-								Ta bort
+								{t("delete")}
 							</DialogTrigger>
 							<DialogContent class="max-w-sm">
 								<DialogHeader>
 									<DialogTitle>
-										Är du säker på att du vill radera {props.weapon.name}?
+										{t("component.weapon.detail.delete.title")}
 									</DialogTitle>
 								</DialogHeader>
 
 								<DialogDescription>
-									Detta kommer att ta bort vapnet permanent. Denna åtgärd kan inte ångras.
+									{t("component.weapon.detail.delete.description")}
 								</DialogDescription>
 
 								<DialogTrigger
 									as={Button}
 									variant="outline"
 								>
-									Avbryt
+									{t("cancel")}
 								</DialogTrigger>
 
 								<DialogTrigger
@@ -362,7 +362,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 									variant="destructive"
 									onClick={() => deleteWeapon(props.weapon.id, props.weapon.name)}
 								>
-									Fortsätt
+									{t("continue")}
 								</DialogTrigger>
 							</DialogContent>
 						</Dialog>
@@ -373,7 +373,7 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 						class="w-full"
 						onClick={() => control.close()}
 					>
-						Stäng
+						{t("close")}
 					</Button>
 				</SheetContent>
 			</Sheet>

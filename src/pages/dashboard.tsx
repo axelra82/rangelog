@@ -11,6 +11,7 @@ import {
 	WeaponLicenseExpireWarning,
 } from "~/components";
 import { useStore } from "~/store";
+import { t } from "~/utilities";
 
 const DashboardPage = () => {
 	const {
@@ -46,7 +47,7 @@ const DashboardPage = () => {
 			</section>
 
 			<section class="py-8 px-4">
-				<h1>Vad vill du göra?</h1>
+				<h1>{t("page.dashboard.title")}</h1>
 				<p class="text-muted-foreground mb-6" />
 				<nav class="flex flex-col md:flex-row gap-4 justify-stretch">
 					<AddActivity />
@@ -59,34 +60,34 @@ const DashboardPage = () => {
 				<CardHeader>
 					<CardTitle>
 						<h1>
-							Överblick
+							{t("overview")}
 						</h1>
 					</CardTitle>
 				</CardHeader>
 				<CardContent class="flex flex-col md:flex-row gap-12 justify-around mt-8">
 					<section>
-						<strong>Aktiviteter</strong>
+						<strong>{t("activities")}</strong>
 						<p class="text-6xl font-black">
 							{user().activities}
 						</p>
 					</section>
 
 					<section>
-						<strong>Fordningar</strong>
+						<strong>{t("claims")}</strong>
 						<p class="text-6xl font-black">
 							{user().claims}
 						</p>
 					</section>
 
 					<section class="text-center">
-						<strong>Vapen</strong>
+						<strong>{t("weapons")}</strong>
 						<p class="text-center text-6xl font-black">
 							{user().weapons}
 						</p>
 					</section>
 
 					<section class="text-center">
-						<strong>Skott</strong>
+						<strong>{t("shots")}</strong>
 						<p class="text-center text-6xl font-black">
 							{roundsFired()}
 						</p>

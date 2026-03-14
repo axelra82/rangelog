@@ -9,6 +9,7 @@ import {
 	Icon,
 } from "~/components";
 import { Icons } from "~/types";
+import { t } from "~/utilities";
 
 interface AddClaimProps {
 	buttonClass?: string;
@@ -28,7 +29,9 @@ export const AddClaim: Component<AddClaimProps> = (props) => {
 				{...props.buttonClass && { class: props.buttonClass }}
 			>
 				<Icon icon={Icons.PLUS} />
-				Spara fordran
+				{t("register")}
+				{" "}
+				{t("claim")}
 			</DialogTrigger>
 			<DialogContent>
 				<ClaimsForm

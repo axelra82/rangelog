@@ -9,6 +9,7 @@ import {
 	WeaponForm,
 } from "~/components";
 import { Icons } from "~/types";
+import { t } from "~/utilities";
 
 interface AddWeaponProps {
 	buttonClass?: string;
@@ -25,7 +26,9 @@ export const AddWeapon: Component<AddWeaponProps> = (props) => {
 				{...props.buttonClass && { class: props.buttonClass }}
 			>
 				<Icon icon={Icons.PLUS} />
-				Lägg till vapen
+				{t("add")}
+				{" "}
+				{t("weapon")}
 			</DialogTrigger>
 			<DialogContent>
 				<WeaponForm modal modalControl={setOpen} />

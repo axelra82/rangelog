@@ -17,6 +17,7 @@ import {
 	CardTitle,
 	Icon,
 	Label,
+	SelectLanguage,
 	showToast,
 	Spinner,
 	TextField,
@@ -26,7 +27,7 @@ import {
 } from "~/components";
 import { useStore } from "~/store";
 import { Icons } from "~/types";
-import { dateTimeLocale } from "~/utilities";
+import { dateTimeLocale, t } from "~/utilities";
 
 const ProfilePage = () => {
 	const {
@@ -167,10 +168,11 @@ const ProfilePage = () => {
 				<Card>
 					<CardHeader>
 						<CardTitle>
-							Profilinformation
+							{t("profileInformation")}
 							<p class="mt-2 text-xs font-light text-muted-foreground">
-								Konto skapat:
+								{t("account")}
 								{" "}
+								{t("created")}
 								{dateTimeLocale({
 									dateTime: user().created,
 								})}
@@ -182,9 +184,15 @@ const ProfilePage = () => {
 						<form>
 							<ul class="flex flex-col text-sm space-y-8 max-w-2xs mb-4">
 								<li class="flex flex-col gap-4">
+									{t("select")}
+									{" "}
+									{t("language")}
+									<SelectLanguage />
+								</li>
+								<li class="flex flex-col gap-4">
 									<TextField>
 										<TextFieldLabel>
-											Namn
+											{t("name")}
 										</TextFieldLabel>
 										<TextFieldInput
 											value={user().name}
@@ -205,7 +213,7 @@ const ProfilePage = () => {
 									>
 										<Show
 											when={working()}
-											fallback="Uppdatera"
+											fallback={t("update")}
 										>
 											<Spinner class="text-white" />
 										</Show>
@@ -215,7 +223,7 @@ const ProfilePage = () => {
 								<li class="flex flex-col gap-4">
 									<TextField>
 										<TextFieldLabel>
-											E-post
+											{t("email")}
 										</TextFieldLabel>
 										<TextFieldInput
 											value={user().email}
@@ -237,7 +245,7 @@ const ProfilePage = () => {
 									>
 										<Show
 											when={working()}
-											fallback="Ändra"
+											fallback={t("change")}
 										>
 											<Spinner class="text-white" />
 										</Show>
@@ -246,12 +254,12 @@ const ProfilePage = () => {
 
 								<li class="flex flex-col gap-4">
 									<Label>
-										Ändra lösenord
+										{t("change")} {t("password")}
 									</Label>
 
 									<TextField>
 										<TextFieldLabel>
-											Nuvarande lösenord
+											{t("current")} {t("password")}
 										</TextFieldLabel>
 										<TextFieldInput
 											type="password"
@@ -263,7 +271,7 @@ const ProfilePage = () => {
 									<Show when={currentPassword()}>
 										<TextField>
 											<TextFieldLabel>
-												Nytt lösenord
+												{t("new")} {t("password")}
 											</TextFieldLabel>
 											<TextFieldInput
 												type="password"
@@ -282,7 +290,7 @@ const ProfilePage = () => {
 											}
 											onClick={changePassword}
 										>
-											Spara
+											{t("save")}
 										</Button>
 									</Show>
 								</li>
@@ -301,7 +309,7 @@ const ProfilePage = () => {
 					<ThemeSelect />
 					<Button size="lg" onClick={handleLogout}>
 						<Icon icon={Icons.LOGOUT} />
-						Logga ut
+						{t("logout")}
 					</Button>
 				</section>
 				<Show when={user().admin}>
@@ -309,7 +317,7 @@ const ProfilePage = () => {
 						<A href="/admin">
 							<Button size="lg">
 								<Icon icon={Icons.SHIELD} />
-								Admin
+								{t("admin")}
 							</Button>
 						</A>
 					</div>
