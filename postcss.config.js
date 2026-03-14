@@ -3,5 +3,5 @@ export default {
 		"@tailwindcss/nesting": {},
 		"@tailwindcss/postcss": {},
 		"@tailwindcss/forms": {},
-	}
+	},
 }

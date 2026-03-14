@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+# prevent exiting when a command fails with a non-zero status
+set +e
+
+pnpm exec lint-staged
+
+# Enable test when test/lint are solved
+# make test

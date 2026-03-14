@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+# Prevent exiting when a command fails with a non-zero status.
+set +e
+
+# Define the rebase and merge paths
+REBASE_PATH="$(git rev-parse --git-path rebase-merge)"      # directory
+MERGE_PATH="$(git rev-parse --git-path MERGE_HEAD)"         # file
+
+# Check if it's a rebase or merge. If not, it's a normal commit
+if [ -d "$REBASE_PATH" ] || [ -f "$MERGE_PATH" ]; then
+  echo "Skipping Husky pre-commit hook: We are in the middle of a rebase or merge."
+else
+	COMMIT_REGEX="^(doc|style|fix|chore|refactor|feat|test|build|ci|revert|release)(\(.+?\))?: .{1,}$"
+	if ! head -1 "$1"| grep -qE "$COMMIT_REGEX"; then
+			echo "❌ Missing commit key! Must be one (1) of: doc, style, fix, chore, refactor, feat, test, build, ci, revert, release. See https://www.conventionalcommits.org/en/v1.0.0/#summary" >&2
+			exit 1
+	fi
+	# Not sure we should limit commit messages. Save for later.
+	# if ! head -1 "$1" | grep -qE "^.{1,88}$"; then
+	# 		echo "Aborting commit. Your commit message is too long." >&2
+	# 		exit 1
+	# fi
+fi
