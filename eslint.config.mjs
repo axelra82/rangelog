@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import importPlugin from "eslint-plugin-import";
 import solid from "eslint-plugin-solid";
+import globals from "globals";
 import tseslint, { parser } from "typescript-eslint";
 
 import defaultJsRules from "./eslint/default-js-rules.js";
@@ -21,6 +22,14 @@ const createConfig = (options = {}) => {
 	const configs = [
 		js.configs.recommended,
 		defaultJsRules,
+		{
+			languageOptions: {
+				globals: {
+					...globals.browser,
+					...globals.node,
+				},
+			},
+		},
 	];
 
 	// TypeScript parser configuration
