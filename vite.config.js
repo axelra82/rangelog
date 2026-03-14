@@ -1,20 +1,21 @@
-import { defineConfig, loadEnv } from "vite";
-import solidPlugin from "vite-plugin-solid";
-import tailwindcss from "@tailwindcss/vite";
-import { VitePWA } from "vite-plugin-pwa";
-
 import { execSync } from "node:child_process";
 import { dirname, resolve } from "node:path";
+import process from "node:process";
 import { fileURLToPath } from "node:url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig, loadEnv } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
+import solidPlugin from "vite-plugin-solid";
 
 import {
 	name,
 	repository,
 	version,
 } from "./package.json";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Set the version and build information.
 const gitCommit = JSON.stringify(execSync("git rev-parse HEAD").toString().trimEnd());
@@ -72,7 +73,7 @@ export default defineConfig(({ mode }) => {
 										// Strip token query param before using as cache key. Otherwise each request becomes a "unique" image, as far as the cache is concerned, since they all have a new token appended.
 										cacheKeyWillBeUsed: async ({ request }) => {
 											const url = new URL(request.url);
-											url.searchParams.delete('token');
+											url.searchParams.delete("token");
 											return url.toString();
 										},
 									},
@@ -117,7 +118,7 @@ export default defineConfig(({ mode }) => {
 					start_url: `${env.VITE_RANGELOG_URL_PROTOCOL}://${env.VITE_RANGELOG_URL_SUBDOMAIN}.${env.VITE_RANGELOG_URL_DOMAIN}`,
 					theme_color: "#0F0E14",
 				},
-			})
+			}),
 		],
 		server: {
 			port: env.VITE_RANGELOG_URL_PORT,
@@ -126,8 +127,8 @@ export default defineConfig(({ mode }) => {
 		resolve: {
 			alias: {
 				"~": resolve(__dirname, "./src"),
-				"infrastructure": resolve(__dirname, "./infrastructure")
-			}
+				"infrastructure": resolve(__dirname, "./infrastructure"),
+			},
 		},
 	}
 });

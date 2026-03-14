@@ -1,5 +1,6 @@
-import { Collections, pb } from "../";
 import { ClientUser } from "~/schemas/user";
+
+import { Collections, pb } from "../";
 
 export const pocketbaseAuthCheck = () => {
 	const validAuthUser = pb.authStore.isValid;
@@ -44,5 +45,5 @@ export const pocketbaseAuthValidate = async () => {
 
 export const pocketbaseAuthRefresh = async () => {
 	await pb.collection(Collections.USERS).authRefresh();
-	pocketbaseAuthValidate();
+	await pocketbaseAuthValidate();
 };

@@ -1,6 +1,11 @@
 import {
+	Collections,
+	pocketbaseActivityParser,
+	pocketbaseActivityWeaponParser,
+	pocketbaseAppFileParser,
 	pocketbaseAuthRefresh,
 	pocketbaseAuthValidate,
+	pocketbaseClaimParser,
 	pocketbaseCreateCollectionItem,
 	pocketbaseDeleteActivityWeaponsByActivity,
 	pocketbaseDeleteCollectionItem,
@@ -10,17 +15,11 @@ import {
 	pocketbaseReadCollectionItem,
 	pocketbaseUpdateCollectionItem,
 	pocketbaseUpdateUserEmail,
-	pocketbaseActivityParser,
-	pocketbaseActivityWeaponParser,
-	pocketbaseAppFileParser,
-	pocketbaseClaimParser,
 	pocketbaseUserParser,
 	pocketbaseWeaponParser,
-	Collections,
 } from "infrastructure/adapters/pocketbase";
 
 import { ProviderFunction } from "~/types";
-
 import {
 	normalizeActivity,
 	normalizeActivityWeapon,
@@ -193,5 +192,5 @@ export const createPocketbaseProvider = (): ProviderFunction => ({
 			id,
 			Collections.WEAPONS,
 		),
-	}
+	},
 });

@@ -12,7 +12,7 @@ import {
 export const pocketbaseCreateCollectionItem = async <T>(
 	data: Record<string, unknown> | undefined,
 	collection: Collections,
-	normalize: (data: Record<string, any>) => Readonly<T>,
+	normalize: (data: Record<string, unknown>) => Readonly<T>,
 ): Promise<T> => {
 	const record = await pb
 		.collection(collection)
@@ -26,7 +26,6 @@ export const pocketbaseReadCollectionItem = async <T>(
 	collection: Collections,
 	normalize: (data: Record<string, unknown>) => Readonly<T>,
 ): Promise<Readonly<T> | ReadListResponse<T>> => {
-
 	// SINGLE RECORD
 	if ("id" in options) {
 		const singleItem = await pb.collection(collection).getOne(options.id);
@@ -66,7 +65,7 @@ export const pocketbaseUpdateCollectionItem = async <T>(
 	id: string,
 	data: Record<string, unknown> | undefined,
 	collection: Collections,
-	normalize: (data: Record<string, any>) => Readonly<T>,
+	normalize: (data: Record<string, unknown>) => Readonly<T>,
 ): Promise<T> => {
 	const record = await pb
 		.collection(collection)
