@@ -30,12 +30,13 @@ import {
 	SheetTitle,
 	showToast,
 } from "~/components";
+import { useT } from "~/hooks/useT";
 import {
 	AppFile,
 	Weapon,
 } from "~/schemas";
 import { useStore } from "~/store";
-import { cn, dateTimeLocale, t } from "~/utilities";
+import { cn, dateTimeLocale } from "~/utilities";
 
 export interface DetailsControl {
 	open: () => void;
@@ -155,6 +156,8 @@ export const WeaponDetails: Component<WeaponDetailsProps> = (props) => {
 		isMobile,
 		weaponsSet,
 	} = useStore();
+
+	const t = useT();
 
 	const [open, openSet] = createSignal(false);
 

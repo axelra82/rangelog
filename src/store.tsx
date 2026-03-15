@@ -13,7 +13,7 @@ import { Activity, Claim, Weapon } from "./schemas";
 import { ClientUser } from "./schemas/user";
 import { StoreContextProps, UserTheme } from "./types";
 
-const USER_THEME_STORAGE_KEY = "user-theme";
+export const USER_THEME_STORAGE_KEY = "user-theme";
 export const USER_LANGUAGE_STORAGE_KEY = "user-language";
 
 const savedTheme = (localStorage.getItem(USER_THEME_STORAGE_KEY) as UserTheme) ?? UserTheme.SYSTEM;

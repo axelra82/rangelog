@@ -10,14 +10,16 @@ import {
 	DropdownMenuTrigger,
 	ProfileMenu,
 } from "~/components";
+import { useT } from "~/hooks/useT";
 import { useStore } from "~/store";
-import { getInitials, t } from "~/utilities";
+import { getInitials } from "~/utilities";
 
 export const LayoutMainMenu: ParentComponent = () => {
 	const {
 		user,
 		isMobile,
 	} = useStore();
+	const t = useT();
 
 	const router = useLocation();
 

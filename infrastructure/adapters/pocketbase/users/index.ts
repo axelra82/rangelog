@@ -4,7 +4,7 @@ import {
 } from "..";
 
 export const pocketbaseUpdateUserEmail = async (
-	newEmail: string
+	newEmail: string,
 ): Promise<boolean> => {
 	const entries = await pb
 		.collection(Collections.USERS)

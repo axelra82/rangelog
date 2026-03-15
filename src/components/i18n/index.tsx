@@ -1,8 +1,8 @@
 import { Component, For } from "solid-js";
 
+import { useT } from "~/hooks/useT";
 import { translations, type UserLanguage } from "~/i18n";
 import { useStore } from "~/store";
-import { t } from "~/utilities";
 
 import { SelectNative } from "../ui";
 
@@ -15,6 +15,8 @@ export const SelectLanguage: Component<SelectLanguageProps> = (props) => {
 		language,
 		languageSet,
 	} = useStore();
+
+	const t = useT();
 
 	return (
 		<SelectNative

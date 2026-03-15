@@ -41,13 +41,14 @@ import {
 	federations,
 	weaponTypes,
 } from "~/data";
+import { useT } from "~/hooks/useT";
 import {
 	AppFile,
 	Weapon,
 	WeaponCreateInput,
 } from "~/schemas";
 import { useStore } from "~/store";
-import { dateTimeLocale, t } from "~/utilities";
+import { dateTimeLocale } from "~/utilities";
 
 interface WeaponFormProps {
 	modal?: boolean;
@@ -60,6 +61,8 @@ export const WeaponForm: Component<WeaponFormProps> = (props) => {
 		user,
 		weaponsSet,
 	} = useStore();
+
+	const t = useT();
 
 	const [_, setSearchParams] = useSearchParams();
 

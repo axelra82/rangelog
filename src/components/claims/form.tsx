@@ -35,6 +35,7 @@ import {
 	TextFieldInputGridItem,
 } from "~/components";
 import { claims, clubs, federations } from "~/data";
+import { useT } from "~/hooks/useT";
 import {
 	Claim,
 	ClaimCreateInput,
@@ -43,7 +44,6 @@ import { useStore } from "~/store";
 import {
 	dateTimeLocale,
 	dateTimeLocaleToday,
-	t,
 } from "~/utilities";
 
 interface ManageActivityFormProps {
@@ -57,6 +57,8 @@ export const ClaimsForm: Component<ManageActivityFormProps> = (props) => {
 		user,
 		claimsSet,
 	} = useStore();
+
+	const t = useT();
 
 	const [_, setSearchParams] = useSearchParams();
 

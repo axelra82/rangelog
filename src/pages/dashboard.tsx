@@ -10,14 +10,16 @@ import {
 	CardTitle,
 	WeaponLicenseExpireWarning,
 } from "~/components";
+import { useT } from "~/hooks/useT";
 import { useStore } from "~/store";
-import { t } from "~/utilities";
 
 const DashboardPage = () => {
 	const {
 		user,
 		weapons,
 	} = useStore();
+
+	const t = useT();
 
 	const roundsFired = () => {
 		const sum = weapons().reduce((acc, weapon) => {

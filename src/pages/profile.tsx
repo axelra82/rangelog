@@ -5,6 +5,7 @@ import {
 } from "infrastructure";
 import {
 	createSignal,
+	onMount,
 	Show,
 } from "solid-js";
 
@@ -25,16 +26,22 @@ import {
 	TextFieldLabel,
 	ThemeSelect,
 } from "~/components";
+import { useT } from "~/hooks/useT";
+import { ClientUser } from "~/schemas";
 import { useStore } from "~/store";
 import { Icons } from "~/types";
-import { dateTimeLocale, t } from "~/utilities";
+import { dateTimeLocale } from "~/utilities";
 
 const ProfilePage = () => {
 	const {
-		user,
 		isAuthenticatedSet,
 		isMobile,
+		language,
+		user,
+		userSet,
 	} = useStore();
+
+	const t = useT();
 
 	const [working, workingSet] = createSignal(false);
 	const [newUserEmail, newUserEmailSet] = createSignal<string>();
@@ -42,28 +49,25 @@ const ProfilePage = () => {
 	const [newPassword, newPasswordSet] = createSignal<string>();
 	const [currentPassword, currentPasswordSet] = createSignal<string>();
 
-	const changeUserName = async (event: Event) => {
+	const updateUserField = async (event: Event, keyValue: Record<string, unknown>): Promise<ClientUser | void> => {
 		event.preventDefault();
 		workingSet(true);
 
 		try {
-			const response = await userApi.update(user().id, {
-				name: newUserName(),
+			const response = await userApi.update(user().id, keyValue);
+
+			showToast({
+				description: t("updated"),
+				variant: "success",
+				duration: 3000,
 			});
 
-			if (response) {
-				showToast({
-					description: "Namn updaterat",
-					variant: "success",
-					duration: 3000,
-				});
-			}
-
-			newUserNameSet();
+			workingSet(false);
+			return response;
 		} catch (error) {
 			console.error(error);
 			showToast({
-				description: "Kunde inte uppdatera namn",
+				description: t("unknownError"),
 				variant: "error",
 				duration: 3000,
 			});
@@ -162,6 +166,9 @@ const ProfilePage = () => {
 		}
 	};
 
+	onMount(() => {
+		newUserNameSet(user().name);
+	});
 	return (
 		<>
 			<div class="space-y-8">
@@ -187,8 +194,33 @@ const ProfilePage = () => {
 									{t("select")}
 									{" "}
 									{t("language")}
+
 									<SelectLanguage />
+
+									<Button
+										type="submit"
+										variant="info"
+										disabled={
+											user().language === language() ||
+											working()
+										}
+										onClick={(event) => {
+											updateUserField(event, { language: language() })
+												.then((data) => {
+													userSet(data || user());
+												})
+												.catch(() => null);
+										}}
+									>
+										<Show
+											when={working()}
+											fallback={t("save")}
+										>
+											<Spinner class="text-white" />
+										</Show>
+									</Button>
 								</li>
+
 								<li class="flex flex-col gap-4">
 									<TextField>
 										<TextFieldLabel>
@@ -209,7 +241,13 @@ const ProfilePage = () => {
 											user().name === newUserName() ||
 											working()
 										}
-										onClick={changeUserName}
+										onClick={(event) => {
+											updateUserField(event, { name: newUserName() })
+												.then((data) => {
+													userSet(data || user());
+												})
+												.catch(() => null);
+										}}
 									>
 										<Show
 											when={working()}

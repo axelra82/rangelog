@@ -1,7 +1,6 @@
 import {
 	Claim,
 } from "~/schemas";
-
 import {
 	NormalizeParser,
 } from "~/types";

@@ -18,7 +18,7 @@ import { UserLanguage } from "~/i18n";
 import { LoginPage } from "~/pages/login";
 import { dashboardRoutes } from "~/routes";
 import { Weapon } from "~/schemas";
-import { USER_LANGUAGE_STORAGE_KEY, useStore } from "~/store";
+import { USER_LANGUAGE_STORAGE_KEY, USER_THEME_STORAGE_KEY, useStore } from "~/store";
 import {
 	ReadListResponse,
 	UserTheme,
@@ -67,6 +67,7 @@ export const AuthChecker = () => {
 		isAuthenticatedSet,
 		languageSet,
 		theme,
+		themeSet,
 		user,
 		userSet,
 		weaponsSet,
@@ -111,11 +112,29 @@ export const AuthChecker = () => {
 			return;
 		}
 
-		languageSet("en");
 		// Priority 3: default
+		languageSet("en");
 	});
 
 	createEffect(() => {
+		const { theme: userTheme } = user();
+
+		if (userTheme) {
+			// Priority 1: user profile
+			themeSet(userTheme);
+			return;
+		}
+
+		const stored = localStorage.getItem(USER_THEME_STORAGE_KEY);
+		if (stored) {
+			// Priority 2: localStorage
+			themeSet(stored as UserTheme);
+			return;
+		}
+
+		// Priority 3: default
+		themeSet(UserTheme.SYSTEM);
+
 		const mode = theme();
 		const root = document.documentElement;
 

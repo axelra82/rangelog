@@ -1,7 +1,6 @@
 import {
 	AppFile,
 } from "~/schemas";
-
 import {
 	NormalizeParser,
 } from "~/types";

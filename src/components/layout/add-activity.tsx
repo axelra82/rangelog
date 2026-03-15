@@ -8,8 +8,8 @@ import {
 	DialogTrigger,
 	Icon,
 } from "~/components";
+import { useT } from "~/hooks/useT";
 import { Icons } from "~/types";
-import { t } from "~/utilities";
 
 interface AddActivityProps {
 	buttonClass?: string;
@@ -17,6 +17,7 @@ interface AddActivityProps {
 
 export const AddActivity: Component<AddActivityProps> = (props) => {
 	const [open, openSet] = createSignal(false);
+	const t = useT();
 
 	return (
 		<Dialog

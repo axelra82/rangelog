@@ -1,7 +1,6 @@
 import {
 	ActivityWeapon,
 } from "~/schemas";
-
 import {
 	NormalizeParser,
 } from "~/types";

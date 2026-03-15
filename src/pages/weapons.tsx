@@ -22,9 +22,10 @@ import {
 	WeaponDetails,
 	WeaponForm,
 } from "~/components";
+import { useT } from "~/hooks/useT";
 import { Weapon } from "~/schemas";
 import { useStore } from "~/store";
-import { dateTimeLocale, t } from "~/utilities";
+import { dateTimeLocale } from "~/utilities";
 
 const WeaponsPage: Component = () => {
 	const location = useLocation();
@@ -36,6 +37,8 @@ const WeaponsPage: Component = () => {
 	const {
 		weapons,
 	} = useStore();
+
+	const t = useT();
 
 	const [showEditDialog, showEditDialogSet] = createSignal<boolean>(false);
 	const [selectedWeapon, selectedWeaponSet] = createSignal<Weapon | null>(null);

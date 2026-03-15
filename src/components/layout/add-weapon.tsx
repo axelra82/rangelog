@@ -8,8 +8,8 @@ import {
 	Icon,
 	WeaponForm,
 } from "~/components";
+import { useT } from "~/hooks/useT";
 import { Icons } from "~/types";
-import { t } from "~/utilities";
 
 interface AddWeaponProps {
 	buttonClass?: string;
@@ -17,6 +17,7 @@ interface AddWeaponProps {
 
 export const AddWeapon: Component<AddWeaponProps> = (props) => {
 	const [open, setOpen] = createSignal(false);
+	const t = useT();
 
 	return (
 		<Dialog open={open()} onOpenChange={setOpen}>

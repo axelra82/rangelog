@@ -9,15 +9,17 @@ import {
 	Separator,
 	ThemeSelect,
 } from "~/components/";
+import { useT } from "~/hooks/useT";
 import { useStore } from "~/store";
 import { Icons } from "~/types";
-import { t } from "~/utilities";
 
 export const ProfileMenu: Component = () => {
 	const {
 		user,
 		isAuthenticatedSet,
 	} = useStore();
+
+	const t = useT();
 
 	const handleLogout = () => {
 		const done = auth.logout();

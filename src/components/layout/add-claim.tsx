@@ -8,8 +8,8 @@ import {
 	DialogTrigger,
 	Icon,
 } from "~/components";
+import { useT } from "~/hooks/useT";
 import { Icons } from "~/types";
-import { t } from "~/utilities";
 
 interface AddClaimProps {
 	buttonClass?: string;
@@ -17,7 +17,7 @@ interface AddClaimProps {
 
 export const AddClaim: Component<AddClaimProps> = (props) => {
 	const [open, openSet] = createSignal(false);
-
+	const t = useT();
 	return (
 		<Dialog
 			open={open()}

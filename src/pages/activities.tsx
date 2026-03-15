@@ -25,6 +25,7 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "~/components";
+import { useT } from "~/hooks/useT";
 import {
 	Activity,
 	Claim,
@@ -34,7 +35,6 @@ import {
 	Icons,
 	ReadListResponse,
 } from "~/types";
-import { t } from "~/utilities";
 
 const ActivitiesPage = () => {
 	const {
@@ -55,6 +55,8 @@ const ActivitiesPage = () => {
 		claimsCurrentPage,
 		claimsCurrentPageSet,
 	} = useStore();
+
+	const t = useT();
 
 	const perPage = 20;
 

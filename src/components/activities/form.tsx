@@ -46,6 +46,7 @@ import {
 	Calibers,
 	clubs,
 } from "~/data";
+import { useT } from "~/hooks/useT";
 import { Activity, ActivityCreateInput, ActivityWeapon } from "~/schemas";
 import { useStore } from "~/store";
 import {
@@ -54,7 +55,6 @@ import {
 import {
 	dateTimeLocale,
 	dateTimeLocaleToday,
-	t,
 } from "~/utilities";
 
 interface ManageActivityFormProps {
@@ -73,6 +73,8 @@ export const ActivityForm: Component<ManageActivityFormProps> = (props) => {
 		activitiesSet,
 		weapons: storeWeapons,
 	} = useStore();
+
+	const t = useT();
 
 	const [, searchParamsSet] = useSearchParams();
 
