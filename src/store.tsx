@@ -10,10 +10,10 @@ import {
 
 import { Activity, Claim, Weapon } from "./schemas";
 import { ClientUser } from "./schemas/user";
-import { ColorMode, StoreContextProps } from "./types";
+import { StoreContextProps, UserTheme } from "./types";
 
 const STORAGE_KEY = "color-mode";
-const savedMode = (localStorage.getItem(STORAGE_KEY) as ColorMode) ?? ColorMode.SYSTEM;
+const savedMode = (localStorage.getItem(STORAGE_KEY) as UserTheme) ?? UserTheme.SYSTEM;
 
 const StoreContext = createContext<StoreContextProps>();
 
@@ -28,7 +28,7 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const [claimsPageCount, claimsPageCountSet] = createSignal(-1);
 	const [claimsCurrentPage, claimsCurrentPageSet] = createSignal(1);
 
-	const [colorMode, colorModeSet] = createSignal<ColorMode>(savedMode);
+	const [colorMode, colorModeSet] = createSignal<UserTheme>(savedMode);
 	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
 	const [user, userSet] = createSignal<ClientUser>({
 		activities: 0,

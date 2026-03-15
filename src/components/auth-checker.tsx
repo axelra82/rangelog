@@ -19,8 +19,8 @@ import { dashboardRoutes } from "~/routes";
 import { Weapon } from "~/schemas";
 import { useStore } from "~/store";
 import {
-	ColorMode,
 	ReadListResponse,
+	UserTheme,
 } from "~/types";
 
 import { App } from "../app";
@@ -102,7 +102,7 @@ export const AuthChecker = () => {
 			root.classList.toggle("dark", isDark);
 		};
 
-		if (mode === ColorMode.SYSTEM) {
+		if (mode === UserTheme.SYSTEM) {
 			apply(media.matches);
 
 			// Optional: react to system changes
@@ -111,7 +111,7 @@ export const AuthChecker = () => {
 
 			onCleanup(() => media.removeEventListener("change", listener));
 		} else {
-			apply(mode === ColorMode.DARK);
+			apply(mode === UserTheme.DARK);
 		}
 	});
 

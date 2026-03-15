@@ -5,7 +5,13 @@ export enum Severity {
 	WARNING = "warning",
 }
 
-export enum ColorMode {
+export enum UserTheme {
+	LIGHT = "light",
+	DARK = "dark",
+	SYSTEM = "system",
+}
+
+export enum USerLanguage {
 	LIGHT = "light",
 	DARK = "dark",
 	SYSTEM = "system",

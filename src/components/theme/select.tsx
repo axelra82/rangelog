@@ -7,7 +7,7 @@ import { Component, For } from "solid-js";
 
 import { ToggleGroup, ToggleGroupItem } from "~/components/ui/toggle-group";
 import { useStore } from "~/store";
-import { ColorMode } from "~/types";
+import { UserTheme } from "~/types";
 import { cn } from "~/utilities";
 
 export const ThemeSelect: Component = () => {
@@ -18,9 +18,9 @@ export const ThemeSelect: Component = () => {
 	} = useStore();
 
 	const themes = [
-		{ value: "light" as ColorMode, icon: IconSun },
-		{ value: "dark" as ColorMode, icon: IconMoon },
-		{ value: "system" as ColorMode, icon: IconDeviceLaptop },
+		{ value: "light" as UserTheme, icon: IconSun },
+		{ value: "dark" as UserTheme, icon: IconMoon },
+		{ value: "system" as UserTheme, icon: IconDeviceLaptop },
 	];
 
 	return (
@@ -28,7 +28,7 @@ export const ThemeSelect: Component = () => {
 			value={colorMode()}
 			onChange={(value) => {
 				if (value) {
-					colorModeSet(value as ColorMode);
+					colorModeSet(value as UserTheme);
 				}
 			}}
 			class="justify-start"

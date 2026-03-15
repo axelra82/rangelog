@@ -6,7 +6,7 @@ import {
 	ClientUser,
 	Weapon,
 } from "~/schemas";
-import { ColorMode } from "~/types";
+import { UserTheme } from "~/types";
 
 export interface StoreFactoryProps {
 	storeItem: Setter<unknown>;
@@ -39,11 +39,11 @@ export interface StoreContextProps {
 	claimsPageCountSet: Setter<number>;
 	claimsCurrentPage: Accessor<number>;
 	claimsCurrentPageSet: Setter<number>;
-	colorMode: Accessor<ColorMode>;
+	colorMode: Accessor<UserTheme>;
 	isAuthenticated: Accessor<boolean>;
 	isAuthenticatedSet: Setter<boolean>;
 	isMobile: Accessor<boolean>;
-	colorModeSet: Setter<ColorMode>;
+	colorModeSet: Setter<UserTheme>;
 	user: Accessor<ClientUser>;
 	userSet: Setter<ClientUser>;
 	weapons: Accessor<Weapon[]>;
