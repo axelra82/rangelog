@@ -42,7 +42,6 @@ export const LayoutMainMenu: ParentComponent = () => {
 									as={A}
 									href="/"
 									variant={activeState("/")}
-								// variant="default"
 								>
 									{t("dashboard")}
 								</Button>
@@ -78,7 +77,6 @@ export const LayoutMainMenu: ParentComponent = () => {
 										{getInitials(user()?.email)}
 									</AvatarFallback>
 								</Avatar>
-								<span class="sr-only">Toggle theme</span>
 							</DropdownMenuTrigger>
 
 							<ProfileMenu />

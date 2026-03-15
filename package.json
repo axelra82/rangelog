@@ -30,6 +30,8 @@
 		"@solidjs/router": "^0.15.4",
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"@tabler/icons-solidjs": "^3.40.0",
+		"@tanstack/solid-query": "^5.90.26",
+		"@tanstack/solid-query-devtools": "^5.91.3",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"eslint": "^10.0.3",

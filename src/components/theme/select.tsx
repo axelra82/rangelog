@@ -39,7 +39,7 @@ export const ThemeSelect: Component = () => {
 					return (
 						<ToggleGroupItem
 							value={availableTheme.value}
-							aria-label={`${availableTheme.value} mode`}
+							aria-label={`${availableTheme.value} theme`}
 							{...isMobile() && { size: "sm" }}
 						>
 							<Icon class={cn(
