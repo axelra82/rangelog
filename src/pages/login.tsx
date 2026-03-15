@@ -9,6 +9,7 @@ import {
 	Button,
 	Icon,
 	LoginFooter,
+	SelectLanguage,
 	Spinner,
 	TextField,
 	TextFieldInput,
@@ -51,8 +52,9 @@ export const LoginPage: Component = () => {
 	return (
 		<div class="min-h-screen flex flex-col">
 			{/* Header with theme selector */}
-			<header class="w-full p-4 flex justify-end">
+			<header class="w-full p-4 flex gap-4 justify-end">
 				<ThemeSelect />
+				<SelectLanguage class="w-auto" />
 			</header>
 
 			{/* Main content */}
