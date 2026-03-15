@@ -171,13 +171,18 @@ const SelectErrorMessage = <T extends ValidComponent = "div">(
 
 type SelectNativeProps = JSX.SelectHTMLAttributes<HTMLSelectElement> & {
 	class?: string;
+	wrapperClass?: string;
 	multiple?: boolean;
 };
 
 const SelectNative = (props: SelectNativeProps) => {
-	const [local, others] = splitProps(props, ["class", "multiple"]);
+	const [local, others] = splitProps(props, ["class", "wrapperClass", "multiple"]);
 	return (
-		<div class="relative w-full">
+		<div class={cn(
+			"relative",
+			local.wrapperClass,
+		)}
+		>
 			<select
 				{...local.multiple && { multiple: true }}
 				class={cn(
