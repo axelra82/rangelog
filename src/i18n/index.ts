@@ -6,4 +6,6 @@ export const translations = {
 	sv,
 };
 
-export type Language = keyof typeof translations;
+export type UserLanguage = keyof typeof translations;
+
+export const languageKeys = Object.keys(translations) as [UserLanguage, ...UserLanguage[]];

@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+import { languageKeys } from "~/i18n";
+import { UserTheme } from "~/types";
+
 export const clientUserSchema = z.object({
 	activities: z.number(),
 	admin: z.boolean().optional(),
@@ -8,7 +11,9 @@ export const clientUserSchema = z.object({
 	created: z.string(),
 	email: z.email(),
 	id: z.string(),
+	language: z.enum(languageKeys).optional(),
 	name: z.string().optional(),
+	theme: z.enum(UserTheme).optional(),
 	updated: z.string().optional(),
 	verified: z.boolean().optional(),
 	weapons: z.number(),

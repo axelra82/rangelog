@@ -12,8 +12,8 @@ import { cn } from "~/utilities";
 
 export const ThemeSelect: Component = () => {
 	const {
-		colorMode,
-		colorModeSet,
+		theme,
+		themeSet,
 		isMobile,
 	} = useStore();
 
@@ -25,21 +25,21 @@ export const ThemeSelect: Component = () => {
 
 	return (
 		<ToggleGroup
-			value={colorMode()}
+			value={theme()}
 			onChange={(value) => {
 				if (value) {
-					colorModeSet(value as UserTheme);
+					themeSet(value as UserTheme);
 				}
 			}}
 			class="justify-start"
 		>
 			<For each={themes}>
-				{(theme) => {
-					const Icon = theme.icon;
+				{(availableTheme) => {
+					const Icon = availableTheme.icon;
 					return (
 						<ToggleGroupItem
-							value={theme.value}
-							aria-label={`${theme.value} mode`}
+							value={availableTheme.value}
+							aria-label={`${availableTheme.value} mode`}
 							{...isMobile() && { size: "sm" }}
 						>
 							<Icon class={cn(

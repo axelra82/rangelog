@@ -1,5 +1,6 @@
 import { Accessor, Setter } from "solid-js";
 
+import { UserLanguage } from "~/i18n";
 import {
 	Activity,
 	Claim,
@@ -24,26 +25,28 @@ export type ResourceHelper<T> = T & { disabled: false };
 
 export interface StoreContextProps {
 	activities: Accessor<Activity[]>;
+	activitiesCurrentPage: Accessor<number>;
+	activitiesCurrentPageSet: Setter<number>;
+	activitiesPageCount: Accessor<number>;
+	activitiesPageCountSet: Setter<number>;
 	activitiesSet: Setter<Activity[]>;
 	activitiesTotal: Accessor<number>;
 	activitiesTotalSet: Setter<number>;
-	activitiesPageCount: Accessor<number>;
-	activitiesPageCountSet: Setter<number>;
-	activitiesCurrentPage: Accessor<number>;
-	activitiesCurrentPageSet: Setter<number>;
 	claims: Accessor<Claim[]>;
+	claimsCurrentPage: Accessor<number>;
+	claimsCurrentPageSet: Setter<number>;
+	claimsPageCount: Accessor<number>;
+	claimsPageCountSet: Setter<number>;
 	claimsSet: Setter<Claim[]>;
 	claimsTotal: Accessor<number>;
 	claimsTotalSet: Setter<number>;
-	claimsPageCount: Accessor<number>;
-	claimsPageCountSet: Setter<number>;
-	claimsCurrentPage: Accessor<number>;
-	claimsCurrentPageSet: Setter<number>;
-	colorMode: Accessor<UserTheme>;
 	isAuthenticated: Accessor<boolean>;
 	isAuthenticatedSet: Setter<boolean>;
 	isMobile: Accessor<boolean>;
-	colorModeSet: Setter<UserTheme>;
+	language: Accessor<UserLanguage>;
+	languageSet: Setter<UserLanguage>;
+	theme: Accessor<UserTheme>;
+	themeSet: Setter<UserTheme>;
 	user: Accessor<ClientUser>;
 	userSet: Setter<ClientUser>;
 	weapons: Accessor<Weapon[]>;

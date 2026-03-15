@@ -1,5 +1,5 @@
-import { language } from "~/components";
 import { translations } from "~/i18n";
+import { useStore } from "~/store";
 
 type TranslationValue = string | ((...args: number[]) => string) | TranslationObject;
 type TranslationObject = { [key: string]: TranslationValue };
@@ -25,6 +25,10 @@ const getNestedValue = (obj: TranslationObject, path: string): TranslationValue 
 };
 
 export const t = (key: TranslationKey, args?: number): string => {
+	const {
+		language,
+	} = useStore();
+
 	const value = getNestedValue(
 		translations[language()] as TranslationObject,
 		key,

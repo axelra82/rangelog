@@ -14,10 +14,11 @@ import {
 import { registerSW } from "virtual:pwa-register";
 
 import { FullPageLoader } from "~/components";
+import { UserLanguage } from "~/i18n";
 import { LoginPage } from "~/pages/login";
 import { dashboardRoutes } from "~/routes";
 import { Weapon } from "~/schemas";
-import { useStore } from "~/store";
+import { USER_LANGUAGE_STORAGE_KEY, useStore } from "~/store";
 import {
 	ReadListResponse,
 	UserTheme,
@@ -62,9 +63,11 @@ const SWUpdateOnNavigate = () => {
 
 export const AuthChecker = () => {
 	const {
-		colorMode,
 		isAuthenticated,
 		isAuthenticatedSet,
+		languageSet,
+		theme,
+		user,
 		userSet,
 		weaponsSet,
 	} = useStore();
@@ -93,7 +96,27 @@ export const AuthChecker = () => {
 	});
 
 	createEffect(() => {
-		const mode = colorMode();
+		const { language: userLanguage } = user();
+
+		if (userLanguage) {
+			// Priority 1: user profile
+			languageSet(userLanguage);
+			return;
+		}
+
+		const stored = localStorage.getItem(USER_LANGUAGE_STORAGE_KEY);
+		if (stored) {
+			// Priority 2: localStorage
+			languageSet(stored as UserLanguage);
+			return;
+		}
+
+		languageSet("en");
+		// Priority 3: default
+	});
+
+	createEffect(() => {
+		const mode = theme();
 		const root = document.documentElement;
 
 		const media = window.matchMedia("(prefers-color-scheme: dark)");
@@ -106,7 +129,7 @@ export const AuthChecker = () => {
 			apply(media.matches);
 
 			// Optional: react to system changes
-			const listener = (e: MediaQueryListEvent) => apply(e.matches);
+			const listener = (event: MediaQueryListEvent) => apply(event.matches);
 			media.addEventListener("change", listener);
 
 			onCleanup(() => media.removeEventListener("change", listener));

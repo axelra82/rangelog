@@ -39,7 +39,7 @@ export const en = {
 	image: "Image",
 	information: "Information",
 	issuedDate: "Issued Date",
-	language: "Language",
+	language: "UserLanguage",
 	license: "License",
 	location: "Location",
 	log: "Log",

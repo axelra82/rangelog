@@ -11,12 +11,6 @@ export enum UserTheme {
 	SYSTEM = "system",
 }
 
-export enum USerLanguage {
-	LIGHT = "light",
-	DARK = "dark",
-	SYSTEM = "system",
-}
-
 export enum Icons {
 	ALERT_CIRCLE = "AlertCircle",
 	ALERT_OCTAGON = "AlertOctagon",

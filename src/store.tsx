@@ -8,12 +8,16 @@ import {
 	useContext,
 } from "solid-js";
 
+import { UserLanguage } from "./i18n";
 import { Activity, Claim, Weapon } from "./schemas";
 import { ClientUser } from "./schemas/user";
 import { StoreContextProps, UserTheme } from "./types";
 
-const STORAGE_KEY = "color-mode";
-const savedMode = (localStorage.getItem(STORAGE_KEY) as UserTheme) ?? UserTheme.SYSTEM;
+const USER_THEME_STORAGE_KEY = "user-theme";
+export const USER_LANGUAGE_STORAGE_KEY = "user-language";
+
+const savedTheme = (localStorage.getItem(USER_THEME_STORAGE_KEY) as UserTheme) ?? UserTheme.SYSTEM;
+const savedLanguage = (localStorage.getItem(USER_LANGUAGE_STORAGE_KEY) as UserLanguage) ?? "en";
 
 const StoreContext = createContext<StoreContextProps>();
 
@@ -28,7 +32,9 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const [claimsPageCount, claimsPageCountSet] = createSignal(-1);
 	const [claimsCurrentPage, claimsCurrentPageSet] = createSignal(1);
 
-	const [colorMode, colorModeSet] = createSignal<UserTheme>(savedMode);
+	const [theme, themeSet] = createSignal<UserTheme>(savedTheme);
+	const [language, languageSet] = createSignal<UserLanguage>(savedLanguage);
+
 	const [isAuthenticated, isAuthenticatedSet] = createSignal(false);
 	const [user, userSet] = createSignal<ClientUser>({
 		activities: 0,
@@ -44,7 +50,7 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 	const [isMobile, setIsMobile] = createSignal(false);
 
 	createEffect(() => {
-		localStorage.setItem(STORAGE_KEY, colorMode());
+		localStorage.setItem(USER_THEME_STORAGE_KEY, theme());
 	});
 
 	onMount(() => {
@@ -54,26 +60,28 @@ export const StoreContextProvider = (props: { children: JSXElement }) => {
 
 	const storeContextValue = {
 		activities,
+		activitiesCurrentPage,
+		activitiesCurrentPageSet,
+		activitiesPageCount,
+		activitiesPageCountSet,
 		activitiesSet,
 		activitiesTotal,
 		activitiesTotalSet,
-		activitiesPageCount,
-		activitiesPageCountSet,
-		activitiesCurrentPage,
-		activitiesCurrentPageSet,
 		claims,
+		claimsCurrentPage,
+		claimsCurrentPageSet,
+		claimsPageCount,
+		claimsPageCountSet,
 		claimsSet,
 		claimsTotal,
 		claimsTotalSet,
-		claimsPageCount,
-		claimsPageCountSet,
-		claimsCurrentPage,
-		claimsCurrentPageSet,
-		colorMode,
-		colorModeSet,
 		isAuthenticated,
 		isAuthenticatedSet,
 		isMobile,
+		language,
+		languageSet,
+		theme,
+		themeSet,
 		user,
 		userSet,
 		weapons,
