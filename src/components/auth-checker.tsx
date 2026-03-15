@@ -134,8 +134,9 @@ export const AuthChecker = () => {
 
 		// Priority 3: default
 		themeSet(UserTheme.SYSTEM);
+	});
 
-		const mode = theme();
+	createEffect(() => {
 		const root = document.documentElement;
 
 		const media = window.matchMedia("(prefers-color-scheme: dark)");
@@ -144,7 +145,7 @@ export const AuthChecker = () => {
 			root.classList.toggle("dark", isDark);
 		};
 
-		if (mode === UserTheme.SYSTEM) {
+		if (theme() === UserTheme.SYSTEM) {
 			apply(media.matches);
 
 			// Optional: react to system changes
@@ -153,7 +154,7 @@ export const AuthChecker = () => {
 
 			onCleanup(() => media.removeEventListener("change", listener));
 		} else {
-			apply(mode === UserTheme.DARK);
+			apply(theme() === UserTheme.DARK);
 		}
 	});
 
