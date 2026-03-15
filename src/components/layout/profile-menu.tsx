@@ -30,10 +30,9 @@ export const ProfileMenu: Component = () => {
 
 	return (
 		<DropdownMenuContent>
-
-			<DropdownMenuItem>
+			<div class="p-2">
 				<ThemeSelect />
-			</DropdownMenuItem>
+			</div>
 
 			<Separator />
 
