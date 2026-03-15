@@ -13,7 +13,7 @@ type DotPaths<T, Prefix extends string = ""> = {
 	: never;
 }[keyof T & string];
 
-type TranslationKey = DotPaths<typeof translations.sv>;
+type TranslationKey = DotPaths<typeof translations.en>;
 
 const getNestedValue = (obj: TranslationObject, path: string): TranslationValue | undefined => {
 	return path.split(".").reduce<TranslationValue | undefined>((acc, key) => {

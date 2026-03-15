@@ -5,7 +5,7 @@ import { t } from "~/utilities";
 
 import { SelectNative } from "../ui";
 
-export const [language, setLanguage] = createSignal<Language>("sv");
+export const [language, setLanguage] = createSignal<Language>("en");
 
 interface SelectLanguageProps {
 	class?: string;
