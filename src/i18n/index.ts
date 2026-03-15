@@ -2,8 +2,8 @@ import { en } from "~/i18n/en";
 import { sv } from "~/i18n/sv";
 
 export const translations = {
-	sv,
 	en,
+	sv,
 };
 
 export type Language = keyof typeof translations;
